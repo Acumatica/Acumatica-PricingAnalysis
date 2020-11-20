@@ -1,0 +1,874 @@
+﻿<Page path="~/pages/fs/fs300200.aspx" ControlId="1" pageSource="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">
+    <PXDataSource ID="ds" ParentId="phDS_ds" TypeFullName="PX.Web.UI.PXDataSource">
+        <Children Key="CallbackCommands">
+            <AddItem>
+                <PXDSCallbackCommand TypeFullName="PX.Web.UI.PXDSCallbackCommand">
+                    <Prop Key="CommitChanges" Value="True" />
+                    <Prop Key="Name" Value="VoidPricingAnalysis" />
+                    <Prop Key="Visible" Value="False" />
+                    <Prop Key="DependOnGrid" Value="grdProfitPreview" />
+                </PXDSCallbackCommand>
+            </AddItem>
+            <AddItem>
+                <PXDSCallbackCommand TypeFullName="PX.Web.UI.PXDSCallbackCommand">
+                    <Prop Key="CommitChanges" Value="True" />
+                    <Prop Key="Name" Value="ProfitBreakUpByDocument" />
+                    <Prop Key="Visible" Value="False" />
+                    <Prop Key="DependOnGrid" Value="grdProfitPreview" />
+                </PXDSCallbackCommand>
+            </AddItem>
+            <AddItem>
+                <PXDSCallbackCommand TypeFullName="PX.Web.UI.PXDSCallbackCommand">
+                    <Prop Key="CommitChanges" Value="True" />
+                    <Prop Key="Name" Value="ProfitBreakUpByCurrentItem" />
+                    <Prop Key="Visible" Value="False" />
+                    <Prop Key="DependOnGrid" Value="grdProfitPreview" />
+                </PXDSCallbackCommand>
+            </AddItem>
+        </Children>
+    </PXDataSource>
+    <Content ID="cont3" ParentId="phG" TypeFullName="System.Web.UI.WebControls.Content">
+        <Children Key="Controls">
+            <AddItem>
+                <PXSmartPanel TypeFullName="PX.Web.UI.PXSmartPanel">
+                    <Prop Key="Virtual:ApplyStylesheetSkin" />
+                    <Prop Key="DesignView" Value="Content" />
+                    <Prop Key="Height" Value="100%" />
+                    <Prop Key="Width" Value="100%" />
+                    <Prop Key="ID" Value="pnlProfitAnalysis" />
+                    <Prop Key="LoadOnDemand" Value="True" />
+                    <Prop Key="CaptionVisible" Value="True" />
+                    <Prop Key="Caption" Value="Pricing Analysis" />
+                    <Prop Key="Key" Value="PricingAnalysisPreviewHeaderFilter" />
+                    <Prop Key="CancelButtonID" Value="btnCancelProfitAnalysis" />
+                    <Prop Key="AutoCallBack.Enabled" Value="True" />
+                    <Prop Key="AutoCallBack.ActiveBehavior" Value="True" />
+                    <Prop Key="AutoCallBack.Target" Value="grdProfitPreview" />
+                    <Prop Key="AutoCallBack.Command" Value="Refresh" />
+                    <Children Key="Controls">
+                        <AddItem>
+                            <PXFormView TypeFullName="PX.Web.UI.PXFormView">
+                                <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                <Prop Key="SkinID" Value="Transparent" />
+                                <Prop Key="Width" Value="100%" />
+                                <Prop Key="ID" Value="frmLineAllocationHeader" />
+                                <Prop Key="SyncPosition" Value="True" />
+                                <Prop Key="DataSourceID" Value="ds" />
+                                <Prop Key="DataMember" Value="PricingAnalysisPreviewHeaderFilter" />
+                                <Children Key="Template">
+                                    <AddItem>
+                                        <PXLayoutRule TypeFullName="PX.Web.UI.PXLayoutRule">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="lrPACol1" />
+                                            <Prop Key="StartColumn" Value="true" />
+                                            <Children Key="Controls" />
+                                        </PXLayoutRule>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXFormView TypeFullName="PX.Web.UI.PXFormView">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="RenderStyle" Value="Simple" />
+                                            <Prop Key="ID" Value="frmProfitAnalysisHeader" />
+                                            <Prop Key="DataSourceID" Value="ds" />
+                                            <Prop Key="DataMember" Value="PricingAnalysisPreviewHeaderFilter" />
+                                            <Children Key="Template">
+                                                <AddItem>
+                                                    <PXLayoutRule TypeFullName="PX.Web.UI.PXLayoutRule">
+                                                        <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                                        <Prop Key="ID" Value="lrpnlProfitAnalysisMainGrpC" />
+                                                        <Prop Key="StartRow" Value="true" />
+                                                        <Prop Key="GroupCaption" Value="Current Totals" />
+                                                        <Prop Key="LabelsWidth" Value="S" />
+                                                        <Prop Key="ControlSize" Value="M" />
+                                                        <Children Key="Controls" />
+                                                    </PXLayoutRule>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXLayoutRule TypeFullName="PX.Web.UI.PXLayoutRule">
+                                                        <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                                        <Prop Key="ID" Value="lrpnlProfitAnalysisMainC" />
+                                                        <Prop Key="Merge" Value="True" />
+                                                        <Children Key="Controls" />
+                                                    </PXLayoutRule>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXLabel TypeFullName="PX.Web.UI.PXLabel">
+                                                        <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                                        <Prop Key="ID" Value="lblCLIndicator" />
+                                                        <Prop Key="BackColor" Value="#e8fcff" />
+                                                        <Prop Key="BorderStyle" Value="Double" />
+                                                        <Prop Key="Width" Value="20" />
+                                                        <Children Key="Controls" />
+                                                    </PXLabel>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXNumberEdit TypeFullName="PX.Web.UI.PXNumberEdit">
+                                                        <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                                        <Prop Key="LabelWidth" Value="60" />
+                                                        <Prop Key="DataField" Value="CuryAmountTotalCurrent" />
+                                                        <Prop Key="ID" Value="edCuryAmountTotalCurrent" />
+                                                    </PXNumberEdit>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXNumberEdit TypeFullName="PX.Web.UI.PXNumberEdit">
+                                                        <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                                        <Prop Key="LabelWidth" Value="40" />
+                                                        <Prop Key="DataField" Value="CuryExtCostTotalCurrent" />
+                                                        <Prop Key="ID" Value="edCuryExtCostTotalCurrent" />
+                                                    </PXNumberEdit>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXNumberEdit TypeFullName="PX.Web.UI.PXNumberEdit">
+                                                        <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                                        <Prop Key="LabelWidth" Value="40" />
+                                                        <Prop Key="DataField" Value="CuryProfitTotalCurrent" />
+                                                        <Prop Key="ID" Value="edCuryProfitTotalCurrent" />
+                                                    </PXNumberEdit>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXNumberEdit TypeFullName="PX.Web.UI.PXNumberEdit">
+                                                        <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                                        <Prop Key="LabelWidth" Value="65" />
+                                                        <Prop Key="DataField" Value="MarkupPercentCurrent" />
+                                                        <Prop Key="ID" Value="edMarkupPercentCurrent" />
+                                                        <Prop Key="Width" Value="60" />
+                                                    </PXNumberEdit>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXNumberEdit TypeFullName="PX.Web.UI.PXNumberEdit">
+                                                        <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                                        <Prop Key="LabelWidth" Value="60" />
+                                                        <Prop Key="DataField" Value="MarginPercentCurrent" />
+                                                        <Prop Key="ID" Value="edMarginPercentCurrent" />
+                                                        <Prop Key="Width" Value="60" />
+                                                    </PXNumberEdit>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXLayoutRule TypeFullName="PX.Web.UI.PXLayoutRule">
+                                                        <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                                        <Prop Key="ID" Value="lrpnlProfitAnalysisMainGrpP" />
+                                                        <Prop Key="StartRow" Value="true" />
+                                                        <Prop Key="GroupCaption" Value="Preview Totals" />
+                                                        <Prop Key="LabelsWidth" Value="S" />
+                                                        <Prop Key="ControlSize" Value="M" />
+                                                        <Children Key="Controls" />
+                                                    </PXLayoutRule>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXLayoutRule TypeFullName="PX.Web.UI.PXLayoutRule">
+                                                        <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                                        <Prop Key="ID" Value="lrpnlProfitAnalysisMainP" />
+                                                        <Prop Key="Merge" Value="true" />
+                                                        <Children Key="Controls" />
+                                                    </PXLayoutRule>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXLabel TypeFullName="PX.Web.UI.PXLabel">
+                                                        <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                                        <Prop Key="ID" Value="lblPLIndicator" />
+                                                        <Prop Key="BackColor" Value="#ffffcc" />
+                                                        <Prop Key="BorderStyle" Value="Double" />
+                                                        <Prop Key="Width" Value="20" />
+                                                        <Children Key="Controls" />
+                                                    </PXLabel>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXNumberEdit TypeFullName="PX.Web.UI.PXNumberEdit">
+                                                        <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                                        <Prop Key="LabelWidth" Value="60" />
+                                                        <Prop Key="LinkCommand.Target" Value="ds" />
+                                                        <Prop Key="LinkCommand.Command" Value="ProfitBreakUpByDocument" />
+                                                        <Prop Key="DataField" Value="CuryAmountTotal" />
+                                                        <Prop Key="ID" Value="edCuryAmountTotalPFAMain" />
+                                                    </PXNumberEdit>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXNumberEdit TypeFullName="PX.Web.UI.PXNumberEdit">
+                                                        <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                                        <Prop Key="LabelWidth" Value="40" />
+                                                        <Prop Key="DataField" Value="CuryExtCostTotal" />
+                                                        <Prop Key="ID" Value="edCuryExtCostTotalPFAMain" />
+                                                    </PXNumberEdit>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXNumberEdit TypeFullName="PX.Web.UI.PXNumberEdit">
+                                                        <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                                        <Prop Key="LabelWidth" Value="40" />
+                                                        <Prop Key="DataField" Value="CuryProfitTotal" />
+                                                        <Prop Key="ID" Value="edCuryProfitTotalPFAMain" />
+                                                    </PXNumberEdit>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXNumberEdit TypeFullName="PX.Web.UI.PXNumberEdit">
+                                                        <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                                        <Prop Key="LabelWidth" Value="65" />
+                                                        <Prop Key="DataField" Value="MarkupPercentPreview" />
+                                                        <Prop Key="ID" Value="edMarkupPercentPreviewPFAMain" />
+                                                        <Prop Key="Width" Value="60" />
+                                                    </PXNumberEdit>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXNumberEdit TypeFullName="PX.Web.UI.PXNumberEdit">
+                                                        <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                                        <Prop Key="LabelWidth" Value="60" />
+                                                        <Prop Key="DataField" Value="MarginPercentPreview" />
+                                                        <Prop Key="ID" Value="edMarginPercentPreviewPFAMain" />
+                                                        <Prop Key="Width" Value="60" />
+                                                    </PXNumberEdit>
+                                                </AddItem>
+                                            </Children>
+                                        </PXFormView>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXLayoutRule TypeFullName="PX.Web.UI.PXLayoutRule">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="lrPACol2" />
+                                            <Prop Key="StartColumn" Value="true" />
+                                            <Prop Key="LabelsWidth" Value="SM" />
+                                            <Prop Key="ControlSize" Value="S" />
+                                            <Children Key="Controls" />
+                                        </PXLayoutRule>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXDropDown TypeFullName="PX.Web.UI.PXDropDown">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="edApplyAdjustmentAs" />
+                                            <Prop Key="CommitChanges" Value="true" />
+                                            <Prop Key="DataField" Value="ApplyAdjustmentAs" />
+                                        </PXDropDown>
+                                    </AddItem>
+                                </Children>
+                                <Prop Key="CallbackCommands.Save.RepaintControls" Value="None" />
+                                <Prop Key="CallbackCommands.Save.RepaintControlsIDs" Value="grdProfitPreview,ds" />
+                                <Prop Key="CallbackCommands.Refresh.RepaintControls" Value="None" />
+                                <Prop Key="CallbackCommands.Refresh.RepaintControlsIDs" Value="grdProfitPreview,ds" />
+                                <Prop Key="RenderStyle" Value="Simple" />
+                            </PXFormView>
+                        </AddItem>
+                        <AddItem>
+                            <PXGrid TypeFullName="PX.Web.UI.PXGrid">
+                                <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                <Prop Key="SyncPosition" Value="True" />
+                                <Prop Key="SkinID" Value="Inquire" />
+                                <Prop Key="Width" Value="100%" />
+                                <Prop Key="ID" Value="grdProfitPreview" />
+                                <Prop Key="AutoAdjustColumns" Value="True" />
+                                <Prop Key="AutoSize.Enabled" Value="True" />
+                                <Prop Key="Layout.HighlightMode" Value="Cell" />
+                                <Prop Key="DataSourceID" Value="ds" />
+                                <Prop Key="AllowFilter" Value="true" />
+                                <Children Key="Levels">
+                                    <AddItem>
+                                        <PXGridLevel TypeFullName="PX.Web.UI.PXGridLevel">
+                                            <Prop Key="DataMember" Value="PricingAnalysisPreview" />
+                                            <Prop Key="DataKeyNames" Value="LineNbr" />
+                                            <Children Key="Columns">
+                                                <AddItem>
+                                                    <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                                                        <Prop Key="TextAlign" Value="Right" />
+                                                        <Prop Key="DataField" Value="LineNbr" />
+                                                    </PXGridColumn>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                                                        <Prop Key="DataField" Value="ProfitLineType" />
+                                                        <Prop Key="Width" Value="0" />
+                                                        <Prop Key="AllowResize" Value="false" />
+                                                        <Prop Key="AllowMove" Value="false" />
+                                                    </PXGridColumn>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                                                        <Prop Key="DataField" Value="InventoryIDDisplay" />
+                                                    </PXGridColumn>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                                                        <Prop Key="DataField" Value="InventoryIDDisplay_description" />
+                                                        <Prop Key="Width" Value="280" />
+                                                    </PXGridColumn>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                                                        <Prop Key="DataField" Value="UOM" />
+                                                        <Prop Key="Width" Value="72" />
+                                                    </PXGridColumn>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                                                        <Prop Key="TextAlign" Value="Right" />
+                                                        <Prop Key="DataField" Value="OrderQtyDisplay" />
+                                                    </PXGridColumn>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                                                        <Prop Key="TextAlign" Value="Right" />
+                                                        <Prop Key="DataField" Value="CuryUnitPrice" />
+                                                        <Prop Key="CommitChanges" Value="True" />
+                                                    </PXGridColumn>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                                                        <Prop Key="DataField" Value="CuryDiscAmt" />
+                                                        <Prop Key="Width" Value="100" />
+                                                        <Prop Key="CommitChanges" Value="True" />
+                                                    </PXGridColumn>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                                                        <Prop Key="TextAlign" Value="Right" />
+                                                        <Prop Key="DataField" Value="CuryLineAmt" />
+                                                        <Prop Key="CommitChanges" Value="True" />
+                                                    </PXGridColumn>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                                                        <Prop Key="TextAlign" Value="Right" />
+                                                        <Prop Key="DataField" Value="CuryExtCostDisplay" />
+                                                    </PXGridColumn>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                                                        <Prop Key="TextAlign" Value="Right" />
+                                                        <Prop Key="DataField" Value="CuryProfit" />
+                                                        <Prop Key="CommitChanges" Value="True" />
+                                                    </PXGridColumn>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                                                        <Prop Key="TextAlign" Value="Right" />
+                                                        <Prop Key="DataField" Value="MarkupPercent" />
+                                                        <Prop Key="CommitChanges" Value="True" />
+                                                    </PXGridColumn>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                                                        <Prop Key="TextAlign" Value="Right" />
+                                                        <Prop Key="DataField" Value="MarginPercent" />
+                                                        <Prop Key="CommitChanges" Value="True" />
+                                                    </PXGridColumn>
+                                                </AddItem>
+                                            </Children>
+                                        </PXGridLevel>
+                                    </AddItem>
+                                </Children>
+                                <Children Key="ActionBar.CustomItems">
+                                    <AddItem>
+                                        <PXToolBarButton TypeFullName="PX.Web.UI.PXToolBarButton">
+                                            <Prop Key="Text" Value="Cancel" />
+                                            <Prop Key="CommandSourceID" Value="ds" />
+                                            <Prop Key="CommandName" Value="VoidPricingAnalysis" />
+                                            <Prop Key="ImageKey" Value="Cancel" />
+                                            <Prop Key="DisplayStyle" Value="Image" />
+                                        </PXToolBarButton>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXToolBarButton TypeFullName="PX.Web.UI.PXToolBarButton">
+                                            <Prop Key="Text" Value="Profit Break up Document" />
+                                            <Prop Key="CommandSourceID" Value="ds" />
+                                            <Prop Key="CommandName" Value="ProfitBreakUpByDocument" />
+                                        </PXToolBarButton>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXToolBarButton TypeFullName="PX.Web.UI.PXToolBarButton">
+                                            <Prop Key="Text" Value="Profit Break up Current Item" />
+                                            <Prop Key="CommandSourceID" Value="ds" />
+                                            <Prop Key="CommandName" Value="ProfitBreakUpByCurrentItem" />
+                                        </PXToolBarButton>
+                                    </AddItem>
+                                </Children>
+                                <Prop Key="Mode.AllowAddNew" Value="False" />
+                                <Prop Key="Mode.AllowDelete" Value="False" />
+                                <Prop Key="Mode.AllowDragRows" Value="False" />
+                                <Prop Key="Mode.AllowFormEdit" Value="False" />
+                                <Prop Key="Mode.AllowSort" Value="False" />
+                                <Prop Key="Mode.AutoInsert" Value="False" />
+                                <Prop Key="Mode.InplaceInsert" Value="False" />
+                                <Prop Key="Mode.InitNewRow" Value="False" />
+                                <Prop Key="AllowPaging" Value="False" />
+                                <Prop Key="CallbackCommands.Save.RepaintControls" Value="None" />
+                                <Prop Key="CallbackCommands.Save.RepaintControlsIDs" Value="frmLineAllocationHeader,frmProfitAnalysisHeader,ds" />
+                                <Prop Key="CallbackCommands.FetchRow.RepaintControls" Value="None" />
+                                <Prop Key="CallbackCommands.FetchRow.RepaintControlsIDs" Value="frmLineAllocationHeader,frmProfitAnalysisHeader,ds" />
+                            </PXGrid>
+                        </AddItem>
+                        <AddItem>
+                            <PXPanel TypeFullName="PX.Web.UI.PXPanel">
+                                <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                <Prop Key="SkinID" Value="Buttons" />
+                                <Prop Key="ID" Value="pnlProfitAnalysisBtns" />
+                                <Children Key="Controls">
+                                    <AddItem>
+                                        <PXButton TypeFullName="PX.Web.UI.PXButton">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="Text" Value="Apply" />
+                                            <Prop Key="DialogResult" Value="OK" />
+                                            <Prop Key="ID" Value="btnOKProfitAnalysis" />
+                                        </PXButton>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXButton TypeFullName="PX.Web.UI.PXButton">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="Text" Value="Cancel" />
+                                            <Prop Key="DialogResult" Value="Cancel" />
+                                            <Prop Key="ID" Value="btnCancelProfitAnalysis" />
+                                        </PXButton>
+                                    </AddItem>
+                                </Children>
+                            </PXPanel>
+                        </AddItem>
+                    </Children>
+                    <Prop Key="AutoCallBack.Behavior.RepaintControlsIDs" Value="frmLineAllocationHeader,frmProfitAnalysisHeader" />
+                    <Prop Key="ShowAfterLoad" Value="True" />
+                </PXSmartPanel>
+            </AddItem>
+            <AddItem>
+                <PXSmartPanel TypeFullName="PX.Web.UI.PXSmartPanel">
+                    <Prop Key="Virtual:ApplyStylesheetSkin" />
+                    <Prop Key="Height" Value="650px" />
+                    <Prop Key="Width" Value="873px" />
+                    <Prop Key="ID" Value="pnlProfitBreakupByLine" />
+                    <Prop Key="LoadOnDemand" Value="True" />
+                    <Prop Key="CaptionVisible" Value="True" />
+                    <Prop Key="Caption" Value="Line Pricing Ruler" />
+                    <Prop Key="Key" Value="ProfitAnalysisSettingFilterByLine" />
+                    <Prop Key="AcceptButtonID" Value="btnPBAApplyByLine" />
+                    <Prop Key="CancelButtonID" Value="btnPBACloseByLine" />
+                    <Prop Key="AutoCallBack.Target" Value="frmPABSettingsByLine" />
+                    <Prop Key="AutoCallBack.Command" Value="Refresh" />
+                    <Prop Key="CallBackMode.CommitChanges" Value="True" />
+                    <Prop Key="CallBackMode.PostData" Value="Page" />
+                    <Children Key="Controls">
+                        <AddItem>
+                            <PXFormView TypeFullName="PX.Web.UI.PXFormView">
+                                <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                <Prop Key="CaptionVisible" Value="False" />
+                                <Prop Key="Width" Value="100%" />
+                                <Prop Key="ID" Value="frmPABSettingsByLine" />
+                                <Prop Key="SyncPosition" Value="True" />
+                                <Prop Key="DataSourceID" Value="ds" />
+                                <Prop Key="DataMember" Value="ProfitAnalysisSettingFilterByLine" />
+                                <Children Key="Template">
+                                    <AddItem>
+                                        <PXLayoutRule TypeFullName="PX.Web.UI.PXLayoutRule">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="StartColumn" Value="True" />
+                                            <Prop Key="SuppressLabel" Value="False" />
+                                            <Prop Key="ControlSize" Value="M" />
+                                            <Prop Key="ID" Value="lrfrmPABSettingsByLineMain" />
+                                            <Children Key="Controls" />
+                                            <Prop Key="LabelsWidth" Value="XS" />
+                                        </PXLayoutRule>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXSegmentMask TypeFullName="PX.Web.UI.PXSegmentMask">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="DataField" Value="InventoryID" />
+                                            <Prop Key="DisplayMode" Value="Value" />
+                                            <Prop Key="Enabled" Value="false" />
+                                            <Prop Key="ID" Value="edfrmPABInventoryIDValue" />
+                                        </PXSegmentMask>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXTextEdit TypeFullName="PX.Web.UI.PXTextEdit">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="edfrmPABInventoryID" />
+                                            <Prop Key="Enabled" Value="false" />
+                                            <Prop Key="DataField" Value="InventoryID_description" />
+                                        </PXTextEdit>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXLayoutRule TypeFullName="PX.Web.UI.PXLayoutRule">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="StartColumn" Value="True" />
+                                            <Prop Key="GroupCaption" Value="Pricing Ruler" />
+                                            <Prop Key="LabelsWidth" Value="S" />
+                                            <Prop Key="ControlSize" Value="S" />
+                                            <Prop Key="ID" Value="lrfrmPABSettingsByLine" />
+                                            <Children Key="Controls" />
+                                        </PXLayoutRule>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXGroupBox TypeFullName="PX.Web.UI.PXGroupBox">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                            <Prop Key="DataField" Value="BreakupBy" />
+                                            <Prop Key="RenderStyle" Value="Simple" />
+                                            <Prop Key="RenderSimple" Value="True" />
+                                            <Prop Key="ContentLayout.Layout" Value="Stack" />
+                                            <Prop Key="ContentLayout.Orientation" Value="Horizontal" />
+                                            <Prop Key="ContentLayout.LabelsWidth" Value="S" />
+                                            <Prop Key="ID" Value="edPABBreakupByByLine" />
+                                            <Children Key="Template">
+                                                <AddItem>
+                                                    <PXRadioButton TypeFullName="PX.Web.UI.PXRadioButton">
+                                                        <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                                        <Prop Key="Value" Value="MU" />
+                                                        <Prop Key="ID" Value="rbMarkup" />
+                                                        <Prop Key="GroupName" Value="edPABBreakupByByLine" />
+                                                        <Prop Key="Text" Value="Markup" />
+                                                    </PXRadioButton>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXRadioButton TypeFullName="PX.Web.UI.PXRadioButton">
+                                                        <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                                        <Prop Key="Value" Value="MG" />
+                                                        <Prop Key="ID" Value="rbMargin" />
+                                                        <Prop Key="GroupName" Value="edPABBreakupByByLine" />
+                                                        <Prop Key="Text" Value="Margin" />
+                                                    </PXRadioButton>
+                                                </AddItem>
+                                            </Children>
+                                        </PXGroupBox>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXLayoutRule TypeFullName="PX.Web.UI.PXLayoutRule">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="Merge" Value="true" />
+                                            <Prop Key="ID" Value="lrMPABLineRules" />
+                                            <Children Key="Controls" />
+                                        </PXLayoutRule>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXNumberEdit TypeFullName="PX.Web.UI.PXNumberEdit">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="LabelWidth" Value="40" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                            <Prop Key="DataField" Value="StartValue" />
+                                            <Prop Key="ID" Value="edPABStartValueByLine" />
+                                        </PXNumberEdit>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXNumberEdit TypeFullName="PX.Web.UI.PXNumberEdit">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="LabelWidth" Value="40" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                            <Prop Key="DataField" Value="IncrementValue" />
+                                            <Prop Key="ID" Value="edIncrementValueByLine" />
+                                        </PXNumberEdit>
+                                    </AddItem>
+                                </Children>
+                                <Prop Key="DefaultControlID" Value="edPABStartValueByLine" />
+                                <Prop Key="CallbackCommands.Save.RepaintControls" Value="None" />
+                                <Prop Key="CallbackCommands.Save.RepaintControlsIDs" Value="grdProfitBreakupByLine,ds" />
+                                <Prop Key="CallbackCommands.Refresh.RepaintControls" Value="None" />
+                                <Prop Key="CallbackCommands.Refresh.RepaintControlsIDs" Value="grdProfitBreakupByLine,ds" />
+                                <Prop Key="RenderStyle" Value="Simple" />
+                            </PXFormView>
+                        </AddItem>
+                        <AddItem>
+                            <PXGrid TypeFullName="PX.Web.UI.PXGrid">
+                                <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                <Prop Key="Virtual:Height" Value="250px" />
+                                <Prop Key="SkinID" Value="Inquire" />
+                                <Prop Key="Width" Value="100%" />
+                                <Prop Key="ID" Value="grdProfitBreakupByLine" />
+                                <Prop Key="AutoAdjustColumns" Value="True" />
+                                <Prop Key="AutoSize.Enabled" Value="True" />
+                                <Prop Key="Mode.AllowAddNew" Value="False" />
+                                <Prop Key="Mode.AllowDelete" Value="False" />
+                                <Prop Key="DataSourceID" Value="ds" />
+                                <Prop Key="NoteIndicator" Value="false" />
+                                <Prop Key="FilesIndicator" Value="false" />
+                                <Children Key="Levels">
+                                    <AddItem>
+                                        <PXGridLevel TypeFullName="PX.Web.UI.PXGridLevel">
+                                            <Prop Key="DataMember" Value="PricingAnalysisBreakupLinesByLine" />
+                                            <Children Key="Columns">
+                                                <AddItem>
+                                                    <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                                                        <Prop Key="DataField" Value="OrderQty" />
+                                                        <Prop Key="Width" Value="100" />
+                                                    </PXGridColumn>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                                                        <Prop Key="DataField" Value="CuryUnitPrice" />
+                                                        <Prop Key="Width" Value="100" />
+                                                    </PXGridColumn>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                                                        <Prop Key="DataField" Value="CuryDiscAmt" />
+                                                        <Prop Key="Width" Value="100" />
+                                                    </PXGridColumn>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                                                        <Prop Key="DataField" Value="CuryExtPrice" />
+                                                        <Prop Key="Width" Value="100" />
+                                                    </PXGridColumn>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                                                        <Prop Key="DataField" Value="CuryExtCost" />
+                                                        <Prop Key="Width" Value="100" />
+                                                    </PXGridColumn>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                                                        <Prop Key="DataField" Value="CuryProfit" />
+                                                        <Prop Key="Width" Value="100" />
+                                                    </PXGridColumn>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                                                        <Prop Key="DataField" Value="MarkupPercent" />
+                                                        <Prop Key="Width" Value="100" />
+                                                    </PXGridColumn>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                                                        <Prop Key="DataField" Value="MarginPercent" />
+                                                        <Prop Key="Width" Value="100" />
+                                                    </PXGridColumn>
+                                                </AddItem>
+                                            </Children>
+                                        </PXGridLevel>
+                                    </AddItem>
+                                </Children>
+                                <Prop Key="Layout.HighlightMode" Value="Cell" />
+                                <Prop Key="SyncPosition" Value="True" />
+                                <Prop Key="Mode.AllowDragRows" Value="False" />
+                                <Prop Key="Mode.AllowFormEdit" Value="False" />
+                                <Prop Key="Mode.AllowSort" Value="False" />
+                                <Prop Key="Mode.AllowUpdate" Value="False" />
+                                <Prop Key="Mode.AutoInsert" Value="False" />
+                                <Prop Key="Mode.InitNewRow" Value="False" />
+                                <Prop Key="Mode.InplaceInsert" Value="False" />
+                                <Prop Key="AllowPaging" Value="False" />
+                            </PXGrid>
+                        </AddItem>
+                        <AddItem>
+                            <PXPanel TypeFullName="PX.Web.UI.PXPanel">
+                                <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                <Prop Key="SkinID" Value="Buttons" />
+                                <Prop Key="ID" Value="pnlPBAButtonsByLine" />
+                                <Children Key="Controls">
+                                    <AddItem>
+                                        <PXButton TypeFullName="PX.Web.UI.PXButton">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="Text" Value="Apply" />
+                                            <Prop Key="DialogResult" Value="OK" />
+                                            <Prop Key="ID" Value="btnPBAApplyByLine" />
+                                        </PXButton>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXButton TypeFullName="PX.Web.UI.PXButton">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="Text" Value="Cancel" />
+                                            <Prop Key="DialogResult" Value="Cancel" />
+                                            <Prop Key="ID" Value="btnPBACloseByLine" />
+                                        </PXButton>
+                                    </AddItem>
+                                </Children>
+                            </PXPanel>
+                        </AddItem>
+                    </Children>
+                    <Prop Key="AutoCallBack.Behavior.RepaintControlsIDs" Value="frmPABSettingsByLine" />
+                    <Prop Key="ShowAfterLoad" Value="True" />
+                </PXSmartPanel>
+            </AddItem>
+            <AddItem>
+                <PXSmartPanel TypeFullName="PX.Web.UI.PXSmartPanel">
+                    <Prop Key="Virtual:ApplyStylesheetSkin" />
+                    <Prop Key="Height" Value="650px" />
+                    <Prop Key="Width" Value="873px" />
+                    <Prop Key="ID" Value="pnlProfitBreakupByDoc" />
+                    <Prop Key="LoadOnDemand" Value="True" />
+                    <Prop Key="CaptionVisible" Value="True" />
+                    <Prop Key="Caption" Value="Document Pricing Ruler" />
+                    <Prop Key="Key" Value="ProfitAnalysisSettingFilterByDoc" />
+                    <Prop Key="AcceptButtonID" Value="btnPBAApplyByDoc" />
+                    <Prop Key="CancelButtonID" Value="btnPBACloseByDoc" />
+                    <Prop Key="AutoCallBack.Target" Value="frmPABSettingsByDoc" />
+                    <Prop Key="AutoCallBack.Command" Value="Refresh" />
+                    <Prop Key="CallBackMode.CommitChanges" Value="True" />
+                    <Prop Key="CallBackMode.PostData" Value="Page" />
+                    <Children Key="Controls">
+                        <AddItem>
+                            <PXFormView TypeFullName="PX.Web.UI.PXFormView">
+                                <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                <Prop Key="CaptionVisible" Value="False" />
+                                <Prop Key="Width" Value="100%" />
+                                <Prop Key="ID" Value="frmPABSettingsByDoc" />
+                                <Prop Key="SyncPosition" Value="True" />
+                                <Prop Key="DataSourceID" Value="ds" />
+                                <Prop Key="DataMember" Value="ProfitAnalysisSettingFilterByDoc" />
+                                <Children Key="Template">
+                                    <AddItem>
+                                        <PXLayoutRule TypeFullName="PX.Web.UI.PXLayoutRule">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="StartColumn" Value="True" />
+                                            <Prop Key="GroupCaption" Value="Pricing Ruler" />
+                                            <Prop Key="LabelsWidth" Value="S" />
+                                            <Prop Key="ControlSize" Value="S" />
+                                            <Prop Key="ID" Value="lrfrmPABSettingsByDoc" />
+                                            <Children Key="Controls" />
+                                        </PXLayoutRule>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXGroupBox TypeFullName="PX.Web.UI.PXGroupBox">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                            <Prop Key="DataField" Value="BreakupBy" />
+                                            <Prop Key="RenderStyle" Value="Simple" />
+                                            <Prop Key="RenderSimple" Value="True" />
+                                            <Prop Key="ContentLayout.Layout" Value="Stack" />
+                                            <Prop Key="ContentLayout.Orientation" Value="Horizontal" />
+                                            <Prop Key="ContentLayout.LabelsWidth" Value="S" />
+                                            <Prop Key="ID" Value="edPABBreakupByByDoc" />
+                                            <Children Key="Template">
+                                                <AddItem>
+                                                    <PXRadioButton TypeFullName="PX.Web.UI.PXRadioButton">
+                                                        <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                                        <Prop Key="Value" Value="MU" />
+                                                        <Prop Key="ID" Value="rbMarkup" />
+                                                        <Prop Key="GroupName" Value="edPABBreakupByByDoc" />
+                                                        <Prop Key="Text" Value="Markup" />
+                                                    </PXRadioButton>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXRadioButton TypeFullName="PX.Web.UI.PXRadioButton">
+                                                        <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                                        <Prop Key="Value" Value="MG" />
+                                                        <Prop Key="ID" Value="rbMargin" />
+                                                        <Prop Key="GroupName" Value="edPABBreakupByByDoc" />
+                                                        <Prop Key="Text" Value="Margin" />
+                                                    </PXRadioButton>
+                                                </AddItem>
+                                            </Children>
+                                        </PXGroupBox>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXLayoutRule TypeFullName="PX.Web.UI.PXLayoutRule">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="Merge" Value="true" />
+                                            <Prop Key="ID" Value="lrMPABDocRules" />
+                                            <Children Key="Controls" />
+                                        </PXLayoutRule>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXNumberEdit TypeFullName="PX.Web.UI.PXNumberEdit">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                            <Prop Key="DataField" Value="StartValue" />
+                                            <Prop Key="ID" Value="edPABStartValueByDoc" />
+                                            <Prop Key="LabelWidth" Value="40" />
+                                        </PXNumberEdit>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXNumberEdit TypeFullName="PX.Web.UI.PXNumberEdit">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                            <Prop Key="DataField" Value="IncrementValue" />
+                                            <Prop Key="ID" Value="edIncrementValueByDoc" />
+                                            <Prop Key="LabelWidth" Value="40" />
+                                        </PXNumberEdit>
+                                    </AddItem>
+                                </Children>
+                                <Prop Key="DefaultControlID" Value="edPABStartValueByDoc" />
+                                <Prop Key="CallbackCommands.Save.RepaintControls" Value="None" />
+                                <Prop Key="CallbackCommands.Save.RepaintControlsIDs" Value="grdProfitBreakupByDoc,ds" />
+                                <Prop Key="CallbackCommands.Refresh.RepaintControls" Value="None" />
+                                <Prop Key="CallbackCommands.Refresh.RepaintControlsIDs" Value="grdProfitBreakupByDoc,ds" />
+                                <Prop Key="RenderStyle" Value="Simple" />
+                            </PXFormView>
+                        </AddItem>
+                        <AddItem>
+                            <PXGrid TypeFullName="PX.Web.UI.PXGrid">
+                                <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                <Prop Key="Virtual:Height" Value="250px" />
+                                <Prop Key="SkinID" Value="Inquire" />
+                                <Prop Key="Width" Value="100%" />
+                                <Prop Key="ID" Value="grdProfitBreakupByDoc" />
+                                <Prop Key="AutoAdjustColumns" Value="True" />
+                                <Prop Key="AutoSize.Enabled" Value="True" />
+                                <Prop Key="Mode.AllowAddNew" Value="False" />
+                                <Prop Key="Mode.AllowDelete" Value="False" />
+                                <Prop Key="DataSourceID" Value="ds" />
+                                <Prop Key="NoteIndicator" Value="false" />
+                                <Prop Key="FilesIndicator" Value="false" />
+                                <Children Key="Levels">
+                                    <AddItem>
+                                        <PXGridLevel TypeFullName="PX.Web.UI.PXGridLevel">
+                                            <Prop Key="DataMember" Value="PricingAnalysisBreakupLinesByDoc" />
+                                            <Children Key="Columns">
+                                                <AddItem>
+                                                    <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                                                        <Prop Key="DataField" Value="CuryExtPrice" />
+                                                        <Prop Key="Width" Value="100" />
+                                                    </PXGridColumn>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                                                        <Prop Key="DataField" Value="CuryExtCost" />
+                                                        <Prop Key="Width" Value="100" />
+                                                    </PXGridColumn>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                                                        <Prop Key="DataField" Value="CuryProfit" />
+                                                        <Prop Key="Width" Value="100" />
+                                                    </PXGridColumn>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                                                        <Prop Key="DataField" Value="MarkupPercent" />
+                                                        <Prop Key="Width" Value="100" />
+                                                    </PXGridColumn>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                                                        <Prop Key="DataField" Value="MarginPercent" />
+                                                        <Prop Key="Width" Value="100" />
+                                                    </PXGridColumn>
+                                                </AddItem>
+                                            </Children>
+                                        </PXGridLevel>
+                                    </AddItem>
+                                </Children>
+                                <Prop Key="Layout.HighlightMode" Value="Cell" />
+                                <Prop Key="SyncPosition" Value="True" />
+                                <Prop Key="Mode.AllowDragRows" Value="False" />
+                                <Prop Key="Mode.AllowSort" Value="False" />
+                                <Prop Key="Mode.AllowUpload" Value="False" />
+                                <Prop Key="Mode.AutoInsert" Value="False" />
+                                <Prop Key="Mode.InitNewRow" Value="False" />
+                                <Prop Key="Mode.InplaceInsert" Value="False" />
+                                <Prop Key="AllowPaging" Value="False" />
+                            </PXGrid>
+                        </AddItem>
+                        <AddItem>
+                            <PXPanel TypeFullName="PX.Web.UI.PXPanel">
+                                <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                <Prop Key="SkinID" Value="Buttons" />
+                                <Prop Key="ID" Value="pnlPBAButtonsByDoc" />
+                                <Children Key="Controls">
+                                    <AddItem>
+                                        <PXButton TypeFullName="PX.Web.UI.PXButton">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="Text" Value="Apply" />
+                                            <Prop Key="DialogResult" Value="OK" />
+                                            <Prop Key="ID" Value="btnPBAApplyByDoc" />
+                                        </PXButton>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXButton TypeFullName="PX.Web.UI.PXButton">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="Text" Value="Cancel" />
+                                            <Prop Key="DialogResult" Value="Cancel" />
+                                            <Prop Key="ID" Value="btnPBACloseByDoc" />
+                                        </PXButton>
+                                    </AddItem>
+                                </Children>
+                            </PXPanel>
+                        </AddItem>
+                    </Children>
+                    <Prop Key="AutoCallBack.Behavior.RepaintControlsIDs" Value="frmPABSettingsByDoc" />
+                    <Prop Key="ShowAfterLoad" Value="True" />
+                </PXSmartPanel>
+            </AddItem>
+        </Children>
+    </Content>
+</Page>
