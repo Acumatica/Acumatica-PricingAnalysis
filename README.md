@@ -24,8 +24,8 @@ Quick Start
 ### Installation
 
 ##### Install customization deployment package
-1. Download PXProfitAnalysisPkg.zip.
-2. In your Acumatica ERP instance, navigate to System -> Customization -> Customization Projects (SM204505), import PXProfitAnalysisPkg.zip as a customization project
+1. Download PXPricingAnalysisPkg.zip.
+2. In your Acumatica ERP instance, navigate to System -> Customization -> Customization Projects (SM204505), import PXPricingAnalysisPkg.zip as a customization project
 3. Publish customization project.
 
 ### Usage
