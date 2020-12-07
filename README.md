@@ -18,6 +18,7 @@ Cost is determined based on
 
 ### Prerequisites
 * Acumatica 2020 R1 (20.109.0032 or higher)
+* Acumatica 2020 R2 (20.202.0043 or higher)
 
 Quick Start
 -----------
