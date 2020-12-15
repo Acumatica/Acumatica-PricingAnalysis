@@ -7,7 +7,7 @@ With this extension, you can:
 
 * Quickly reprice some or all items on the document based on desired profit, margin or markup 
 * Speed up price negotiations and profitability understanding
-* Apply profit adjustment based on Price Or Discount at line level at entire document level
+* Apply profit adjustment based on Price Or Discount at line level / entire document level
 
 The Pricing Analysis displays profits for all the items contained in the document at the current selling price based on line level valuation based cost. 
 Cost is determined based on 
