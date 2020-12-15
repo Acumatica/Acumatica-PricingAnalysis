@@ -38,40 +38,12 @@ namespace PX.PricingAnalysis.Ext
         public bool? UsrPricingEligible { get; set; }
         #endregion
 
-        #region UsrCuryUnitCost
-        public abstract class usrCuryUnitCost : PX.Data.BQL.BqlDecimal.Field<usrCuryUnitCost> { }
-
-        [PXPriceCost]
-        [PXUIField(DisplayName = "Unit Cost", Enabled = false)]
-        [PXDefault(TypeCode.Decimal, "0.0", PersistingCheck = PXPersistingCheck.Nothing)]
-        public Decimal? UsrCuryUnitCost { get; set; }
-        #endregion
-
-        #region UsrCuryExtCost
-        public abstract class usrCuryExtCost : PX.Data.BQL.BqlDecimal.Field<usrCuryExtCost> { }
-
-        [PXPriceCost]
-        [PXUIField(DisplayName = "Line Cost", Enabled = false)]
-        [PXDefault(TypeCode.Decimal, "0.0", PersistingCheck = PXPersistingCheck.Nothing)]
-        [PXFormula(typeof(Mult<CROpportunityProducts.quantity, CROpportunityProductsPricingPXExt.usrCuryUnitCost>))]
-        public Decimal? UsrCuryExtCost { get; set; }
-        #endregion
-
-        #region UsrCuryLineCost
-        public abstract class usrCuryLineCost : PX.Data.BQL.BqlDecimal.Field<usrCuryLineCost> { }
-
-        [PXPriceCost]
-        [PXUIField(DisplayName = "Line Cost (For Pricing)", Enabled = false)]
-        [PXDefault(TypeCode.Decimal, "0.0", PersistingCheck = PXPersistingCheck.Nothing)]
-        public Decimal? UsrCuryLineCost { get; set; }
-        #endregion
-
         #region UsrIsLastCostUsed
         public abstract class usrIsLastCostUsed : PX.Data.BQL.BqlDecimal.Field<usrIsLastCostUsed> { }
 
         [PXBool]
         [PXUnboundDefault(false, PersistingCheck = PXPersistingCheck.Nothing)]
-        [PXFormula(typeof(Switch<Case<Where<CROpportunityProductsPricingPXExt.usrCuryExtCost, IsNull, Or<CROpportunityProductsPricingPXExt.usrCuryExtCost, Equal<Objects.CS.decimal0>>>, True>, False>))]
+        [PXFormula(typeof(Switch<Case<Where<CROpportunityProducts.curyExtCost, IsNull, Or<CROpportunityProducts.curyExtCost, Equal<Objects.CS.decimal0>>>, True>, False>))]
         public bool? UsrIsLastCostUsed { get; set; }
         #endregion
     }

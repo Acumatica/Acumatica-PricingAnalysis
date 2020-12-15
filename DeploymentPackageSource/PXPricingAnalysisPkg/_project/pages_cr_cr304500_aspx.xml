@@ -872,4 +872,21 @@
             <PXSmartPanel ID="PanelRecalculate" OriginalIndex="1" />
         </Children>
     </Content>
+    <PXGridLevel DataMember="Products" ParentId="phG_tab_Items#0_ProductsGrid_Levels#0" TypeFullName="PX.Web.UI.PXGridLevel">
+        <Children Key="Columns">
+            <AddItem>
+                <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                    <Prop Key="DataField" Value="CuryUnitCost" />
+                    <Prop Key="Width" Value="100" />
+                </PXGridColumn>
+            </AddItem>
+            <AddItem>
+                <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                    <Prop Key="DataField" Value="CuryExtCost" />
+                    <Prop Key="Width" Value="100" />
+                </PXGridColumn>
+            </AddItem>
+            <PXGridColumn DataField="CuryUnitPrice" OriginalIndex="7" />
+        </Children>
+    </PXGridLevel>
 </Page>

@@ -115,11 +115,13 @@ namespace PX.PricingAnalysis.Ext
 				{
 					if (item is SOLine)
 					{
+						decimal? qtyRemaining = quantity;
 						foreach (SOLineSplit split in PXSelect<SOLineSplit, Where<SOLineSplit.lineNbr, Equal<Current<SOLine.lineNbr>>,
 																				And<SOLineSplit.orderType, Equal<Current<SOLine.orderType>>,
 																				And<SOLineSplit.orderNbr, Equal<Current<SOLine.orderNbr>>>>>>.
 															SelectMultiBound(cache.Graph, new object[] { item }))
 						{
+							qtyRemaining -= split.Qty;
 							if (split.IsAllocated.GetValueOrDefault(false) && !String.IsNullOrEmpty(split.LotSerialNbr))
 							{
 
@@ -130,14 +132,20 @@ namespace PX.PricingAnalysis.Ext
 								dValueCaled += GetValuationBasedCost(cache, split.InventoryID, split.SiteID, split.Qty);
 							}
 						}
+						if (qtyRemaining != quantity)
+                        {
+							dValueCaled += GetValuationBasedCost(cache, inventoryID, siteID, qtyRemaining);
+						}
 					}
 					else if (item is FSSODet)
 					{
+						decimal? qtyRemaining = quantity;
 						foreach (FSSODetSplit split in PXSelect<FSSODetSplit, Where<FSSODetSplit.srvOrdType, Equal<Current<FSSODet.srvOrdType>>,
 																				And<FSSODetSplit.refNbr, Equal<Current<FSSODet.refNbr>>,
 																				And<FSSODetSplit.lineNbr, Equal<Current<FSSODet.lineNbr>>>>>>.
 															SelectMultiBound(cache.Graph, new object[] { item }))
                         {
+							qtyRemaining -= split.Qty;
 							if (split.IsAllocated.GetValueOrDefault(false) && !String.IsNullOrEmpty(split.LotSerialNbr))
 							{
 
@@ -147,6 +155,10 @@ namespace PX.PricingAnalysis.Ext
 							{
 								dValueCaled += GetValuationBasedCost(cache, split.InventoryID, split.SiteID, split.Qty);
 							}
+						}
+						if (qtyRemaining != quantity)
+						{
+							dValueCaled += GetValuationBasedCost(cache, inventoryID, siteID, qtyRemaining);
 						}
 					}
 					else

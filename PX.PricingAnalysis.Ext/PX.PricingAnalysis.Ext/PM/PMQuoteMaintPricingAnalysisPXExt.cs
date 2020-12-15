@@ -35,14 +35,5 @@ namespace PX.PricingAnalysis.Ext
                 IsLastCostUsed = typeof(CROpportunityProductsPricingPXExt.usrIsLastCostUsed)
             };
         }
-
-        [PXMergeAttributes(Method = MergeMethod.Append)]
-        [PXFormula(typeof(PAUnitCostValueAttribute<CROpportunityProducts.inventoryID, CROpportunityProducts.siteID>))]
-        protected virtual void _(Events.CacheAttached<CROpportunityProductsPricingPXExt.usrCuryUnitCost> e) { }
-
-        [PXMergeAttributes(Method = MergeMethod.Append)]
-        [PXFormula(typeof(PALineCostValueExtAttribute<CROpportunityProducts.inventoryID, CROpportunityProducts.siteID, CROpportunityProductsPricingPXExt.usrCuryExtCost, CROpportunityProducts.quantity>))]
-        [PXDependsOnFields(typeof(CROpportunityProducts.inventoryID), typeof(CROpportunityProducts.siteID), typeof(CROpportunityProductsPricingPXExt.usrCuryExtCost), typeof(CROpportunityProducts.quantity))]
-        protected virtual void _(Events.CacheAttached<CROpportunityProductsPricingPXExt.usrCuryLineCost> e) { }
     }
 }

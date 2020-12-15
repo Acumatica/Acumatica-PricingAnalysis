@@ -23,7 +23,7 @@ namespace PX.PricingAnalysis.Ext
         #region SmartPanel Styling
         public override void Initialize()
         {
-            Page page = HttpContext.Current?.CurrentHandler as PXPage;
+            Page page = HttpContext.Current?.Handler as PXPage;
             if (page != null)
             {
                 page.Load += Page_Load;
