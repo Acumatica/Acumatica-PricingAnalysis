@@ -7,7 +7,7 @@ namespace PX.PricingAnalysis.Ext
 {
     [Serializable]
     [PXHidden]
-    public class PricingAnalysisPreviewHeader : IBqlTable    
+    public class PricingAnalysisPreviewHeader : IBqlTable
     {
         #region CuryExtCostTotalCurrent
         public abstract class curyExtCostTotalCurrent : PX.Data.BQL.BqlDecimal.Field<curyExtCostTotalCurrent> { }
@@ -23,6 +23,7 @@ namespace PX.PricingAnalysis.Ext
 
         [PXPriceCost]
         [PXUIField(DisplayName = "Profit", Enabled = false)]
+        [PXUnboundDefault(TypeCode.Decimal, "0.0")]
         public virtual decimal? CuryProfitTotalCurrent { get; set; }
         #endregion
 
@@ -31,6 +32,7 @@ namespace PX.PricingAnalysis.Ext
 
         [PXPriceCost]
         [PXUIField(DisplayName = "Amount", Enabled = false)]
+        [PXUnboundDefault(TypeCode.Decimal, "0.0")]
         public virtual Decimal? CuryAmountTotalCurrent { get; set; }
         #endregion
 
@@ -39,6 +41,7 @@ namespace PX.PricingAnalysis.Ext
 
         [PXDecimal(2)]
         [PXUIField(DisplayName = "Markup %", Enabled = false)]
+        [PXUnboundDefault(TypeCode.Decimal, "0.0")]
         public virtual decimal? MarkupPercentCurrent { get; set; }
         #endregion
 
@@ -47,6 +50,7 @@ namespace PX.PricingAnalysis.Ext
 
         [PXDecimal(2)]
         [PXUIField(DisplayName = "Margin %", Enabled = false)]
+        [PXUnboundDefault(TypeCode.Decimal, "0.0")]
         public virtual decimal? MarginPercentCurrent { get; set; }
         #endregion
 
@@ -64,6 +68,7 @@ namespace PX.PricingAnalysis.Ext
 
         [PXPriceCost]
         [PXUIField(DisplayName = "Profit", Enabled = false)]
+        [PXUnboundDefault(TypeCode.Decimal, "0.0")]
         public virtual decimal? CuryProfitTotal { get; set; }
         #endregion
 
@@ -72,6 +77,7 @@ namespace PX.PricingAnalysis.Ext
 
         [PXPriceCost]
         [PXUIField(DisplayName = "Amount", Enabled = false)]
+        [PXUnboundDefault(TypeCode.Decimal, "0.0")]
         public virtual Decimal? CuryAmountTotal { get; set; }
         #endregion
 
@@ -80,6 +86,7 @@ namespace PX.PricingAnalysis.Ext
 
         [PXDecimal(2)]
         [PXUIField(DisplayName = "Markup %", Enabled = false)]
+        [PXUnboundDefault(TypeCode.Decimal, "0.0")]
         public virtual decimal? MarkupPercentPreview { get; set; }
         #endregion
 
@@ -88,6 +95,7 @@ namespace PX.PricingAnalysis.Ext
 
         [PXDecimal(2)]
         [PXUIField(DisplayName = "Margin %", Enabled = false)]
+        [PXUnboundDefault(TypeCode.Decimal, "0.0")]
         public virtual decimal? MarginPercentPreview { get; set; }
         #endregion
 
@@ -95,7 +103,7 @@ namespace PX.PricingAnalysis.Ext
         public abstract class applyAdjustmentAsHidden : PX.Data.BQL.BqlString.Field<applyAdjustmentAsHidden> { }
 
         [PXDBString(1, IsFixed = true, IsUnicode = false)]
-        [PXDefault(typeof(Search<ARSetupPricingAnalysisPXExt.usrDefAdjustmentType>))]
+        [PXUnboundDefault(typeof(Search<ARSetupPricingAnalysisPXExt.usrDefAdjustmentType>))]
         public virtual String ApplyAdjustmentAsHidden { get; set; }
         #endregion
 
@@ -105,7 +113,7 @@ namespace PX.PricingAnalysis.Ext
         [PXDBString(1, IsFixed = true, IsUnicode = false)]
         [AdjustmentType.List]
         [PXUIField(DisplayName = "Apply Adjustments As")]
-        [PXDefault(typeof(Switch<Case<Where<PricingAnalysisPreviewHeader.applyAdjustmentAsHidden, IsNotNull>,
+        [PXUnboundDefault(typeof(Switch<Case<Where<PricingAnalysisPreviewHeader.applyAdjustmentAsHidden, IsNotNull>,
                                     PricingAnalysisPreviewHeader.applyAdjustmentAsHidden>, AdjustmentType.priceadjustment>))]
         public virtual String ApplyAdjustmentAs { get; set; }
         #endregion
