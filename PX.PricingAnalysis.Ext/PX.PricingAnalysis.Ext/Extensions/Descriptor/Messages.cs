@@ -20,5 +20,8 @@ namespace PX.PricingAnalysis.Ext
 
 		public const string PriceAdjustmentType = "Price";
 		public const string DiscountAdjustmentType = "Discount";
+
+		public const string CurrentHeaderInfoType = "Current Totals";
+		public const string PreviewHeaderInfoType = "Preview Totals";
 	}
 }

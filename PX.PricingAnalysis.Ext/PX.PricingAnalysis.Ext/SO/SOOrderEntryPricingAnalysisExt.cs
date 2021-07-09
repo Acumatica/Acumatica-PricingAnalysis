@@ -38,8 +38,7 @@ namespace PX.PricingAnalysis.Ext
         }
 
         [PXMergeAttributes(Method = MergeMethod.Append)]
-        [PXFormula(typeof(PALineCostValueExtAttribute<SOLine.inventoryID, SOLine.siteID, SOLine.extCost, SOLine.orderQty>))]
-        [PXDependsOnFields(typeof(SOLine.inventoryID), typeof(SOLine.siteID), typeof(SOLine.extCost), typeof(SOLine.orderQty))]
+        [PXFormula(typeof(PALineCostValueExtAttribute<SOLine.inventoryID, SOLine.siteID, SOLine.extCost, SOLine.orderQty, SOLine.curyUnitCost>))]
         protected virtual void _(Events.CacheAttached<SOLinePricingPXExt.usrCuryLineCost> e) { }
     }
 }

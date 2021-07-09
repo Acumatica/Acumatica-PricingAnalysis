@@ -34,8 +34,7 @@ namespace PX.PricingAnalysis.Ext
         }
 
         [PXMergeAttributes(Method = MergeMethod.Append)]
-        [PXFormula(typeof(PALineCostValueExtAttribute<FSSODet.inventoryID, FSSODet.siteID, FSSODetPricingPXExt.usrCuryExtCost, FSSODet.estimatedQty>))]
-        [PXDependsOnFields(typeof(FSSODet.inventoryID), typeof(FSSODet.siteID), typeof(FSSODetPricingPXExt.usrCuryExtCost), typeof(FSSODet.estimatedQty))]
+        [PXFormula(typeof(PALineCostValueExtAttribute<FSSODet.inventoryID, FSSODet.siteID, FSSODetPricingPXExt.usrCuryExtCost, FSSODet.estimatedQty, FSSODet.curyUnitCost>))]
         protected virtual void _(Events.CacheAttached<FSSODetPricingPXExt.usrCuryLineCost> e) { }
     }
 }

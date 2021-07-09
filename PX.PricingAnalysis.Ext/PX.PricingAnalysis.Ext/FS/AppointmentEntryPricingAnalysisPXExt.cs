@@ -34,8 +34,7 @@ namespace PX.PricingAnalysis.Ext
         }
 
         [PXMergeAttributes(Method = MergeMethod.Append)]
-        [PXFormula(typeof(PALineCostValueExtAttribute<FSAppointmentDet.inventoryID, FSAppointmentDet.siteID, FSAppointmentDet.extCost, FSAppointmentDet.estimatedQty>))]
-        [PXDependsOnFields(typeof(FSAppointmentDet.inventoryID), typeof(FSAppointmentDet.siteID), typeof(FSAppointmentDet.extCost), typeof(FSAppointmentDet.estimatedQty))]
+        [PXFormula(typeof(PALineCostValueExtAttribute<FSAppointmentDet.inventoryID, FSAppointmentDet.siteID, FSAppointmentDet.extCost, FSAppointmentDet.estimatedQty, FSAppointmentDet.curyUnitCost>))]
         protected virtual void _(Events.CacheAttached<FSAppointmentDetPricingPXExt.usrCuryLineCost> e) { }
     }
 }

@@ -33,21 +33,43 @@ namespace PX.PricingAnalysis.Ext
         private void Page_Load(object sender, EventArgs e)
         {
             Page page = (Page)sender;
-            Style rowStyle = new Style();
+            PXStyle rowStyle = new PXStyle();
             rowStyle.BackColor = System.Drawing.Color.FromArgb(232, 252, 255);
             page.Header.StyleSheet.CreateStyleRule(rowStyle, page, ".CssCurentRowStyle");
 
-            Style rowStyleEditing = new Style();
+            PXStyle rowStyleEditing = new PXStyle();
             rowStyleEditing.BackColor = System.Drawing.Color.White;
             page.Header.StyleSheet.CreateStyleRule(rowStyleEditing, page, ".CssCurentRowStyleEditing");
 
-            Style cellStyleEditing = new Style();
+            PXStyle cellStyleEditing = new PXStyle();
             cellStyleEditing.BackColor = System.Drawing.Color.FromArgb(255, 255, 220);
             page.Header.StyleSheet.CreateStyleRule(cellStyleEditing, page, ".CssCurentCellStyleEditing");
 
-            Style cellStyleLastCost = new Style();
+            PXStyle cellStyleLastCost = new PXStyle();
             cellStyleLastCost.BackColor = System.Drawing.Color.FromArgb(255, 217, 179);
             page.Header.StyleSheet.CreateStyleRule(cellStyleLastCost, page, ".CssCurentCellStyleLastCost");
+
+            PXStyle cellStyleHeaderCurrent = new PXStyle();
+            cellStyleHeaderCurrent.BackColor = System.Drawing.Color.FromArgb(232, 252, 255);
+            page.Header.StyleSheet.CreateStyleRule(cellStyleHeaderCurrent, page, ".GridMain.Dash .GridRow.CssStyleHeaderCurrent");
+
+            PXStyle cellStyleHeaderPreview = new PXStyle();
+            cellStyleHeaderPreview.BackColor = System.Drawing.Color.FromArgb(255, 255, 220);
+            page.Header.StyleSheet.CreateStyleRule(cellStyleHeaderPreview, page, ".GridMain.Dash .GridRow.CssStyleHeaderPreview");
+
+            PX.Web.UI.PXGrid grdProfitHeaderInfo = (PX.Web.UI.PXGrid)ControlHelper.FindControl("grdProfitHeaderInfo", page);
+            if (grdProfitHeaderInfo != null)
+            {
+                grdProfitHeaderInfo.RowDataBound += (object grdHeaderSender, PXGridRowEventArgs erHdb) =>
+                {
+                    var dataHeader = erHdb.Row.DataItem as PX.PricingAnalysis.Ext.PricingAnalysisPreviewHeaderInfo;
+
+                    erHdb.Row.Cells["CuryProfitTotal"].Style.CssClass = (dataHeader.CuryProfitTotal < 0M) ? "red20" : "green20";
+
+                    erHdb.Row.Cells["HeaderInfoType"].Style.CssClass = (dataHeader.HeaderInfoType == HeaderInfoTypes.Current) ?
+                                                                        "CssStyleHeaderCurrent" : "CssStyleHeaderPreview";
+                };
+            }
 
             PX.Web.UI.PXGrid grdProfitPreview = (PX.Web.UI.PXGrid)ControlHelper.FindControl("grdProfitPreview", page);
             if (grdProfitPreview != null)
@@ -64,6 +86,16 @@ namespace PX.PricingAnalysis.Ext
                         {
                             erdb.Row.Cells["CuryExtCostDisplay"].Style.CssClass = "CssCurentCellStyleLastCost";
                         }
+
+                        if (data.MarginPercent.GetValueOrDefault(0) == 0M)
+                        {
+                            erdb.Row.Cells["MarginPercent"].Style.CssClass = "bad";
+                        }
+
+                        if (data.MarkupPercent.GetValueOrDefault(0) == 0M)
+                        {
+                            erdb.Row.Cells["MarkupPercent"].Style.CssClass = "bad";
+                        }
                     }
                     else
                     {
@@ -74,8 +106,8 @@ namespace PX.PricingAnalysis.Ext
                         erdb.Row.Cells["CuryDiscAmt"].Style.CssClass = "CssCurentCellStyleEditing";
                         erdb.Row.Cells["CuryLineAmt"].Style.CssClass = "CssCurentCellStyleEditing";
                         erdb.Row.Cells["CuryProfit"].Style.CssClass = "CssCurentCellStyleEditing";
-                        erdb.Row.Cells["MarginPercent"].Style.CssClass = "CssCurentCellStyleEditing";
-                        erdb.Row.Cells["MarkupPercent"].Style.CssClass = "CssCurentCellStyleEditing";
+                        erdb.Row.Cells["MarginPercent"].Style.CssClass = (data.MarginPercent.GetValueOrDefault(0) == 0M) ? "bad" : "CssCurentCellStyleEditing";
+                        erdb.Row.Cells["MarkupPercent"].Style.CssClass = (data.MarkupPercent.GetValueOrDefault(0) == 0M) ? "bad" : "CssCurentCellStyleEditing";
                     }
                 };
             }
@@ -124,6 +156,11 @@ namespace PX.PricingAnalysis.Ext
 
         [PXCopyPasteHiddenView]
         [PXVirtualDAC]
+        public PXSelect<PricingAnalysisPreviewHeaderInfo, Where<True, Equal<True>>, 
+                    OrderBy<Asc<PricingAnalysisPreviewHeaderInfo.headerInfoID>>> PricingAnalysisPreviewHeaderRecs;
+
+        [PXCopyPasteHiddenView]
+        [PXVirtualDAC]
         public PXSelect<PricingAnalysisPreviewLine> PricingAnalysisPreview;
 
         public PXFilter<ProfitAnalysisByLineSetting> ProfitAnalysisSettingFilterByLine;
@@ -156,11 +193,11 @@ namespace PX.PricingAnalysis.Ext
             return datalist;
         }
 
-        public IEnumerable pricingAnalysisPreviewHeaderFilter()
+        public IEnumerable pricingAnalysisPreviewHeaderRecs()
         {
             RefreshHeaderTotal();
-            PricingAnalysisPreviewHeaderFilter.Cache.IsDirty = false;
-            return PricingAnalysisPreviewHeaderFilter.Cache.Cached;
+            PricingAnalysisPreviewHeaderRecs.Cache.IsDirty = false;
+            return PricingAnalysisPreviewHeaderRecs.Cache.Cached;
         }
 
         public IEnumerable pricingAnalysisBreakupLinesByLine()
@@ -207,10 +244,11 @@ namespace PX.PricingAnalysis.Ext
         public virtual void InitializePreviewData()
         {
             int iRecordCounter = 0;
+
             foreach (DocumentLine orgLine in DocumentLineData.Select())
             {
-                if (!orgLine.IsStockItem.GetValueOrDefault(false) || orgLine.OrderQty.GetValueOrDefault(0) <= 0 || 
-                    orgLine.CuryExtCost.GetValueOrDefault(0) == 0m) { continue; }
+                if (!orgLine.IsStockItem.GetValueOrDefault(false) || orgLine.OrderQty.GetValueOrDefault(0) <= 0) { continue; }
+
                 PricingAnalysisPreviewLine line = new PricingAnalysisPreviewLine()
                 {
                     RecordID = iRecordCounter++,
@@ -231,7 +269,7 @@ namespace PX.PricingAnalysis.Ext
                     MarkupPercent = PXPriceCostAttribute.Round((decimal)((orgLine.CuryExtCost != 0) ? ((orgLine.CuryLineAmt - orgLine.CuryExtCost) / orgLine.CuryExtCost) * 100 : 0m)),
                     MarginPercent = PXPriceCostAttribute.Round((decimal)((orgLine.CuryLineAmt != 0) ? ((orgLine.CuryLineAmt - orgLine.CuryExtCost) / orgLine.CuryLineAmt) * 100 : 0m))
                 };
-                if (line.CuryExtCost.GetValueOrDefault(0) <= 0m) { line.MarkupPercent = null; }
+                //if (line.CuryExtCost.GetValueOrDefault(0) <= 0m) { line.MarkupPercent = null; }
                 line = PricingAnalysisPreview.Insert(line);
                 PricingAnalysisPreview.Cache.SetStatus(line, PXEntryStatus.Held);
                 PricingAnalysisPreviewLine prvLine = PXCache<PricingAnalysisPreviewLine>.CreateCopy(line);
@@ -274,6 +312,7 @@ namespace PX.PricingAnalysis.Ext
                     camountTotal += data.CuryLineAmt ?? Decimal.Zero;
                 }
             }
+
             header.CuryProfitTotalCurrent = cprofitTotal;
             header.CuryExtCostTotalCurrent = ccostTotal;
             header.CuryAmountTotalCurrent = camountTotal;
@@ -285,8 +324,36 @@ namespace PX.PricingAnalysis.Ext
             header.CuryAmountTotal = amountTotal;
             header.MarkupPercentPreview = (costTotal.GetValueOrDefault(0) > 0) ? (profitTotal / costTotal) * 100 : null;
             header.MarginPercentPreview = (amountTotal.GetValueOrDefault(0) > 0) ? (profitTotal / amountTotal) * 100 : null;
-
             PricingAnalysisPreviewHeaderFilter.Update(header);
+
+            //Grid View for Header
+            PricingAnalysisPreviewHeaderRecs.Cache.Clear();
+
+            var currentHeaderLine = new PricingAnalysisPreviewHeaderInfo()
+            {
+                HeaderInfoID = 1,
+                HeaderInfoType = HeaderInfoTypes.Current,
+                CuryAmountTotal = camountTotal,
+                CuryExtCostTotal = ccostTotal,
+                CuryProfitTotal = cprofitTotal,
+                MarkupPercent = (ccostTotal.GetValueOrDefault(0) > 0) ? (cprofitTotal / ccostTotal) * 100 : null,
+                MarginPercent = (camountTotal.GetValueOrDefault(0) > 0) ? (cprofitTotal / camountTotal) * 100 : null
+            };
+            PricingAnalysisPreviewHeaderRecs.Insert(currentHeaderLine);
+            PricingAnalysisPreviewHeaderRecs.Cache.SetStatus(currentHeaderLine, PXEntryStatus.Held);
+
+            var previewHeaderLine = new PricingAnalysisPreviewHeaderInfo()
+            {
+                HeaderInfoID = 2,
+                HeaderInfoType = HeaderInfoTypes.Preview,
+                CuryAmountTotal = amountTotal,
+                CuryExtCostTotal = costTotal,
+                CuryProfitTotal = profitTotal,
+                MarkupPercent = (costTotal.GetValueOrDefault(0) > 0) ? (profitTotal / costTotal) * 100 : null,
+                MarginPercent = (amountTotal.GetValueOrDefault(0) > 0) ? (profitTotal / amountTotal) * 100 : null
+            };
+            PricingAnalysisPreviewHeaderRecs.Insert(previewHeaderLine);
+            PricingAnalysisPreviewHeaderRecs.Cache.SetStatus(previewHeaderLine, PXEntryStatus.Held);
         }
 
         public virtual void PopulateBreaupLines()
@@ -333,7 +400,7 @@ namespace PX.PricingAnalysis.Ext
                     }
                     else
                     {
-                        line.CuryUnitPrice = PXPriceCostAttribute.Round((decimal)(((orgLine.OrderQty * orgLine.CuryUnitPrice * line.CuryExtPrice) / orgLine.CuryLineAmt) / orgLine.OrderQty));
+                        line.CuryUnitPrice = PXPriceCostAttribute.Round((decimal)(line.CuryExtPrice / line.OrderQty));
                     }
                     line = PricingAnalysisBreakupLinesByLine.Insert(line);
                     PricingAnalysisBreakupLinesByLine.Cache.SetStatus(line, PXEntryStatus.Held);
@@ -360,7 +427,7 @@ namespace PX.PricingAnalysis.Ext
                     }
                     else
                     {
-                        line.CuryUnitPrice = PXPriceCostAttribute.Round((decimal)(((orgLine.OrderQty * orgLine.CuryUnitPrice * line.CuryExtPrice) / orgLine.CuryLineAmt) / orgLine.OrderQty));
+                        line.CuryUnitPrice = PXPriceCostAttribute.Round((decimal)(line.CuryExtPrice / line.OrderQty));
                     }
                     line = PricingAnalysisBreakupLinesByLine.Insert(line);
                     PricingAnalysisBreakupLinesByLine.Cache.SetStatus(line, PXEntryStatus.Held);
@@ -544,7 +611,7 @@ namespace PX.PricingAnalysis.Ext
                 }
                 else
                 {
-                    row.CuryUnitPrice = PXPriceCostAttribute.Round((decimal)(((currentLine.OrderQty * currentLine.CuryUnitPrice * row.CuryLineAmt) / currentLine.CuryLineAmt) / row.OrderQty));
+                    row.CuryUnitPrice = PXPriceCostAttribute.Round((decimal)(row.CuryLineAmt / row.OrderQty));
                 }
             }
             //If Profit is changed
@@ -559,7 +626,7 @@ namespace PX.PricingAnalysis.Ext
                 }
                 else
                 {
-                    row.CuryUnitPrice = PXPriceCostAttribute.Round((decimal)(((currentLine.OrderQty * currentLine.CuryUnitPrice * row.CuryLineAmt) / currentLine.CuryLineAmt) / row.OrderQty));
+                    row.CuryUnitPrice = PXPriceCostAttribute.Round((decimal)(row.CuryLineAmt / row.OrderQty));
                 }
             }
             //If MarkupPercent is changed
@@ -574,7 +641,7 @@ namespace PX.PricingAnalysis.Ext
                 }
                 else
                 {
-                    row.CuryUnitPrice = PXPriceCostAttribute.Round((decimal)(((currentLine.OrderQty * currentLine.CuryUnitPrice * row.CuryLineAmt) / currentLine.CuryLineAmt) / row.OrderQty));
+                    row.CuryUnitPrice = PXPriceCostAttribute.Round((decimal)(row.CuryLineAmt / row.OrderQty));
                 }
             }
             //If MarginPercent is changed
@@ -589,12 +656,15 @@ namespace PX.PricingAnalysis.Ext
                 }
                 else
                 {
-                    row.CuryUnitPrice = PXPriceCostAttribute.Round((decimal)(((currentLine.OrderQty * currentLine.CuryUnitPrice * row.CuryLineAmt) / currentLine.CuryLineAmt) / row.OrderQty));
+                    row.CuryUnitPrice = PXPriceCostAttribute.Round((decimal)(row.CuryLineAmt / row.OrderQty));
                 }
             }
             RefreshHeaderTotal();
             PricingAnalysisPreview.Cache.IsDirty = false;
             PricingAnalysisPreviewHeaderFilter.Cache.IsDirty = false;
+            PricingAnalysisPreviewHeaderRecs.Cache.IsDirty = false;
+            //To Apply Style.
+            PricingAnalysisPreview.View.RequestRefresh();
         }
 
         public void _(Events.RowPersisting<PricingAnalysisPreviewLine> e)
@@ -612,14 +682,26 @@ namespace PX.PricingAnalysis.Ext
             e.Cancel = true;
         }
 
+        public void _(Events.RowPersisting<PricingAnalysisPreviewHeaderInfo> e)
+        {
+            e.Cancel = true;
+        }
+
+        public void _(Events.RowSelected<PricingAnalysisPreviewHeader> e)
+        {
+            if (e.Cache == null || e.Row == null) { return; }
+
+            bool bAllowEdit = DocumentLineData.BaseSelect.AllowUpdate;
+            PXUIFieldAttribute.SetEnabled<PricingAnalysisPreviewHeader.applyAdjustmentAs>(e.Cache, e.Row, bAllowEdit);
+        }
+
         public void _(Events.RowSelected<Document> e)
         {
             Document data = e.Row;
             PXCache sender = e.Cache;
             if (data == null || sender == null) { return; }
-            bool bAllowEdit = (sender.GetStatus(data) != PXEntryStatus.Inserted) &&
-                               DocumentLineData.Cache.AllowUpdate && data.UsrEditable.GetValueOrDefault(false);
-            PricingAnalysis.SetEnabled(bAllowEdit);
+
+            bool bAllowEdit = DocumentLineData.BaseSelect.AllowUpdate;
             ProfitBreakUpByCurrentItem.SetEnabled(bAllowEdit);
             ProfitBreakUpByDocument.SetEnabled(bAllowEdit);
         }
@@ -629,7 +711,9 @@ namespace PX.PricingAnalysis.Ext
             PricingAnalysisPreviewLine data = e.Row;
             PXCache sender = e.Cache;
             if (data == null || sender == null) { return; }
-            bool bAllowEdit = data.LineType == ProfitLineType.PreviewLineType;
+
+            bool canEdit = DocumentLineData.BaseSelect.AllowUpdate;
+            bool bAllowEdit = data.LineType == ProfitLineType.PreviewLineType && canEdit;
             bool bAllowEditPrice = bAllowEdit && (PricingAnalysisPreviewHeaderFilter.Current?.ApplyAdjustmentAs == AdjustmentType.Price);
             bool bAllowEditDisc = bAllowEdit && (PricingAnalysisPreviewHeaderFilter.Current?.ApplyAdjustmentAs == AdjustmentType.Discount);
             PXUIFieldAttribute.SetEnabled<PricingAnalysisPreviewLine.curyUnitPrice>(sender, data, bAllowEditPrice);
@@ -694,11 +778,13 @@ namespace PX.PricingAnalysis.Ext
 
         public PXAction<TPrimary> PricingAnalysis;
         [PXUIField(DisplayName = "Pricing Analysis", MapEnableRights = PXCacheRights.Select, MapViewRights = PXCacheRights.Select)]
-        [PXButton]
+        [PXButton(CommitChanges = true)]
         public virtual IEnumerable pricingAnalysis(PXAdapter adapter)
         {
             if (PricingAnalysisPreviewHeaderFilter.AskExtFullyValid((graph, viewName) =>
             {
+                PricingAnalysisPreviewHeaderRecs.Cache.Clear();
+                PricingAnalysisPreviewHeaderRecs.Cache.ClearQueryCache();
                 PricingAnalysisPreview.Cache.Clear();
                 PricingAnalysisPreview.Cache.ClearQueryCache();
                 graph.Views[viewName].Cache.Clear();
@@ -706,8 +792,12 @@ namespace PX.PricingAnalysis.Ext
                 graph.Views[viewName].ClearDialog();
             }, DialogAnswerType.Positive, true))
             {
+                bool canEdit = DocumentLineData.BaseSelect.AllowUpdate;
+                if (!canEdit) { return adapter.Get(); }
+
                 PricingAnalysisPreviewHeader filterData = PricingAnalysisPreviewHeaderFilter.Current;
                 List<DocumentLine> soLines = DocumentLineData.Select().RowCast<DocumentLine>().ToList();
+
                 foreach (PricingAnalysisPreviewLine line in PricingAnalysisPreview.Cache.Updated)
                 {
                     DocumentLine soline = soLines.Where(x => x.LineNbr == line.LineNbr).FirstOrDefault();

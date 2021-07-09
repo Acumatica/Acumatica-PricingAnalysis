@@ -83,11 +83,12 @@ namespace PX.PricingAnalysis.Ext
 		}
 	}
 
-	public class PALineCostValueExtAttribute<InventoryID, SiteID, LineCost, Quantity> : BqlFormulaEvaluator<InventoryID, SiteID, LineCost, Quantity>
+	public class PALineCostValueExtAttribute<InventoryID, SiteID, LineCost, Quantity, LineOUnitCost> : BqlFormulaEvaluator<InventoryID, SiteID, LineCost, Quantity, LineOUnitCost>
 				where InventoryID : IBqlOperand
 				where SiteID : IBqlOperand
 				where LineCost : IBqlOperand
 				where Quantity : IBqlOperand
+				where LineOUnitCost : IBqlOperand
 	{
 		public override object Evaluate(PXCache cache, object item, Dictionary<Type, object> pars)
 		{
@@ -242,6 +243,32 @@ namespace PX.PricingAnalysis.Ext
 		public class discountadjustment : PX.Data.BQL.BqlString.Constant<discountadjustment>
 		{
 			public discountadjustment() : base(Discount) { }
+		}
+	}
+
+	public class HeaderInfoTypes
+	{
+		public class ListAttribute : PXStringListAttribute
+		{
+			public ListAttribute() : base(
+				new[]
+				{
+					Pair(Current, Messages.CurrentHeaderInfoType),
+					Pair(Preview, Messages.PreviewHeaderInfoType)
+				})
+			{ }
+		}
+
+		public const string Current = "CU";
+		public const string Preview = "PR";
+
+		public class currentHeader : PX.Data.BQL.BqlString.Constant<currentHeader>
+		{
+			public currentHeader() : base(Current) { }
+		}
+		public class previewHeader : PX.Data.BQL.BqlString.Constant<previewHeader>
+		{
+			public previewHeader() : base(Preview) { }
 		}
 	}
 
