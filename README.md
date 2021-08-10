@@ -34,7 +34,7 @@ Quick Start
 
 Once package is published on Acumatica Instance, new option Pricing Analysis is available on below screens
 
-1. Sales Order screen (SO302000) for Sales Order with Open status
+1. Sales Order screen (SO301000) for Sales Order with Open status
 2. Service Order screen (FS300100) for Service Order with Open status
 3. Appointment screen (FS300200) for Appointment with not Closed or not Cancelled status
 4. Sales Quote (CR304500) for Sales Quote with Draft status
