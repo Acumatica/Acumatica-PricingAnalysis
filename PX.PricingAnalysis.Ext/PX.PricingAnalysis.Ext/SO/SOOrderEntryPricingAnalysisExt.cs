@@ -10,12 +10,19 @@ namespace PX.PricingAnalysis.Ext
 {
     public class SOOrderEntryPricingAnalysisExt : PricingAnalysisGraph<SOOrderEntry, SOOrder>
     {
+        protected override bool CalcFreightPrices => true;
+
         protected override DocumentMapping GetDocumentMapping()
         {
             return new DocumentMapping(typeof(SOOrder))
             {
                 NoteID = typeof(SOOrder.noteID),
-                UsrEditable = typeof(SOOrderPricingPXExt.usrEditable)
+                UsrEditable = typeof(SOOrderPricingPXExt.usrEditable),
+                CuryFreightTot = typeof(SOOrder.curyFreightTot),
+                CuryFreightAmt = typeof(SOOrder.curyFreightAmt),
+                CuryFreightCost = typeof(SOOrder.curyFreightCost),
+                CuryPremiumFreightAmt = typeof(SOOrder.curyPremiumFreightAmt),
+                OverrideFreightAmount = typeof(SOOrder.overrideFreightAmount)
             };
         }
 
