@@ -208,6 +208,14 @@
                                             <Children Key="Columns">
                                                 <AddItem>
                                                     <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                                                        <Prop Key="DataField" Value="EnablePriceAnalysisByLine" />
+                                                        <Prop Key="Width" Value="0" />
+                                                        <Prop Key="AllowMove" Value="False" />
+                                                        <Prop Key="AllowResize" Value="False" />
+                                                    </PXGridColumn>
+                                                </AddItem>
+                                                <AddItem>
+                                                    <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
                                                         <Prop Key="TextAlign" Value="Right" />
                                                         <Prop Key="DataField" Value="LineNbr" />
                                                     </PXGridColumn>
@@ -324,6 +332,7 @@
                                             <Prop Key="Text" Value="Profit Break up Current Item" />
                                             <Prop Key="CommandSourceID" Value="ds" />
                                             <Prop Key="CommandName" Value="ProfitBreakUpByCurrentItem" />
+                                            <Prop Key="StateColumn" Value="EnablePriceAnalysisByLine" />
                                         </PXToolBarButton>
                                     </AddItem>
                                 </Children>
