@@ -831,6 +831,10 @@ namespace PX.PricingAnalysis.Ext
             }
         }
 
+        public void _(Events.FieldDefaulting<PricingAnalysisPreviewLine, PricingAnalysisPreviewLine.enablePriceAnalysisByLine> e)
+        {
+            e.NewValue = !e.Row.IsFreightLine.GetValueOrDefault();
+        }
         #endregion
 
         #region Actions

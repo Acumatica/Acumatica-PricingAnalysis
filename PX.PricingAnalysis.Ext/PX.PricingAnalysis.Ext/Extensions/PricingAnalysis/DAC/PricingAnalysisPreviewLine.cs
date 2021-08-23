@@ -33,6 +33,13 @@ namespace PX.PricingAnalysis.Ext
 		public virtual bool? IsFreightLine { get; set; }
 		#endregion
 
+		#region EnableLinePriceAnalysis
+		public abstract class enablePriceAnalysisByLine : PX.Data.BQL.BqlBool.Field<enablePriceAnalysisByLine> { }
+		[PXBool]
+		[PXFormula(typeof(Default<isFreightLine>))]
+		public virtual bool? EnablePriceAnalysisByLine { get; set; }
+		#endregion
+
 		#region InventoryIDDisplay
 		public abstract class inventoryIDDisplay : PX.Data.BQL.BqlString.Field<inventoryIDDisplay> { }
 		[PXString]
