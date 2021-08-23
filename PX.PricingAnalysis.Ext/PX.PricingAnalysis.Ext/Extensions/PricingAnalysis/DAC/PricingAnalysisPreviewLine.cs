@@ -36,6 +36,7 @@ namespace PX.PricingAnalysis.Ext
 		#region EnableLinePriceAnalysis
 		public abstract class enablePriceAnalysisByLine : PX.Data.BQL.BqlBool.Field<enablePriceAnalysisByLine> { }
 		[PXBool]
+		[PXUIField]
 		[PXFormula(typeof(Default<isFreightLine>))]
 		public virtual bool? EnablePriceAnalysisByLine { get; set; }
 		#endregion
