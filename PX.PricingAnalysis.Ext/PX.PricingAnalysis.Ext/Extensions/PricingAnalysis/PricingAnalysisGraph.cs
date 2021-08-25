@@ -616,6 +616,26 @@ namespace PX.PricingAnalysis.Ext
 
         #region Event Handlers
 
+        public void _(Events.FieldUpdating<PricingAnalysisPreviewHeader.applyAdjustmentAs> e)
+        {
+            var result = PricingAnalysisPreviewHeaderFilter.Ask(ActionsMessages.Warning,
+                                                                Messages.ApplyAdjustmentConfirmationDialogMessage,
+                                                                MessageButtons.YesNo,
+                                                                MessageIcon.Warning,
+                                                                false);
+
+            if (result == WebDialogResult.Yes)
+            {
+                PricingAnalysisPreview.Cache.Clear();
+                PricingAnalysisPreview.Cache.ClearQueryCache();
+            }
+            else
+            {
+                e.NewValue = e.OldValue;
+                e.Cancel = true;
+            }
+        }
+
         public void _(Events.FieldVerifying<PricingAnalysisPreviewLine.marginPercent> e)
         {
             if (!e.ExternalCall) { return; }
