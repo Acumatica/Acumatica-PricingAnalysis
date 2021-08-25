@@ -872,7 +872,7 @@ namespace PX.PricingAnalysis.Ext
                     else
                     {
                         DocumentLine soline = soLines.Where(x => x.LineNbr == line.LineNbr).FirstOrDefault();
-                        if (soline != null)
+                        if (soline == null)
                         {
                             continue;
                         }
