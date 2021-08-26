@@ -107,7 +107,7 @@ Freight price information is shown on the table in two lines
 Freight pricing fields are calculated as follows in the freight price lines:
 
 * Unit Price = Freight Price + Premium Freight Price
-* Cost = Freight Cost
+* Cost Amount = Freight Cost
 * Amount = Unit Price
 * Discount = Will not be applicable for freight price calculations
 
