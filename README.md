@@ -94,9 +94,13 @@ The preview line for amending the freight price will be available if the user ha
 
 ![Screenshot](/_ReadMeImages/Image7-OverrideFreightPrice.PNG)
 
+
 Freight price is shown on the table in two lines 
 1. Current Line – non-editable
 2. Preview Line – Where Margin %, Markup %, Line Profit and Amount are editable
+
+![Screenshot](/_ReadMeImages/Image9-freight-price-lines.PNG)
+
 
 Freight pricing fields are calculated as follows in the freight price lines:
 
@@ -105,11 +109,12 @@ Freight pricing fields are calculated as follows in the freight price lines:
 * Amount = Unit Price
 * Discount = Will not be applicable for freight price calculations
 
+
 Clicking on Apply, will update the Freight Price in document.
 
-*Freight Price = Unit Price - Premium Freight Price
+* Freight Price = Unit Price - Premium Freight Price
+* Premium Freight Price = Will not be amended
 
-*Premium Freight Price will not be amended.
 
 **In Progress....** 
 
