@@ -81,6 +81,38 @@ Default Adjustment Type and Default Pricing By can be specified in Accounts Rece
 
 ![Screenshot](/_ReadMeImages/Image6-Preference.png)
 
+### Freight Price Calculator
+
+* Feature is available on Sales Orders screens (SO301000).
+
+The embedded freight price calculator enables calculation/recalculation of the freight price based on profit, margin or markup for the sales order.
+The freight price entries would appear below the inventory lines as shown in the table below.
+
+![Screenshot](/_ReadMeImages/Image8-FreightChargers.PNG)
+
+The preview line for amending the freight price will be available if the user has opted for overriding the default freight prices on the sales order by selecting the "Orverride Freight Price" on the "Totals" tab of the Sales Order.
+
+![Screenshot](/_ReadMeImages/Image7-OverrideFreightPrice.PNG)
+
+Freight price is shown on the table in two lines 
+1. Current Line – non-editable
+2. Preview Line – Where Margin %, Markup %, Line Profit and Amount are editable
+
+Freight pricing fields are calculated as follows in the freight price lines:
+
+* Unit Price = Freight Price + Premium Freight Price
+* Cost = Freight Cost
+* Amount = Unit Price
+* Discount = Will not be applicable for freight price calculations
+
+Clicking on Apply, will update the Freight Price in document.
+
+*Freight Price = Unit Price - Premium Freight Price
+
+*Premium Freight Price will not be amended.
+
+**In Progress....** 
+
 Known Issues
 ------------
 None at the moment
