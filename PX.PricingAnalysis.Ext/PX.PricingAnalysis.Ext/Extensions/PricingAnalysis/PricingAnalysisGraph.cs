@@ -618,16 +618,27 @@ namespace PX.PricingAnalysis.Ext
 
         public void _(Events.FieldUpdating<PricingAnalysisPreviewHeader.applyAdjustmentAs> e)
         {
-            var result = PricingAnalysisPreviewHeaderFilter.Ask(ActionsMessages.Warning,
-                                                                Messages.ApplyAdjustmentConfirmationDialogMessage,
-                                                                MessageButtons.YesNo,
-                                                                MessageIcon.Warning,
-                                                                false);
+            var cachedList = PricingAnalysisPreviewHeaderRecs.Cache.Cached.Cast<PricingAnalysisPreviewHeaderInfo>();
 
-            if (result == WebDialogResult.Yes)
+            if (cachedList.Count() >= 2
+                && PricingAnalysisPreviewHeaderRecs.Cache.ObjectsEqual<PricingAnalysisPreviewHeaderInfo.curyAmountTotal,
+                                                                        PricingAnalysisPreviewHeaderInfo.curyExtCostTotal,
+                                                                          PricingAnalysisPreviewHeaderInfo.curyProfitTotal,
+                                                                            PricingAnalysisPreviewHeaderInfo.marginPercent,
+                                                                            PricingAnalysisPreviewHeaderInfo.markupPercent>(cachedList.First(), cachedList.Last()))
+            {
+                return;
+            }
+
+            if (PricingAnalysisPreviewHeaderFilter.Ask(ActionsMessages.Warning,
+                                                       Messages.ApplyAdjustmentConfirmationDialogMessage,
+                                                       MessageButtons.YesNo,
+                                                       MessageIcon.Warning,
+                                                       false) == WebDialogResult.Yes)
             {
                 PricingAnalysisPreview.Cache.Clear();
                 PricingAnalysisPreview.Cache.ClearQueryCache();
+                return;
             }
             else
             {
@@ -794,13 +805,27 @@ namespace PX.PricingAnalysis.Ext
             bool canEdit = DocumentLineData.BaseSelect.AllowUpdate;
             bool bAllowEdit = data.LineType == ProfitLineType.PreviewLineType && canEdit;
             bool bAllowEditPrice = bAllowEdit && (PricingAnalysisPreviewHeaderFilter.Current?.ApplyAdjustmentAs == AdjustmentType.Price);
-            bool bAllowEditDisc = bAllowEdit && (PricingAnalysisPreviewHeaderFilter.Current?.ApplyAdjustmentAs == AdjustmentType.Discount);
+            bool bAllowEditDisc = bAllowEdit && (PricingAnalysisPreviewHeaderFilter.Current?.ApplyAdjustmentAs == AdjustmentType.Discount)
+                                                 && PricingAnalysisPreview.Current != null && !PricingAnalysisPreview.Current.IsFreightLine.GetValueOrDefault();
             PXUIFieldAttribute.SetEnabled<PricingAnalysisPreviewLine.curyUnitPrice>(sender, data, bAllowEditPrice);
             PXUIFieldAttribute.SetEnabled<PricingAnalysisPreviewLine.curyDiscAmt>(sender, data, bAllowEditDisc);
             PXUIFieldAttribute.SetEnabled<PricingAnalysisPreviewLine.curyLineAmt>(sender, data, bAllowEdit);
             PXUIFieldAttribute.SetEnabled<PricingAnalysisPreviewLine.curyProfit>(sender, data, bAllowEdit);
             PXUIFieldAttribute.SetEnabled<PricingAnalysisPreviewLine.marginPercent>(sender, data, bAllowEdit && (data.CuryExtCost.GetValueOrDefault(0) > 0));
             PXUIFieldAttribute.SetEnabled<PricingAnalysisPreviewLine.markupPercent>(sender, data, bAllowEdit && (data.CuryExtCost.GetValueOrDefault(0) > 0));
+        }
+
+        public void _(Events.FieldVerifying<PricingAnalysisPreviewLine.curyDiscAmt> e)
+        {
+            if (PricingAnalysisPreviewHeaderFilter.Current?.ApplyAdjustmentAs == AdjustmentType.Discount
+                && PricingAnalysisPreview.Current != null
+                && PricingAnalysisPreview.Current.IsFreightLine.GetValueOrDefault())
+            {
+                e.Cache.RaiseExceptionHandling<PricingAnalysisPreviewLine.curyDiscAmt>(e.Row,
+                                                e.OldValue,
+                                                new PXSetPropertyException(Messages.ApplyAdjustmentDiscountChangeFreightWarning,
+                                                                            PXErrorLevel.Warning));
+            }
         }
 
         public void _(Events.RowSelected<ProfitAnalysisByLineSetting> e)
@@ -853,7 +878,10 @@ namespace PX.PricingAnalysis.Ext
 
         public void _(Events.FieldDefaulting<PricingAnalysisPreviewLine, PricingAnalysisPreviewLine.enablePriceAnalysisByLine> e)
         {
-            e.NewValue = !e.Row.IsFreightLine.GetValueOrDefault();
+            if (e.Row.IsFreightLine.GetValueOrDefault())
+            {
+                e.NewValue = DocumentData.Current != null && DocumentData.Current.OverrideFreightAmount.GetValueOrDefault();
+            }
         }
         #endregion
 
