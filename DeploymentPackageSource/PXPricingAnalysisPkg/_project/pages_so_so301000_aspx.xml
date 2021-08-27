@@ -182,9 +182,9 @@
                                     </AddItem>
                                 </Children>
                                 <Prop Key="CallbackCommands.Save.RepaintControls" Value="None" />
-                                <Prop Key="CallbackCommands.Save.RepaintControlsIDs" Value="grdProfitPreview,ds" />
+                                <Prop Key="CallbackCommands.Save.RepaintControlsIDs" Value="grdProfitPreview,grdProfitHeaderInfo,ds" />
                                 <Prop Key="CallbackCommands.Refresh.RepaintControls" Value="None" />
-                                <Prop Key="CallbackCommands.Refresh.RepaintControlsIDs" Value="grdProfitPreview,ds" />
+                                <Prop Key="CallbackCommands.Refresh.RepaintControlsIDs" Value="grdProfitPreview,grdProfitHeaderInfo,ds" />
                                 <Prop Key="RenderStyle" Value="Simple" />
                             </PXFormView>
                         </AddItem>
