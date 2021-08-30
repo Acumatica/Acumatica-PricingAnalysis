@@ -618,17 +618,15 @@ namespace PX.PricingAnalysis.Ext
 
         public void _(Events.FieldUpdating<PricingAnalysisPreviewHeader.applyAdjustmentAs> e)
         {
-            var cachedList = PricingAnalysisPreviewHeaderRecs.Cache.Cached.Cast<PricingAnalysisPreviewHeaderInfo>();
-
-            if (cachedList.Count() >= 2
-                && PricingAnalysisPreviewHeaderRecs.Cache.ObjectsEqual<PricingAnalysisPreviewHeaderInfo.curyAmountTotal,
-                                                                        PricingAnalysisPreviewHeaderInfo.curyExtCostTotal,
-                                                                          PricingAnalysisPreviewHeaderInfo.curyProfitTotal,
-                                                                            PricingAnalysisPreviewHeaderInfo.marginPercent,
-                                                                            PricingAnalysisPreviewHeaderInfo.markupPercent>(cachedList.First(), cachedList.Last()))
+            var currentHeaderRecs = e.Cache.Current as PricingAnalysisPreviewHeader;
+            if(currentHeaderRecs?.CuryAmountTotal == currentHeaderRecs?.CuryAmountTotalCurrent
+                && currentHeaderRecs?.CuryProfitTotal == currentHeaderRecs?.CuryProfitTotalCurrent
+                && currentHeaderRecs?.MarginPercentCurrent == currentHeaderRecs?.MarginPercentPreview
+                && currentHeaderRecs?.MarkupPercentCurrent == currentHeaderRecs?.MarkupPercentPreview)
             {
                 return;
             }
+            
 
             if (PricingAnalysisPreviewHeaderFilter.Ask(ActionsMessages.Warning,
                                                        Messages.ApplyAdjustmentConfirmationDialogMessage,
