@@ -159,7 +159,7 @@ namespace PX.PricingAnalysis.Ext
 
         [PXCopyPasteHiddenView]
         [PXVirtualDAC]
-        public PXSelect<PricingAnalysisPreviewHeaderInfo, Where<True, Equal<True>>, 
+        public PXSelect<PricingAnalysisPreviewHeaderInfo, Where<True, Equal<True>>,
                     OrderBy<Asc<PricingAnalysisPreviewHeaderInfo.headerInfoID>>> PricingAnalysisPreviewHeaderRecs;
 
         [PXCopyPasteHiddenView]
@@ -450,7 +450,7 @@ namespace PX.PricingAnalysis.Ext
                         CuryDiscAmt = orgLine.CuryDiscAmt,
                         MarkupPercent = i,
                         CuryProfit = PXPriceCostAttribute.Round((decimal)((i * orgLine.CuryExtCost) / 100)),
-                        CuryExtPrice = PXPriceCostAttribute.Round((decimal)(orgLine.CuryExtCost + (i * orgLine.CuryExtCost) / 100))                        
+                        CuryExtPrice = PXPriceCostAttribute.Round((decimal)(orgLine.CuryExtCost + (i * orgLine.CuryExtCost) / 100))
                     };
                     if (headerFilter?.ApplyAdjustmentAs == AdjustmentType.Discount)
                     {
@@ -616,17 +616,16 @@ namespace PX.PricingAnalysis.Ext
 
         #region Event Handlers
 
-        public void _(Events.FieldUpdating<PricingAnalysisPreviewHeader.applyAdjustmentAs> e)
+        public void _(Events.FieldUpdating<PricingAnalysisPreviewHeader, PricingAnalysisPreviewHeader.applyAdjustmentAs> e)
         {
-            var currentHeaderRecs = e.Cache.Current as PricingAnalysisPreviewHeader;
-            if(currentHeaderRecs?.CuryAmountTotal == currentHeaderRecs?.CuryAmountTotalCurrent
+            var currentHeaderRecs = e.Row;
+            if (currentHeaderRecs.CuryAmountTotal == currentHeaderRecs?.CuryAmountTotalCurrent
                 && currentHeaderRecs?.CuryProfitTotal == currentHeaderRecs?.CuryProfitTotalCurrent
                 && currentHeaderRecs?.MarginPercentCurrent == currentHeaderRecs?.MarginPercentPreview
                 && currentHeaderRecs?.MarkupPercentCurrent == currentHeaderRecs?.MarkupPercentPreview)
             {
                 return;
             }
-            
 
             if (PricingAnalysisPreviewHeaderFilter.Ask(ActionsMessages.Warning,
                                                        Messages.ApplyAdjustmentConfirmationDialogMessage,
@@ -636,7 +635,6 @@ namespace PX.PricingAnalysis.Ext
             {
                 PricingAnalysisPreview.Cache.Clear();
                 PricingAnalysisPreview.Cache.ClearQueryCache();
-                return;
             }
             else
             {
@@ -802,7 +800,8 @@ namespace PX.PricingAnalysis.Ext
 
             bool canEdit = DocumentLineData.BaseSelect.AllowUpdate;
             bool bAllowEdit = data.LineType == ProfitLineType.PreviewLineType && canEdit;
-            bool bAllowEditPrice = bAllowEdit && (PricingAnalysisPreviewHeaderFilter.Current?.ApplyAdjustmentAs == AdjustmentType.Price);
+            bool bAllowEditPrice = bAllowEdit && ((PricingAnalysisPreviewHeaderFilter.Current?.ApplyAdjustmentAs == AdjustmentType.Price)
+                                                || (PricingAnalysisPreview.Current != null && PricingAnalysisPreview.Current.IsFreightLine.GetValueOrDefault()));
             bool bAllowEditDisc = bAllowEdit && (PricingAnalysisPreviewHeaderFilter.Current?.ApplyAdjustmentAs == AdjustmentType.Discount)
                                                  && PricingAnalysisPreview.Current != null && !PricingAnalysisPreview.Current.IsFreightLine.GetValueOrDefault();
             PXUIFieldAttribute.SetEnabled<PricingAnalysisPreviewLine.curyUnitPrice>(sender, data, bAllowEditPrice);
@@ -811,16 +810,13 @@ namespace PX.PricingAnalysis.Ext
             PXUIFieldAttribute.SetEnabled<PricingAnalysisPreviewLine.curyProfit>(sender, data, bAllowEdit);
             PXUIFieldAttribute.SetEnabled<PricingAnalysisPreviewLine.marginPercent>(sender, data, bAllowEdit && (data.CuryExtCost.GetValueOrDefault(0) > 0));
             PXUIFieldAttribute.SetEnabled<PricingAnalysisPreviewLine.markupPercent>(sender, data, bAllowEdit && (data.CuryExtCost.GetValueOrDefault(0) > 0));
-        }
 
-        public void _(Events.FieldVerifying<PricingAnalysisPreviewLine.curyDiscAmt> e)
-        {
             if (PricingAnalysisPreviewHeaderFilter.Current?.ApplyAdjustmentAs == AdjustmentType.Discount
-                && PricingAnalysisPreview.Current != null
-                && PricingAnalysisPreview.Current.IsFreightLine.GetValueOrDefault())
+                    && (e.Row.IsFreightLine ?? false)
+                    && e.Row.LineType == ProfitLineType.PreviewLineType)
             {
                 e.Cache.RaiseExceptionHandling<PricingAnalysisPreviewLine.curyDiscAmt>(e.Row,
-                                                e.OldValue,
+                                                e.Row.CuryDiscAmt,
                                                 new PXSetPropertyException(Messages.ApplyAdjustmentDiscountChangeFreightWarning,
                                                                             PXErrorLevel.Warning));
             }
