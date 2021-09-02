@@ -24,7 +24,6 @@ namespace PX.PricingAnalysis.Ext
 		public const string CurrentHeaderInfoType = "Current Totals";
 		public const string PreviewHeaderInfoType = "Preview Totals";
 
-		public const string ApplyAdjustmentConfirmationDialogMessage = "All adjustments will be lost. Do you want to continue?";
 		public const string ApplyAdjustmentDiscountChangeFreightWarning = "Adjustments are always based on price for Freight.";
 
 	}
