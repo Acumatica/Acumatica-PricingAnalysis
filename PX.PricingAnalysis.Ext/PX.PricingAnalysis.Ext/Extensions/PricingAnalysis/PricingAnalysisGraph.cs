@@ -220,7 +220,22 @@ namespace PX.PricingAnalysis.Ext
         public IEnumerable profitAnalysisSettingFilterByLine()
         {
             ProfitAnalysisByLineSetting settings = ProfitAnalysisSettingFilterByLine.Current;
-            settings.InventoryID = PricingAnalysisPreview.Current?.InventoryID;
+            if (PricingAnalysisPreview.Current?.IsFreightLine ?? false)
+            {
+                settings.InventoryIDDisplay = Constants.FreightLineText;
+                settings.InventoryDescription = Constants.FreightLineDescription;
+            }
+            else
+            {
+                var inventoryItem = InventoryItem.PK.Find(Base, PricingAnalysisPreview.Current?.InventoryID);
+                if (inventoryItem != null)
+                {
+                    settings.InventoryID = inventoryItem?.InventoryID;
+                    settings.InventoryIDDisplay = inventoryItem?.InventoryCD;
+                    settings.InventoryDescription = inventoryItem?.Descr;
+                }
+            }
+
             ProfitAnalysisSettingFilterByLine.UpdateCurrent();
 
             ProfitAnalysisSettingFilterByLine.Cache.IsDirty = false;
@@ -304,8 +319,8 @@ namespace PX.PricingAnalysis.Ext
             {
                 RecordID = currentRecordCounter++,
                 LineType = ProfitLineType.CurrentLineType,
-                InventoryIDDisplay = "Freight",
-                InventoryDescription = "Freight Charges",
+                InventoryIDDisplay = Constants.FreightLineText,
+                InventoryDescription = Constants.FreightLineDescription,
                 IsFreightLine = true,
                 UOM = "EA",
                 OrderQty = 1,
@@ -452,7 +467,7 @@ namespace PX.PricingAnalysis.Ext
                         CuryProfit = PXPriceCostAttribute.Round((decimal)((i * orgLine.CuryExtCost) / 100)),
                         CuryExtPrice = PXPriceCostAttribute.Round((decimal)(orgLine.CuryExtCost + (i * orgLine.CuryExtCost) / 100))
                     };
-                    if (headerFilter?.ApplyAdjustmentAs == AdjustmentType.Discount)
+                    if (headerFilter?.ApplyAdjustmentAs == AdjustmentType.Discount && !orgLine.IsFreightLine.GetValueOrDefault())
                     {
                         line.CuryDiscAmt = PXPriceCostAttribute.Round((decimal)((orgLine.OrderQty * orgLine.CuryUnitPrice) - line.CuryExtPrice));
                     }
@@ -479,7 +494,7 @@ namespace PX.PricingAnalysis.Ext
                         CuryExtPrice = PXPriceCostAttribute.Round((decimal)(orgLine.CuryExtCost / (1 - (iMargin / 100)))),
                         CuryProfit = PXPriceCostAttribute.Round((decimal)((orgLine.CuryExtCost / (1 - (iMargin / 100))) - orgLine.CuryExtCost)),
                     };
-                    if (headerFilter?.ApplyAdjustmentAs == AdjustmentType.Discount)
+                    if (headerFilter?.ApplyAdjustmentAs == AdjustmentType.Discount && !orgLine.IsFreightLine.GetValueOrDefault())
                     {
                         line.CuryDiscAmt = PXPriceCostAttribute.Round((decimal)((orgLine.OrderQty * orgLine.CuryUnitPrice) - line.CuryExtPrice));
                     }
@@ -615,31 +630,17 @@ namespace PX.PricingAnalysis.Ext
         #endregion
 
         #region Event Handlers
-
-        public void _(Events.FieldUpdating<PricingAnalysisPreviewHeader, PricingAnalysisPreviewHeader.applyAdjustmentAs> e)
+        public void _(Events.FieldUpdated<PricingAnalysisPreviewHeader, PricingAnalysisPreviewHeader.applyAdjustmentAs> e)
         {
             var currentHeaderRecs = e.Row;
-            if (currentHeaderRecs.CuryAmountTotal == currentHeaderRecs?.CuryAmountTotalCurrent
-                && currentHeaderRecs?.CuryProfitTotal == currentHeaderRecs?.CuryProfitTotalCurrent
-                && currentHeaderRecs?.MarginPercentCurrent == currentHeaderRecs?.MarginPercentPreview
-                && currentHeaderRecs?.MarkupPercentCurrent == currentHeaderRecs?.MarkupPercentPreview)
-            {
-                return;
-            }
-
-            if (PricingAnalysisPreviewHeaderFilter.Ask(ActionsMessages.Warning,
-                                                       Messages.ApplyAdjustmentConfirmationDialogMessage,
-                                                       MessageButtons.YesNo,
-                                                       MessageIcon.Warning,
-                                                       false) == WebDialogResult.Yes)
+            if (!(currentHeaderRecs?.CuryAmountTotal == currentHeaderRecs?.CuryAmountTotalCurrent &&
+                  currentHeaderRecs?.CuryProfitTotal == currentHeaderRecs?.CuryProfitTotalCurrent &&
+                  currentHeaderRecs?.MarginPercentCurrent == currentHeaderRecs?.MarginPercentPreview &&
+                  currentHeaderRecs?.MarkupPercentCurrent == currentHeaderRecs?.MarkupPercentPreview) &&
+                  e.NewValue != e.OldValue)
             {
                 PricingAnalysisPreview.Cache.Clear();
                 PricingAnalysisPreview.Cache.ClearQueryCache();
-            }
-            else
-            {
-                e.NewValue = e.OldValue;
-                e.Cancel = true;
             }
         }
 
@@ -690,14 +691,13 @@ namespace PX.PricingAnalysis.Ext
                 row.CuryProfit = PXPriceCostAttribute.Round((decimal)(row.CuryLineAmt - row.CuryExtCost));
                 row.MarkupPercent = PXPriceCostAttribute.Round((decimal)((row.CuryExtCost.GetValueOrDefault(0) > 0) ? ((row.CuryLineAmt - row.CuryExtCost) / row.CuryExtCost) * 100 : 0));
                 row.MarginPercent = PXPriceCostAttribute.Round((decimal)((row.CuryLineAmt.GetValueOrDefault(0) > 0) ? ((row.CuryLineAmt - row.CuryExtCost) / row.CuryLineAmt) * 100 : 0));
-
-                if (previewHeader.ApplyAdjustmentAs == AdjustmentType.Price || row.IsFreightLine.GetValueOrDefault())
+                if (previewHeader.ApplyAdjustmentAs == AdjustmentType.Discount && !row.IsFreightLine.GetValueOrDefault())
                 {
-                    row.CuryUnitPrice = PXPriceCostAttribute.Round((decimal)(row.CuryLineAmt / row.OrderQty));
+                    row.CuryDiscAmt = PXPriceCostAttribute.Round((decimal)((row.CuryUnitPrice * row.OrderQty) - row.CuryLineAmt));
                 }
                 else
                 {
-                    row.CuryDiscAmt = PXPriceCostAttribute.Round((decimal)((row.CuryUnitPrice * row.OrderQty) - row.CuryLineAmt));
+                    row.CuryUnitPrice = PXPriceCostAttribute.Round((decimal)(row.CuryLineAmt / row.OrderQty));
                 }
             }
             //If Profit is changed
@@ -706,7 +706,7 @@ namespace PX.PricingAnalysis.Ext
                 row.CuryLineAmt = PXPriceCostAttribute.Round((decimal)(row.CuryExtCost + row.CuryProfit));
                 row.MarkupPercent = PXPriceCostAttribute.Round((decimal)((row.CuryExtCost.GetValueOrDefault(0) > 0) ? ((row.CuryLineAmt - row.CuryExtCost) / row.CuryExtCost) * 100 : 0));
                 row.MarginPercent = PXPriceCostAttribute.Round((decimal)((row.CuryLineAmt.GetValueOrDefault(0) > 0) ? ((row.CuryLineAmt - row.CuryExtCost) / row.CuryLineAmt) * 100 : 0));
-                if (previewHeader.ApplyAdjustmentAs == AdjustmentType.Discount)
+                if (previewHeader.ApplyAdjustmentAs == AdjustmentType.Discount && !row.IsFreightLine.GetValueOrDefault())
                 {
                     row.CuryDiscAmt = PXPriceCostAttribute.Round((decimal)((row.CuryUnitPrice * row.OrderQty) - row.CuryLineAmt));
                 }
@@ -721,7 +721,7 @@ namespace PX.PricingAnalysis.Ext
                 row.CuryProfit = PXPriceCostAttribute.Round((decimal)((row.MarkupPercent * row.CuryExtCost) / 100));
                 row.CuryLineAmt = PXPriceCostAttribute.Round((decimal)(row.CuryExtCost + row.CuryProfit));
                 row.MarginPercent = PXPriceCostAttribute.Round((decimal)((row.CuryLineAmt.GetValueOrDefault(0) > 0) ? ((row.CuryLineAmt - row.CuryExtCost) / row.CuryLineAmt) * 100 : 0));
-                if (previewHeader.ApplyAdjustmentAs == AdjustmentType.Discount)
+                if (previewHeader.ApplyAdjustmentAs == AdjustmentType.Discount && !row.IsFreightLine.GetValueOrDefault())
                 {
                     row.CuryDiscAmt = PXPriceCostAttribute.Round((decimal)((row.CuryUnitPrice * row.OrderQty) - row.CuryLineAmt));
                 }
@@ -736,7 +736,7 @@ namespace PX.PricingAnalysis.Ext
                 row.CuryLineAmt = PXPriceCostAttribute.Round((decimal)(row.CuryExtCost / (1 - (row.MarginPercent) / 100)));
                 row.CuryProfit = PXPriceCostAttribute.Round((decimal)(row.CuryLineAmt - row.CuryExtCost));
                 row.MarkupPercent = PXPriceCostAttribute.Round((decimal)((row.CuryExtCost.GetValueOrDefault(0) > 0) ? ((row.CuryLineAmt - row.CuryExtCost) / row.CuryExtCost) * 100 : 0));
-                if (previewHeader.ApplyAdjustmentAs == AdjustmentType.Discount)
+                if (previewHeader.ApplyAdjustmentAs == AdjustmentType.Discount && !row.IsFreightLine.GetValueOrDefault())
                 {
                     row.CuryDiscAmt = PXPriceCostAttribute.Round((decimal)((row.CuryUnitPrice * row.OrderQty) - row.CuryLineAmt));
                 }
@@ -818,7 +818,7 @@ namespace PX.PricingAnalysis.Ext
                 e.Cache.RaiseExceptionHandling<PricingAnalysisPreviewLine.curyDiscAmt>(e.Row,
                                                 e.Row.CuryDiscAmt,
                                                 new PXSetPropertyException(Messages.ApplyAdjustmentDiscountChangeFreightWarning,
-                                                                            PXErrorLevel.Warning));
+                                                                            PXErrorLevel.RowWarning));
             }
         }
 
