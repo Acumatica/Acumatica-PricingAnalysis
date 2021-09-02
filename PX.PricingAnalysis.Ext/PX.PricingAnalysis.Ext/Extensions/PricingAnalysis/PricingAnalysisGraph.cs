@@ -467,7 +467,7 @@ namespace PX.PricingAnalysis.Ext
                         CuryProfit = PXPriceCostAttribute.Round((decimal)((i * orgLine.CuryExtCost) / 100)),
                         CuryExtPrice = PXPriceCostAttribute.Round((decimal)(orgLine.CuryExtCost + (i * orgLine.CuryExtCost) / 100))
                     };
-                    if (headerFilter?.ApplyAdjustmentAs == AdjustmentType.Discount && !orgLine.IsFreightLine.GetValueOrDefault())
+                    if (headerFilter?.ApplyAdjustmentAs == AdjustmentType.Discount && !orgLine.IsFreightLine.GetValueOrDefault(false))
                     {
                         line.CuryDiscAmt = PXPriceCostAttribute.Round((decimal)((orgLine.OrderQty * orgLine.CuryUnitPrice) - line.CuryExtPrice));
                     }
@@ -494,7 +494,7 @@ namespace PX.PricingAnalysis.Ext
                         CuryExtPrice = PXPriceCostAttribute.Round((decimal)(orgLine.CuryExtCost / (1 - (iMargin / 100)))),
                         CuryProfit = PXPriceCostAttribute.Round((decimal)((orgLine.CuryExtCost / (1 - (iMargin / 100))) - orgLine.CuryExtCost)),
                     };
-                    if (headerFilter?.ApplyAdjustmentAs == AdjustmentType.Discount && !orgLine.IsFreightLine.GetValueOrDefault())
+                    if (headerFilter?.ApplyAdjustmentAs == AdjustmentType.Discount && !orgLine.IsFreightLine.GetValueOrDefault(false))
                     {
                         line.CuryDiscAmt = PXPriceCostAttribute.Round((decimal)((orgLine.OrderQty * orgLine.CuryUnitPrice) - line.CuryExtPrice));
                     }
@@ -676,7 +676,7 @@ namespace PX.PricingAnalysis.Ext
                 row.MarginPercent = PXPriceCostAttribute.Round((decimal)((row.CuryLineAmt.GetValueOrDefault(0) > 0) ? ((row.CuryLineAmt - row.CuryExtCost) / row.CuryLineAmt) * 100 : 0));
             }
             //Discount is changed
-            else if (!sender.ObjectsEqual<PricingAnalysisPreviewLine.curyDiscAmt>(row, oldrow) && !row.IsFreightLine.GetValueOrDefault())
+            else if (!sender.ObjectsEqual<PricingAnalysisPreviewLine.curyDiscAmt>(row, oldrow) && !row.IsFreightLine.GetValueOrDefault(false))
             {
                 row.CuryLineAmt = PXPriceCostAttribute.Round((decimal)((row.CuryUnitPrice * row.OrderQty) - row.CuryDiscAmt));
                 row.CuryProfit = PXPriceCostAttribute.Round((decimal)(row.CuryLineAmt - row.CuryExtCost));
@@ -691,7 +691,7 @@ namespace PX.PricingAnalysis.Ext
                 row.CuryProfit = PXPriceCostAttribute.Round((decimal)(row.CuryLineAmt - row.CuryExtCost));
                 row.MarkupPercent = PXPriceCostAttribute.Round((decimal)((row.CuryExtCost.GetValueOrDefault(0) > 0) ? ((row.CuryLineAmt - row.CuryExtCost) / row.CuryExtCost) * 100 : 0));
                 row.MarginPercent = PXPriceCostAttribute.Round((decimal)((row.CuryLineAmt.GetValueOrDefault(0) > 0) ? ((row.CuryLineAmt - row.CuryExtCost) / row.CuryLineAmt) * 100 : 0));
-                if (previewHeader.ApplyAdjustmentAs == AdjustmentType.Discount && !row.IsFreightLine.GetValueOrDefault())
+                if (previewHeader.ApplyAdjustmentAs == AdjustmentType.Discount && !row.IsFreightLine.GetValueOrDefault(false))
                 {
                     row.CuryDiscAmt = PXPriceCostAttribute.Round((decimal)((row.CuryUnitPrice * row.OrderQty) - row.CuryLineAmt));
                 }
@@ -706,7 +706,7 @@ namespace PX.PricingAnalysis.Ext
                 row.CuryLineAmt = PXPriceCostAttribute.Round((decimal)(row.CuryExtCost + row.CuryProfit));
                 row.MarkupPercent = PXPriceCostAttribute.Round((decimal)((row.CuryExtCost.GetValueOrDefault(0) > 0) ? ((row.CuryLineAmt - row.CuryExtCost) / row.CuryExtCost) * 100 : 0));
                 row.MarginPercent = PXPriceCostAttribute.Round((decimal)((row.CuryLineAmt.GetValueOrDefault(0) > 0) ? ((row.CuryLineAmt - row.CuryExtCost) / row.CuryLineAmt) * 100 : 0));
-                if (previewHeader.ApplyAdjustmentAs == AdjustmentType.Discount && !row.IsFreightLine.GetValueOrDefault())
+                if (previewHeader.ApplyAdjustmentAs == AdjustmentType.Discount && !row.IsFreightLine.GetValueOrDefault(false))
                 {
                     row.CuryDiscAmt = PXPriceCostAttribute.Round((decimal)((row.CuryUnitPrice * row.OrderQty) - row.CuryLineAmt));
                 }
@@ -721,7 +721,7 @@ namespace PX.PricingAnalysis.Ext
                 row.CuryProfit = PXPriceCostAttribute.Round((decimal)((row.MarkupPercent * row.CuryExtCost) / 100));
                 row.CuryLineAmt = PXPriceCostAttribute.Round((decimal)(row.CuryExtCost + row.CuryProfit));
                 row.MarginPercent = PXPriceCostAttribute.Round((decimal)((row.CuryLineAmt.GetValueOrDefault(0) > 0) ? ((row.CuryLineAmt - row.CuryExtCost) / row.CuryLineAmt) * 100 : 0));
-                if (previewHeader.ApplyAdjustmentAs == AdjustmentType.Discount && !row.IsFreightLine.GetValueOrDefault())
+                if (previewHeader.ApplyAdjustmentAs == AdjustmentType.Discount && !row.IsFreightLine.GetValueOrDefault(false))
                 {
                     row.CuryDiscAmt = PXPriceCostAttribute.Round((decimal)((row.CuryUnitPrice * row.OrderQty) - row.CuryLineAmt));
                 }
@@ -736,7 +736,7 @@ namespace PX.PricingAnalysis.Ext
                 row.CuryLineAmt = PXPriceCostAttribute.Round((decimal)(row.CuryExtCost / (1 - (row.MarginPercent) / 100)));
                 row.CuryProfit = PXPriceCostAttribute.Round((decimal)(row.CuryLineAmt - row.CuryExtCost));
                 row.MarkupPercent = PXPriceCostAttribute.Round((decimal)((row.CuryExtCost.GetValueOrDefault(0) > 0) ? ((row.CuryLineAmt - row.CuryExtCost) / row.CuryExtCost) * 100 : 0));
-                if (previewHeader.ApplyAdjustmentAs == AdjustmentType.Discount && !row.IsFreightLine.GetValueOrDefault())
+                if (previewHeader.ApplyAdjustmentAs == AdjustmentType.Discount && !row.IsFreightLine.GetValueOrDefault(false))
                 {
                     row.CuryDiscAmt = PXPriceCostAttribute.Round((decimal)((row.CuryUnitPrice * row.OrderQty) - row.CuryLineAmt));
                 }
@@ -801,9 +801,9 @@ namespace PX.PricingAnalysis.Ext
             bool canEdit = DocumentLineData.BaseSelect.AllowUpdate;
             bool bAllowEdit = data.LineType == ProfitLineType.PreviewLineType && canEdit;
             bool bAllowEditPrice = bAllowEdit && ((PricingAnalysisPreviewHeaderFilter.Current?.ApplyAdjustmentAs == AdjustmentType.Price)
-                                                || (PricingAnalysisPreview.Current != null && PricingAnalysisPreview.Current.IsFreightLine.GetValueOrDefault()));
+                                                || (PricingAnalysisPreview.Current != null && PricingAnalysisPreview.Current.IsFreightLine.GetValueOrDefault(false)));
             bool bAllowEditDisc = bAllowEdit && (PricingAnalysisPreviewHeaderFilter.Current?.ApplyAdjustmentAs == AdjustmentType.Discount)
-                                                 && PricingAnalysisPreview.Current != null && !PricingAnalysisPreview.Current.IsFreightLine.GetValueOrDefault();
+                                                 && PricingAnalysisPreview.Current != null && !PricingAnalysisPreview.Current.IsFreightLine.GetValueOrDefault(false);
             PXUIFieldAttribute.SetEnabled<PricingAnalysisPreviewLine.curyUnitPrice>(sender, data, bAllowEditPrice);
             PXUIFieldAttribute.SetEnabled<PricingAnalysisPreviewLine.curyDiscAmt>(sender, data, bAllowEditDisc);
             PXUIFieldAttribute.SetEnabled<PricingAnalysisPreviewLine.curyLineAmt>(sender, data, bAllowEdit);
@@ -872,7 +872,7 @@ namespace PX.PricingAnalysis.Ext
 
         public void _(Events.FieldDefaulting<PricingAnalysisPreviewLine, PricingAnalysisPreviewLine.enablePriceAnalysisByLine> e)
         {
-            if (e.Row.IsFreightLine.GetValueOrDefault())
+            if (e.Row.IsFreightLine.GetValueOrDefault(false))
             {
                 e.NewValue = DocumentData.Current != null && DocumentData.Current.OverrideFreightAmount.GetValueOrDefault();
             }
@@ -906,7 +906,7 @@ namespace PX.PricingAnalysis.Ext
 
                 foreach (PricingAnalysisPreviewLine line in PricingAnalysisPreview.Cache.Updated)
                 {
-                    if (line.IsFreightLine.GetValueOrDefault())
+                    if (line.IsFreightLine.GetValueOrDefault(false))
                     {
                         soDoc.CuryFreightAmt = line.CuryUnitPrice - soDoc.CuryPremiumFreightAmt;
                         DocumentData.Update(soDoc);
