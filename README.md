@@ -81,6 +81,23 @@ Default Adjustment Type and Default Pricing By can be specified in Accounts Rece
 
 ![Screenshot](/_ReadMeImages/Image6-Preference.png)
 
+
+#### Pricing Adjustment types
+
+The extension provides two ways for calculating profitability of prices.
+
+Based on:
+* Price 
+* Discount
+
+![Screenshot](/_ReadMeImages/Image11-apply-adjustments.PNG)
+
+A user can pick the desired adjustment type by selecting option on the "Apply Adjustments As" options list.
+
+#### Note
+It is important to note that when you change the adjustment type, the unapplied adjustments made on the table will be reset to the current amounts.
+
+
 ### Profitability for Freight Prices
 
 This feature is available on Sales Orders screens (SO301000) with Open status. It facilitates the user to identify / calculate the profitability of pricing on freight charges.
@@ -118,6 +135,7 @@ Clicking on Apply, will update the Freight Price in document.
 
 * Freight Price = Unit Price - Premium Freight Price
 * Premium Freight Price = Will not be amended
+
 
 
 Known Issues
