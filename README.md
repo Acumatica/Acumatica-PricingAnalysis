@@ -75,22 +75,6 @@ Pricing Ruler grid displays the pricing analysis and user can choose to use the 
 
 ![Screenshot](/_ReadMeImages/Image5-LinePricingRuler.png)
 
-##### Pricing Adjustment types
-
-The extension provides two ways for calculating profitability of prices.
-
-Based on:
-* Price 
-* Discount
-
-![Screenshot](/_ReadMeImages/Image11-apply-adjustments.PNG)
-
-A user can pick the desired adjustment type by selecting option on the "Apply Adjustments As" options list.
-
-#### Note
-It is important to note that when you change the adjustment type, the unapplied adjustments made on the table will be reset to the current amounts.
-
-
 
 ### Pricing Analysis Preferences
 
@@ -125,19 +109,38 @@ Freight price information is shown on the table in two lines
 
 Freight pricing fields are calculated as follows in the freight price lines:
 
-* Unit Price = Freight Price + Premium Freight Price
-* Cost Amount = Freight Cost
-* Amount = Unit Price
-* Discount = Will not be applicable for freight price calculations
+| `Unit Price` | Total of `Freight Price` and the `Premium Freight Price` on SO |
+| `Discount` | Does not apply for freight price profitability calculations |
+| `Amount` | Same as `Unit Price` above |
+| `Cost Amount` | `Freight Cost` on OS |
+| Profit Amount | System Calculated |
+| Markup | System Calculated |
+| Margin | System Calculated |
+\* SO - Sales Order
 
 ![Screenshot](/_ReadMeImages/Image10-freight-price-discounts-warning.PNG)
 
 
 Clicking on Apply, will update the Freight Price in document.
 
-* Freight Price = Unit Price - Premium Freight Price
-* Premium Freight Price = Will not be amended
+| `Freight Price` on SO | Calculated `Unit Price` after deducting `Premium Freight Price` on SO |
+| `Premium Freight Price` on SO | Will not be changed |
+\* SO - Sales Order
 
+##### Pricing Adjustment types
+
+The extension provides two ways for calculating profitability of prices.
+
+Based on:
+* Price 
+* Discount
+
+![Screenshot](/_ReadMeImages/Image11-apply-adjustments.PNG)
+
+A user can pick the desired adjustment type by selecting option on the "Apply Adjustments As" options list.
+
+#### Note
+It is important to note that when you change the adjustment type, the unapplied adjustments will be reset.
 
 
 Known Issues
