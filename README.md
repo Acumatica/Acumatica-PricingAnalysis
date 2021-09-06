@@ -115,10 +115,12 @@ Freight pricing fields are calculated as follows in the freight price lines:
 | `Discount` | Does not apply for freight price profitability calculations |
 | `Amount` | Same as `Unit Price` above |
 | `Cost Amount` | `Freight Cost` on OS |
-| Profit Amount | System Calculated |
-| Markup | System Calculated |
-| Margin | System Calculated |
+| `Profit Amount` | System Calculated |
+| `Markup` | System Calculated |
+| `Margin` | System Calculated |
 ###### \* SO - Sales Order
+
+Discount based price profitability calculations will not be applicable for freight price.
 
 ![Screenshot](/_ReadMeImages/Image10-freight-price-discounts-warning.PNG)
 
@@ -127,11 +129,12 @@ Clicking on Apply, will update the Freight Price in document.
 
 | Field on SO | Description |
 | :--- | :--- |
-| `Freight Price` on SO | Calculated `Unit Price` after deducting `Premium Freight Price` on SO |
+| `Freight Price` on SO | Calculated `Unit Price` on price analysis tool after deducting `Premium Freight Price` on SO |
 | `Premium Freight Price` on SO | Will not be changed |
 ###### \* SO - Sales Order
 
-##### Pricing Adjustment types
+
+### Pricing Adjustment types
 
 The extension provides two ways for calculating profitability of prices.
 
