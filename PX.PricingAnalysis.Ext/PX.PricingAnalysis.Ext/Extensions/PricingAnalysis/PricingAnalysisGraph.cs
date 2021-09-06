@@ -222,8 +222,8 @@ namespace PX.PricingAnalysis.Ext
             ProfitAnalysisByLineSetting settings = ProfitAnalysisSettingFilterByLine.Current;
             if (PricingAnalysisPreview.Current?.IsFreightLine ?? false)
             {
-                settings.InventoryIDDisplay = Constants.FreightLineText;
-                settings.InventoryDescription = Constants.FreightLineDescription;
+                settings.InventoryIDDisplay = Messages.FreightLineText;
+                settings.InventoryDescription = Messages.FreightLineDescription;
             }
             else
             {
@@ -319,8 +319,8 @@ namespace PX.PricingAnalysis.Ext
             {
                 RecordID = currentRecordCounter++,
                 LineType = ProfitLineType.CurrentLineType,
-                InventoryIDDisplay = Constants.FreightLineText,
-                InventoryDescription = Constants.FreightLineDescription,
+                InventoryIDDisplay = Messages.FreightLineText,
+                InventoryDescription = Messages.FreightLineDescription,
                 IsFreightLine = true,
                 UOM = "EA",
                 OrderQty = 1,
@@ -897,7 +897,7 @@ namespace PX.PricingAnalysis.Ext
                 graph.Views[viewName].ClearDialog();
             }, DialogAnswerType.Positive, true))
             {
-                bool canEdit = DocumentData.BaseSelect.AllowUpdate && DocumentLineData.BaseSelect.AllowUpdate;
+                bool canEdit = DocumentData.BaseSelect.AllowUpdate;
                 if (!canEdit) { return adapter.Get(); }
 
                 Document soDoc = DocumentData.Current;

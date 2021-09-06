@@ -29,7 +29,7 @@ namespace PX.PricingAnalysis.Ext
 
 		#region IsFreightLine
 		public abstract class isFreightLine : PX.Data.BQL.BqlBool.Field<isFreightLine> { }
-		[PXBool]
+		[PXUnboundDefault(false, PersistingCheck = PXPersistingCheck.Nothing)]
 		public virtual bool? IsFreightLine { get; set; }
 		#endregion
 
@@ -37,7 +37,7 @@ namespace PX.PricingAnalysis.Ext
 		public abstract class enablePriceAnalysisByLine : PX.Data.BQL.BqlBool.Field<enablePriceAnalysisByLine> { }
 		[PXBool]
 		[PXUIField]
-		[PXUnboundDefault(true)]
+		[PXUnboundDefault(true, PersistingCheck = PXPersistingCheck.Nothing)]
 		[PXFormula(typeof(Default<isFreightLine>))]
 		public virtual bool? EnablePriceAnalysisByLine { get; set; }
 		#endregion

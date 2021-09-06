@@ -26,5 +26,8 @@ namespace PX.PricingAnalysis.Ext
 
 		public const string ApplyAdjustmentDiscountChangeFreightWarning = "Adjustments are always based on price for Freight.";
 
+		public const string FreightLineText = "Freight";
+		public const string FreightLineDescription = "Freight Charges";
+
 	}
 }

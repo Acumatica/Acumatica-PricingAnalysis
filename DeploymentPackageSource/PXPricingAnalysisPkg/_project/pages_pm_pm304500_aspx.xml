@@ -410,7 +410,7 @@
                                     <AddItem>
                                         <PXTextEdit TypeFullName="PX.Web.UI.PXTextEdit">
                                             <Prop Key="Virtual:ApplyStylesheetSkin" />
-                                            <Prop Key="ID" Value="CstPXTextEdit3" />
+                                            <Prop Key="ID" Value="edfrmPABInventoryIDValue" />
                                             <Prop Key="DataField" Value="InventoryIDDisplay" />
                                             <Prop Key="Enabled" Value="False" />
                                         </PXTextEdit>
@@ -418,7 +418,7 @@
                                     <AddItem>
                                         <PXTextEdit TypeFullName="PX.Web.UI.PXTextEdit">
                                             <Prop Key="Virtual:ApplyStylesheetSkin" />
-                                            <Prop Key="ID" Value="CstPXTextEdit2" />
+                                            <Prop Key="ID" Value="edfrmPABInventoryID" />
                                             <Prop Key="DataField" Value="InventoryDescription" />
                                             <Prop Key="Enabled" Value="False" />
                                         </PXTextEdit>
