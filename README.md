@@ -75,14 +75,7 @@ Pricing Ruler grid displays the pricing analysis and user can choose to use the 
 
 ![Screenshot](/_ReadMeImages/Image5-LinePricingRuler.png)
 
-### Pricing Analysis Preferences
-
-Default Adjustment Type and Default Pricing By can be specified in Accounts Receivable Preferences (AR101000) -> Price/Discount Settings -> Pricing Analysis
-
-![Screenshot](/_ReadMeImages/Image6-Preference.png)
-
-
-#### Pricing Adjustment types
+##### Pricing Adjustment types
 
 The extension provides two ways for calculating profitability of prices.
 
@@ -96,6 +89,15 @@ A user can pick the desired adjustment type by selecting option on the "Apply Ad
 
 #### Note
 It is important to note that when you change the adjustment type, the unapplied adjustments made on the table will be reset to the current amounts.
+
+
+
+### Pricing Analysis Preferences
+
+Default Adjustment Type and Default Pricing By can be specified in Accounts Receivable Preferences (AR101000) -> Price/Discount Settings -> Pricing Analysis
+
+![Screenshot](/_ReadMeImages/Image6-Preference.png)
+
 
 
 ### Profitability for Freight Prices
