@@ -120,6 +120,8 @@ Freight pricing fields are calculated as follows in the freight price lines:
 | Margin | System Calculated |
 ###### \* SO - Sales Order
 
+Discount based price profitability calculations will not be applicable for freight price.
+
 ![Screenshot](/_ReadMeImages/Image10-freight-price-discounts-warning.PNG)
 
 
@@ -127,7 +129,7 @@ Clicking on Apply, will update the Freight Price in document.
 
 | Field on SO | Description |
 | :--- | :--- |
-| `Freight Price` on SO | Calculated `Unit Price` after deducting `Premium Freight Price` on SO |
+| `Freight Price` on SO | Calculated `Unit Price` on Price Analysis tool after deducting `Premium Freight Price` on SO |
 | `Premium Freight Price` on SO | Will not be changed |
 ###### \* SO - Sales Order
 
