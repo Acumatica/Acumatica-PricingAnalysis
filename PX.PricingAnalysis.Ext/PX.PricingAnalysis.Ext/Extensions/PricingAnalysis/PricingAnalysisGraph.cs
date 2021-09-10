@@ -370,6 +370,8 @@ namespace PX.PricingAnalysis.Ext
             decimal? costTotal = 0;
             decimal? amountTotal = 0;
 
+            bool isOverrideFreightPriceEnabled = DocumentData.Current?.OverrideFreightAmount.GetValueOrDefault(false) ?? false;
+
             foreach (PricingAnalysisPreviewLine data in PricingAnalysisPreview.Select())
             {
                 if (data.LineType == ProfitLineType.PreviewLineType)
@@ -383,6 +385,15 @@ namespace PX.PricingAnalysis.Ext
                     cprofitTotal += data.CuryProfit ?? Decimal.Zero;
                     ccostTotal += data.CuryExtCost ?? Decimal.Zero;
                     camountTotal += data.CuryLineAmt ?? Decimal.Zero;
+
+                    //Adjustment when OverrideFreightPrice is disabled on Sales Order
+                    //Add freight price details to preview totals
+                    if (data.IsFreightLine.GetValueOrDefault(false) && !isOverrideFreightPriceEnabled)
+                    {
+                        profitTotal += data.CuryProfit ?? Decimal.Zero;
+                        costTotal += data.CuryExtCost ?? Decimal.Zero;
+                        amountTotal += data.CuryLineAmt ?? Decimal.Zero;
+                    }
                 }
             }
 
