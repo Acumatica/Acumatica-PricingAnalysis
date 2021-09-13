@@ -114,7 +114,7 @@ Freight pricing fields are calculated as follows in the freight price lines:
 | `Unit Price` | Total of `Freight Price` and the `Premium Freight Price` on SO |
 | `Discount` | Does not apply for freight price profitability calculations |
 | `Amount` | Same as `Unit Price` above |
-| `Cost Amount` | `Freight Cost` on OS |
+| `Cost Amount` | `Freight Cost` on SO |
 | `Profit Amount` | System Calculated |
 | `Markup` | System Calculated |
 | `Margin` | System Calculated |
