@@ -908,7 +908,7 @@ namespace PX.PricingAnalysis.Ext
                 graph.Views[viewName].ClearDialog();
             }, DialogAnswerType.Positive, true))
             {
-                bool canEdit = DocumentData.BaseSelect.AllowUpdate;
+                bool canEdit = DocumentLineData.BaseSelect.AllowUpdate;
                 if (!canEdit) { return adapter.Get(); }
 
                 Document soDoc = DocumentData.Current;
