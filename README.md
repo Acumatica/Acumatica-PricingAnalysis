@@ -100,7 +100,7 @@ The preview line for amending the freight price will be available ONLY if the us
 ![Screenshot](/_ReadMeImages/Image7-OverrideFreightPrice.PNG)
 
 
-Freight price information is shown on the table in two lines 
+Freight price information is shown on the grid in two rows 
 1. Current Line – non-editable
 2. Preview Line – Where Margin %, Markup %, Line Profit and Amount are editable
 
