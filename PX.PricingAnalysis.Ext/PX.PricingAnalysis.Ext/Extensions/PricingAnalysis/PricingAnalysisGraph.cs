@@ -1,4 +1,5 @@
 ﻿using PX.Data;
+using PX.Data.BQL.Fluent;
 using PX.Objects.IN;
 using PX.Web.UI;
 using System;
@@ -19,6 +20,8 @@ namespace PX.PricingAnalysis.Ext
     {
         public PXSelectExtension<Document> DocumentData;
         public PXSelectExtension<DocumentLine> DocumentLineData;
+
+        protected virtual bool CalcFreightPrices => false;
 
         #region SmartPanel Styling
         public override void Initialize()
@@ -156,7 +159,7 @@ namespace PX.PricingAnalysis.Ext
 
         [PXCopyPasteHiddenView]
         [PXVirtualDAC]
-        public PXSelect<PricingAnalysisPreviewHeaderInfo, Where<True, Equal<True>>, 
+        public PXSelect<PricingAnalysisPreviewHeaderInfo, Where<True, Equal<True>>,
                     OrderBy<Asc<PricingAnalysisPreviewHeaderInfo.headerInfoID>>> PricingAnalysisPreviewHeaderRecs;
 
         [PXCopyPasteHiddenView]
@@ -217,7 +220,22 @@ namespace PX.PricingAnalysis.Ext
         public IEnumerable profitAnalysisSettingFilterByLine()
         {
             ProfitAnalysisByLineSetting settings = ProfitAnalysisSettingFilterByLine.Current;
-            settings.InventoryID = PricingAnalysisPreview.Current?.InventoryID;
+            if (PricingAnalysisPreview.Current?.IsFreightLine ?? false)
+            {
+                settings.InventoryIDDisplay = Messages.FreightLineText;
+                settings.InventoryDescription = Messages.FreightLineDescription;
+            }
+            else
+            {
+                var inventoryItem = InventoryItem.PK.Find(Base, PricingAnalysisPreview.Current?.InventoryID);
+                if (inventoryItem != null)
+                {
+                    settings.InventoryID = inventoryItem?.InventoryID;
+                    settings.InventoryIDDisplay = inventoryItem?.InventoryCD;
+                    settings.InventoryDescription = inventoryItem?.Descr;
+                }
+            }
+
             ProfitAnalysisSettingFilterByLine.UpdateCurrent();
 
             ProfitAnalysisSettingFilterByLine.Cache.IsDirty = false;
@@ -249,13 +267,16 @@ namespace PX.PricingAnalysis.Ext
             {
                 if (!orgLine.IsStockItem.GetValueOrDefault(false) || orgLine.OrderQty.GetValueOrDefault(0) <= 0) { continue; }
 
+                var inventoryItem = InventoryItem.PK.Find(Base, orgLine.InventoryID);
+
                 PricingAnalysisPreviewLine line = new PricingAnalysisPreviewLine()
                 {
                     RecordID = iRecordCounter++,
                     LineNbr = orgLine.LineNbr,
                     LineType = ProfitLineType.CurrentLineType,
                     InventoryID = orgLine.InventoryID,
-                    InventoryIDDisplay = orgLine.InventoryID,
+                    InventoryIDDisplay = inventoryItem.InventoryCD,
+                    InventoryDescription = inventoryItem.Descr,
                     IsLastCostUsed = orgLine.IsLastCostUsed,
                     UOM = orgLine.UOM,
                     OrderQty = orgLine.OrderQty,
@@ -276,12 +297,64 @@ namespace PX.PricingAnalysis.Ext
                 prvLine.RecordID = iRecordCounter++;
                 prvLine.LineType = ProfitLineType.PreviewLineType;
                 prvLine.InventoryIDDisplay = null;
+                prvLine.InventoryDescription = null;
                 prvLine.OrderQtyDisplay = null;
                 prvLine.UOM = null;
                 prvLine.CuryExtCostDisplay = null;
                 prvLine = PricingAnalysisPreview.Insert(prvLine);
                 PricingAnalysisPreview.Cache.SetStatus(prvLine, PXEntryStatus.Held);
             }
+
+            InitializeFreightPreviewData(iRecordCounter);
+        }
+
+        protected virtual void InitializeFreightPreviewData(int currentRecordCounter)
+        {
+            if (!CalcFreightPrices) { return; }
+
+            Document freightDetail = DocumentData.Current;
+            if (freightDetail == null) { return; }
+
+            PricingAnalysisPreviewLine record = new PricingAnalysisPreviewLine()
+            {
+                RecordID = currentRecordCounter++,
+                LineType = ProfitLineType.CurrentLineType,
+                InventoryIDDisplay = Messages.FreightLineText,
+                InventoryDescription = Messages.FreightLineDescription,
+                IsFreightLine = true,
+                UOM = "EA",
+                OrderQty = 1,
+                OrderQtyDisplay = 1,
+                CuryDiscAmt = 0,
+                CuryUnitPrice = freightDetail.CuryFreightTot,
+                CuryExtCost = freightDetail.CuryFreightCost,
+                CuryExtCostDisplay = freightDetail.CuryFreightCost,
+                CuryLineAmt = freightDetail.CuryFreightTot,
+                CuryProfit = freightDetail.CuryFreightTot - freightDetail.CuryFreightCost,
+                MarkupPercent = PXPriceCostAttribute.Round((decimal)((freightDetail.CuryFreightCost != 0) ? ((freightDetail.CuryFreightTot - freightDetail.CuryFreightCost) / freightDetail.CuryFreightCost) * 100 : 0m)),
+                MarginPercent = PXPriceCostAttribute.Round((decimal)((freightDetail.CuryFreightTot != 0) ? ((freightDetail.CuryFreightTot - freightDetail.CuryFreightCost) / freightDetail.CuryFreightTot) * 100 : 0m))
+            };
+
+            record = PricingAnalysisPreview.Insert(record);
+            PricingAnalysisPreview.Cache.SetStatus(record, PXEntryStatus.Held);
+
+            if (!freightDetail.OverrideFreightAmount.GetValueOrDefault(false))
+            {
+                return;
+            }
+
+            PricingAnalysisPreviewLine recordPrvLine = PXCache<PricingAnalysisPreviewLine>.CreateCopy(record);
+            recordPrvLine.RecordID = currentRecordCounter++;
+            recordPrvLine.LineType = ProfitLineType.PreviewLineType;
+            recordPrvLine.IsFreightLine = true;
+            recordPrvLine.InventoryIDDisplay = null;
+            recordPrvLine.InventoryDescription = null;
+            recordPrvLine.OrderQtyDisplay = null;
+            recordPrvLine.UOM = null;
+            recordPrvLine.CuryExtCostDisplay = null;
+
+            recordPrvLine = PricingAnalysisPreview.Insert(recordPrvLine);
+            PricingAnalysisPreview.Cache.SetStatus(recordPrvLine, PXEntryStatus.Held);
         }
 
         public virtual void RefreshHeaderTotal()
@@ -297,6 +370,8 @@ namespace PX.PricingAnalysis.Ext
             decimal? costTotal = 0;
             decimal? amountTotal = 0;
 
+            bool isOverrideFreightPriceEnabled = DocumentData.Current?.OverrideFreightAmount.GetValueOrDefault(false) ?? false;
+
             foreach (PricingAnalysisPreviewLine data in PricingAnalysisPreview.Select())
             {
                 if (data.LineType == ProfitLineType.PreviewLineType)
@@ -310,6 +385,15 @@ namespace PX.PricingAnalysis.Ext
                     cprofitTotal += data.CuryProfit ?? Decimal.Zero;
                     ccostTotal += data.CuryExtCost ?? Decimal.Zero;
                     camountTotal += data.CuryLineAmt ?? Decimal.Zero;
+
+                    //Adjustment when OverrideFreightPrice is disabled on Sales Order
+                    //Add freight price details to preview totals
+                    if (data.IsFreightLine.GetValueOrDefault(false) && !isOverrideFreightPriceEnabled)
+                    {
+                        profitTotal += data.CuryProfit ?? Decimal.Zero;
+                        costTotal += data.CuryExtCost ?? Decimal.Zero;
+                        amountTotal += data.CuryLineAmt ?? Decimal.Zero;
+                    }
                 }
             }
 
@@ -392,9 +476,9 @@ namespace PX.PricingAnalysis.Ext
                         CuryDiscAmt = orgLine.CuryDiscAmt,
                         MarkupPercent = i,
                         CuryProfit = PXPriceCostAttribute.Round((decimal)((i * orgLine.CuryExtCost) / 100)),
-                        CuryExtPrice = PXPriceCostAttribute.Round((decimal)(orgLine.CuryExtCost + (i * orgLine.CuryExtCost) / 100))                        
+                        CuryExtPrice = PXPriceCostAttribute.Round((decimal)(orgLine.CuryExtCost + (i * orgLine.CuryExtCost) / 100))
                     };
-                    if (headerFilter?.ApplyAdjustmentAs == AdjustmentType.Discount)
+                    if (headerFilter?.ApplyAdjustmentAs == AdjustmentType.Discount && !orgLine.IsFreightLine.GetValueOrDefault(false))
                     {
                         line.CuryDiscAmt = PXPriceCostAttribute.Round((decimal)((orgLine.OrderQty * orgLine.CuryUnitPrice) - line.CuryExtPrice));
                     }
@@ -421,7 +505,7 @@ namespace PX.PricingAnalysis.Ext
                         CuryExtPrice = PXPriceCostAttribute.Round((decimal)(orgLine.CuryExtCost / (1 - (iMargin / 100)))),
                         CuryProfit = PXPriceCostAttribute.Round((decimal)((orgLine.CuryExtCost / (1 - (iMargin / 100))) - orgLine.CuryExtCost)),
                     };
-                    if (headerFilter?.ApplyAdjustmentAs == AdjustmentType.Discount)
+                    if (headerFilter?.ApplyAdjustmentAs == AdjustmentType.Discount && !orgLine.IsFreightLine.GetValueOrDefault(false))
                     {
                         line.CuryDiscAmt = PXPriceCostAttribute.Round((decimal)((orgLine.OrderQty * orgLine.CuryUnitPrice) - line.CuryExtPrice));
                     }
@@ -557,6 +641,19 @@ namespace PX.PricingAnalysis.Ext
         #endregion
 
         #region Event Handlers
+        public void _(Events.FieldUpdated<PricingAnalysisPreviewHeader, PricingAnalysisPreviewHeader.applyAdjustmentAs> e)
+        {
+            var currentHeaderRecs = e.Row;
+            if (!(currentHeaderRecs?.CuryAmountTotal == currentHeaderRecs?.CuryAmountTotalCurrent &&
+                  currentHeaderRecs?.CuryProfitTotal == currentHeaderRecs?.CuryProfitTotalCurrent &&
+                  currentHeaderRecs?.MarginPercentCurrent == currentHeaderRecs?.MarginPercentPreview &&
+                  currentHeaderRecs?.MarkupPercentCurrent == currentHeaderRecs?.MarkupPercentPreview) &&
+                  e.NewValue != e.OldValue)
+            {
+                PricingAnalysisPreview.Cache.Clear();
+                PricingAnalysisPreview.Cache.ClearQueryCache();
+            }
+        }
 
         public void _(Events.FieldVerifying<PricingAnalysisPreviewLine.marginPercent> e)
         {
@@ -590,7 +687,7 @@ namespace PX.PricingAnalysis.Ext
                 row.MarginPercent = PXPriceCostAttribute.Round((decimal)((row.CuryLineAmt.GetValueOrDefault(0) > 0) ? ((row.CuryLineAmt - row.CuryExtCost) / row.CuryLineAmt) * 100 : 0));
             }
             //Discount is changed
-            else if (!sender.ObjectsEqual<PricingAnalysisPreviewLine.curyDiscAmt>(row, oldrow))
+            else if (!sender.ObjectsEqual<PricingAnalysisPreviewLine.curyDiscAmt>(row, oldrow) && !row.IsFreightLine.GetValueOrDefault(false))
             {
                 row.CuryLineAmt = PXPriceCostAttribute.Round((decimal)((row.CuryUnitPrice * row.OrderQty) - row.CuryDiscAmt));
                 row.CuryProfit = PXPriceCostAttribute.Round((decimal)(row.CuryLineAmt - row.CuryExtCost));
@@ -605,7 +702,7 @@ namespace PX.PricingAnalysis.Ext
                 row.CuryProfit = PXPriceCostAttribute.Round((decimal)(row.CuryLineAmt - row.CuryExtCost));
                 row.MarkupPercent = PXPriceCostAttribute.Round((decimal)((row.CuryExtCost.GetValueOrDefault(0) > 0) ? ((row.CuryLineAmt - row.CuryExtCost) / row.CuryExtCost) * 100 : 0));
                 row.MarginPercent = PXPriceCostAttribute.Round((decimal)((row.CuryLineAmt.GetValueOrDefault(0) > 0) ? ((row.CuryLineAmt - row.CuryExtCost) / row.CuryLineAmt) * 100 : 0));
-                if (previewHeader.ApplyAdjustmentAs == AdjustmentType.Discount)
+                if (previewHeader.ApplyAdjustmentAs == AdjustmentType.Discount && !row.IsFreightLine.GetValueOrDefault(false))
                 {
                     row.CuryDiscAmt = PXPriceCostAttribute.Round((decimal)((row.CuryUnitPrice * row.OrderQty) - row.CuryLineAmt));
                 }
@@ -620,7 +717,7 @@ namespace PX.PricingAnalysis.Ext
                 row.CuryLineAmt = PXPriceCostAttribute.Round((decimal)(row.CuryExtCost + row.CuryProfit));
                 row.MarkupPercent = PXPriceCostAttribute.Round((decimal)((row.CuryExtCost.GetValueOrDefault(0) > 0) ? ((row.CuryLineAmt - row.CuryExtCost) / row.CuryExtCost) * 100 : 0));
                 row.MarginPercent = PXPriceCostAttribute.Round((decimal)((row.CuryLineAmt.GetValueOrDefault(0) > 0) ? ((row.CuryLineAmt - row.CuryExtCost) / row.CuryLineAmt) * 100 : 0));
-                if (previewHeader.ApplyAdjustmentAs == AdjustmentType.Discount)
+                if (previewHeader.ApplyAdjustmentAs == AdjustmentType.Discount && !row.IsFreightLine.GetValueOrDefault(false))
                 {
                     row.CuryDiscAmt = PXPriceCostAttribute.Round((decimal)((row.CuryUnitPrice * row.OrderQty) - row.CuryLineAmt));
                 }
@@ -635,7 +732,7 @@ namespace PX.PricingAnalysis.Ext
                 row.CuryProfit = PXPriceCostAttribute.Round((decimal)((row.MarkupPercent * row.CuryExtCost) / 100));
                 row.CuryLineAmt = PXPriceCostAttribute.Round((decimal)(row.CuryExtCost + row.CuryProfit));
                 row.MarginPercent = PXPriceCostAttribute.Round((decimal)((row.CuryLineAmt.GetValueOrDefault(0) > 0) ? ((row.CuryLineAmt - row.CuryExtCost) / row.CuryLineAmt) * 100 : 0));
-                if (previewHeader.ApplyAdjustmentAs == AdjustmentType.Discount)
+                if (previewHeader.ApplyAdjustmentAs == AdjustmentType.Discount && !row.IsFreightLine.GetValueOrDefault(false))
                 {
                     row.CuryDiscAmt = PXPriceCostAttribute.Round((decimal)((row.CuryUnitPrice * row.OrderQty) - row.CuryLineAmt));
                 }
@@ -650,7 +747,7 @@ namespace PX.PricingAnalysis.Ext
                 row.CuryLineAmt = PXPriceCostAttribute.Round((decimal)(row.CuryExtCost / (1 - (row.MarginPercent) / 100)));
                 row.CuryProfit = PXPriceCostAttribute.Round((decimal)(row.CuryLineAmt - row.CuryExtCost));
                 row.MarkupPercent = PXPriceCostAttribute.Round((decimal)((row.CuryExtCost.GetValueOrDefault(0) > 0) ? ((row.CuryLineAmt - row.CuryExtCost) / row.CuryExtCost) * 100 : 0));
-                if (previewHeader.ApplyAdjustmentAs == AdjustmentType.Discount)
+                if (previewHeader.ApplyAdjustmentAs == AdjustmentType.Discount && !row.IsFreightLine.GetValueOrDefault(false))
                 {
                     row.CuryDiscAmt = PXPriceCostAttribute.Round((decimal)((row.CuryUnitPrice * row.OrderQty) - row.CuryLineAmt));
                 }
@@ -714,14 +811,26 @@ namespace PX.PricingAnalysis.Ext
 
             bool canEdit = DocumentLineData.BaseSelect.AllowUpdate;
             bool bAllowEdit = data.LineType == ProfitLineType.PreviewLineType && canEdit;
-            bool bAllowEditPrice = bAllowEdit && (PricingAnalysisPreviewHeaderFilter.Current?.ApplyAdjustmentAs == AdjustmentType.Price);
-            bool bAllowEditDisc = bAllowEdit && (PricingAnalysisPreviewHeaderFilter.Current?.ApplyAdjustmentAs == AdjustmentType.Discount);
+            bool bAllowEditPrice = bAllowEdit && ((PricingAnalysisPreviewHeaderFilter.Current?.ApplyAdjustmentAs == AdjustmentType.Price)
+                                                || (PricingAnalysisPreview.Current != null && PricingAnalysisPreview.Current.IsFreightLine.GetValueOrDefault(false)));
+            bool bAllowEditDisc = bAllowEdit && (PricingAnalysisPreviewHeaderFilter.Current?.ApplyAdjustmentAs == AdjustmentType.Discount)
+                                                 && PricingAnalysisPreview.Current != null && !PricingAnalysisPreview.Current.IsFreightLine.GetValueOrDefault(false);
             PXUIFieldAttribute.SetEnabled<PricingAnalysisPreviewLine.curyUnitPrice>(sender, data, bAllowEditPrice);
             PXUIFieldAttribute.SetEnabled<PricingAnalysisPreviewLine.curyDiscAmt>(sender, data, bAllowEditDisc);
             PXUIFieldAttribute.SetEnabled<PricingAnalysisPreviewLine.curyLineAmt>(sender, data, bAllowEdit);
             PXUIFieldAttribute.SetEnabled<PricingAnalysisPreviewLine.curyProfit>(sender, data, bAllowEdit);
             PXUIFieldAttribute.SetEnabled<PricingAnalysisPreviewLine.marginPercent>(sender, data, bAllowEdit && (data.CuryExtCost.GetValueOrDefault(0) > 0));
             PXUIFieldAttribute.SetEnabled<PricingAnalysisPreviewLine.markupPercent>(sender, data, bAllowEdit && (data.CuryExtCost.GetValueOrDefault(0) > 0));
+
+            if (PricingAnalysisPreviewHeaderFilter.Current?.ApplyAdjustmentAs == AdjustmentType.Discount
+                    && (e.Row.IsFreightLine ?? false)
+                    && e.Row.LineType == ProfitLineType.PreviewLineType)
+            {
+                e.Cache.RaiseExceptionHandling<PricingAnalysisPreviewLine.curyDiscAmt>(e.Row,
+                                                e.Row.CuryDiscAmt,
+                                                new PXSetPropertyException(Messages.ApplyAdjustmentDiscountChangeFreightWarning,
+                                                                            PXErrorLevel.RowWarning));
+            }
         }
 
         public void _(Events.RowSelected<ProfitAnalysisByLineSetting> e)
@@ -772,6 +881,13 @@ namespace PX.PricingAnalysis.Ext
             }
         }
 
+        public void _(Events.FieldDefaulting<PricingAnalysisPreviewLine, PricingAnalysisPreviewLine.enablePriceAnalysisByLine> e)
+        {
+            if (e.Row.IsFreightLine.GetValueOrDefault(false))
+            {
+                e.NewValue = DocumentData.Current != null && DocumentData.Current.OverrideFreightAmount.GetValueOrDefault();
+            }
+        }
         #endregion
 
         #region Actions
@@ -795,14 +911,25 @@ namespace PX.PricingAnalysis.Ext
                 bool canEdit = DocumentLineData.BaseSelect.AllowUpdate;
                 if (!canEdit) { return adapter.Get(); }
 
+                Document soDoc = DocumentData.Current;
                 PricingAnalysisPreviewHeader filterData = PricingAnalysisPreviewHeaderFilter.Current;
                 List<DocumentLine> soLines = DocumentLineData.Select().RowCast<DocumentLine>().ToList();
 
                 foreach (PricingAnalysisPreviewLine line in PricingAnalysisPreview.Cache.Updated)
                 {
-                    DocumentLine soline = soLines.Where(x => x.LineNbr == line.LineNbr).FirstOrDefault();
-                    if (soline != null)
+                    if (line.IsFreightLine.GetValueOrDefault(false))
                     {
+                        soDoc.CuryFreightAmt = line.CuryUnitPrice - soDoc.CuryPremiumFreightAmt;
+                        DocumentData.Update(soDoc);
+                    }
+                    else
+                    {
+                        DocumentLine soline = soLines.Where(x => x.LineNbr == line.LineNbr).FirstOrDefault();
+                        if (soline == null)
+                        {
+                            continue;
+                        }
+
                         if (filterData.ApplyAdjustmentAs == AdjustmentType.Discount)
                         {
                             soline.CuryDiscAmt = line.CuryDiscAmt;
@@ -920,6 +1047,11 @@ namespace PX.PricingAnalysis.Ext
 
             public Type NoteID = typeof(Document.noteID);
             public Type UsrEditable = typeof(Document.usrEditable);
+            public Type CuryFreightTot = typeof(Document.curyFreightTot);
+            public Type CuryFreightAmt = typeof(Document.curyFreightAmt);
+            public Type CuryPremiumFreightAmt = typeof(Document.curyFreightAmt);
+            public Type CuryFreightCost = typeof(Document.curyFreightCost);
+            public Type OverrideFreightAmount = typeof(Document.overrideFreightAmount);
         }
 
         protected abstract DocumentLineMapping GetDocumentLineMapping();
@@ -957,6 +1089,36 @@ namespace PX.PricingAnalysis.Ext
         public abstract class usrEditable : PX.Data.BQL.BqlBool.Field<usrEditable> { }
 
         public virtual bool? UsrEditable { get; set; }
+        #endregion
+
+        #region CuryFreightTot
+        public abstract class curyFreightTot : PX.Data.BQL.BqlDecimal.Field<curyFreightTot> { }
+
+        public virtual decimal? CuryFreightTot { get; set; }
+        #endregion
+
+        #region CuryFreightAmt
+        public abstract class curyFreightAmt : PX.Data.BQL.BqlDecimal.Field<curyFreightAmt> { }
+
+        public virtual decimal? CuryFreightAmt { get; set; }
+        #endregion
+
+        #region CuryPremiumFreightAmt
+        public abstract class curyPremiumFreightAmt : PX.Data.BQL.BqlDecimal.Field<curyPremiumFreightAmt> { }
+
+        public virtual decimal? CuryPremiumFreightAmt { get; set; }
+        #endregion
+
+        #region FreightCost
+        public abstract class curyFreightCost : PX.Data.BQL.BqlDecimal.Field<curyFreightCost> { }
+
+        public virtual decimal? CuryFreightCost { get; set; }
+        #endregion
+
+        #region OverrideFreightAmount
+        public abstract class overrideFreightAmount : PX.Data.BQL.BqlBool.Field<overrideFreightAmount> { }
+
+        public virtual bool? OverrideFreightAmount { get; set; }
         #endregion
     }
 

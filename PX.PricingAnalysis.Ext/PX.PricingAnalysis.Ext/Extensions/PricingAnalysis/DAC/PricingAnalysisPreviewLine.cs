@@ -24,14 +24,36 @@ namespace PX.PricingAnalysis.Ext
 
 		#region InventoryID
 		public abstract class inventoryID : PX.Data.BQL.BqlInt.Field<inventoryID> { }
-		[Inventory(DisplayName = "Inventory ID", Enabled = false)]
 		public virtual Int32? InventoryID { get; set; }
 		#endregion
 
+		#region IsFreightLine
+		public abstract class isFreightLine : PX.Data.BQL.BqlBool.Field<isFreightLine> { }
+		[PXUnboundDefault(false, PersistingCheck = PXPersistingCheck.Nothing)]
+		public virtual bool? IsFreightLine { get; set; }
+		#endregion
+
+		#region EnableLinePriceAnalysis
+		public abstract class enablePriceAnalysisByLine : PX.Data.BQL.BqlBool.Field<enablePriceAnalysisByLine> { }
+		[PXBool]
+		[PXUIField]
+		[PXUnboundDefault(true, PersistingCheck = PXPersistingCheck.Nothing)]
+		[PXFormula(typeof(Default<isFreightLine>))]
+		public virtual bool? EnablePriceAnalysisByLine { get; set; }
+		#endregion
+
 		#region InventoryIDDisplay
-		public abstract class inventoryIDDisplay : PX.Data.BQL.BqlInt.Field<inventoryIDDisplay> { }
-		[Inventory(DisplayName = "Inventory ID", Enabled = false)]
-		public virtual Int32? InventoryIDDisplay { get; set; }
+		public abstract class inventoryIDDisplay : PX.Data.BQL.BqlString.Field<inventoryIDDisplay> { }
+		[PXString]
+		[PXUIField(DisplayName = "Inventory ID", Enabled = false)]
+		public virtual String InventoryIDDisplay { get; set; }
+		#endregion
+
+		#region InventoryDescription
+		public abstract class inventoryDescription : PX.Data.BQL.BqlString.Field<inventoryDescription> { }
+		[PXString]
+		[PXUIField(DisplayName = "Description", Enabled = false)]
+		public virtual String InventoryDescription { get; set; }
 		#endregion
 
 		#region LineType

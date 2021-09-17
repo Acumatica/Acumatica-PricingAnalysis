@@ -10,12 +10,21 @@ namespace PX.PricingAnalysis.Ext
     public class ProfitAnalysisByLineSetting : IBqlTable
     {
 		public abstract class inventoryID : PX.Data.BQL.BqlInt.Field<inventoryID> { }
-
-		[AnyInventory(typeof(Search<InventoryItem.inventoryID, 
-								Where<InventoryItem.stkItem, NotEqual<boolFalse>, And<Where<Match<Current<AccessInfo.userName>>>>>>),
-					  typeof(InventoryItem.inventoryCD), typeof(InventoryItem.descr))]
-		[PXUIField(DisplayName = "Inventory")]
 		public virtual int? InventoryID { get; set; }
+
+		#region InventoryIDDisplay
+		public abstract class inventoryIDDisplay : PX.Data.BQL.BqlString.Field<inventoryIDDisplay> { }
+		[PXString]
+		[PXUIField(DisplayName = "Inventory", Enabled = false)]
+		public virtual String InventoryIDDisplay { get; set; }
+		#endregion
+
+		#region InventoryDescription
+		public abstract class inventoryDescription : PX.Data.BQL.BqlString.Field<inventoryDescription> { }
+		[PXString]
+		[PXUIField(DisplayName = "Description", Enabled = false)]
+		public virtual String InventoryDescription { get; set; }
+		#endregion
 
 		public abstract class breakupByHidden : PX.Data.BQL.BqlString.Field<breakupByHidden> { }
 
