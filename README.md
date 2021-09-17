@@ -1,4 +1,4 @@
-[![Project Status](http://source.box.com/badges/active.svg)](http://opensource.box.com/badges)
+[![Project Status](http://opensource.box.com/badges/active.svg)](http://opensource.box.com/badges)
 
 Extension to compare and choose best selling price
 ==================================
