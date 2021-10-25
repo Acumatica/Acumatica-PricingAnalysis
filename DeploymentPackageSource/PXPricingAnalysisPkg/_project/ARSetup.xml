@@ -1,4 +1,0 @@
-﻿<Table TableName="ARSetup">
-    <Column TableName="ARSetup" ColumnName="UsrDefAdjustmentType" ColumnType="string" AllowNull="True" MaxLength="1" DecimalPrecision="2" DecimalLength="1" IsNewColumn="True" IsFixed="True" />
-    <Column TableName="ARSetup" ColumnName="UsrDefPricingType" ColumnType="string" AllowNull="True" MaxLength="2" DecimalPrecision="2" DecimalLength="2" IsNewColumn="True" IsFixed="True" />
-</Table>
