@@ -17,8 +17,7 @@ Cost is determined based on
 * Last Cost is utilized for zero stock item.
 
 ### Prerequisites
-* Acumatica 2020 R1 (20.109.0032 or higher)
-* Acumatica 2020 R2 (20.202.0043 or higher)
+* [Acumatica 2020 R1 (20.109.0032 or higher) & Acumatica 2020 R2 (20.202.0043 or higher)] (https://github.com/Acumatica/Acumatica-PricingAnalysis/tree/2020)
 
 Quick Start
 -----------
