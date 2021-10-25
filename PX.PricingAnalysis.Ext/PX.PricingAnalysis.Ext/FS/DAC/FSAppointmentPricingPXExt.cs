@@ -11,9 +11,9 @@ namespace PX.PricingAnalysis.Ext
 
         [PXBool]
         [PXUnboundDefault(false, PersistingCheck = PXPersistingCheck.Nothing)]
-        [PXFormula(typeof(Switch<Case<Where<FSAppointment.status, Equal<ListField_Status_Appointment.InProcess>,
-                                        Or<FSAppointment.status, Equal<ListField_Status_Appointment.Completed>,
-                                        Or<FSAppointment.status, Equal<ListField_Status_Appointment.OnHold>>>>, True>, False>))]
+        [PXFormula(typeof(Switch<Case<Where<FSAppointment.status, Equal<FSAppointment.status.Values.inProcess>,
+                                        Or<FSAppointment.status, Equal<FSAppointment.status.Values.completed>,
+                                        Or<FSAppointment.status, Equal<FSAppointment.status.Values.hold>>>>, True>, False>))]
         public bool? UsrEditable { get; set; }
         #endregion
     }

@@ -11,7 +11,7 @@ namespace PX.PricingAnalysis.Ext
 
         [PXBool]
         [PXUnboundDefault(false, PersistingCheck = PXPersistingCheck.Nothing)]
-        [PXFormula(typeof(Switch<Case<Where<FSServiceOrder.status, Equal<ListField_Status_ServiceOrder.Open>>, True>, False>))]
+        [PXFormula(typeof(Switch<Case<Where<FSServiceOrder.status, Equal<FSServiceOrder.status.Values.open>>, True>, False>))]
         public bool? UsrEditable { get; set; }
         #endregion
     }

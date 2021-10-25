@@ -16,20 +16,23 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PX.Common.Std">
+      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Acumatica ERP\AcmProfit21V110\Bin\PX.Common.Std.dll</HintPath>
+    </Reference>      
     <Reference Include="PX.Common">
-      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Acumatica ERP\AcmProfit\Bin\PX.Common.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Acumatica ERP\AcmProfit21V110\Bin\PX.Common.dll</HintPath>
     </Reference>
     <Reference Include="PX.Data">
-      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Acumatica ERP\AcmProfit\Bin\PX.Data.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Acumatica ERP\AcmProfit21V110\Bin\PX.Data.dll</HintPath>
     </Reference>
     <Reference Include="PX.Objects">
-      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Acumatica ERP\AcmProfit\Bin\PX.Objects.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Acumatica ERP\AcmProfit21V110\Bin\PX.Objects.dll</HintPath>
     </Reference>
     <Reference Include="PX.Objects.FS">
-      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Acumatica ERP\AcmPortal\Bin\PX.Objects.FS.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Acumatica ERP\AcmProfit21V110\Bin\PX.Objects.FS.dll</HintPath>
     </Reference>
     <Reference Include="PX.Web.UI">
-      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Acumatica ERP\AcmPortal\Bin\PX.Web.UI.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Acumatica ERP\AcmProfit21V110\Bin\PX.Web.UI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
