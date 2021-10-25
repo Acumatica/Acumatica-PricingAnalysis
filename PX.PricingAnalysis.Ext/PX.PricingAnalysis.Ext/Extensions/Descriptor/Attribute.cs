@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using PX.Data;
+using PX.Objects.AR;
 using PX.Objects.CM;
 using PX.Objects.CS;
 using PX.Objects.FS;
@@ -111,8 +112,8 @@ namespace PX.PricingAnalysis.Ext
 			}
 			else if (itemData.StkItem.GetValueOrDefault(false))
 			{
-				if (itemDataExt.UsrLotSerTrack == INLotSerTrack.SerialNumbered ||
-					itemDataExt.UsrLotSerTrack == INLotSerTrack.LotNumbered)
+				if ((itemDataExt.UsrLotSerTrack == INLotSerTrack.SerialNumbered ||
+					itemDataExt.UsrLotSerTrack == INLotSerTrack.LotNumbered) && itemData.ValMethod == INValMethod.Specific)
 				{
 					if (item is SOLine)
 					{
@@ -169,7 +170,53 @@ namespace PX.PricingAnalysis.Ext
 				}
 				else
 				{
-					dValueCaled = GetValuationBasedCost(cache, inventoryID, siteID, quantity);
+					if (item is SOLine)
+					{
+						decimal? qtyRemaining = quantity;
+						foreach (INTran intran in PXSelect<INTran, Where<INTran.sOOrderLineNbr, Equal<Current<SOLine.lineNbr>>,
+																				And<INTran.sOOrderType, Equal<Current<SOLine.orderType>>,
+																				And<INTran.sOOrderNbr, Equal<Current<SOLine.orderNbr>>>>>>.
+															SelectMultiBound(cache.Graph, new object[] { item }))
+						{
+							qtyRemaining -= intran.Qty;
+							dValueCaled += intran.TranCost;
+						}
+						dValueCaled += GetValuationBasedCost(cache, inventoryID, siteID, qtyRemaining);
+					}
+					else if (item is FSSODet)
+					{
+						decimal? qtyRemaining = quantity;
+						foreach (INTran intran in PXSelectJoin<INTran, InnerJoin<ARTran, On<ARTran.lineNbr, Equal<INTran.aRLineNbr>,
+																		And<ARTran.tranType, Equal<INTran.aRDocType>,
+																		And<ARTran.refNbr, Equal<INTran.aRRefNbr>>>>>,
+																Where<FSxARTran.sODetID, Equal<Current<FSSODet.sODetID>>,
+																		And<FSxARTran.sOID, Equal<Current<FSSODet.sOID>>>>>.
+															SelectMultiBound(cache.Graph, new object[] { item }))
+						{
+							qtyRemaining -= intran.Qty;
+							dValueCaled += intran.TranCost;
+						}
+						dValueCaled += GetValuationBasedCost(cache, inventoryID, siteID, qtyRemaining);
+					}
+					else if (item is FSAppointmentDet)
+					{
+						decimal? qtyRemaining = quantity;
+						foreach (INTran intran in PXSelectJoin<INTran, InnerJoin<ARTran, On<ARTran.lineNbr, Equal<INTran.aRLineNbr>,
+																		And<ARTran.tranType, Equal<INTran.aRDocType>,
+																		And<ARTran.refNbr, Equal<INTran.aRRefNbr>>>>>,
+																Where<FSxARTran.appointmentID, Equal<Current<FSAppointmentDet.appointmentID>>,
+																		And<FSxARTran.appDetID, Equal<Current<FSAppointmentDet.appDetID>>>>>.
+															SelectMultiBound(cache.Graph, new object[] { item }))
+						{
+							qtyRemaining -= intran.Qty;
+							dValueCaled += intran.TranCost;
+						}
+						dValueCaled += GetValuationBasedCost(cache, inventoryID, siteID, qtyRemaining);
+					}
+					else
+					{
+						dValueCaled = GetValuationBasedCost(cache, inventoryID, siteID, quantity);
+					}
 				}
 			}
 			else
@@ -208,7 +255,8 @@ namespace PX.PricingAnalysis.Ext
 													And<INItemSite.siteID, Equal<Required<INItemSite.siteID>>>>>
 													.SelectWindowed(cache.Graph, 0, 1, inventoryID, siteID);
 
-			return (qty.GetValueOrDefault(0)) * (data?.TranUnitCost ?? 0m);
+			decimal? dValuedCost = (qty.GetValueOrDefault(0)) * (data?.TranUnitCost ?? 0m);
+			return dValuedCost.GetValueOrDefault(0) > 0 ? dValuedCost : GetLastCost(cache, inventoryID, qty);
 		}
 
 		private decimal? GetLastCost(PXCache cache, int? inventoryID, decimal? qty)
