@@ -1,0 +1,4023 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PX.QA.Tools</name>
+    </assembly>
+    <members>
+        <member name="T:Core.ApiConnection.ApiConnection">
+            <summary>
+            Defines a double-end api connection to test sites.
+            </summary>
+        </member>
+        <member name="P:Core.ApiConnection.ApiConnection.Source">
+            <summary>
+            Gate to connect through api to source site.
+            </summary>
+        </member>
+        <member name="P:Core.ApiConnection.ApiConnection.Destination">
+            <summary>
+            Gate to connect through api to destination site.
+            </summary>
+        </member>
+        <member name="P:Core.ApiConnection.ApiConnection.Partner">
+            <summary>
+            Gate to connect through api to partner site.
+            </summary>
+        </member>
+        <member name="T:Core.Attributes.TestDescription">
+            <summary>
+            Defines an attribute to describe test scenario briefly. Extends system attribute.
+            </summary>
+        </member>
+        <member name="P:Core.Attributes.TestDescription.Description">
+            <summary>
+            Brief description of test scenario.
+            </summary>
+        </member>
+        <member name="M:Core.Attributes.TestDescription.#ctor(System.String)">
+            <summary>
+            Constructor with 1 parameter.
+            </summary>
+            <param name="description">Brief description of test scenario.</param>
+        </member>
+        <member name="T:Core.Attributes.ReuseVMAttribute">
+            <summary>
+            Whether to reuse VMs by another test after the current one (should be added for tests with any customization/config modification)
+            </summary>
+        </member>
+        <member name="T:Core.Attributes.ResourceAttribute">
+            <summary>
+            Indicates whether a shared resource is used (forces sequential execution for tests with the same resource)
+            </summary>
+        </member>
+        <member name="T:Core.Attributes.TestIgnoreAttribute">
+            <summary>
+            Excludes the test from all test runs
+            </summary>
+        </member>
+        <member name="T:Core.Attributes.BackupAttribute">
+            <summary>
+            Forces backup creation after the test
+            </summary>
+        </member>
+        <member name="T:Core.Attributes.SkipBackupAttribute">
+            <summary>
+            Not required
+            </summary>
+        </member>
+        <member name="T:Core.Attributes.DeployParameterAttribute">
+            <summary>
+            Adds custom powershell script to be executed before the test (the script should be located inside TestingTools/scripts folder)
+            </summary>
+        </member>
+        <member name="T:Core.Attributes.TestWithParameterAttribute">
+            <summary>
+            Not required
+            </summary>
+        </member>
+        <member name="T:Core.Attributes.NonMSSQLAttribute">
+            <summary>
+            Excludes the test from mssql test runs
+            </summary>
+        </member>
+        <member name="T:Core.Attributes.NonMySQLAttribute">
+            <summary>
+            Excludes the test from mysql test runs
+            </summary>
+        </member>
+        <member name="T:Core.Attributes.NonClusterAttribute">
+            <summary>
+            Excludes the test from cluster test runs
+            </summary>
+        </member>
+        <member name="T:Core.Attributes.NoDataConsistencyCheckAttribute">
+            <summary>
+            Disables DC scripts execution for the test
+            </summary>
+        </member>
+        <member name="T:Core.Attributes.NonRegressionAttribute">
+            <summary>
+            Excludes the test from the night regression
+            </summary>
+        </member>
+        <member name="T:Core.Attributes.PerformanceAttribute">
+            <summary>
+            Adds the test to the Start Performance button in the TestPortal
+            </summary>
+        </member>
+        <member name="T:Core.Attributes.FeatureBuildIgnoreAttribute">
+            <summary>
+            Excludes the test from feature build test plans
+            </summary>
+        </member>
+        <member name="T:Core.Attributes.SkipClusterAttribute">
+            <summary>
+            Disables cluster deployment for the test
+            </summary>
+        </member>
+        <member name="T:Core.Attributes.SkipTelemetryAttribute">
+            <summary>
+            Disables telemetry for the test
+            </summary>
+        </member>
+        <member name="T:Core.Attributes.SkipExtensionsAttribute">
+            <summary>
+            Not required
+            </summary>
+        </member>
+        <member name="T:Core.Attributes.SkipHttpsAttribute">
+            <summary>
+            Forces http url usage for the test
+            </summary>
+        </member>
+        <member name="T:Core.Attributes.SkipDockerAttribute">
+            <summary>
+            Disables docker deployment for the test
+            </summary>
+        </member>
+        <member name="T:Core.Attributes.SkipRemoteUrlAttribute">
+            <summary>
+            Forces localhost url usage for the test
+            </summary>
+        </member>
+        <member name="T:Core.Attributes.SmokeAttribute">
+            <summary>
+            Adds the test to smoke test plans
+            </summary>
+        </member>
+        <member name="T:Core.Attributes.SingleAppAttribute">
+            <summary>
+            Not required
+            </summary>
+        </member>
+        <member name="T:Core.Attributes.WGAttribute">
+            <summary>
+            Adds the test to the Start WG button in the TestPortal
+            </summary>
+        </member>
+        <member name="T:Core.Attributes.BreakingChangesAttribute">
+            <summary>
+            Adds the test to the Start BC button in the TestPortal
+            </summary>
+        </member>
+        <member name="T:Core.Config.Config">
+            <summary>
+            Defines static .xml configuration file.
+            </summary>
+        </member>
+        <member name="P:Core.Config.Config.BrowserBin">
+            <summary>
+            Browser path to be used.
+            </summary>
+        </member>
+        <member name="P:Core.Config.Config.BROWSER_PROXY">
+            <summary>
+            Browser proxy to be used.
+            </summary>
+        </member>
+        <member name="P:Core.Config.Config.DEFAULT_CULTURE_INFO">
+            <summary>
+            Culture (locale) to be used.
+            </summary>
+        </member>
+        <member name="P:Core.Config.Config.SITE_SRC_URL">
+            <summary>
+            Source site url.
+            </summary>
+        </member>
+        <member name="P:Core.Config.Config.SITE_SRC_HOST">
+            <summary>
+            Source site url.
+            </summary>
+        </member>
+        <member name="P:Core.Config.Config.SITE_SRC_NAME">
+            <summary>
+            Source site name
+            </summary>
+        </member>
+        <member name="P:Core.Config.Config.SITE_SRC_LOGIN">
+            <summary>
+            User login to access source site.
+            </summary>
+        </member>
+        <member name="P:Core.Config.Config.SITE_SRC_PASSWORD">
+            <summary>
+            User password to acces source site.
+            </summary>
+        </member>
+        <member name="P:Core.Config.Config.SITE_DST_URL">
+            <summary>
+            Destination site url.
+            </summary>
+        </member>
+        <member name="P:Core.Config.Config.SITE_DST_HOST">
+            <summary>
+            Destination site url.
+            </summary>
+        </member>
+        <member name="P:Core.Config.Config.SITE_DST_NAME">
+            <summary>
+            Destination site name
+            </summary>
+        </member>
+        <member name="P:Core.Config.Config.SITE_DST_LOGIN">
+            <summary>
+            User login to access destination site.
+            </summary>
+        </member>
+        <member name="P:Core.Config.Config.SITE_DST_PASSWORD">
+            <summary>
+            User password to acces destination site.
+            </summary>
+        </member>
+        <member name="P:Core.Config.Config.SITE_PRT_URL">
+            <summary>
+            Partner site url.
+            </summary>
+        </member>
+        <member name="P:Core.Config.Config.SITE_PRT_HOST">
+            <summary>
+            Partner site url.
+            </summary>
+        </member>
+        <member name="P:Core.Config.Config.SITE_PRT_NAME">
+            <summary>
+            Partner site name
+            </summary>
+        </member>
+        <member name="P:Core.Config.Config.SITE_PRT_LOGIN">
+            <summary>
+            User login to access partner site.
+            </summary>
+        </member>
+        <member name="P:Core.Config.Config.SITE_PRT_PASSWORD">
+            <summary>
+            User password to acces partner site.
+            </summary>
+        </member>
+        <member name="P:Core.Config.Config.ANDROID_DEVICE">
+            <summary>
+            Android device name for testing (see DeviceConfig.xml for device details)
+            </summary>
+        </member>
+        <member name="P:Core.Config.Config.IOS_DEVICE">
+            <summary>
+            iOS device name for testing (see DeviceConfig.xml for device details)
+            </summary>
+        </member>
+        <member name="P:Core.Config.Config.DB_SERVER">
+            <summary>
+            SQL server name to write log information.
+            </summary>
+        </member>
+        <member name="P:Core.Config.Config.DB">
+            <summary>
+            Database name on the SQL server to write log information.
+            </summary>
+        </member>
+        <member name="P:Core.Config.Config.DB_LOGIN">
+            <summary>
+            User login to access SQL server to write log information.
+            </summary>
+        </member>
+        <member name="P:Core.Config.Config.DB_PASSWORD">
+            <summary>
+            User password to access SQL server to write log information.
+            </summary>
+        </member>
+        <member name="P:Core.Config.Config.BACKUP_RESTORE_ACTIVE">
+            <summary>
+            Defines whethrer to backup and restore database.
+            </summary>
+        </member>
+        <member name="P:Core.Config.Config.BROWSER_DOWNLOADS_FOLDER">
+            <summary>
+            Default browser folder for downloads.
+            </summary>
+        </member>
+        <member name="P:Core.Config.Config.BUILD">
+            <summary>
+            Build number tests are running against.
+            </summary>
+        </member>
+        <member name="P:Core.Config.Config.VERSION">
+            <summary>
+            Version number tests are running against.
+            </summary>
+        </member>
+        <member name="P:Core.Config.Config.BRANCH">
+            <summary>
+            Test sources branch.
+            </summary>
+        </member>
+        <member name="P:Core.Config.Config.DefaultCulture">
+            <summary>
+            Gets the default culture
+            </summary>
+        </member>
+        <member name="M:Core.Config.Config.ReadConfig(System.String)">
+            <summary>
+            Reads configuration from an xml config file
+            </summary>
+            <param name="configPath">Path to the config file</param>
+        </member>
+        <member name="T:Core.WebService.Command">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.Command.FieldName">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.Command.ObjectName">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.Command.Value">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.Command.Commit">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.Command.IgnoreError">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.Command.LinkedCommand">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.Command.Descriptor">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.Command.Name">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.ElementDescriptor">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.ElementDescriptor.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.ElementDescriptor.IsDisabled">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.ElementDescriptor.IsRequired">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.ElementDescriptor.ElementType">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.ElementDescriptor.LengthLimit">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.ElementDescriptor.InputMask">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.ElementDescriptor.DisplayRules">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.ElementDescriptor.AllowedValues">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.ElementTypes">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.ElementTypes.String">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.ElementTypes.AsciiString">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.ElementTypes.StringSelector">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.ElementTypes.ExplicitSelector">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.ElementTypes.Number">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.ElementTypes.Option">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.ElementTypes.WideOption">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.ElementTypes.Calendar">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.ElementTypes.Action">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.UntypedImportResult">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.UntypedImportResult.Processed">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.UntypedImportResult.Error">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.UntypedImportResult.Keys">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.Value">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.Value.Message">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.Value.IsError">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.Field">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.Attachment">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.UntypedContainer">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.UntypedContainer.Fields">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.UntypedContainer.Name">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.UntypedContainer.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.UntypedContent">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.UntypedContent.Actions">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.UntypedContent.Containers">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.Action">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.GL301000PrimaryKey">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000PrimaryKey.Module">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000PrimaryKey.BatchNumber">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.GL301000BatchSummaryVoucherBatchNbrServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryVoucherBatchNbrServiceCommands.KeyWorkbookID">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryVoucherBatchNbrServiceCommands.KeyVoucherBatchNbr">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryVoucherBatchNbrServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryVoucherBatchNbrServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryVoucherBatchNbrServiceCommands.Attachment">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.Key">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.Answer">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.GL301000BatchSummaryVoucherBatchNbr">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryVoucherBatchNbr.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryVoucherBatchNbr.VoucherBatchNbr">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryVoucherBatchNbr.WorkbookID">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryVoucherBatchNbr.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.GL301000TransactionDetailsServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetailsServiceCommands.NewRow">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetailsServiceCommands.RowNumber">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetailsServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetailsServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetailsServiceCommands.Attachment">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.NewRow">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.RowNumber">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.GL301000TransactionDetails">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetails.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetails.LineNbr">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetails.Account">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetails.Description">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetails.Subaccount">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetails.Project">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetails.ProjectTask">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetails.CostCode">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetails.RefNumber">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetails.TransactionDate">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetails.Quantity">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetails.UOM">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetails.DebitAmount">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetails.CreditAmount">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetails.TransactionDescription">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetails.InventoryID">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetails.Ledger">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetails.CustomerVendor">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetails.TaxID">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetails.TaxCategory">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetails.NonBillable">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetails.RemainingReclassAmount">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetails.ReclassBatchNumber">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetails.OrigModule">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetails.OrigBatchNbr">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetails.OrigLineNbr">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetails.NoteText">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000TransactionDetails.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.GL301000BatchSummaryRateSelectionCurrencyUnitEquivalentsServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryRateSelectionCurrencyUnitEquivalentsServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryRateSelectionCurrencyUnitEquivalentsServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryRateSelectionCurrencyUnitEquivalentsServiceCommands.Attachment">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.GL301000BatchSummaryRateSelectionCurrencyUnitEquivalents">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryRateSelectionCurrencyUnitEquivalents.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryRateSelectionCurrencyUnitEquivalents.CurrencyID">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryRateSelectionCurrencyUnitEquivalents.BaseCurrencyID">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryRateSelectionCurrencyUnitEquivalents.CurrRate">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryRateSelectionCurrencyUnitEquivalents.ReciprocalRate">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryRateSelectionCurrencyUnitEquivalents.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.GL301000BatchSummaryRateSelectionServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryRateSelectionServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryRateSelectionServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryRateSelectionServiceCommands.Attachment">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.GL301000BatchSummaryRateSelection">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryRateSelection.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryRateSelection.CurrRateTypeID">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryRateSelection.EffectiveDate">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryRateSelection.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.GL301000BatchSummaryServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryServiceCommands.KeyModule">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryServiceCommands.EveryModule">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryServiceCommands.KeyBatchNumber">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryServiceCommands.EveryBatchNumber">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummaryServiceCommands.Attachment">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.EveryValue">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.GL301000BatchSummary">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummary.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummary.Module">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummary.BatchNumber">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummary.Status">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummary.Hold">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummary.TransactionDate">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummary.PostPeriod">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummary.CuryViewState">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummary.Description">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummary.Branch">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummary.Ledger">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummary.Currency">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummary.AutoReversing">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummary.ReversingEntry">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummary.CreateTaxTransactions">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummary.SkipTaxAmountValidation">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummary.Type">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummary.OrigBatchNumber">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummary.ReversingBatches">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummary.DebitTotal">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummary.CreditTotal">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummary.ControlTotal">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummary.NoteText">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000BatchSummary.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.GL301000Actions">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Actions.Save">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Actions.Cancel">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Actions.Insert">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Actions.Delete">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Actions.CopyDocumentCopyPaste">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Actions.PasteDocumentCopyPaste">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Actions.SaveTemplateCopyPaste">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Actions.First">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Actions.Previous">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Actions.Next">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Actions.Last">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Actions.BatchRegisterDetails">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Actions.GLEditDetails">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Actions.GLReversingBatches">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Actions.EditReclassBatch">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Actions.Release">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Actions.ReverseBatchAction">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Actions.CreateScheduleAction">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Actions.ReclassifyAction">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Actions.BatchRegisterDetailsReport">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Actions.GLEditDetailsReport">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Actions.GLReversingBatchesReport">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Actions.CreateSchedule">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Actions.ReverseBatch">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Actions.Reclassify">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Actions.ReclassificationHistory">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Actions.ViewDocument">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Actions.ViewOrigBatch">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Actions.ViewReclassBatch">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Actions.SaveLoc">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.GL301000Content">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Content.Actions">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Content.BatchSummary">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Content.BatchSummaryRateSelection">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Content.BatchSummaryRateSelectionCurrencyUnitEquivalents">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Content.TransactionDetails">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.GL301000Content.BatchSummaryVoucherBatchNbr">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.Filter">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.Filter.Field">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.Filter.Condition">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.Filter.Value">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.Filter.Value2">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.Filter.OpenBrackets">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.Filter.CloseBrackets">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.Filter.Operator">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.FilterCondition">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.FilterCondition.Equals">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.FilterCondition.NotEqual">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.FilterCondition.Greater">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.FilterCondition.GreaterOrEqual">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.FilterCondition.Less">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.FilterCondition.LessOrEqual">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.FilterCondition.Contain">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.FilterCondition.StartsWith">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.FilterCondition.EndsWith">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.FilterCondition.NotContain">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.FilterCondition.Between">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.FilterCondition.IsNull">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.FilterCondition.IsNotNull">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.FilterOperator">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.FilterOperator.And">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.FilterOperator.Or">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.ProcessResult">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.ProcessResult.Status">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.ProcessResult.Seconds">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.ProcessResult.Message">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.ProcessStatus">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.ProcessStatus.NotExists">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.ProcessStatus.InProcess">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.ProcessStatus.Completed">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.ProcessStatus.Aborted">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.LoginResult">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.LoginResult.Code">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.LoginResult.Message">
+            <remarks/>
+        </member>
+        <member name="P:Core.WebService.LoginResult.Session">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.ErrorCode">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.ErrorCode.OK">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.ErrorCode.INVALID_CREDENTIALS">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.ErrorCode.INTERNAL_ERROR">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.ErrorCode.INVALID_API_VERSION">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.Parameter">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.SchemaMode">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.SchemaMode.Basic">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.SchemaMode.Detailed">
+            <remarks/>
+        </member>
+        <member name="T:Core.WebService.ScreenID">
+            <remarks/>
+        </member>
+        <member name="F:Core.WebService.ScreenID.GL301000">
+            <remarks/>
+        </member>
+        <member name="T:Core.Exceptions.AutotestException">
+            <summary>
+            Autotests Exception
+            </summary>
+        </member>
+        <member name="T:Core.Exceptions.ControlException">
+            <summary>
+            Autotests Controls Exception
+            </summary>
+        </member>
+        <member name="T:Core.Exceptions.CoreException">
+            <summary>
+            Autotests Core Exception
+            </summary>
+        </member>
+        <member name="T:Core.Exceptions.ExecutionException">
+            <summary>
+            Autotests Execution Exception
+            </summary>
+        </member>
+        <member name="T:Core.Exceptions.ToolsException">
+            <summary>
+            Autotests Tools Exception
+            </summary>
+        </member>
+        <member name="T:Core.Exceptions.VerificationException">
+            <summary>
+            Autotests Verification Exception
+            </summary>
+        </member>
+        <member name="T:Core.Exceptions.WaitException">
+            <summary>
+            Autotests Wait Exception
+            </summary>
+        </member>
+        <member name="T:Core.Exceptions.WaitTimeoutException">
+            <summary>
+            Autotests Wait Timeout Exception
+            </summary>
+        </member>
+        <member name="T:Core.Log.Log">
+            <summary>
+            Implements different methods for logging
+            </summary>
+        </member>
+        <member name="M:Core.Log.Log.Screenshot">
+            <summary>
+            Captures screenshot, writes single SCREENSHOT message row to log
+            </summary>
+        </member>
+        <member name="M:Core.Log.Log.Debug(System.String,System.Object[])">
+            <summary>
+            Writes single DEBUG level row to log
+            </summary>
+            <param name="message">Message to be written to log</param>
+            <param name="args">Argumets to be added to the message if any (e.g. message="Check failed: {0}, expected: {1}, actual: {2}", args={ "wrong control state", "true", "false" })</param>
+        </member>
+        <member name="M:Core.Log.Log.Information(System.String,System.Object[])">
+            <summary>
+            Writes single INFORMATION level row to log
+            </summary>
+            <param name="message">Message to be written to log</param>
+            <param name="args">Argumets to be added to the message if any (e.g. message="Check failed: {0}, expected: {1}, actual: {2}", args={ "wrong control state", "true", "false" })</param>
+        </member>
+        <member name="M:Core.Log.Log.Warning(System.String,System.Object[])">
+            <summary>
+            Writes single WARNING level row to log
+            </summary>
+            <param name="message">Message to be written to log</param>
+            <param name="args">Argumets to be added to the message if any (e.g. message="Check failed: {0}, expected: {1}, actual: {2}", args={ "wrong control state", "true", "false" })</param>
+        </member>
+        <member name="M:Core.Log.Log.Error(System.String,System.Object[])">
+            <summary>
+            Writes single ERROR level row to log
+            </summary>
+            <param name="message">Message to be written to log</param>
+            <param name="args">Argumets to be added to the message if any (e.g. message="Check failed: {0}, expected: {1}, actual: {2}", args={ "wrong control state", "true", "false" })</param>
+        </member>
+        <member name="M:Core.Log.Log.Error(System.Exception)">
+            <summary>
+            Writes single ERROR level row to log by parsing the provided exception
+            </summary>
+            <param name="e">Exception to be parsed</param>
+        </member>
+        <member name="M:Core.Log.Log.NotImplemented">
+            <summary>
+            Writes NOT_IMPLEMENTED message row to log
+            </summary>
+        </member>
+        <member name="M:Core.Support.GetTestPlanParameters">
+            <summary>
+            Gets dynamic parameters from the testplan.
+            </summary>
+        </member>
+        <member name="M:Core.Support.GetTestPlanParameter(System.String)">
+            <summary>
+            Gets a dynamic parameter from the testplan.
+            </summary>
+        </member>
+        <member name="M:Core.Support.GetContentFilePath(System.String)">
+            <summary>
+            Get path to a file placed in the folder with the executing file
+            </summary>
+            <param name="filename">Filename to search by</param>
+            <returns>Path to the requested file</returns>
+        </member>
+        <member name="M:Core.TestExecution.Check.#ctor">
+            <summary>
+            Default constructor, resets number of test cases in the test to 0.
+            </summary>
+        </member>
+        <member name="M:Core.TestExecution.Check.BeforeExecute">
+            <summary>
+            Use if something must be done before the test starts, e.g. Sign In to the site under test first can be implemented here.
+            </summary>
+        </member>
+        <member name="M:Core.TestExecution.Check.Execute">
+            <summary>
+            Use to implement the main logic of the test.
+            </summary>
+        </member>
+        <member name="M:Core.TestExecution.Check.AfterExecute">
+            <summary>
+            Use if something must be done after the test ends, e.g. Sign Out from the site under test can be implemented here.
+            </summary>
+        </member>
+        <member name="M:Core.Verifications.BooleanVerifiableValue.VerifyEquals(System.Nullable{System.Boolean})">
+            <summary>
+            Verifies that the current value equals to the provided one and logs an error if it doesn't
+            </summary>
+            <param name="expectedValue">The value to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.DateTimeVerifiableValue.VerifyEquals(System.DateTime,Core.Verifications.DateTimeVerificationMask)">
+            <summary>
+            Verifies that the current value equals to the provided one and logs an error if it doesn't
+            </summary>
+            <param name="expectedValue">The value to compare to</param>
+            <param name="dateTimeVerificationMask">The mask, which should be applied to the current and the provided value</param>
+        </member>
+        <member name="M:Core.Verifications.DateTimeVerifiableValue.VerifyNotEquals(System.DateTime,Core.Verifications.DateTimeVerificationMask)">
+            <summary>
+            Verifies that the current value does not equal to the provided one and logs an error if it does
+            </summary>
+            <param name="notExpectedValue">The value to compare to</param>
+            <param name="dateTimeVerificationMask">The mask, which should be applied to the current and the provided value</param>
+        </member>
+        <member name="M:Core.Verifications.DateTimeVerifiableValue.VerifyEquals(System.String,Core.Verifications.DateTimeVerificationMask)">
+            <summary>
+            Verifies that the current value equals to the provided one and logs an error if it doesn't
+            </summary>
+            <param name="expectedValue">The value to compare to</param>
+            <param name="dateTimeVerificationMask">The mask, which should be applied to the current and the provided value</param>
+        </member>
+        <member name="M:Core.Verifications.DateTimeVerifiableValue.VerifyNotEquals(System.String,Core.Verifications.DateTimeVerificationMask)">
+            <summary>
+            Verifies that the current value does not equal to the provided one and logs an error if it does
+            </summary>
+            <param name="notExpectedValue">The value to compare to</param>
+            <param name="dateTimeVerificationMask">The mask, which should be applied to the current and the provided value</param>
+        </member>
+        <member name="F:Core.Verifications.DateTimeVerificationMask.None">
+            <summary>
+            Indicates that no modifications should be applied to values
+            </summary>
+        </member>
+        <member name="F:Core.Verifications.DateTimeVerificationMask.Date">
+            <summary>
+            Indicates that the Date component should be extracted from values
+            </summary>
+        </member>
+        <member name="F:Core.Verifications.DateTimeVerificationMask.Time">
+            <summary>
+            Indicates that the Time component should be extracted from values
+            </summary>
+        </member>
+        <member name="M:Core.Verifications.DecimalVerifiableValue.VerifyEquals(System.Nullable{System.Decimal})">
+            <summary>
+            Verifies that the current value equals to the provided one and logs an error if it doesn't
+            </summary>
+            <param name="expectedValue">The value to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.DecimalVerifiableValue.VerifyNotEquals(System.Nullable{System.Decimal})">
+            <summary>
+            Verifies that the current value does not equal to the provided one and logs an error if it does
+            </summary>
+            <param name="notExpectedValue">The value to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.DecimalVerifiableValue.VerifyIsGreaterThan(System.Nullable{System.Decimal})">
+            <summary>
+            Verifies that the current value is greater than the provided one and logs an error if it is not
+            </summary>
+            <param name="valueToCompareTo">The value to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.DecimalVerifiableValue.VerifyIsLessThan(System.Nullable{System.Decimal})">
+            <summary>
+            Verifies that the current value is less than the provided one and logs an error if it is not
+            </summary>
+            <param name="valueToCompareTo">The value to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.DecimalVerifiableValue.VerifyIsGreaterThanOrEqualTo(System.Nullable{System.Decimal})">
+            <summary>
+            Verifies that the current value is greater than or equal to the provided one and logs an error if it is not
+            </summary>
+            <param name="valueToCompareTo">The value to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.DecimalVerifiableValue.VerifyIsLessThanOrEqualTo(System.Nullable{System.Decimal})">
+            <summary>
+            Verifies that the current value is less than or equal to the provided one and logs an error if it is not
+            </summary>
+            <param name="valueToCompareTo">The value to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.EnumerableStringVerifiableValue.VerifyOrder(System.String[])">
+            <summary>
+            Verifies that the current collection's order, count and values are the same as in the provided collection and logs an error if they are not
+            </summary>
+            <param name="expectedValues">The values with expected order and count to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.EnumerableStringVerifiableValue.VerifyCount(System.Int64)">
+            <summary>
+            Verifies that the current collection contains the provided values count and logs an error if it doesn't
+            </summary>
+            <param name="expectedCount">The values count to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.EnumerableStringVerifiableValue.VerifyAnyOfValuesEquals(System.String[])">
+            <summary>
+            Verifies that the current collection contains the provided values and logs an error if it doesn't
+            </summary>
+            <param name="expectedValues">The values to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.EnumerableStringVerifiableValue.VerifyNoneOfValuesEquals(System.String[])">
+            <summary>
+            Verifies that the current collection does not contain the provided values and logs an error if it does
+            </summary>
+            <param name="notExpectedValues">The values to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.EnumerableStringVerifiableValue.VerifyAnyOfValuesContains(System.String[])">
+            <summary>
+            Verifies that the current collection's values contain the provided ones and logs an error if they don't
+            </summary>
+            <param name="expectedValues">The values to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.EnumerableStringVerifiableValue.VerifyNoneOfValuesContains(System.String[])">
+            <summary>
+            Verifies that the current collection's values do not contain the provided ones and logs an error if they do
+            </summary>
+            <param name="expectedValues">The values to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.EnumerableStringVerifiableValue.VerifyEachOfValuesEquals(System.String[])">
+            <summary>
+            Verifies that each value of the current collection equals to one of the provided values and logs an error if it doesn't
+            </summary>
+            <param name="expectedValues">The values to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.EnumerableStringVerifiableValue.VerifyEachOfValuesContains(System.String[])">
+            <summary>
+            Verifies that each value of the current collection contains one ofthe provided values and logs an error if it does not
+            </summary>
+            <param name="expectedValues">The values to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.EnumerableStringVerifiableValue.VerifyEachOfValuesEquals(System.Boolean)">
+            <summary>
+            Verifies that each value of the current collection contains one ofthe provided values and logs an error if it does not
+            </summary>
+            <param name="value">The value to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.EnumerableStringVerifiableValue.VerifyAnyOfValuesEquals(System.Decimal[])">
+            <summary>
+            Verifies that the current collection contains the provided values and logs an error if it doesn't
+            </summary>
+            <param name="expectedValues">The values to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.EnumerableStringVerifiableValue.VerifyNoneOfValuesEquals(System.Decimal[])">
+            <summary>
+            Verifies that the current collection does not contain the provided values and logs an error if it does
+            </summary>
+            <param name="notExpectedValues">The values to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.EnumerableStringVerifiableValue.VerifyEachOfValuesEquals(System.Decimal[])">
+            <summary>
+            Verifies that each value of the current collection equals to one of the provided values and logs an error if it doesn't
+            </summary>
+            <param name="expectedValues">The values to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.NumberVerifiableValue.VerifyEquals(System.Int64)">
+            <summary>
+            Verifies that the current value equals to the provided one and logs an error if it doesn't
+            </summary>
+            <param name="expectedValue">The value to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.NumberVerifiableValue.VerifyNotEquals(System.Int64)">
+            <summary>
+            Verifies that the current value does not equal to the provided one and logs an error if it does
+            </summary>
+            <param name="notExpectedValue">The value to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.NumberVerifiableValue.VerifyIsGreaterThan(System.Int64)">
+            <summary>
+            Verifies that the current value is greater than the provided one and logs an error if it is not
+            </summary>
+            <param name="valueToCompareTo">The value to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.NumberVerifiableValue.VerifyIsLessThan(System.Int64)">
+            <summary>
+            Verifies that the current value is less than the provided one and logs an error if it is not
+            </summary>
+            <param name="valueToCompareTo">The value to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.NumberVerifiableValue.VerifyIsGreaterThanOrEqualTo(System.Int64)">
+            <summary>
+            Verifies that the current value is greater than or equal to the provided one and logs an error if it is not
+            </summary>
+            <param name="valueToCompareTo">The value to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.NumberVerifiableValue.VerifyIsLessThanOrEqualTo(System.Int64)">
+            <summary>
+            Verifies that the current value is less than or equal to the provided one and logs an error if it is not
+            </summary>
+            <param name="valueToCompareTo">The value to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.StringVerifiableValue.VerifyEquals(System.String,Core.Verifications.StringVerificationMask)">
+            <summary>
+            Verifies that the current value equals to the provided one and logs an error if it doesn't
+            </summary>
+            <param name="expectedValue">The value to compare to</param>
+            <param name="stringVerificationMask">The mask, which should be applied to the current and the provided value</param>
+        </member>
+        <member name="M:Core.Verifications.StringVerifiableValue.VerifyNotEquals(System.String,Core.Verifications.StringVerificationMask)">
+            <summary>
+            Verifies that the current value does not equal to the provided one and logs an error if it does
+            </summary>
+            <param name="notExpectedValue">The value to compare to</param>
+            <param name="stringVerificationMask">The mask, which should be applied to the current and the provided value</param>
+        </member>
+        <member name="M:Core.Verifications.StringVerifiableValue.VerifyContains(System.String,Core.Verifications.StringVerificationMask)">
+            <summary>
+            Verifies that the current value contains the provided one and logs an error if it doesn't
+            </summary>
+            <param name="expectedValue">The value to compare to</param>
+            <param name="stringVerificationMask">The mask, which should be applied to the current and the provided value</param>
+        </member>
+        <member name="M:Core.Verifications.StringVerifiableValue.VerifyNotContains(System.String,Core.Verifications.StringVerificationMask)">
+            <summary>
+            Verifies that the current value does not contain the provided one and logs an error if it does
+            </summary>
+            <param name="notExpectedValue">The value to compare to</param>
+            <param name="stringVerificationMask">The mask, which should be applied to the current and the provided value</param>
+        </member>
+        <member name="M:Core.Verifications.StringVerifiableValue.VerifyStartsWith(System.String,Core.Verifications.StringVerificationMask)">
+            <summary>
+            Verifies that the current value starts with the provided one and logs an error if it doesn't
+            </summary>
+            <param name="expectedValue">The value to compare to</param>
+            <param name="stringVerificationMask">The mask, which should be applied to the current and the provided value</param>
+        </member>
+        <member name="M:Core.Verifications.StringVerifiableValue.VerifyEquals(System.Decimal)">
+            <summary>
+            Verifies that the current value equals to the provided one and logs an error if it doesn't
+            </summary>
+            <param name="expectedValue">The value to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.StringVerifiableValue.VerifyNotEquals(System.Decimal)">
+            <summary>
+            Verifies that the current value does not equal to the provided one and logs an error if it does
+            </summary>
+            <param name="notExpectedValue">The value to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.StringVerifiableValue.VerifyIsGreaterThan(System.Decimal)">
+            <summary>
+            Verifies that the current value is greater than the provided one and logs an error if it is not
+            </summary>
+            <param name="valueToCompareTo">The value to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.StringVerifiableValue.VerifyIsLessThan(System.Decimal)">
+            <summary>
+            Verifies that the current value is less than the provided one and logs an error if it is not
+            </summary>
+            <param name="valueToCompareTo">The value to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.StringVerifiableValue.VerifyIsGreaterThanOrEqualTo(System.Decimal)">
+            <summary>
+            Verifies that the current value is greater than or equal to the provided one and logs an error if it is not
+            </summary>
+            <param name="valueToCompareTo">The value to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.StringVerifiableValue.VerifyIsLessThanOrEqualTo(System.Decimal)">
+            <summary>
+            Verifies that the current value is less than or equal to the provided one and logs an error if it is not
+            </summary>
+            <param name="valueToCompareTo">The value to compare to</param>
+        </member>
+        <member name="F:Core.Verifications.StringVerificationMask.None">
+            <summary>
+            Indicates that no modifications should be applied to values
+            </summary>
+        </member>
+        <member name="F:Core.Verifications.StringVerificationMask.SubAccount">
+            <summary>
+            Indicates that the SubAccount formating (e.g. 000-000) should be applied to values
+            </summary>
+        </member>
+        <member name="F:Core.Verifications.StringVerificationMask.SplitAndGetFirst">
+            <summary>
+            Indicates that a part before the first whitespace character should be extracted from values
+            </summary>
+        </member>
+        <member name="F:Core.Verifications.StringVerificationMask.IgnoreCase">
+            <summary>
+            Indicates that the lower case formating should be applied to values
+            </summary>
+        </member>
+        <member name="M:Core.Verifications.StructVerifiableValue`1.VerifyEquals(`0)">
+            <summary>
+            Verifies that the current value equals to the provided one and logs an error if it doesn't
+            </summary>
+            <param name="expectedValue">The value to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.StructVerifiableValue`1.VerifyNotEquals(`0)">
+            <summary>
+            Verifies that the current value does not equal to the provided one and logs an error if it does
+            </summary>
+            <param name="expectedValue">The value to compare to</param>
+        </member>
+        <member name="M:Core.Verifications.VerificationResult.Assert">
+            <summary>
+            Asserts whether the verification succeeded and throws an exception if it did not
+            </summary>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.Command">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.Command.FieldName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.Command.ObjectName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.Command.Value">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.Command.Commit">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.Command.IgnoreError">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.Command.LinkedCommand">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.Command.Descriptor">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.ElementDescriptor">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.ElementDescriptor.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.ElementDescriptor.IsDisabled">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.ElementDescriptor.IsRequired">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.ElementDescriptor.ElementType">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.ElementDescriptor.LengthLimit">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.ElementDescriptor.InputMask">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.ElementDescriptor.DisplayRules">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.ElementDescriptor.AllowedValues">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.ElementTypes">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.ElementTypes.String">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.ElementTypes.AsciiString">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.ElementTypes.StringSelector">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.ElementTypes.ExplicitSelector">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.ElementTypes.Number">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.ElementTypes.Option">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.ElementTypes.WideOption">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.ElementTypes.Calendar">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.ElementTypes.Action">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM301000ImportResult">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000ImportResult.Processed">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000ImportResult.Error">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000ImportResult.Keys">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM301000PrimaryKey">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000PrimaryKey.ErrorLineGuid">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.Value">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.Value.Message">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.Value.IsError">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.Field">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.Attachment">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM301000LogLinesServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000LogLinesServiceCommands.KeyErrorLineGuid">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000LogLinesServiceCommands.NewRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000LogLinesServiceCommands.RowNumber">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000LogLinesServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000LogLinesServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.Key">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.NewRow">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.RowNumber">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.Answer">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM301000LogLines">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000LogLines.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000LogLines.ErrorLineGuid">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000LogLines.LogLineID">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000LogLines.TestExecutionID">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000LogLines.Type">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000LogLines.Message">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000LogLines.StepMessage">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000LogLines.Time">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000LogLines.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM301000Actions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000Actions.Save">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000Actions.Cancel">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000Actions.Insert">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000Actions.Delete">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000Actions.CopyDocumentCopyPaste">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000Actions.PasteDocumentCopyPaste">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000Actions.SaveTemplateCopyPaste">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000Actions.First">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000Actions.Previous">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000Actions.Next">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000Actions.Last">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000Actions.SaveLoc">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.Action">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM301000Content">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000Content.Actions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM301000Content.LogLines">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM203010ImportResult">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010ImportResult.Processed">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010ImportResult.Error">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010ImportResult.Keys">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM203010PrimaryKey">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010PrimaryKey.Name">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM203010ReAssignVMToServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010ReAssignVMToServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010ReAssignVMToServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010ReAssignVMToServiceCommands.Attachment">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM203010ReAssignVMTo">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010ReAssignVMTo.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010ReAssignVMTo.VMOwnerID">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010ReAssignVMTo.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM203010VirtulMachinesServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010VirtulMachinesServiceCommands.KeyName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010VirtulMachinesServiceCommands.EveryName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010VirtulMachinesServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010VirtulMachinesServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010VirtulMachinesServiceCommands.Attachment">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.EveryValue">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM203010VirtulMachines">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010VirtulMachines.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010VirtulMachines.Name">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010VirtulMachines.VMServerName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010VirtulMachines.Comment">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010VirtulMachines.IsUse">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010VirtulMachines.IsActive">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010VirtulMachines.VMOwner">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010VirtulMachines.Tags">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010VirtulMachines.Data">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010VirtulMachines.NoteText">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010VirtulMachines.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM203010Actions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010Actions.Save">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010Actions.Cancel">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010Actions.Insert">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010Actions.Delete">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010Actions.CopyDocumentCopyPaste">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010Actions.PasteDocumentCopyPaste">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010Actions.SaveTemplateCopyPaste">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010Actions.First">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010Actions.Previous">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010Actions.Next">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010Actions.Last">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010Actions.Reassign">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010Actions.SaveLoc">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM203010Content">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010Content.Actions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010Content.VirtulMachines">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203010Content.ReAssignVMTo">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM203000ImportResult">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000ImportResult.Processed">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000ImportResult.Error">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000ImportResult.Keys">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM203000PrimaryKey">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000PrimaryKey.VMServer">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM203000VMachineDetailsServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000VMachineDetailsServiceCommands.KeyVM">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000VMachineDetailsServiceCommands.NewRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000VMachineDetailsServiceCommands.RowNumber">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000VMachineDetailsServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000VMachineDetailsServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM203000VMachineDetails">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000VMachineDetails.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000VMachineDetails.VM">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000VMachineDetails.IsUse">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000VMachineDetails.IsActive">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000VMachineDetails.VMOwner">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000VMachineDetails.Comment">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000VMachineDetails.Tags">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000VMachineDetails.Data">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000VMachineDetails.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM203000VirtulMachineServerServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000VirtulMachineServerServiceCommands.KeyVMServer">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000VirtulMachineServerServiceCommands.EveryVMServer">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000VirtulMachineServerServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000VirtulMachineServerServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000VirtulMachineServerServiceCommands.Attachment">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM203000VirtulMachineServer">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000VirtulMachineServer.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000VirtulMachineServer.VMServer">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000VirtulMachineServer.Description">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000VirtulMachineServer.ServerType">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000VirtulMachineServer.Settings">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000VirtulMachineServer.NoteText">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000VirtulMachineServer.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM203000Actions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000Actions.Save">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000Actions.Cancel">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000Actions.Insert">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000Actions.Delete">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000Actions.CopyDocumentCopyPaste">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000Actions.PasteDocumentCopyPaste">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000Actions.SaveTemplateCopyPaste">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000Actions.First">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000Actions.Previous">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000Actions.Next">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000Actions.Last">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000Actions.ViewVM">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000Actions.SaveLoc">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM203000Content">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000Content.Actions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000Content.VirtulMachineServer">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM203000Content.VMachineDetails">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM202050ImportResult">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202050ImportResult.Processed">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202050ImportResult.Error">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202050ImportResult.Keys">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM202050PrimaryKey">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202050PrimaryKey.Name">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM202050BranchesServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202050BranchesServiceCommands.KeyName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202050BranchesServiceCommands.NewRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202050BranchesServiceCommands.RowNumber">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202050BranchesServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202050BranchesServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202050BranchesServiceCommands.Attachment">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM202050Branches">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202050Branches.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202050Branches.Name">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202050Branches.Active">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202050Branches.NoteText">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202050Branches.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM202050Actions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202050Actions.Cancel">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202050Actions.Save">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202050Actions.SaveLoc">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM202050Content">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202050Content.Actions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202050Content.Branches">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM202040ImportResult">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040ImportResult.Processed">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040ImportResult.Error">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040ImportResult.Keys">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM202040PrimaryKey">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040PrimaryKey.TestPlanID">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM202040TestExecutionsServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040TestExecutionsServiceCommands.KeyTestExecutionID">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040TestExecutionsServiceCommands.NewRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040TestExecutionsServiceCommands.RowNumber">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040TestExecutionsServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040TestExecutionsServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040TestExecutionsServiceCommands.Attachment">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM202040TestExecutions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040TestExecutions.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040TestExecutions.TestExecutionID">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040TestExecutions.Test">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040TestExecutions.Result">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040TestExecutions.Active">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040TestExecutions.Reason">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040TestExecutions.Comment">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040TestExecutions.VirtualMachine">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040TestExecutions.LogFilePath">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040TestExecutions.NoteText">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040TestExecutions.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM202040TestPlanIDServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040TestPlanIDServiceCommands.KeyTestPlanID">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040TestPlanIDServiceCommands.EveryTestPlanID">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040TestPlanIDServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040TestPlanIDServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040TestPlanIDServiceCommands.Attachment">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM202040TestPlanID">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040TestPlanID.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040TestPlanID.TestPlanID">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040TestPlanID.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM202040Actions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040Actions.Save">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040Actions.Cancel">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040Actions.Insert">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040Actions.Delete">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040Actions.CopyDocumentCopyPaste">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040Actions.PasteDocumentCopyPaste">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040Actions.SaveTemplateCopyPaste">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040Actions.First">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040Actions.Previous">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040Actions.Next">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040Actions.Last">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040Actions.SaveLoc">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM202040Content">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040Content.Actions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040Content.TestPlanID">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202040Content.TestExecutions">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM202030ImportResult">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202030ImportResult.Processed">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202030ImportResult.Error">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202030ImportResult.Keys">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM202030PrimaryKey">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202030PrimaryKey.Name">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM202030TestsServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202030TestsServiceCommands.KeyName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202030TestsServiceCommands.NewRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202030TestsServiceCommands.RowNumber">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202030TestsServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202030TestsServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM202030Tests">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202030Tests.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202030Tests.Name">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202030Tests.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM202030Actions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202030Actions.Save">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202030Actions.Cancel">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202030Actions.Insert">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202030Actions.Delete">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202030Actions.CopyDocumentCopyPaste">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202030Actions.PasteDocumentCopyPaste">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202030Actions.SaveTemplateCopyPaste">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202030Actions.First">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202030Actions.Previous">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202030Actions.Next">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202030Actions.Last">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202030Actions.SaveLoc">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM202030Content">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202030Content.Actions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202030Content.Tests">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM202000ImportResult">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202000ImportResult.Processed">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202000ImportResult.Error">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202000ImportResult.Keys">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM202000PrimaryKey">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202000PrimaryKey.Build">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202000PrimaryKey.Product">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM202000BuildsServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202000BuildsServiceCommands.KeyBuild">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202000BuildsServiceCommands.KeyProduct">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202000BuildsServiceCommands.NewRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202000BuildsServiceCommands.RowNumber">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202000BuildsServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202000BuildsServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202000BuildsServiceCommands.Attachment">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM202000Builds">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202000Builds.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202000Builds.Build">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202000Builds.Product">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202000Builds.NoteText">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202000Builds.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM202000Actions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202000Actions.Save">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202000Actions.Cancel">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202000Actions.Insert">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202000Actions.Delete">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202000Actions.CopyDocumentCopyPaste">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202000Actions.PasteDocumentCopyPaste">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202000Actions.SaveTemplateCopyPaste">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202000Actions.First">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202000Actions.Previous">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202000Actions.Next">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202000Actions.Last">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202000Actions.SaveLoc">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM202000Content">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202000Content.Actions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM202000Content.Builds">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201030ImportResult">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030ImportResult.Processed">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030ImportResult.Error">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030ImportResult.Keys">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201030PrimaryKey">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030PrimaryKey.TestPlanID">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201030TestExecutionIDServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestExecutionIDServiceCommands.NewRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestExecutionIDServiceCommands.RowNumber">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestExecutionIDServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestExecutionIDServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestExecutionIDServiceCommands.Attachment">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201030TestExecutionID">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestExecutionID.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestExecutionID.TestExecutionID">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestExecutionID.Test">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestExecutionID.Result">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestExecutionID.ExtRef">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestExecutionID.NoteText">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestExecutionID.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201030TestPlansServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestPlansServiceCommands.KeyTestPlanID">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestPlansServiceCommands.EveryTestPlanID">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestPlansServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestPlansServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestPlansServiceCommands.Attachment">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201030TestPlans">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestPlans.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestPlans.TestPlanID">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestPlans.TestPlanIDTestPlanID">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestPlans.Build">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestPlans.Deploy">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestPlans.Description">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestPlans.TestBranch">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestPlans.Owner">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestPlans.Template">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestPlans.Priority">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestPlans.Status">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestPlans.ExtRef">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestPlans.Active">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestPlans.DefaultTestBranch">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030TestPlans.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201030Actions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030Actions.Cancel">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030Actions.Save">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030Actions.Insert">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030Actions.SaveLoc">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201030Content">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030Content.Actions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030Content.TestPlans">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201030Content.TestExecutionID">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201020ImportResult">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020ImportResult.Processed">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020ImportResult.Error">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020ImportResult.Keys">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201020PrimaryKey">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020PrimaryKey.TestPlanID">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201020TestPlansServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlansServiceCommands.KeyTestPlanID">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlansServiceCommands.NewRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlansServiceCommands.RowNumber">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlansServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlansServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201020TestPlans">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.TestPlanID">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.ParentTestPlanID">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.Build">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.Description">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.Status">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.Deploy">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.Total">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.Passed">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.Failed">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.InProcess">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.Aborted">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.MarkedAsTestError">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.MarkedAsBugFound">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.NotExecuted">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.UniqueErrors">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.JiraItems">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.PassRate">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.Creator">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.Active">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.AutoLinkBugs">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.CreatedDateTime">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.SequentialExecutionHHMM">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.ParallelExecutionHHMM">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.SendNotifications">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.AssignFailedTests">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.RequireRestartReason">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.AutoStartFailedTestsOnMajorBuild">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.TestBranch">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.Priority">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.Type">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020TestPlans.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201020Actions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.TestPlansViewDetails">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.Cancel">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.IncludeInStatistic">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.ViewTestPlanDetails">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.ViewTestPlanPassedDetails">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.ViewTestPlanFailedDetails">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.ViewTestPlanNotRunDetails">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.ViewTestPlanInProcessDetails">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.ViewTestPlanBugsDetails">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.ViewTestPlanErrorsDetails">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.ViewUniqueErrors">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.ViewJiraItems">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.ToggleJiraLinks">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.ViewParentTestPlan">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.Compare">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.ViewTestPlanAbortedDetails">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.CreateTestPlan">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.Abort">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.ReopenTestPlan">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.CloseTestPlan">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.CreateChildTestPlan">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.RerunFailedOnMaster">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.SetPriorityHigh">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.SetPriorityMid">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.SetPriorityLow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.ToggleSendNotification">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.ToggleAssignFailedTests">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.ToggleRequireRestartReason">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.ToggleRerunFailedOnMaster">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.SetPriorityHighSetPriority">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.SetPriorityMidSetPriority">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.SetPriorityLowSetPriority">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.ComparePlanActions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.ReopenTestPlanPlanActions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.CloseTestPlanPlanActions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.CreateChildTestPlanPlanActions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.RerunFailedOnMasterPlanActions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.IncludeInStatisticToggleActions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.ToggleSendNotificationToggleActions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.ToggleAssignFailedTestsToggleActions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.ToggleRequireRestartReasonToggleActions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.ToggleJiraLinksToggleActions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.ToggleRerunFailedOnMasterToggleActions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Actions.SaveLoc">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201020Content">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Content.Actions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201020Content.TestPlans">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201000ImportResult">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000ImportResult.Processed">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000ImportResult.Error">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201000CurrentBuildServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000CurrentBuildServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000CurrentBuildServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201000CurrentBuild">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000CurrentBuild.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000CurrentBuild.Build">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000CurrentBuild.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201000CurrentTestPlanServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000CurrentTestPlanServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000CurrentTestPlanServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201000CurrentTestPlan">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000CurrentTestPlan.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000CurrentTestPlan.Deploy">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000CurrentTestPlan.TestPlanDescription">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000CurrentTestPlan.TestBranch">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000CurrentTestPlan.ParentTestPlanID">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000CurrentTestPlan.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201000JiraItemsServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000JiraItemsServiceCommands.KeyIssueID">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000JiraItemsServiceCommands.NewRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000JiraItemsServiceCommands.RowNumber">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000JiraItemsServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000JiraItemsServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201000JiraItems">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000JiraItems.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000JiraItems.Selected">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000JiraItems.IssueID">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000JiraItems.Status">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000JiraItems.Subject">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000JiraItems.Reporter">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000JiraItems.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201000JiraItemsActionTypeServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000JiraItemsActionTypeServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000JiraItemsActionTypeServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000JiraItemsActionTypeServiceCommands.Attachment">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201000JiraItemsActionType">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000JiraItemsActionType.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000JiraItemsActionType.ActionType">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000JiraItemsActionType.Subject">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000JiraItemsActionType.ShowMyOnly">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000JiraItemsActionType.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201000AddRestartCommentServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000AddRestartCommentServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000AddRestartCommentServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000AddRestartCommentServiceCommands.Attachment">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201000AddRestartComment">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000AddRestartComment.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000AddRestartComment.RestartComment">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000AddRestartComment.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201000AssignTaskToServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000AssignTaskToServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000AssignTaskToServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000AssignTaskToServiceCommands.Attachment">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201000AssignTaskTo">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000AssignTaskTo.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000AssignTaskTo.AssignedTo">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000AssignTaskTo.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201000AddCommentServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000AddCommentServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000AddCommentServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000AddCommentServiceCommands.Attachment">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201000AddComment">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000AddComment.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000AddComment.Comment">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000AddComment.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201000MarkAsServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000MarkAsServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000MarkAsServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000MarkAsServiceCommands.Attachment">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201000MarkAs">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000MarkAs.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000MarkAs.Comment">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000MarkAs.Reason">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000MarkAs.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201000RestartParametersServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000RestartParametersServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000RestartParametersServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000RestartParametersServiceCommands.Attachment">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201000RestartParameters">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000RestartParameters.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000RestartParameters.BuildNumber">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000RestartParameters.TestsBranch">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000RestartParameters.DatabaseServer">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000RestartParameters.Browser">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000RestartParameters.ClusterSession">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000RestartParameters.Priority">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000RestartParameters.Script">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000RestartParameters.Description">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000RestartParameters.RestartWarning">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000RestartParameters.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201000FailsServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000FailsServiceCommands.KeyRevision">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000FailsServiceCommands.NewRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000FailsServiceCommands.RowNumber">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000FailsServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000FailsServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201000Fails">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Fails.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Fails.Selected">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Fails.Name">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Fails.Description">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Fails.Result">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Fails.Priority">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Fails.VMServer">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Fails.VirtualMachine">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Fails.VMInQAPool">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Fails.Creator">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Fails.Revision">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Fails.JiraItems">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Fails.NotLinkedErrors">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Fails.AssignedTo">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Fails.CumulativeDuration">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Fails.Reason">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Fails.Comment">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Fails.CommentedBy">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Fails.LinkedBy">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Fails.Status">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Fails.TestAttribute">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Fails.RestartComment">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Fails.RestartedBy">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Fails.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201000TestPlanServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000TestPlanServiceCommands.EveryTestPlan">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000TestPlanServiceCommands.EveryResult">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000TestPlanServiceCommands.EveryReason">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000TestPlanServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000TestPlanServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000TestPlanServiceCommands.Attachment">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201000TestPlan">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000TestPlan.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000TestPlan.TestPlan">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000TestPlan.Result">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000TestPlan.Reason">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000TestPlan.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201000Actions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.RefreshClear">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.AddComment">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.ClearMarks">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.AssignToMe">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.Assign">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.LinkMarkAsGroup">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.UnlinkMarkAsGroup">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.MarkAsTestErrorMarkAsGroup">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.MarkAsBugMarkAsGroup">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.StartInvestigationMarkAsGroup">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.Abort">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.RestartRestartGroup">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.RestartInNewTestPlanRestartGroup">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.SetPriorityHighSetPriority">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.SetPriorityMidSetPriority">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.SetPriorityLowSetPriority">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.Restart">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.RestartInNewTestPlan">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.SetPriorityHigh">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.SetPriorityMid">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.SetPriorityLow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.ShowTestHistory">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.SelectAllInCurrentFilterSelectGroup">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.ToggleSelectionSelectGroup">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.SelectNoneSelectGroup">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.SelectAllInCurrentFilter">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.SelectNone">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.ToggleSelection">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.Cancel">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.Save">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.ViewTestDetails">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.StartInvestigation">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.MarkAsBug">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.MarkAsTestError">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.NavigateToJira">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.ViewVM">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.ViewVMServer">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.ViewParentTestPlan">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.Link">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.Unlink">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Actions.SaveLoc">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM201000Content">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Content.Actions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Content.TestPlan">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Content.Fails">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Content.RestartParameters">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Content.MarkAs">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Content.AddComment">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Content.AssignTaskTo">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Content.AddRestartComment">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Content.JiraItemsActionType">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Content.JiraItems">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Content.CurrentTestPlan">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM201000Content.CurrentBuild">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM104000ImportResult">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM104000ImportResult.Processed">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM104000ImportResult.Error">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM104000StoragesServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM104000StoragesServiceCommands.NewRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM104000StoragesServiceCommands.RowNumber">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM104000StoragesServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM104000StoragesServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM104000Storages">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM104000Storages.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM104000Storages.StorageType">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM104000Storages.Path">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM104000Storages.User">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM104000Storages.Password">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM104000Storages.Active">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM104000Storages.Verified">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM104000Storages.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM104000Actions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM104000Actions.Cancel">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM104000Actions.Save">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM104000Actions.VerifyStorage">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM104000Actions.SaveLoc">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM104000Content">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM104000Content.Actions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM104000Content.Storages">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM101000ImportResult">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000ImportResult.Processed">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000ImportResult.Error">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.Filter">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.Filter.Field">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.Filter.Condition">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.Filter.Value">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.Filter.Value2">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.Filter.OpenBrackets">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.Filter.CloseBrackets">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.Filter.Operator">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.FilterCondition">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.FilterCondition.Equals">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.FilterCondition.NotEqual">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.FilterCondition.Greater">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.FilterCondition.GreaterOrEqual">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.FilterCondition.Less">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.FilterCondition.LessOrEqual">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.FilterCondition.Contain">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.FilterCondition.StartsWith">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.FilterCondition.EndsWith">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.FilterCondition.NotContain">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.FilterCondition.Between">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.FilterCondition.IsNull">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.FilterCondition.IsNotNull">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.FilterOperator">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.FilterOperator.And">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.FilterOperator.Or">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM101000DynamicParametersServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000DynamicParametersServiceCommands.KeyName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000DynamicParametersServiceCommands.NewRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000DynamicParametersServiceCommands.RowNumber">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000DynamicParametersServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000DynamicParametersServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM101000DynamicParameters">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000DynamicParameters.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000DynamicParameters.Name">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000DynamicParameters.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM101000VMLimitsServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000VMLimitsServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000VMLimitsServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000VMLimitsServiceCommands.Attachment">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM101000VMLimits">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000VMLimits.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000VMLimits.MaxVMsForUser">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000VMLimits.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM101000TestPlansServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000TestPlansServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000TestPlansServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000TestPlansServiceCommands.Attachment">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM101000TestPlans">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000TestPlans.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000TestPlans.MinParentTestPlanPassRate">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000TestPlans.MinQtyOfTestsInParentTestPlan">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000TestPlans.RequireParentIfNumberOfTestsExceeds">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000TestPlans.ShowDeletedTestPlans">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000TestPlans.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM101000TestPlanLimitsServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000TestPlanLimitsServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000TestPlanLimitsServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000TestPlanLimitsServiceCommands.Attachment">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM101000TestPlanLimits">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000TestPlanLimits.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000TestPlanLimits.MaxOpenTestPlans">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000TestPlanLimits.AutoCloseTestPlansAfterDays">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000TestPlanLimits.DeleteClosedTestPlansAfterDays">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000TestPlanLimits.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM101000DatabaseBackupsStorageServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000DatabaseBackupsStorageServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000DatabaseBackupsStorageServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000DatabaseBackupsStorageServiceCommands.Attachment">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM101000DatabaseBackupsStorage">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000DatabaseBackupsStorage.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000DatabaseBackupsStorage.DBBackupsStorage">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000DatabaseBackupsStorage.DBBackupsStorageUser">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000DatabaseBackupsStorage.DBBackupsStoragePassword">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000DatabaseBackupsStorage.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM101000SetupServiceCommands">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000SetupServiceCommands.DeleteRow">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000SetupServiceCommands.DialogAnswer">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000SetupServiceCommands.Attachment">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM101000Setup">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000Setup.DisplayName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000Setup.LogDatabaseConnectionString">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000Setup.MySql">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000Setup.AssignmentMap">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000Setup.AssignmentMapMapName">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000Setup.QAServer">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000Setup.TestTagAttribute">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000Setup.ServiceCommands">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM101000Actions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000Actions.Save">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000Actions.Cancel">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000Actions.TestDBBackupsStorage">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000Actions.SaveLoc">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.TM101000Content">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000Content.Actions">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000Content.Setup">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000Content.DatabaseBackupsStorage">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000Content.TestPlanLimits">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000Content.TestPlans">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000Content.VMLimits">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.TM101000Content.DynamicParameters">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.ProcessResult">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.ProcessResult.Status">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.ProcessResult.Seconds">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.ProcessResult.Message">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.ProcessStatus">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.ProcessStatus.NotExists">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.ProcessStatus.InProcess">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.ProcessStatus.Completed">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.ProcessStatus.Aborted">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.LoginResult">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.LoginResult.Code">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.LoginResult.Message">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.TestPortal.LoginResult.Session">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.ErrorCode">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.ErrorCode.OK">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.ErrorCode.INVALID_CREDENTIALS">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.ErrorCode.INTERNAL_ERROR">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.ErrorCode.INVALID_API_VERSION">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.Parameter">
+            <remarks/>
+        </member>
+        <member name="T:PX.QA.Tools.TestPortal.SchemaMode">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.SchemaMode.Basic">
+            <remarks/>
+        </member>
+        <member name="F:PX.QA.Tools.TestPortal.SchemaMode.Detailed">
+            <remarks/>
+        </member>
+        <member name="P:PX.QA.Tools.SiteInfo.Name">
+            <summary>
+            Sites's name
+            </summary>
+        </member>
+        <member name="P:PX.QA.Tools.SiteInfo.Path">
+            <summary>
+            Path to site
+            </summary>
+        </member>
+        <member name="P:PX.QA.Tools.SiteInfo.Url">
+            <summary>
+            Site's url
+            </summary>
+        </member>
+        <member name="P:PX.QA.Tools.SiteInfo.ConnectionString">
+            <summary>
+            Database connections string
+            </summary>
+        </member>
+        <member name="P:PX.QA.Tools.SiteInfo.WebConfigPath">
+            <summary>
+            Path to web.config
+            </summary>
+        </member>
+        <member name="P:PX.QA.Tools.SiteInfo.Database">
+            <summary>
+            Sites's database name
+            </summary>
+        </member>
+        <member name="P:PX.QA.Tools.SiteInfo.Version">
+            <summary>
+            Sites's version
+            </summary>
+        </member>
+        <member name="T:PX.QA.Tools.WaitBase">
+            <summary>
+            Implemets operations related to wait delays.
+            </summary>
+        </member>
+        <member name="P:PX.QA.Tools.WaitBase.LongTimeOut">
+            <summary>
+            Long timeout: 360000 milliseconds
+            </summary>
+        </member>
+        <member name="P:PX.QA.Tools.WaitBase.MediumTimeOut">
+            <summary>
+            Medium timeout: 10000 milliseconds
+            </summary>
+        </member>
+        <member name="P:PX.QA.Tools.WaitBase.DefaultTimeOut">
+            <summary>
+            Default timeout: 3000 milliseconds
+            </summary>
+        </member>
+        <member name="M:PX.QA.Tools.WaitBase.#ctor(System.Int32)">
+            <summary>
+            Use this constructor to override long timeout
+            </summary>
+            <param name="timeOutInMilliseconds">Timeout in milliseconds to be used</param>
+        </member>
+        <member name="M:PX.QA.Tools.WaitBase.WaitForCondition``1(System.Func{``0},System.Int32,System.String)">
+            <summary>
+            Waits for specified function to return an object of the specified type or true value in case of the boolean type.
+            </summary>
+            <param name="function">Function to wait for</param>
+            <param name="timeOutInMilliseconds">Timeout in milliseconds</param>
+            <param name="callerMemberName">Invoking method name (filled automatically, no need to provide any)</param>
+        </member>
+        <member name="M:PX.Common.Mask.Format(System.String,System.String)">
+            <summary>
+            Format text using the specified mask string.
+            </summary>
+        </member>
+        <member name="M:PX.Common.Mask.Format(System.String,System.String,System.Char)">
+            <summary>
+            Format text using the specified mask string.
+            </summary>
+        </member>
+        <member name="M:PX.Common.Mask.Split(System.String,System.String@)">
+            <summary>
+            Split the specified mask string
+            </summary>
+        </member>
+        <member name="M:PX.Common.Mask.Format(System.Text.StringBuilder,System.String,System.Char)">
+            <summary>
+            Format text using the specified mask string.
+            </summary>
+        </member>
+        <member name="M:PX.Common.Mask.EncodeMask(System.String)">
+            <summary>
+            Encode the specified mask string.
+            </summary>
+        </member>
+        <member name="M:PX.Common.Mask.Flag(System.Int32,System.Int32)">
+            <summary>
+            Returns the encoded mask flag from specified char.
+            </summary>
+        </member>
+        <member name="M:PX.Common.Mask.FilterChar(System.Int32,System.String,System.Int32,System.String)">
+            <summary>
+            Filter str[i] character by specified mask flag.
+            </summary>
+        </member>
+        <member name="M:PX.Common.Mask.IsMasked(System.String,System.String,System.Boolean)">
+            <summary>
+            Checks, whether text is masked by specified mask.
+            </summary>
+        </member>
+    </members>
+</doc>

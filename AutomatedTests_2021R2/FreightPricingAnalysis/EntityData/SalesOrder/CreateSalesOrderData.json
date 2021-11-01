@@ -1,0 +1,13 @@
+{
+  "OrderType": "SO",
+  "CustomerID": "UCUSTOMER",
+  "OrderDesc": "Test Sales Order ",
+  "InventoryID": "TESTINV012",
+  "OrderQty": 2.00,
+  "ShipVia": "FEDEX1",
+  "ShipTermsID": "SOCFR",
+  "ShipZoneID": "EAST",
+  "CuryFreightCost": 164.00,
+  "CuryFreightAmt": 200.00,
+  "CuryPremiumFreightAmt": 20.00
+}

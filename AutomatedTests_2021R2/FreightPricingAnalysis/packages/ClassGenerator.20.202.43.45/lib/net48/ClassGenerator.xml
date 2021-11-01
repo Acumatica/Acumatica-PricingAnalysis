@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ClassGenerator</name>
+    </assembly>
+    <members>
+        <member name="T:ClassGenerator.ClassGenerator">
+            <summary>
+            Wrapper generator. Creates .cs source files using acumatica instance.
+            </summary>
+        </member>
+        <member name="P:ClassGenerator.ClassGenerator.Username">
+            <summary>
+            Username, will be used for wrapper generation login. Visiability of screens and controls will be restricted by user access rights.
+            Default value is "admin"
+            </summary>
+        </member>
+        <member name="P:ClassGenerator.ClassGenerator.Namespace">
+            <summary>
+            Namespace, where wrapper class will be defined. Default value is "GeneratedWrappers.Acumatica".
+            </summary>
+        </member>
+        <member name="P:ClassGenerator.ClassGenerator.ClearOutput">
+            <summary>
+            Whether to clear GenResultPath folder or not
+            </summary>
+        </member>
+        <member name="P:ClassGenerator.ClassGenerator.Postfix">
+            <summary>
+            Postfix. Value will be used as subfolder name, first three letters will be added to wrapper class name.
+            Set it, when you need several different wrappers for same screen, for example its default and customized variants.
+            </summary>
+        </member>
+        <member name="P:ClassGenerator.ClassGenerator.CorrectCTL01">
+            <summary>
+            In some cases, Class generator gains incorect control locators from ASP.
+            Set true, if you want class generator to replace "ctl01" to "ctl00" in output to avoid this problem.
+            Use with caution, because in most of cases this effect cased by incorrect user rights.
+            </summary>
+        </member>
+        <member name="P:ClassGenerator.ClassGenerator.GenerateInterfaces">
+            <summary>
+            Whether to generate interfaces for toolbar buttons or not
+            </summary>
+        </member>
+        <member name="P:ClassGenerator.ClassGenerator.Screens">
+            <summary>
+            List of screens with direct urls (e.g. GL307000, ~/Pages/GL/GL307000.aspx?WorkBookID=GL - url can be taken from the Sitemap)
+            </summary>
+        </member>
+        <member name="P:ClassGenerator.ClassGenerator.GenericInquiries">
+            <summary>
+            List of Generic Inquiries (e.g. GI000001, ?Name=Currency Rates History - query can be taken from the browser's address line)
+            </summary>
+        </member>
+        <member name="P:ClassGenerator.ClassGenerator.Dashboards">
+            <summary>
+            List of Dashboards (e.g. DB000001)
+            </summary>
+        </member>
+        <member name="P:ClassGenerator.ClassGenerator.Filters">
+            <summary>
+            List of filters with wildcards, which will be used to process the screens from the site's folder (e.g. *.*px - will generate wrappers for all screens, GL301000 - will generate only the GL301000 screen)
+            </summary>
+        </member>
+        <member name="P:ClassGenerator.ClassGenerator.ExcludedScreens">
+            <summary>
+            List of screens, which will be excluded from the wrapper generation process (e.g. GL301000 - will exclude the GL301000 screen, excluding has the highest priority)
+            </summary>
+        </member>
+        <member name="M:ClassGenerator.ClassGenerator.#ctor(System.String,System.String)">
+            <summary>
+            Inits new instance of class generator
+            </summary>
+            <param name="sitePhysicalPath">
+            File system path to acumatica instance. Class Generator will copy its working file to specified directory,
+            so it must be accessiable.
+            </param>
+            <param name="genResultPath">
+            Folder where resulting .cs will be stored. Ensure it is accessiable.
+            </param>
+        </member>
+        <member name="M:ClassGenerator.ClassGenerator.Run">
+            <summary>
+            Launch wrapper generation process
+            </summary>
+        </member>
+        <member name="M:ClassGenerator.ClassGenerator.Run(System.String)">
+            <summary>
+            Launch wrapper generation process
+            </summary>
+            <param name="filterString">
+            Filter string with wildcards, separated by comma, which will be used to process screens from the site's folder (e.g. *.*px - will generate wrappers for all screens)
+            </param>
+        </member>
+        <member name="M:ClassGenerator.WebConfigFixer.FixWebSectionGroup(System.Xml.Linq.XElement)">
+            <summary>
+            Remove multiAuth section (AC-92331)
+            </summary>
+        </member>
+        <member name="M:ClassGenerator.WebConfigFixer.FixAppSettings(System.Xml.Linq.XElement)">
+            <summary>
+            Disable Modules in appSettings Section
+            </summary>
+            <param name="appSettings">appSettings section</param>
+        </member>
+    </members>
+</doc>

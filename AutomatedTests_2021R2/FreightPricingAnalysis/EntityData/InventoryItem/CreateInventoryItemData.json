@@ -1,0 +1,9 @@
+{
+  "InventoryCD": "TESTINV012",
+  "ItemStatus": "Active",
+  "Descr": "Test Inventory Item ",
+  "ItemClassID": "TESTITCLAS",
+  "LastCost": 245.00,
+  "BasePrice": 500.00
+}
+  

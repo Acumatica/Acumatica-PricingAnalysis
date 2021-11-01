@@ -1,0 +1,14 @@
+{
+  "ItemClassCD": "TESTITCLAS",
+  "Descr": "Test Item Class Desc",
+  "ItemType": "Finished Good",
+  "ValMethod": "Average",
+  "TaxCategoryID": "EXEMPT",
+  "PostClassID": "IND",
+  "LotSerClassID": "SRSEQ",
+  "DfltSiteID": "RETAIL",
+  "AvailabilitySchemeID": "ELECCOMP",
+  "BaseUnit": "EA",
+  "SalesUnit": "EA",
+  "PurchaseUnit": "EA"
+}

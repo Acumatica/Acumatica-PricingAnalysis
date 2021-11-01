@@ -1,0 +1,10 @@
+{
+  "AcctCD": "VEN",
+  "Status": "Active",
+  "VendorClassID": "TESTCLASSV",
+  "AcctName": "Test Vendor ",
+  "AddressLine1": "893 Confederate Drive",
+  "City": "Geneva",
+  "State": "NY",
+  "PostalCode": "14456"
+}

@@ -1,0 +1,11 @@
+{
+  "CustomerClassID": "TestClassC",
+  "Descr": "Test New Customer Class",
+  "CountryID": "US",
+  "TermsID": "30D",
+  "StatementCycleId": "EOM",
+  "DefPaymentMethodID": "CHECK",
+  "ARAcctID": "11000 - Accounts Receivable",
+  "SalesAcctID": "40000 - Sales Revenue",
+  "DiscTakenAcctID": "52600 - Cash Discount"
+}

@@ -1,0 +1,9 @@
+System.IO.IOException: The process cannot access the file because it is being used by another process.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.__Error.WinIOError()
+   at System.IO.FileInfo.MoveTo(String destFileName)
+   at Core.Log.LogStorage.HTMLLogStorage.System.IDisposable.Dispose() in C:\Bld2\AC-FULL2020R28-TB\tests\Selenium\PX.QA.Tools\Log\HTMLLogStorage.cs:line 69
+   at Core.Log.Log.<>c.<System.IDisposable.Dispose>b__37_0(ILogStorage _) in C:\Bld2\AC-FULL2020R28-TB\tests\Selenium\PX.QA.Tools\Log\Log.cs:line 78
+   at System.Collections.Generic.List`1.ForEach(Action`1 action)
+   at Core.Log.Log.System.IDisposable.Dispose() in C:\Bld2\AC-FULL2020R28-TB\tests\Selenium\PX.QA.Tools\Log\Log.cs:line 78
+   at Execution.Launcher.Main(String[] args) in C:\Bld2\AC-FULL2020R28-TB\tests\Selenium\Execution\Launcher.cs:line 59

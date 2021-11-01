@@ -1,0 +1,11 @@
+{
+  "AcctCD": "CUS",
+  "Status": "Active",
+  "CustomerClassID": "TestClassC",
+  "AcctName": "Test Customer ",
+  "AddressLine1": "2720 Jadewood",
+  "City": "Paterson",
+  "State": "NJ",
+  "PostalCode": "07501",
+  "CreditRule": "Disabled"
+}

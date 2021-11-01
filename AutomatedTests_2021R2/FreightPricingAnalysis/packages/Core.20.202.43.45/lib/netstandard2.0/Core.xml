@@ -1,0 +1,3058 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Core</name>
+    </assembly>
+    <members>
+        <member name="M:Api.XLSXHelper.CreateXlsxWithHeader(System.IO.FileInfo,System.Collections.Generic.IList{System.String})">
+            <summary>
+            Creates XLSX file with one row consisted of specified values
+            </summary>
+            <param name="fileLocation">Destination file location</param>
+            <param name="header">values to populate first row</param>
+            <returns>Resulting file info</returns>
+        </member>
+        <member name="T:Controls.Alert.Alert">
+            <summary>
+            Implements operations related to alerts, promts and confirmation.
+            </summary>
+        </member>
+        <member name="M:Controls.Alert.Alert.AlertToException">
+            <summary>
+            Converts alert to exception with the same text message and re-throws exception.
+            Closes standard confirmations.
+            </summary>
+        </member>
+        <member name="M:Controls.Alert.Alert.AlertToException(System.String)">
+            <summary>
+            Converts alert to exception with the same text message and re-throws exception.
+            Closes standard confirmations.
+            </summary>
+        </member>
+        <member name="M:Controls.Alert.Alert.IsAlertPresent(OpenQA.Selenium.IAlert@)">
+            <summary>
+            Determines wether an alert is present or not.
+            </summary>
+            <param name="alert">Output parameter to return an alert</param>
+        </member>
+        <member name="M:Controls.Alert.Alert.WaitForAlert">
+            <summary>
+            Waits for an alert to appear within the short timeout without throwing timeout exception.
+            </summary>
+        </member>
+        <member name="T:Controls.Alert.Alert.StandardConfirmations">
+            <summary>
+            Collection of confirmations which will be closed silently.
+            </summary>
+        </member>
+        <member name="P:Controls.Alert.Alert.StandardConfirmations.CURRENT_RECORD_WILL_BE_DELETED">
+            <summary>
+            Standard confirmation message:
+            Current % record will be deleted
+            </summary>
+        </member>
+        <member name="P:Controls.Alert.Alert.StandardConfirmations.SELECTED_RECORDS_WILL_BE_DELETED">
+            <summary>
+            Standard confirmation message:
+            Selected records will be deleted
+            </summary>
+        </member>
+        <member name="P:Controls.Alert.Alert.StandardConfirmations.ANY_UNSAVED_CHANGES_WILL_BE_DISCARDED">
+            <summary>
+            Standard confirmation message:
+            Any unsaved changes will be discarded.
+            </summary>
+        </member>
+        <member name="P:Controls.Alert.Alert.StandardConfirmations.THIS_PAGE_IS_ASKING_YOU_TO_CONFIRM_THAT_YOU_WANT_TO_LEAVE">
+            <summary>
+            Standard confirmation message:
+            This page is asking you to confirm that you want to leave - data you have entered may not be saved.
+            </summary>
+        </member>
+        <member name="P:Controls.Alert.Alert.StandardConfirmations.DELETE_COMPANY_WARNING">
+            <summary>
+            Standard confirmation message:
+            WARNING: This action will completely delete all data in selected company. Are you sure you want to continue?
+            </summary>
+        </member>
+        <member name="P:Controls.Alert.Alert.StandardConfirmations.AUTOMATION_STEPS_WILL_BE_OVERRIDEN">
+            <summary>
+            Standard confirmation message:
+            Automation steps will be overriden.
+            </summary>
+        </member>
+        <member name="M:Controls.Attributes.AttributesPanel.GetValue">
+            <summary>
+            Gets value from the attributes panel
+            </summary>
+        </member>
+        <member name="M:Controls.Attributes.AttributesPanel.GetAttribute(System.Int32,System.Int32)">
+            <summary>
+            Gets an attribute by its row and column indexes
+            </summary>
+            <param name="rowIndex">Index of the attribute's row</param>
+            <param name="columnIndex">Index of the attribute's column</param>
+        </member>
+        <member name="M:Controls.PXBranchSelector.GetValues">
+            <summary>
+            Gets values from the branch selector control in the user interface
+            </summary>
+        </member>
+        <member name="M:Controls.PXBranchSelector.Select(System.String)">
+            <summary>
+            Selects value in the branch selector
+            </summary>
+            <param name="value">String value to select in the branch selector</param>
+        </member>
+        <member name="M:Controls.PXBranchSelector.Reset">
+            <summary>
+            Resets value in the branch selector
+            </summary>
+        </member>
+        <member name="T:Controls.Button.Button">
+            <summary>
+            Button control wrapper.
+            </summary>
+        </member>
+        <member name="M:Controls.Button.Button.Click">
+            <summary>
+            Clicks the button
+            </summary>
+        </member>
+        <member name="M:Controls.Container.ContainerBase.DynamicControl``1(System.String)">
+            <summary>
+            Searches for the dynamic form control by the provided label/name/tooltip.
+            Can be used in dynamic forms in which controls are added/deleted depending on the form data or applied customization.
+            </summary>
+            <typeparam name="T">
+            Control type of the dynamic form control.
+            Possible control types (all control types are available in the Controls namespace):
+            ToolBarButton - for toolbar button fields.
+            Button - for button fields.
+            CheckBox - for fields with checkboxes;
+            Input - for text/numeric fields;
+            Selector - for fields with selector;
+            FormulaCombo - for fields with formulas;
+            DropDown - for dropdown fields;
+            DateSelector - for fields with date/time.
+            Container - for tab controls.
+            SmartPanel - for smartpanel controls.
+            GroupBox - for groupbox controls.
+            QuickSearch - for quick search controls.
+            </typeparam>
+            <param name="labelNameTooltip">The label, name or tooltip of the control in the UI</param>
+            <returns>Dynamic form control</returns>
+        </member>
+        <member name="T:Controls.Container.Extentions.ActivityPanel">
+            <summary>
+            Describes Tasks and Activities Panel
+            </summary>
+        </member>
+        <member name="T:Controls.Container.Extentions.ActivityPanel.PxToolBar">
+            <summary>
+            Tasks and Activities Panel Toolbar
+            </summary>
+        </member>
+        <member name="P:Controls.Container.Extentions.ActivityPanel.PxToolBar.Refresh">
+            <summary>
+            Refresh button
+            </summary>
+        </member>
+        <member name="P:Controls.Container.Extentions.ActivityPanel.PxToolBar.AddTask">
+            <summary>
+            Add Task button
+            </summary>
+        </member>
+        <member name="P:Controls.Container.Extentions.ActivityPanel.PxToolBar.AddEvent">
+            <summary>
+            Add Event button
+            </summary>
+        </member>
+        <member name="P:Controls.Container.Extentions.ActivityPanel.PxToolBar.AddActivity">
+            <summary>
+            Add Activity button (body)
+            </summary>
+        </member>
+        <member name="M:Controls.Container.Extentions.ActivityPanel.PxToolBar.#ctor(System.String)">
+            <summary>
+            Inits toolbar
+            </summary>
+            <param name="baseLocator">toolbar locator</param>
+        </member>
+        <member name="M:Controls.Container.Extentions.ActivityPanel.PxToolBar.ClickAddActivityMenueItem(System.String)">
+            <summary>
+            Clicks on item in dropdowm under Add Activity
+            </summary>
+            <param name="text">Item text</param>
+        </member>
+        <member name="P:Controls.Container.Extentions.ActivityPanel.ToolBar">
+            <summary>
+            Tasks and Activities Panel Toolbar
+            </summary>
+        </member>
+        <member name="P:Controls.Container.Extentions.ActivityPanel.ActivitiesList">
+            <summary>
+            Represents Items list.
+            </summary>
+        </member>
+        <member name="M:Controls.Container.Extentions.ActivityPanel.Refresh">
+            <summary>
+            Click Refresh Button
+            </summary>
+        </member>
+        <member name="M:Controls.Container.Extentions.ActivityPanel.AddTask">
+            <summary>
+            Clcik Add Task Button
+            </summary>
+        </member>
+        <member name="M:Controls.Container.Extentions.ActivityPanel.AddEvent">
+            <summary>
+            Click Add Event Button
+            </summary>
+        </member>
+        <member name="M:Controls.Container.Extentions.ActivityPanel.AddActivity">
+            <summary>
+            Click Add Activity Button
+            </summary>
+        </member>
+        <member name="M:Controls.Container.Extentions.ActivityPanel.Count">
+            <summary>
+            Get Items Count
+            </summary>
+            <returns>Count of items</returns>
+        </member>
+        <member name="M:Controls.Container.Extentions.ActivityPanel.VerifyItemsCount(System.Int32)">
+            <summary>
+            Verify Items count
+            </summary>
+            <param name="expected">Count to expect</param>
+        </member>
+        <member name="M:Controls.Container.Extentions.ActivityPanel.Items">
+            <summary>
+            Get Items
+            </summary>
+            <returns>List of items, represented as plain strings</returns>
+        </member>
+        <member name="M:Controls.Container.Extentions.ActivityPanel.VerifyItemPresent(System.String)">
+            <summary>
+            Verify Item, which contain specified text, is present
+            </summary>
+            <param name="text">Text to find</param>
+        </member>
+        <member name="M:Controls.Container.Extentions.ActivityPanel.ClickItem(System.Int32)">
+            <summary>
+            Click on specified item to open Activity PopUp
+            </summary>
+            <param name="index">Zero-based index of item</param>
+        </member>
+        <member name="M:Controls.Container.Extentions.ActivityPanel.ClickItem(System.String)">
+            <summary>
+            Click on specified item to open Activity PopUp
+            </summary>
+            <param name="text">Item contain text</param>
+        </member>
+        <member name="M:Controls.Container.Extentions.ActivityPanel.ClickAddActivityMenueItem(System.String)">
+            <summary>
+            Clicks on item in dropdowm under Add Activity
+            </summary>
+            <param name="text">Item text</param>
+        </member>
+        <member name="M:Controls.Container.Extentions.ActivityPanel.AddChat">
+            <summary>
+            Add Chat
+            </summary>
+        </member>
+        <member name="M:Controls.Container.Extentions.ActivityPanel.AddAppointment">
+            <summary>
+            Add Appointment
+            </summary>
+        </member>
+        <member name="M:Controls.Container.Extentions.ActivityPanel.AddMessage">
+            <summary>
+            Add Message
+            </summary>
+        </member>
+        <member name="M:Controls.Container.Extentions.ActivityPanel.AddNote">
+            <summary>
+            Add Note
+            </summary>
+        </member>
+        <member name="M:Controls.Container.Extentions.ActivityPanel.AddPhoneCall">
+            <summary>
+            Add Phone Call
+            </summary>
+        </member>
+        <member name="M:Controls.Container.Extentions.ActivityPanel.AddEmailResponse">
+            <summary>
+            Add Email Response
+            </summary>
+        </member>
+        <member name="M:Controls.Container.Extentions.ActivityPanel.AddWorkItem">
+            <summary>
+            Add Work Item
+            </summary>
+        </member>
+        <member name="T:Controls.Container.Extentions.ContentList">
+            <summary>
+            Represents Items list.
+            </summary>
+        </member>
+        <member name="M:Controls.Container.Extentions.ContentList.Count">
+            <summary>
+            return count of items
+            </summary>
+            <returns>count of items</returns>
+        </member>
+        <member name="M:Controls.Container.Extentions.ContentList.Items">
+            <summary>
+            Gets all visiable items in Panel
+            </summary>
+            <returns>List of items, represented as plain strings</returns>
+        </member>
+        <member name="M:Controls.Container.Extentions.ContentList.ClickItem(System.Int32)">
+            <summary>
+            Click on specified item to open Activity PopUp
+            </summary>
+            <param name="index">Zero-based index of item</param>
+        </member>
+        <member name="M:Controls.Container.Extentions.ContentList.ClickItem(System.String)">
+            <summary>
+            Click on specified item to open Activity PopUp
+            </summary>
+            <param name="text">Item contain text</param>
+        </member>
+        <member name="M:Controls.Container.Extentions.Note.Type(System.String)">
+            <summary>
+            Types provided value into note editor text box
+            </summary>
+            <param name="value">The value to be typed into note editor</param>
+        </member>
+        <member name="T:Controls.Container.Extentions.SmartPanel_AttachFile">
+            <summary>
+            Describes files popup panel
+            </summary>
+        </member>
+        <member name="T:Controls.Container.Extentions.SmartPanel_AttachFile.FilePathInput">
+            <summary>
+            Describes file path input control on files popup
+            </summary>
+        </member>
+        <member name="T:Controls.Container.Extentions.SmartPanel_AttachFile.FileRow">
+            <summary>
+            Describes row in files popup panel
+            </summary>
+        </member>
+        <member name="T:Controls.Container.Extentions.SmartPanel_AttachFile.FileHeader">
+            <summary>
+            Describes header in files popup panel
+            </summary>
+        </member>
+        <member name="T:Controls.Container.Extentions.SmartPanel_AttachFile.AttachedFiles">
+            <summary>
+            Describes grid in files popup panel
+            </summary>
+        </member>
+        <member name="M:Controls.Container.Extentions.SmartPanel_AttachFile.AttachedFiles.SelectByFileName(System.String)">
+            <summary>
+            Select grid row by filename value in it
+            </summary>
+            <param name="fileName">filename to select</param>
+            <returns>true if row selected successful</returns>
+        </member>
+        <member name="P:Controls.Container.Extentions.SmartPanel_AttachFile.FilesAttached">
+            <summary>
+            Grid of attached files
+            </summary>
+        </member>
+        <member name="M:Controls.Container.Extentions.SmartPanel_AttachFile.Upload(System.String)">
+            <summary>
+            Upload selected file via the files panel. Panel should be visible. Fails if file with same name already exist.
+            </summary>
+            <param name="localPath">path to the file</param>
+        </member>
+        <member name="M:Controls.Container.Extentions.SmartPanel_AttachFile.UploadAllowOverride(System.String)">
+            <summary>
+            Upload selected file via the files panel. Panel should be visible. Does not fail if file with same name already exist.
+            </summary>
+            <param name="localPath">path to the file</param>
+        </member>
+        <member name="M:Controls.Dashboard.DashboardContainerBase.DynamicControl``1(System.Int32,System.Int32)">
+            <summary>
+            Searches for the dynamic widget by the provided row and column number
+            </summary>
+            <typeparam name="T">Control type of the dynamic widget</typeparam>
+            <param name="rowIndex">Index of the widget's row</param>
+            <param name="columnIndex">Index of the widget's column</param>
+            <returns>Dynamic widget control</returns>
+        </member>
+        <member name="T:Controls.Dashboard.SerialChartWidgetSlice">
+            <summary>
+            Serial chart widget's slice control wrapper
+            </summary>
+        </member>
+        <member name="M:Controls.Dashboard.SerialChartWidgetSlice.GetCategory">
+            <summary>
+            Gets the slice's category
+            </summary>
+            <returns>Slice's category</returns>
+        </member>
+        <member name="T:Controls.Dashboard.SlicedChartWidgetSlice">
+            <summary>
+            Sliced chart widget's slice control wrapper
+            </summary>
+        </member>
+        <member name="T:Controls.Dashboard.WidgetSlice">
+            <summary>
+            Widget's slice control wrapper
+            </summary>
+        </member>
+        <member name="M:Controls.Dashboard.WidgetSlice.GetValue">
+            <summary>
+            Gets the slice's balloon text
+            </summary>
+            <returns>Slice's balloon text</returns>
+        </member>
+        <member name="P:Controls.Dashboard.CardKpiWidget.Caption">
+            <summary>
+            Widget's caption label
+            </summary>
+        </member>
+        <member name="P:Controls.Dashboard.CardKpiWidget.Kpi">
+            <summary>
+            Widget's Kpi label
+            </summary>
+        </member>
+        <member name="P:Controls.Dashboard.CardKpiWidget.KpiTrend">
+            <summary>
+            Widget's Kpi Trend label
+            </summary>
+        </member>
+        <member name="P:Controls.Dashboard.CardKpiWidget.KpiOverall">
+            <summary>
+            Widget's Kpi Overall label
+            </summary>
+        </member>
+        <member name="M:Controls.Dashboard.CardKpiWidget.GetKpiStatus">
+            <summary>
+            Gets the widget's kpi status (normal/warning/error)
+            </summary>
+        </member>
+        <member name="M:Controls.Dashboard.CardKpiWidget.GetKpiColor">
+            <summary>
+            Gets the widget's kpi color
+            </summary>
+        </member>
+        <member name="P:Controls.Dashboard.DataTableWidget.Caption">
+            <summary>
+            Widget's caption toolbar button
+            </summary>
+        </member>
+        <member name="P:Controls.Dashboard.DataTableWidget.Grid">
+            <summary>
+            Widget's grid control
+            </summary>
+        </member>
+        <member name="M:Controls.Dashboard.EmptyWidget.AddWidget">
+            <summary>
+            Clicks on Add a New Widget link to open the new widget wizard
+            </summary>
+        </member>
+        <member name="P:Controls.Dashboard.IFrameWidget.Caption">
+            <summary>
+            Widget's caption label
+            </summary>
+        </member>
+        <member name="M:Controls.Dashboard.IFrameWidget.GetEmbeddedPage``1">
+            <summary>
+            Switches to the widget's iframe and returns an embedded page instance
+            </summary>
+            <typeparam name="T">Embedded page type (e.g. generated or extended page wrapper type)</typeparam>
+            <returns>Embedded page instance</returns>
+        </member>
+        <member name="P:Controls.Dashboard.PivotTableWidget.Caption">
+            <summary>
+            Widget's caption toolbar button
+            </summary>
+        </member>
+        <member name="P:Controls.Dashboard.PivotTableWidget.PivotTable">
+            <summary>
+            Pivot Table widget
+            </summary>
+        </member>
+        <member name="P:Controls.Dashboard.SerialChartWidget.Caption">
+            <summary>
+            Widget's caption toolbar button
+            </summary>
+        </member>
+        <member name="M:Controls.Dashboard.SerialChartWidget.GetSlice(System.Int32,System.Int32)">
+            <summary>
+            Gets a slice from the chart widget
+            </summary>
+            <param name="categoryIndex">Index of a category (a group of columns for a column/bar chart, a stacked column for a stacked column/bar chart, a group of points for a line chart)</param>
+            <param name="sliceIndex">Index of a category slice (a column for a column/bar chart, a stacked column segment for a stacked column/bar chart, a point for a line chart)</param>
+            <returns>Widget's slice control</returns>
+        </member>
+        <member name="P:Controls.Dashboard.SlicedChartWidget.Caption">
+            <summary>
+            Widget's caption toolbar button
+            </summary>
+        </member>
+        <member name="M:Controls.Dashboard.SlicedChartWidget.GetSlice(System.Int32)">
+            <summary>
+            Gets a slice from the chart widget
+            </summary>
+            <param name="sliceIndex">Index of a slice (numbering from the top/clockwise)</param>
+            <returns>Widget's slice control</returns>
+        </member>
+        <member name="P:Controls.Dashboard.Widget.Edit">
+            <summary>
+            Widget's edit toolbar button
+            </summary>
+        </member>
+        <member name="P:Controls.Dashboard.Widget.Delete">
+            <summary>
+            Widget's delete toolbar button
+            </summary>
+        </member>
+        <member name="P:Controls.Dashboard.Widget.RefreshLocator">
+            <summary>
+            Widget's refresh toolbar button
+            </summary>
+        </member>
+        <member name="P:Controls.Dashboard.Widget.LastUpdateLocator">
+            <summary>
+            Widget's RefreshWidgetTime label
+            </summary>
+        </member>
+        <member name="M:Controls.Dashboard.Widget.DragAndDrop(Controls.Dashboard.WidgetBase)">
+            <summary>
+            Drag and drops current widget to the specified one
+            </summary>
+            <param name="destinationWidget">Widget to drag and drop to</param>
+        </member>
+        <member name="M:Controls.Dashboard.Widget.GetHeight">
+            <summary>
+            Gets widget's height in pixels
+            </summary>
+        </member>
+        <member name="M:Controls.Dashboard.Widget.GetWidth">
+            <summary>
+            Gets widget's width in columns
+            </summary>
+        </member>
+        <member name="M:Controls.Dashboard.Widget.GetColumnWidth">
+            <summary>
+            Gets widget's column width in pixels
+            </summary>
+        </member>
+        <member name="M:Controls.Dashboard.Widget.SetHeight(System.Int64)">
+            <summary>
+            Sets widget's height to the specified value
+            </summary>
+            <param name="heightInPixels">Height in pixels (between 100px and 2000px)</param>
+        </member>
+        <member name="M:Controls.Dashboard.Widget.SetWidth(System.Int64)">
+            <summary>
+            Sets widget's width to the specified value
+            </summary>
+            <param name="widthInColumns">Width in columns (between 2 and 12)</param>
+        </member>
+        <member name="M:Controls.Dashboard.Widget.GetRowIndex">
+            <summary>
+            Gets widget's row index
+            </summary>
+        </member>
+        <member name="M:Controls.Dashboard.Widget.GetColumnIndex">
+            <summary>
+            Gets widget's column index
+            </summary>
+        </member>
+        <member name="P:Controls.Dashboard.WikiPageWidget.Caption">
+            <summary>
+            Widget's caption label
+            </summary>
+        </member>
+        <member name="P:Controls.Dashboard.WikiPageWidget.Content">
+            <summary>
+            Widget's content control
+            </summary>
+        </member>
+        <member name="T:Controls.BaseControl">
+            <summary>
+            Infrastructure. BaseControl, which wraps Webdriver Element
+            </summary>
+        </member>
+        <member name="P:Controls.BaseControl.Locator">
+            <summary>
+            Control css locator
+            </summary>
+        </member>
+        <member name="P:Controls.BaseControl.ClearLocator">
+            <summary>
+            Locator with trimmed '_' on start
+            </summary>
+        </member>
+        <member name="P:Controls.BaseControl.ControlName">
+            <summary>
+            Control Name, which is visible in the UI
+            </summary>
+        </member>
+        <member name="P:Controls.BaseControl.TabId">
+            <summary>
+            CSS id of the parent container/tab
+            </summary>
+        </member>
+        <member name="P:Controls.BaseControl.WaitAction">
+            <summary>
+            Action, which is performed after clicking on a control (to wait for a condition)
+            </summary>
+        </member>
+        <member name="P:Controls.BaseControl.WaitActionOverride">
+            <summary>
+            One-time WaitAction override
+            </summary>
+        </member>
+        <member name="P:Controls.BaseControl.ContextMenu">
+            <summary>
+            Context menu after right click
+            </summary>
+        </member>
+        <member name="P:Controls.BaseControl.Element">
+            <summary>
+            WebDriver element
+            </summary>
+        </member>
+        <member name="M:Controls.BaseControl.TryLocate(System.Boolean)">
+            <summary>
+            Switch to tab/slect cell, on/in which the control is located
+            </summary>
+            <param name="doEdit">Whether to start grid Edit mode or not</param>
+        </member>
+        <member name="M:Controls.BaseControl.GetCoordinateX">
+            <summary>
+            Element's position on screen on the axis X
+            </summary>
+        </member>
+        <member name="M:Controls.BaseControl.GetCoordinateY">
+            <summary>
+            Element's position on screen on the axis Y
+            </summary>
+        </member>
+        <member name="M:Controls.BaseControl.ClickLink(System.String)">
+            <summary>
+            Click link in control
+            </summary>
+            <param name="text">Link text</param>
+        </member>
+        <member name="M:Controls.BaseControl.InvokeWaitAction">
+            <summary>
+            Invoke Wait Action
+            </summary>
+        </member>
+        <member name="T:Controls.BaseEditor">
+            <summary>
+            Represent data control
+            </summary>
+        </member>
+        <member name="F:Controls.BaseEditor.DataField">
+            <summary>
+            DataField in Acumatica
+            </summary>
+        </member>
+        <member name="M:Controls.CellControl.EscapeGridEditMode">
+            <summary>
+            If grid in edit mode, press escape
+            </summary>
+        </member>
+        <member name="M:Controls.CellControl.AdjustColumnWidth">
+            <summary>
+            Adjusts column width to be more than the half of the content width
+            </summary>
+        </member>
+        <member name="M:Controls.DefaultControl.DefaultControl.DynamicControl``1">
+            <summary>
+            Converts current dynamic control to the provided control type.
+            Can be used in dynamic grids/forms in which controls have different control type depending on the grid data or applied customization.
+            </summary>
+            <typeparam name="T">
+            Control type to convert the dynamic control to.
+            Possible control types (all control types are available in the Controls namespace):
+            CheckBox - for fields with checkboxes;
+            Input - for text/numeric fields;
+            Selector - for fields with selector;
+            FormulaCombo - for fields with formulas;
+            DropDown - for dropdown fields;
+            DateSelector - for fields with date/time.
+            </typeparam>
+            <returns>Converted dynamic control</returns>
+        </member>
+        <member name="T:Controls.DefaultControl.DefaultColumnFilter">
+            <summary>
+            Column grid header with filter panel
+            </summary>
+        </member>
+        <member name="M:Controls.DefaultControl.DefaultColumnFilter.#ctor(Controls.DefaultControl.DefaultControl)">
+            <summary>
+            Construct grid header from cell control
+            </summary>
+            <param name="control">Cell control</param>
+        </member>
+        <member name="M:Controls.DefaultControl.DefaultColumnFilter.Equals(System.String)">
+            <summary>
+            The Equals method for this filter is not implemented.
+            </summary>
+            <param name="value">The filtered value</param>
+        </member>
+        <member name="T:Controls.WrappedInput">
+            <summary>
+            Represent Control which contains Input inside (like Selector)
+            </summary>
+        </member>
+        <member name="T:Controls.Editors.AspxCodeEditor.AspxCodeEditor">
+            <summary>
+            ASPX code editor control wrapper.
+            </summary>
+        </member>
+        <member name="T:Controls.Editors.DataSetEditor.DataSetEditor">
+            <summary>
+            Represents DataSource editor in RowSet, ColumnSet and UnitSet screens
+            </summary>
+        </member>
+        <member name="M:Controls.Editors.DataSetEditor.DataSetEditor.Select">
+            <summary>
+            Opens DataSource editor from current grid cell and fill all his nested controls
+            </summary>
+        </member>
+        <member name="T:Controls.Editors.DateSelector.DateSelector">
+            <summary>
+            Date-selector control wrapper.
+            </summary>
+        </member>
+        <member name="M:Controls.Editors.DateSelector.DateSelector.GetDateTypeFormat">
+            <summary>
+            Gets short date format from the default culture info for typing in DateSelector.
+            </summary>
+            <returns>Short date format from the default culture info for typing in DateSelector.</returns>
+        </member>
+        <member name="M:Controls.Editors.DateSelector.DateSelector.GetTimeTypeFormat">
+            <summary>
+            Gets short time format from the default culture info for typing in DateSelector.
+            </summary>
+            <returns>Short time format from the default culture info for typing in DateSelector.</returns>
+        </member>
+        <member name="M:Controls.Editors.DateSelector.DateSelector.Type(System.Int32,System.Int32,Controls.Editors.DateSelector.DateSelector.Options)">
+            <summary>
+            Types hours and minutes in date-selector.
+            </summary>
+            <param name="hour">Number of hourse to type in date-selector.</param>
+            <param name="minute">Number of minutes to type in date-selector.</param>
+            <param name="option"> Format applied to string value when typing in date-selector.
+            There are 4 format availbale: Date (1900/1/1), Time (12:00 AM), Duration (00:10), Text (value is typed as is, no additional formatting applied).
+            </param>
+        </member>
+        <member name="M:Controls.Editors.DateSelector.DateSelector.SelectTime(System.String)">
+            <summary>
+            Selects time in date-selector.
+            The following format is applied to string value while typing in date-selector: Time (12:00 AM).
+            </summary>
+            <param name="value">String value to select in date-selector.</param>
+        </member>
+        <member name="M:Controls.Editors.DateSelector.DateSelector.Reset">
+            <summary>
+            Resets value in date-selector.
+            </summary>
+        </member>
+        <member name="M:Controls.Editors.DateSelector.DateSelector.Type(System.String,Controls.Editors.DateSelector.DateSelector.Options)">
+            <summary>
+            Types value in date-selector.
+            </summary>
+            <param name="value">String value to type in date-selector.</param>
+            <param name="option"> Format applied to string value when typing in date-selector.
+            There are 4 format availbale: Date (1900/1/1), Time (12:00 AM), Duration (00:10), Text (value is typed as is, no additional formatting applied).
+            </param>
+        </member>
+        <member name="M:Controls.Editors.DateSelector.DateSelector.Type(System.String)">
+            <summary>
+            Types value in date-selector.
+            </summary>
+            <param name="value">String value to type in date-selector.</param>
+        </member>
+        <member name="M:Controls.Editors.DateSelector.DateSelector.Type">
+            <summary>
+            Types value in date-selector from value property.
+            The following format is applied to string value while typing in date-selector: Date (1900/1/1).
+            </summary>
+        </member>
+        <member name="M:Controls.Editors.DateSelector.DateSelector.Type(Controls.Editors.DateSelector.DateSelector.Options)">
+            <summary>
+            Types value in date-selector from value property.
+            </summary>
+            <param name="option"> Format applied to string value when typing in date-selector.
+            There are 4 format availbale: Date (1900/1/1), Time (12:00 AM), Duration (00:10), Text (value is typed as is, no additional formatting applied).
+            </param>
+        </member>
+        <member name="M:Controls.Editors.DateSelector.DateSelector.Type(System.DateTime)">
+            <summary>
+            Types value in date-selector.
+            </summary>
+            <param name="value"> Date-time value to type in date-selector.
+            Default format applied: Date (1900/1/1).
+            </param>
+        </member>
+        <member name="M:Controls.Editors.DateSelector.DateSelector.Type(System.DateTime,Controls.Editors.DateSelector.DateSelector.Options)">
+            <summary>
+            Types value in date-selector.
+            </summary>
+            <param name="value"> Date-time value to type in date-selector.</param>
+            <param name="option"> Format applied to string value when typing in date-selector.
+            There are 4 format availbale: Date (1900/1/1), Time (12:00 AM), Duration (00:10), Text (value is typed as is, no additional formatting applied).
+            </param>
+        </member>
+        <member name="M:Controls.Editors.DateSelector.DateSelector.Select">
+            <summary>
+            Selects value in date-selector from Value property.
+            The following format is applied to string value while selecting in date-selector: Time (12:00 PM).
+            </summary>
+        </member>
+        <member name="M:Controls.Editors.DateSelector.DateSelector.Select(System.String)">
+            <summary>
+            Selects value in date-selector.
+            The following format is applied to string value while selecting in date-selector: Time (12:00 PM).
+            <param name="value"> String value to select in date-selector. </param>
+            </summary>
+        </member>
+        <member name="M:Controls.Editors.DateSelector.DateSelector.Select(Controls.Editors.DateSelector.DateSelector.Options)">
+            <summary>
+            Selects value in date-selector from Value property.
+            <param name="option"> Format applied to string value when selecting in date-selector.
+            There are 2 formats availbale: Time (12:00 PM), Formula (@Today - 1). </param>
+            </summary>
+        </member>
+        <member name="M:Controls.Editors.DateSelector.DateSelector.Select(System.String,Controls.Editors.DateSelector.DateSelector.Options)">
+            <summary>
+            Selects value in date-selector.
+            </summary>
+            <param name="value"> String value to select in date-selector. </param>
+            <param name="option"> Format applied to string value when selecting in date-selector.
+            There are 2 formats availbale: Time (12:00 PM), Formula (@Today - 1). </param>
+        </member>
+        <member name="M:Controls.Editors.DateSelector.DateSelector.SelectFormula(System.String)">
+            <summary>
+            Selects formula for date (e.g. @Today, @Today + 1) in date-selector.
+            </summary>
+            <param name="value">Date formula (e.g. @Today, @WeekStart, @Today + 1, etc.).</param>
+        </member>
+        <member name="M:Controls.Editors.DateSelector.DateSelector.GetValue">
+            <summary>
+            Gets value from the date-selector
+            </summary>
+        </member>
+        <member name="M:Controls.Editors.DateSelector.DateSelector.PressTab">
+            <summary>
+            Sets focus to the DateSelector Input and presses button: Tab.
+            </summary>
+        </member>
+        <member name="T:Controls.Editors.DateSelector.DateSelector.Options">
+            <summary>
+            Formats which can be applied to string value when typing in date-selector.
+            There are 4 format availbale: Date (1900/1/1), Time (12:00 AM), Duration (00:10), Text (value is typed as is, no additional formatting applied).
+            </summary>
+        </member>
+        <member name="T:Controls.Editors.DropDown.DropDown">
+            <summary>
+            Drop-down control wrapper.
+            </summary>
+        </member>
+        <member name="P:Controls.Editors.DropDown.DropDown.Items">
+            <summary>
+            Collection of items in drop-down list.
+            </summary>
+        </member>
+        <member name="M:Controls.Editors.DropDown.DropDown.GetValues">
+            <summary>
+            Gets values from the drop-down control in the user interface
+            </summary>
+        </member>
+        <member name="M:Controls.Editors.DropDown.DropDown.Type">
+            <summary>
+            Types value from value property into drop-down.
+            </summary>
+        </member>
+        <member name="M:Controls.Editors.DropDown.DropDown.Type(System.String)">
+            <summary>
+            Types value into the drop-down.
+            </summary>
+            <param name="value">String value to type in drop-down.</param>
+        </member>
+        <member name="M:Controls.Editors.DropDown.DropDown.Reset">
+            <summary>
+            Resets value in the drop-down if the drop-down allows empty values.
+            </summary>
+        </member>
+        <member name="M:Controls.Editors.DropDown.DropDown.Select">
+            <summary>
+            Selects value in drop-down.
+            </summary>
+        </member>
+        <member name="M:Controls.Editors.DropDown.DropDown.Select(System.String[])">
+            <summary>
+            Selects value/values in the drop-down. Can select multiple values in case the drop-down allows it.
+            </summary>
+            <param name="values">String value/values to select in the drop-down.</param>
+        </member>
+        <member name="T:Controls.Editors.EmailEdit.EmailEdit">
+            <summary>
+            Email-edit control wrapper.
+            </summary>
+        </member>
+        <member name="M:Controls.Editors.FormulaCombo.FormulaCombo.GetValues">
+            <summary>
+            Gets values from the formula combo control in the user interface
+            </summary>
+        </member>
+        <member name="T:Controls.Editors.FormulaEditor.FormulaEditorLocalizable">
+            <summary>
+            Localizable formula-editor control wrapper
+            </summary>
+        </member>
+        <member name="M:Controls.Editors.FormulaEditor.FormulaEditorLocalizable.Localize">
+            <summary>
+            Opens localization menu for the control by clicking on the localization link
+            </summary>
+        </member>
+        <member name="T:Controls.Editors.MultiSelector.MultiSelector">
+            <summary>
+            Multi-selector control wrapper.
+            </summary>
+        </member>
+        <member name="M:Controls.Editors.MultiSelector.MultiSelector.GetValue">
+            <summary>
+            Gets value from multi-selector.
+            </summary>
+            <returns>String value to return from multi-selector control in user interface.</returns>
+        </member>
+        <member name="M:Controls.Editors.MultiSelector.MultiSelector.Reset">
+            <summary>
+            Resets value in MultiSelector.
+            </summary>
+        </member>
+        <member name="T:Controls.Editors.QuickSearch.QuickSearch">
+            <summary>
+            QuickSearch control wrapper.
+            </summary>
+        </member>
+        <member name="M:Controls.Editors.QuickSearch.QuickSearch.Type">
+            <summary>
+            Types value from value property into quick-search and initiates filtering.
+            </summary>
+        </member>
+        <member name="M:Controls.Editors.QuickSearch.QuickSearch.Type(System.String)">
+            <summary>
+            Types value from value property into quick-search and initiates filtering.
+            </summary>
+            <param name="value">String value to type into quick-search.</param>
+        </member>
+        <member name="M:Controls.Editors.QuickSearch.QuickSearch.Reset">
+            <summary>
+            Resets value in quick-search and initiates filtering.
+            </summary>
+        </member>
+        <member name="T:Controls.Editors.RefNoteSelector.RefNoteSelector">
+            <summary>
+            RefNoteSelector contol wrapper.
+            </summary>
+        </member>
+        <member name="M:Controls.Editors.RefNoteSelector.RefNoteSelector.Open">
+            <summary>
+            Opens editor panel
+            </summary>
+        </member>
+        <member name="T:Controls.Editors.Selector.Selector">
+            <summary>
+            Selector control wrapper.
+            </summary>
+        </member>
+        <member name="P:Controls.Editors.Selector.Selector.Grid">
+            <summary>
+            Provides acces to the internal selector grid
+            Use Dynamic API to work with rows/columns
+            </summary>
+        </member>
+        <member name="M:Controls.Editors.Selector.Selector.Open(System.Int64)">
+            <summary>
+            Opens the specified segment of the selector
+            </summary>
+            <param name="segmentIndex">The index of the segment</param>
+        </member>
+        <member name="M:Controls.Editors.Selector.Selector.Open">
+            <summary>
+            Opens the selector
+            </summary>
+        </member>
+        <member name="M:Controls.Editors.Selector.Selector.Close">
+            <summary>
+            Closes the selector
+            </summary>
+        </member>
+        <member name="M:Controls.Editors.Selector.Selector.Reset">
+            <summary>
+            Resets value in selector.
+            </summary>
+        </member>
+        <member name="M:Controls.Editors.Selector.Selector.Select(System.String,System.String,System.Int64)">
+            <summary>
+            Selects value in the specified segment of the selector
+            </summary>
+            <param name="value">The value to select</param>
+            <param name="activeColumn">The name of the column to select in</param>
+            <param name="segmentIndex">The index of the segment</param>
+        </member>
+        <member name="M:Controls.Editors.Selector.Selector.Select(System.String,System.String)">
+            <summary>
+            Selects value in the selector
+            </summary>
+            <param name="value">The value to select</param>
+            <param name="activeColumn">The name of the column to select in</param>
+        </member>
+        <member name="M:Controls.Editors.Selector.Selector.Select(System.String,System.Int64)">
+            <summary>
+            Selects value in the specified segment of the selector
+            </summary>
+            <param name="value">The value to select</param>
+            <param name="segmentIndex">The index of the segment</param>
+        </member>
+        <member name="M:Controls.Editors.Selector.Selector.Select(System.String)">
+            <summary>
+            Selects value in the selector
+            </summary>
+            <param name="value">The value to select</param>
+        </member>
+        <member name="M:Controls.Editors.Selector.Selector.Select">
+            <summary>
+            Selects value in the selector by its Value property.
+            </summary>
+        </member>
+        <member name="M:Controls.Editors.Selector.Selector.QuickSearch(System.String)">
+            <summary>
+            Searches for a value in selector.
+            </summary>
+            <param name="value">String value to search for in selector.</param>
+        </member>
+        <member name="M:Controls.Editors.Selector.Selector.QuickSearch">
+            <summary>
+            Searches for a value in selector.
+            </summary>
+        </member>
+        <member name="M:Controls.Editors.Selector.Selector.Type(System.String)">
+            <summary>
+            Types value in selector.
+            </summary>
+            <param name="value">String value to type in selector.</param>
+        </member>
+        <member name="M:Controls.Editors.Selector.Selector.Type">
+            <summary>
+            Types value in selector.
+            </summary>
+        </member>
+        <member name="M:Controls.Editors.Selector.Selector.IsEnabled">
+            <summary>
+            Finds out if selector is editable or not.
+            </summary>
+            <returns>True - selector is editable, false - selector is not editable.</returns>
+        </member>
+        <member name="T:Controls.Editors.TreeSelector.TreeSelector">
+            <summary>
+            Tree-selector contol wrapper.
+            </summary>
+        </member>
+        <member name="M:Controls.Editors.TreeSelector.TreeSelector.Select(System.String)">
+            <summary>
+            Selects node by path in the tree-selector
+            </summary>
+            <param name="path">Path to select in the tree-selector</param>
+        </member>
+        <member name="M:Controls.Editors.TreeSelector.TreeSelector.Reset">
+            <summary>
+            Resets value in tree-selector.
+            </summary>
+        </member>
+        <member name="T:Controls.CheckBox.CheckBox">
+            <summary>
+            Checkbox control wrapper.
+            </summary>
+        </member>
+        <member name="M:Controls.CheckBox.CheckBox.Set(System.Boolean,System.Boolean)">
+            <summary>
+            Sets checkbox state equal to argument value.
+            </summary>
+            <param name="state">Boolean value to set.</param>
+            <param name="checkAfterSet">Whether to check value after setting or not.</param>
+        </member>
+        <member name="M:Controls.CheckBox.CheckBox.Set">
+            <summary>
+            Sets checkbox state equal to value property.
+            </summary>
+        </member>
+        <member name="M:Controls.CheckBox.CheckBox.SetFalse(System.Boolean)">
+            <summary>
+            Sets checkbox state equal to false.
+            </summary>
+            <param name="checkAfterSet">Whether to check value after setting or not.</param>
+        </member>
+        <member name="M:Controls.CheckBox.CheckBox.SetTrue(System.Boolean)">
+            <summary>
+            Sets checkbox state equal to true.
+            </summary>
+            <param name="checkAfterSet">Whether to check value after setting or not.</param>
+        </member>
+        <member name="M:Controls.CheckBox.CheckBox.GetValue">
+            <summary>
+            Gets value from checkbox.
+            </summary>
+            <returns>String value to return from checkbox control in user interface.</returns>
+        </member>
+        <member name="M:Controls.CheckBox.CheckBox.IsEnabled">
+            <summary>
+            Finds out if checkbox visible and enabled or not.
+            </summary>
+            <returns>True - checkbox visible and enabled, false - checkbox is invisible or disabled.</returns>
+        </member>
+        <member name="T:Controls.GroupBox.GroupBox">
+            <summary>
+            Group-box control wrapper.
+            </summary>
+        </member>
+        <member name="M:Controls.GroupBox.GroupBox.GetValue">
+            <summary>
+            Gets value from group-box.
+            </summary>
+            <returns>String value to return from group-box in user interface.</returns>
+        </member>
+        <member name="M:Controls.GroupBox.GroupBox.Set(System.String)">
+            <summary>
+            Selects option in group-box.
+            </summary>
+            <param name="option"> String option to select in group-box.</param>
+        </member>
+        <member name="M:Controls.GroupBox.GroupBox.Set">
+            <summary>
+            Selects option in group-box from value property.
+            </summary>
+        </member>
+        <member name="T:Controls.Input.Input">
+            <summary>
+            Input control wrapper.
+            </summary>
+        </member>
+        <member name="M:Controls.Input.Input.Type(System.Decimal)">
+            <summary>
+            Types decimal value into input.
+            </summary>
+            <param name="value">Decimal value to type into input.</param>
+        </member>
+        <member name="M:Controls.Input.Input.Type(System.Double)">
+            <summary>
+            Types double value into input.
+            </summary>
+            <param name="value">Double value to type into input.</param>
+        </member>
+        <member name="M:Controls.Input.Input.Type(System.Int32)">
+            <summary>
+            Types integer value into input.
+            </summary>
+            <param name="value">Integer value to type into input.</param>
+        </member>
+        <member name="M:Controls.Input.Input.Type(System.String)">
+            <summary>
+            Types value into input.
+            </summary>
+            <param name="value">String value to type in input.</param>
+        </member>
+        <member name="M:Controls.Input.Input.Type">
+            <summary>
+            Types value from value property into input.
+            </summary>
+        </member>
+        <member name="M:Controls.Input.Input.GetValue">
+            <summary>
+            Gets value from input.
+            </summary>
+            <returns>String value to return from input in user interface.</returns>
+        </member>
+        <member name="M:Controls.Input.Input.Reset">
+            <summary>
+            Resets value in input.
+            </summary>
+        </member>
+        <member name="M:Controls.Input.Input.PressEnter">
+            <summary>
+            Sets focus to input and presses button: Enter.
+            </summary>
+        </member>
+        <member name="M:Controls.Input.Input.PressTab">
+            <summary>
+            Sets focus to input and presses button: Tab.
+            </summary>
+        </member>
+        <member name="M:Controls.Input.Input.PressBackspace">
+            <summary>
+            Sets focus to input and presses button: Backspace.
+            </summary>
+        </member>
+        <member name="T:Controls.Input.InputLocalizable">
+            <summary>
+            Localizable input control wrapper
+            </summary>
+        </member>
+        <member name="M:Controls.Input.InputLocalizable.Localize">
+            <summary>
+            Opens localization menu for the control by clicking on the localization link
+            </summary>
+        </member>
+        <member name="T:Controls.Input.PXButtonEdit.PXButtonEdit">
+            <summary>
+            PXButtonEdit control wrapper.
+            </summary>
+        </member>
+        <member name="T:Controls.Input.PXColoredTextEdit.PXColoredTextEdit">
+            <summary>
+            PXColoredTextEdit control wrapper.
+            </summary>
+        </member>
+        <member name="T:Controls.Input.PXMaskEdit.PXMaskEdit">
+            <summary>
+            Mask-edit control wrapper.
+            </summary>
+        </member>
+        <member name="T:Controls.Input.PXNumberEdit.PXNumberEdit">
+            <summary>
+            Number-edit control wrapper.
+            </summary>
+        </member>
+        <member name="T:Controls.Input.PXNumberEdit.PXNumberEditColumnFilter">
+            <summary>
+            PXNumberEdit column filter
+            </summary>
+        </member>
+        <member name="M:Controls.Input.PXNumberEdit.PXNumberEditColumnFilter.Equals(System.String)">
+            <summary>
+            Sets filter condition: Equals.
+            </summary>
+            <param name="value">String argument value to use for filtering in grid column.</param>
+        </member>
+        <member name="M:Controls.Input.PXNumberEdit.PXNumberEditColumnFilter.Equals(System.Decimal)">
+            <summary>
+            Sets filter condition: Equals.
+            </summary>
+            <param name="value">Decimal argument value to use for filtering in grid column.</param>
+        </member>
+        <member name="M:Controls.Input.PXNumberEdit.PXNumberEditColumnFilter.Equals(System.Int32)">
+            <summary>
+            Sets filter condition: Equals.
+            </summary>
+            <param name="value">Integer argument value to use for filtering in grid column.</param>
+        </member>
+        <member name="M:Controls.Input.PXNumberEdit.PXNumberEditColumnFilter.Equals(System.Double)">
+            <summary>
+            Sets filter condition: Equals.
+            </summary>
+            <param name="value">Double argument value to use for filtering in grid column.</param>
+        </member>
+        <member name="M:Controls.Input.PXNumberEdit.PXNumberEditColumnFilter.IsGreaterThan(System.Decimal)">
+            <summary>
+            Sets filter condition: IsGreaterThan.
+            </summary>
+            <param name="value">Decimal argument value to use for filtering in grid column.</param>
+        </member>
+        <member name="M:Controls.Input.PXNumberEdit.PXNumberEditColumnFilter.IsGreaterThanOrEqualTo(System.Decimal)">
+            <summary>
+            Sets filter condition: IsGreaterThanOrEqualTo.
+            </summary>
+            <param name="value">Decimal argument value to use for filtering in grid column.</param>
+        </member>
+        <member name="M:Controls.Input.PXNumberEdit.PXNumberEditColumnFilter.IsLessThan(System.Decimal)">
+            <summary>
+            Sets filter condition: IsLessThan.
+            </summary>
+            <param name="value">Decimal argument value to use for filtering in grid column.</param>
+        </member>
+        <member name="M:Controls.Input.PXNumberEdit.PXNumberEditColumnFilter.IsLessThanOrEqualTo(System.Decimal)">
+            <summary>
+            Sets filter condition: IsLessThanOrEqualTo.
+            </summary>
+            <param name="value">Decimal argument value to use for filtering in grid column.</param>
+        </member>
+        <member name="M:Controls.Input.PXNumberEdit.PXNumberEditColumnFilter.IsBetween(System.Decimal,System.Decimal)">
+            <summary>
+            Sets filter condition: IsBetween.
+            </summary>
+            <param name="startValue">Decimal argument range start value to use for filtering in grid column.</param>
+            <param name="endValue">Decimal argument range end value to use for filtering in grid column.</param>
+        </member>
+        <member name="T:Controls.Input.PXTextEdit.PXTextEdit">
+            <summary>
+            Text-edit control wrapper.
+            </summary>
+        </member>
+        <member name="T:Controls.RichTextEdit.Keys">
+            <summary>
+            Collection of keys for RichTextEditor. Prefer this keys to WebDrivers keys for best log readability
+            </summary>
+        </member>
+        <member name="T:Controls.RichTextEdit.RichTextEdit">
+            <summary>
+            Represents Rich Text Editor control
+            </summary>
+        </member>
+        <member name="P:Controls.RichTextEdit.RichTextEdit.Mode">
+            <summary>
+            Editor mode selector (Visual, Html, Plain, Preview)
+            </summary>
+        </member>
+        <member name="P:Controls.RichTextEdit.RichTextEdit.ToolBar">
+            <summary>
+            Editor toolbar
+            </summary>
+        </member>
+        <member name="P:Controls.RichTextEdit.RichTextEdit.InsertImage">
+            <summary>
+            Insert image panel
+            </summary>
+        </member>
+        <member name="P:Controls.RichTextEdit.RichTextEdit.InsertLink">
+            <summary>
+            Insert link panel
+            </summary>
+        </member>
+        <member name="M:Controls.RichTextEdit.RichTextEdit.Type">
+            <summary>
+            Type value into editor. This method use control Value field
+            </summary>
+        </member>
+        <member name="M:Controls.RichTextEdit.RichTextEdit.Type(System.String)">
+            <summary>
+            Type value into editor. If value is html - this method will convert it in text.
+            This method always place cursor to the editor begin point.
+            Use it for basic operation in editor, like type one line
+            </summary>
+            <param name="value">Text or HTML value</param>
+        </member>
+        <member name="M:Controls.RichTextEdit.RichTextEdit.TypeLine(System.String)">
+            <summary>
+            Type one line into current position of cursor
+            </summary>
+            <param name="value">line of text</param>
+        </member>
+        <member name="M:Controls.RichTextEdit.RichTextEdit.Click(Controls.RichTextEdit.RichTextEdit.CursorPosition,Controls.RichTextEdit.RichTextEdit.CursorPosition)">
+            <summary>
+            Click into editor
+            </summary>
+            <param name="x">Horizontal click position</param>
+            <param name="y">Vertical click position</param>
+        </member>
+        <member name="M:Controls.RichTextEdit.RichTextEdit.ClickLink(System.String)">
+            <summary>
+            Click link in RTE iframe
+            </summary>
+            <param name="text">Link text</param>
+        </member>
+        <member name="M:Controls.RichTextEdit.RichTextEdit.Clear">
+            <summary>
+            Erase all content from editor using WebDriver Clear method
+            </summary>
+        </member>
+        <member name="M:Controls.RichTextEdit.RichTextEdit.GetValue">
+            <summary>
+            Get editor value in text form
+            </summary>
+            <returns>editor value converted from html to text</returns>
+        </member>
+        <member name="M:Controls.RichTextEdit.RichTextEdit.CompareWithTemplate(System.String)">
+            <summary>
+            Compare editor content with image template
+            </summary>
+            <param name="name">name of image template file</param>
+        </member>
+        <member name="M:Controls.RichTextEdit.RichTextEdit.VerifyButtonsState(System.Boolean,Controls.ToolBarButton.ToolBarButton[])">
+            <summary>
+            Verify editor buttons state (on/off)
+            </summary>
+            <param name="expected">expected state</param>
+            <param name="buttons">buttons to verify</param>
+        </member>
+        <member name="T:Controls.RichTextEdit.RichTextEdit.ToolBarButtonGridLanguage">
+            <summary>
+            Class that allows to verify controls with tick
+            </summary>
+        </member>
+        <member name="T:Controls.Select.Select">
+            <summary>
+            Select control wrapper.
+            </summary>
+        </member>
+        <member name="M:Controls.Select.Select.SelectValue(System.String)">
+            <summary>
+            Select value in select.
+            </summary>
+            <param name="value">String value to select in select.</param>
+        </member>
+        <member name="M:Controls.Select.Select.GetValues">
+            <summary>
+            Get values available for selection
+            </summary>
+        </member>
+        <member name="M:Controls.Select.Select.GetValue">
+            <summary>
+            Gets value from select.
+            </summary>
+            <returns>String value to return from select control in user interface.</returns>
+        </member>
+        <member name="T:Controls.StyleEditor.StyleEditor">
+            <summary>
+            Represents Style editor in ColumnSet and RowSet screens
+            </summary>
+        </member>
+        <member name="M:Controls.StyleEditor.StyleEditor.Select">
+            <summary>
+            Open StyleEditor popup and fill all controls
+            </summary>
+        </member>
+        <member name="T:Controls.TreeView.TreeView">
+            <summary>
+            Tree-view control wrapper.
+            </summary>
+        </member>
+        <member name="M:Controls.TreeView.TreeView.Select(System.String)">
+            <summary>
+            Selects node in tree-view control.
+            </summary>
+            <param name="path">Path representing route to the desired node.</param>
+        </member>
+        <member name="M:Controls.TreeView.TreeView.Select(System.String,System.Nullable{System.Int32})">
+            <summary>
+            Selects node in tree-view control.
+            </summary>
+            <param name="path">Path representing route to the desired node.</param>
+            <param name="index">Node index if folder contains several identical nodes.</param>
+        </member>
+        <member name="M:Controls.TreeView.TreeView.Select(Controls.TreeView.TreeView.TreeViewNode,System.String,System.Nullable{System.Int32})">
+            <summary>
+            Selects node with a particular node-title inside selected node provided in parameter.
+            </summary>
+            <param name="currentNode">Node selected inside which you wnat to select title.</param>
+            <param name="title">Particular node-title to select inside node selected.</param>
+            <param name="index">Node index if folder contains several identical nodes.</param>
+        </member>
+        <member name="M:Controls.TreeView.TreeView.TreeViewNode.MoveNode(Controls.TreeView.TreeView.TreeViewNode,Controls.TreeView.TreeView.TreeViewNode)">
+            <summary>
+            Changes node position in tree-view.
+            </summary>
+            <param name="sourceNode">Source node</param>
+            <param name="designationNode">Tree node to set as predecessor for tree node which position is changed.</param>
+        </member>
+        <member name="M:Controls.Grid.ColumnsConfigurationPanel.SelectColumn(Controls.Grid.GridColumnHeader)">
+            <summary>
+            Selects column in the Available/Selected Columns lists
+            </summary>
+            <param name="column">Column to select</param>
+        </member>
+        <member name="T:Controls.Grid.Grid`2">
+            <summary>
+            Grid control wrapper.
+            </summary>
+            <typeparam name="TRowType">Grid row type declaration with the set of columns specified.</typeparam>
+            <typeparam name="THeaderType">Grid header type declaration with the set of columns specified.</typeparam>
+        </member>
+        <member name="P:Controls.Grid.Grid`2.Row">
+            <summary>
+            This property provides access to grid row and its nested columns.
+            </summary>
+        </member>
+        <member name="P:Controls.Grid.Grid`2.Columns">
+            <summary>
+            This property provides access to grid header and its nested columns.
+            </summary>
+        </member>
+        <member name="P:Controls.Grid.Grid`2.QuickFilters">
+            <summary>
+            This property provides access to grid header and its nested columns.
+            </summary>
+        </member>
+        <member name="P:Controls.Grid.Grid`2.Rows">
+            <summary>
+            This property provides access to the whole collection of grid rows and their nested columns.
+            </summary>
+        </member>
+        <member name="M:Controls.Grid.Grid`2.#ctor(System.String,System.String)">
+            <summary>
+            Construct new grid instance
+            </summary>
+            <param name="locator">locator</param>
+            <param name="name">Grid name</param>
+        </member>
+        <member name="M:Controls.Grid.Grid`2.CreateNewRow">
+            <summary>
+            Creates an instance of grid row.
+            </summary>
+            <returns>Pure grid row instace.</returns>
+        </member>
+        <member name="M:Controls.Grid.Grid`2.CurrentData">
+            <summary>
+            For current page in the grid collects the list of rows populated with the data from grid cells in the user interface.
+            </summary>
+            <returns>List of rows populated with the data from grid cells in the UI</returns>
+        </member>
+        <member name="M:Controls.Grid.Grid`2.AllPageData">
+            <summary>
+            For all pages in the grid collects the list of rows populated with the data from grid cells in the user interface.
+            </summary>
+            <returns>List of rows populated with the data from grid cells in the UI</returns>
+        </member>
+        <member name="M:Controls.Grid.Grid`2.ResetColumnFilters">
+            <summary>
+            Resets conditions in all column filters of the grid
+            </summary>
+        </member>
+        <member name="M:Controls.Grid.GridBase.SetTrue">
+            <summary>
+            Sets value: true, in column: Selected, for all rows in grid.
+            </summary>
+        </member>
+        <member name="M:Controls.Grid.GridBase.SetFalse">
+            <summary>
+            Sets value: false, in column: Selected, for all rows in grid.
+            </summary>
+        </member>
+        <member name="M:Controls.Grid.GridBase.Set(System.Boolean)">
+            <summary>
+            Sets value in column: Selected, for all rows in grid.
+            </summary>
+            <param name="value">Boolean value to set in column: Selected, for all rows in grid.</param>
+        </member>
+        <member name="M:Controls.Grid.GridBase.CommitRows">
+            <summary>
+            Commits rows changes and ends grid edit
+            </summary>
+        </member>
+        <member name="M:Controls.Grid.GridBase.SelectRow(System.Int32)">
+            <summary>
+            Selects a row in the grid by its index
+            </summary>
+            <param name="rowIndex">Row index starting from 1</param>
+        </member>
+        <member name="M:Controls.Grid.GridBase.SelectRows(System.Int32[])">
+            <summary>
+            Selects rows in the grid by their index
+            </summary>
+            <param name="rowIndexes">Row indexes starting from 1</param>
+        </member>
+        <member name="M:Controls.Grid.GridBase.SelectRow(Controls.Grid.GridColumnHeader,System.String)">
+            <summary>
+            Selects a row in the grid using the provided column object and column value.
+            </summary>
+            <param name="columnObject">Column object representing the column in which you want to select the specified value.</param>
+            <param name="columnValue">String expressiong representing the value you want to select in the column.</param>
+        </member>
+        <member name="M:Controls.Grid.GridBase.SelectRow(System.String,System.String)">
+            <summary>
+            Selects a row in the grid using the provided column name and column value.
+            </summary>
+            <param name="columnName">Column name in which you want to select the specified value.</param>
+            <param name="columnValue">String expressiong representing the value you want to select in the column.</param>
+        </member>
+        <member name="M:Controls.Grid.GridBase.AllPagesRowsCount">
+            <summary>
+            Returns number of rows on all pages of grid.
+            </summary>
+        </member>
+        <member name="M:Controls.Grid.GridBase.ClickCell(System.String)">
+            <summary>
+            Clicks on grid table cell which contains paricular text in user interface.
+            </summary>
+            <param name="text">Paricular text in grid table cell to click.</param>
+        </member>
+        <member name="M:Controls.Grid.GridBase.DoubleClickCell(System.String)">
+            <summary>
+            Performs double click on grid table cell which contains paricular text in user interface.
+            </summary>
+            <param name="text">Paricular text in grid table cell to doubleclick.</param>
+        </member>
+        <member name="P:Controls.Grid.GridColumnHeader.Footer">
+            <summary>
+            This property provides access to grid footer.
+            </summary>
+        </member>
+        <member name="M:Controls.Grid.GridColumnHeader.ShowColumn">
+            <summary>
+            Adds column to the list of shown columns and adjusts column position in layout to correspond to column position in wrapper.
+            </summary>
+        </member>
+        <member name="M:Controls.Grid.GridColumnHeader.HideColumn">
+            <summary>
+            Removes column from the list of shown columns.
+            </summary>
+        </member>
+        <member name="M:Controls.Grid.GridColumnHeader.GetColumnWidth">
+            <summary>
+            Gets column column width in pixels
+            </summary>
+        </member>
+        <member name="M:Controls.Grid.GridColumnHeader.SetColumnWidth(System.Int32)">
+            <summary>
+            Set column width to the specified value
+            </summary>
+            <param name="width">width in pixels</param>
+        </member>
+        <member name="M:Controls.Grid.GridColumnHeader.GetValues">
+            <summary>
+            Gets values from all cells of the column
+            </summary>
+        </member>
+        <member name="M:Controls.Grid.GridColumnHeader.DynamicControl``1">
+            <summary>
+            Converts current dynamic grid column filter control to the provided control type.
+            Can be used in dynamic grids in which columns are added/deleted depending on the grid data or applied customization.
+            </summary>
+            <typeparam name="T">
+            Control type of the dynamic grid column filter control.
+            Possible control types (all control types are available in the Controls namespace):
+            CheckBoxColumnFilter - for filters with checkboxes;
+            InputColumnFilter - for text filters;
+            SelectorColumnFilter - for filters with selector;
+            DropDownColumnFilter - for dropdown filters;
+            DateSelectorColumnFilter - for filters with date/time.
+            PXNumberEditColumnFilter - for filters with numbers.
+            </typeparam>
+            <returns>Dynamic grid column filter control</returns>
+        </member>
+        <member name="M:Controls.Grid.GridColumnHeader.DragAndDrop(System.Boolean,System.Int32)">
+            <summary>
+            Drags and drops the column to/from the grid filter panel
+            </summary>
+            <param name="addOrRemoveFilter">Whether to add or remove the column to/from the grid filter panel</param>
+            <param name="destinationColumnNumber">
+            The column number before which the column should be dropped
+            If this parameter is not specified, less than 1 or greater than the total number of columns in the grid filter panel, then the column is dropped at the end of the grid filter panel
+            </param>
+        </member>
+        <member name="M:Controls.Grid.GridHeader.DynamicControl``1(System.String)">
+            <summary>
+            Searches for the dynamic grid column filter control by the provided column name.
+            Can be used in dynamic grids in which columns are added/deleted depending on the grid data or applied customization.
+            </summary>
+            <typeparam name="T">
+            Control type of the dynamic grid column filter control.
+            Possible control types (all control types are available in the Controls namespace):
+            CheckBoxColumnFilter - for filters with checkboxes;
+            InputColumnFilter - for text filters;
+            SelectorColumnFilter - for filters with selector;
+            DropDownColumnFilter - for dropdown filters;
+            DateSelectorColumnFilter - for filters with date/time.
+            PXNumberEditColumnFilter - for filters with numbers.
+            </typeparam>
+            <param name="columnName">The name of the column in the UI</param>
+            <returns>Dynamic grid column filter control</returns>
+        </member>
+        <member name="M:Controls.Grid.GridRow.DynamicControl``1(System.String,System.Byte)">
+            <summary>
+            Searches for the dynamic grid cell control by the provided column name.
+            Can be used in dynamic grids in which columns are added/deleted depending on the grid data or applied customization.
+            </summary>
+            <typeparam name="T">
+            Control type of the dynamic grid cell control.
+            Possible control types (all control types are available in the Controls namespace):
+            CheckBox - for fields with checkboxes;
+            Input - for text/numeric fields;
+            Selector - for fields with selector;
+            FormulaCombo - for fields with formulas;
+            DropDown - for dropdown fields;
+            DateSelector - for fields with date/time.
+            </typeparam>
+            <param name="columnName">The name of the column in the UI in which the cell is located</param>
+            <param name="orderNumber">Order number of the column (starting from 1), for cases where grid has multiple columns with the same name</param>
+            <returns>Dynamic grid cell control</returns>
+        </member>
+        <member name="M:Controls.Grid.GridRow.DragAndDrop(Controls.Grid.GridBase,System.Int32)">
+            <summary>
+            Drags and drops the selected row of the current grid to the specified grid
+            </summary>
+            <param name="destinationGrid">The grid to drag and drop the selected row to</param>
+            <param name="destinationRowNumber">
+            The row number before which the selected row should be dropped
+            If this parameter is not specified, less than 1 or greater than the total number of rows in the <paramref name="destinationGrid"/>, then the selected row is dropped at the end of the <paramref name="destinationGrid"/>
+            </param>
+        </member>
+        <member name="M:Controls.Grid.GridRow.DragAndDrop(System.Int32)">
+            <summary>
+            Drags and drops the selected row to the grid filter panel
+            </summary>
+            <param name="destinationColumnNumber">
+            The column number before which the selected row should be dropped
+            If this parameter is not specified, less than 1 or greater than the total number of columns in the grid filter panel, then the selected row is dropped at the end of the grid filter panel
+            </param>
+        </member>
+        <member name="T:Controls.Label.Label">
+            <summary>
+            Label control wrapper.
+            </summary>
+        </member>
+        <member name="P:Controls.Pivot.PivotDimensionCell.Expand">
+            <summary>
+            Cell's expand button
+            </summary>
+        </member>
+        <member name="P:Controls.Pivot.PivotDimensionCell.Collapse">
+            <summary>
+            Cell's collapse button
+            </summary>
+        </member>
+        <member name="M:Controls.Pivot.PivotColumn.GetIndex">
+            <summary>
+            Gets the index of the pivot column
+            </summary>
+        </member>
+        <member name="M:Controls.Pivot.PivotColumn.IsDraggable">
+            <summary>
+            Define opportunity drag and drop pivot column/row
+            </summary>
+        </member>
+        <member name="M:Controls.Pivot.PivotColumns.GetCell(System.Int32,System.Int32)">
+            <summary>
+            Gets the cell from the pivot Columns property table by its row and column indexes
+            </summary>
+            <param name="rowIndex">Index of the cell's row</param>
+            <param name="columnIndex">Index of the cell's column</param>
+            <returns>The cell from the pivot Columns property table</returns>
+        </member>
+        <member name="M:Controls.Pivot.PivotProperty.DynamicControl``1(System.String,System.Int32)">
+            <summary>
+            Searches for the dynamic pivot column filter control by the provided column name.
+            Can be used in dynamic pivots in which columns are added/deleted depending on the pivot data or applied customization.
+            </summary>
+            <typeparam name="T">
+            Control type of the dynamic pivot column filter control.
+            Possible control types:
+            PivotDateTimeColumn - for filters with date/time.
+            PivotDropDownColumn - for dropdown filters.
+            PivotNumberColumn - for filters with numbers.
+            PivotValuesColumn - for text filters.
+            </typeparam>
+            <param name="columnName">The name of the column in the UI</param>
+            <param name="columnNumber">The order number of column in the UI (zero-based)</param>
+            <returns>Dynamic pivot column filter control</returns>
+        </member>
+        <member name="M:Controls.Pivot.PivotRows.GetCell(System.Int32,System.Int32)">
+            <summary>
+            Gets the cell from the pivot Rows property table by its row and column indexes
+            </summary>
+            <param name="rowIndex">Index of the cell's row</param>
+            <param name="columnIndex">Index of the cell's column</param>
+            <returns>The cell from the pivot Rows property table</returns>
+        </member>
+        <member name="M:Controls.Pivot.PivotValues.GetCell(System.Int32,System.Int32)">
+            <summary>
+            Gets the cell from the pivot Values property table by its row and column indexes
+            </summary>
+            <param name="rowIndex">Index of the cell's row</param>
+            <param name="columnIndex">Index of the cell's column</param>
+            <returns>The cell from the pivot Values property table</returns>
+        </member>
+        <member name="M:Controls.Pivot.PivotValues.GetHeader(System.Int32)">
+            <summary>
+            Gets the header from the pivot Values property table by its column index
+            </summary>
+            <param name="headerIndex">Index of the header's column</param>
+            <returns>The header from the pivot Values property table</returns>
+        </member>
+        <member name="M:Controls.Pivot.PivotTableBase.SelectTab(System.Int32)">
+            <summary>
+            Selects pivot tab by the provided index
+            </summary>
+            <param name="tabIndex">Tab index to select by</param>
+        </member>
+        <member name="M:Controls.Pivot.PivotTableBase.SelectTab(System.String)">
+            <summary>
+            Selects pivot tab by the provided name
+            </summary>
+            <param name="tabName">Tab name to select by</param>
+        </member>
+        <member name="T:Controls.Razor.ButtonRazor">
+            <summary>
+            Razor button control wrapper
+            </summary>
+        </member>
+        <member name="M:Controls.Razor.ButtonRazor.Click">
+            <summary>
+            Clicks the razor button
+            </summary>
+        </member>
+        <member name="M:Controls.Razor.ButtonRazor.GetValue">
+            <summary>
+            Gets caption of the razor button
+            </summary>
+        </member>
+        <member name="M:Controls.Razor.ButtonRazor.GetTooltip">
+            <summary>
+            Returns button tooltip
+            </summary>
+        </member>
+        <member name="T:Controls.Razor.DropDownRazor">
+            <summary>
+            Razor dropdown control wrapper
+            </summary>
+        </member>
+        <member name="M:Controls.Razor.DropDownRazor.Select(System.String)">
+            <summary>
+            Selects value in the razor dropdown
+            </summary>
+            <param name="value">String value to select</param>
+        </member>
+        <member name="M:Controls.Razor.DropDownRazor.GetValue">
+            <summary>
+            Gets value from the razor dropdown
+            </summary>
+        </member>
+        <member name="T:Controls.Razor.InputRazor">
+            <summary>
+            Razor input control wrapper
+            </summary>
+        </member>
+        <member name="M:Controls.Razor.InputRazor.Type(System.String)">
+            <summary>
+            Types value in the razor input
+            </summary>
+            <param name="value">String value to type</param>
+        </member>
+        <member name="M:Controls.Razor.InputRazor.Reset">
+            <summary>
+            Resets value in the razor input
+            </summary>
+        </member>
+        <member name="M:Controls.Razor.InputRazor.GetValue">
+            <summary>
+            Gets value from the razor input
+            </summary>
+        </member>
+        <member name="T:Controls.Razor.MenuItemRazor">
+            <summary>
+            Razor menu item control wrapper
+            </summary>
+        </member>
+        <member name="M:Controls.Razor.MenuItemRazor.GetValue">
+            <summary>
+            Gets value from the razor menu item
+            </summary>
+        </member>
+        <member name="M:Controls.Razor.MenuItemRazor.GetTooltip">
+            <summary>
+            Returns Menu Item tooltip
+            </summary>
+        </member>
+        <member name="T:Controls.Razor.QuickSearchRazor">
+            <summary>
+            Razor quick search control wrapper
+            </summary>
+        </member>
+        <member name="M:Controls.Razor.QuickSearchRazor.Type(System.String)">
+            <summary>
+            Types value in the razor quick search and click its search button
+            </summary>
+            <param name="value">String value to type</param>
+        </member>
+        <member name="M:Controls.Razor.QuickSearchRazor.Reset">
+            <summary>
+            Resets value in the razor quick search and click its search button
+            </summary>
+        </member>
+        <member name="M:Controls.Razor.QuickSearchRazor.GetValue">
+            <summary>
+            Gets value from the razor quick search
+            </summary>
+        </member>
+        <member name="T:Controls.Razor.SearchDropDownRazor">
+            <summary>
+            Razor search dropdown control wrapper
+            </summary>
+        </member>
+        <member name="M:Controls.Razor.SearchDropDownRazor.Select(System.String)">
+            <summary>
+            Selects value in the razor search dropdown
+            </summary>
+            <param name="value">String value to select</param>
+        </member>
+        <member name="M:Controls.Razor.SearchDropDownRazor.GetValue">
+            <summary>
+            Gets value from the razor search dropdown
+            </summary>
+        </member>
+        <member name="M:Controls.Razor.SearchDropDownRazor.GetValues">
+            <summary>
+            Gets values from the razor search dropdown
+            </summary>
+        </member>
+        <member name="T:Controls.SearchBox.SearchBox">
+            <summary>
+            Represent Search box - compound control of text input and button
+            </summary>
+        </member>
+        <member name="M:Controls.SearchBox.SearchBox.#ctor(System.String,System.String)">
+            <summary>
+            Inits new Instance
+            </summary>
+            <param name="locator">
+            Base locator of element with class="SearchBox"
+            </param>
+            <param name="buttonText">
+            Text on button (for log only)
+            </param>
+        </member>
+        <member name="M:Controls.SearchBox.SearchBox.Type(System.String)">
+            <summary>
+            Type into search box input
+            </summary>
+            <param name="value">
+            String to type
+            </param>
+        </member>
+        <member name="M:Controls.SearchBox.SearchBox.Search(System.String)">
+            <summary>
+            Type into search box input and then click Search button
+            </summary>
+            <param name="value">
+            String to type
+            </param>
+        </member>
+        <member name="T:Controls.ToolBarButton.ToolBarButton">
+            <summary>
+            Tool-bar-button control wrapper.
+            </summary>
+        </member>
+        <member name="M:Controls.ToolBarButton.ToolBarButton.Click">
+            <summary>
+            Clicks the toolbar button
+            You can define a complex reaction to the toolbar button click in the WaitAction delegate.
+            </summary>
+        </member>
+        <member name="M:Controls.ToolBarButton.ToolBarButton.IsEnabled">
+            <summary>
+            Finds out if toolbar button is enabled.
+            </summary>
+            <returns>True if toolbar button is enabled.</returns>
+        </member>
+        <member name="M:Controls.ToolBarButton.ToolBarButton.GetValue">
+            <summary>
+            Returns toolbar button caption
+            </summary>
+        </member>
+        <member name="M:Controls.ToolBarButton.ToolBarButton.GetTooltip">
+            <summary>
+            Returns toolbar button tooltip
+            </summary>
+        </member>
+        <member name="T:Controls.ToolBarButton.ToolBarButtonGrid">
+            <summary>
+            Grid tool-bar-button control wrapper.
+            </summary>
+        </member>
+        <member name="T:Controls.ToolBarButton.ToolBarButtonHeader">
+            <summary>
+            Header tool-bar-button control wrapper.
+            </summary>
+        </member>
+        <member name="T:Controls.UnknownControl.UnknownControl">
+            <summary>
+            Unknown control is a control wrapper for controlls recently added to application but not supported by Test SDK yet.
+            </summary>
+        </member>
+        <member name="M:Controls.FileUploader.FileUploader.SelectFile(System.String)">
+            <summary>
+            Selects file in the upload dialog
+            </summary>
+            <param name="filename">path to file for upload</param>
+        </member>
+        <member name="M:Controls.FileUploader.FileUploader.Upload">
+            <summary>
+            Click UPLOAD button
+            </summary>
+        </member>
+        <member name="M:Controls.PxPageHeader.PxPageHeader.GetMenuItem(System.String)">
+            <summary>
+            Gets menu item control
+            </summary>
+            <param name="menuItemName">Name of the menu item control in the UI</param>
+        </member>
+        <member name="M:Controls.PxPageHeader.PxPageHeader.GetMenuItems">
+            <summary>
+            Gets menu items list
+            </summary>
+        </member>
+        <member name="M:Controls.PxPageHeader.PxPageHeader.GetTile(System.String)">
+            <summary>
+            Gets tile control
+            </summary>
+            <param name="tileName">Name of the tile control in the UI</param>
+        </member>
+        <member name="M:Controls.PxPageHeader.PxPageHeader.GetTiles">
+            <summary>
+            Gets tiles list
+            </summary>
+        </member>
+        <member name="M:Controls.PxPageHeader.PxPageHeader.GetRecentItems">
+            <summary>
+            Gets recently visited links list
+            </summary>
+        </member>
+        <member name="M:Controls.PxPageHeader.PxPageHeader.GetRecentFavoriteItems">
+            <summary>
+            Gets recently favoured links list
+            </summary>
+        </member>
+        <member name="M:Controls.PxPageHeader.PxPageHeader.GetRecentItem(System.String)">
+            <summary>
+            Gets recently visited link by name
+            </summary>
+        </member>
+        <member name="M:Controls.PxPageHeader.PxPageHeader.GetRecentFavoriteItem(System.String)">
+            <summary>
+            Gets recently favoured link by name
+            </summary>
+        </member>
+        <member name="M:Controls.PxPageHeader.PxPageHeader.GetRecentFilterItem(System.String)">
+            <summary>
+            Gets recent's filter by name
+            </summary>
+        </member>
+        <member name="M:Controls.PxPageHeader.PxPageHeader.GetCategory(System.String)">
+            <summary>
+            Gets category control
+            </summary>
+            <param name="categoryName">Name of the category control in the UI</param>
+        </member>
+        <member name="M:Controls.PxPageHeader.PxPageHeader.GetCategoryItems(System.String)">
+            <summary>
+            Gets category items list
+            </summary>
+            <param name="categoryName">Name of the category control in the UI</param>
+        </member>
+        <member name="M:Controls.PxPageHeader.PxPageHeader.GetCategories">
+            <summary>
+            Gets categories list
+            </summary>
+        </member>
+        <member name="M:Controls.PxPageHeader.PxPageHeader.GetModules">
+            <summary>
+            Gets modules list
+            </summary>
+        </member>
+        <member name="M:Controls.PxPageHeader.PxPageHeader.GetScreenItem(System.String)">
+            <summary>
+            Gets screen item control (right panel)
+            </summary>
+            <param name="screenId">Id of the screen, which this item opens</param>
+        </member>
+        <member name="M:Controls.PxPageHeader.PxPageHeader.PXChooseScreens.GetMenuItem(System.String)">
+            <summary>
+            Gets menu item control
+            </summary>
+            <param name="menuItemName">Name of the menu item control in the UI</param>
+        </member>
+        <member name="M:Controls.PxPageHeader.PxPageHeader.PXChooseScreens.GetMenuItems">
+            <summary>
+            Gets menu items list
+            </summary>
+        </member>
+        <member name="M:Controls.PxPageHeader.PxPageHeader.PXWorkspaceCategories.GetMenuItem(System.String)">
+            <summary>
+            Gets menu item control
+            </summary>
+            <param name="menuItemName">Name of the menu item control in the UI</param>
+        </member>
+        <member name="M:Controls.PxPageHeader.PxPageHeader.PXWorkspaceCategories.GetMenuItems">
+            <summary>
+            Gets menu items list
+            </summary>
+        </member>
+        <member name="T:Core.Core.Browser.Browser">
+            <summary>
+            Web browser
+            </summary>
+        </member>
+        <member name="P:Core.Core.Browser.Browser.Instance">
+            <summary>
+            Provides access to the current browser instance
+            </summary>
+        </member>
+        <member name="M:Core.Core.Browser.Browser.GetInstance(System.String)">
+            <summary>
+            Provides access to the current browser instance and sets the starting page
+            </summary>
+            <param name="startingUrl">The url that will be opened on the browser startup</param>
+        </member>
+        <member name="P:Core.Core.Browser.Browser.StartingUrl">
+            <summary>
+            The url that will be opened on the browser startup.
+            By default is the url of the destination site.
+            </summary>
+        </member>
+        <member name="P:Core.Core.Browser.Browser.LAST_USER">
+            <summary>
+            Last user login which was used to access the system.
+            </summary>
+        </member>
+        <member name="P:Core.Core.Browser.Browser.LAST_PASSWORD">
+            <summary>
+            Last user password which was used to access the system.
+            </summary>
+        </member>
+        <member name="P:Core.Core.Browser.Browser.LAST_COMPANY">
+            <summary>
+            Last user login company which was used to access the system.
+            </summary>
+        </member>
+        <member name="P:Core.Core.Browser.Browser.ProfileBuilder">
+            <summary>
+            Provides access to the browser profile customization API.
+            </summary>
+        </member>
+        <member name="P:Core.Core.Browser.Browser.JavaScriptExecutor">
+            <summary>
+            Provides access to the script execution API
+            </summary>
+        </member>
+        <member name="P:Core.Core.Browser.Browser.JQueryScriptExecutor">
+            <summary>
+            Provides access to the jQuery script execution API
+            </summary>
+        </member>
+        <member name="P:Core.Core.Browser.Browser.Downloads">
+            <summary>
+            Provides access to the Downloads API.
+            </summary>
+        </member>
+        <member name="P:Core.Core.Browser.Browser.WebDriver">
+            <summary>
+            Provides access to the WebDriver API
+            </summary>
+        </member>
+        <member name="P:Core.Core.Browser.Browser.Actions">
+            <summary>
+            Provides access to the WebDriver Actions API
+            </summary>
+        </member>
+        <member name="P:Core.Core.Browser.Browser.Title">
+            <summary>
+            Gets the current browser window title
+            </summary>
+        </member>
+        <member name="P:Core.Core.Browser.Browser.Url">
+            <summary>
+            Gets the current browser window url
+            </summary>
+        </member>
+        <member name="P:Core.Core.Browser.Browser.TimeZone">
+            <summary>
+            Gets the current browser window timezone
+            </summary>
+        </member>
+        <member name="P:Core.Core.Browser.Browser.InstanceTime">
+            <summary>
+            Get Instance time which depends on Browser Time Zone
+            </summary>
+        </member>
+        <member name="P:Core.Core.Browser.Browser.ScreenId">
+            <summary>
+            Gets the current browser window screenId
+            </summary>
+        </member>
+        <member name="M:Core.Core.Browser.Browser.Stop">
+            <summary>
+            Closes all browser windows and stops the browser
+            </summary>
+        </member>
+        <member name="M:Core.Core.Browser.Browser.Restart">
+            <summary>
+            Restarts the browser and navigates to the starting url
+            </summary>
+        </member>
+        <member name="M:Core.Core.Browser.Browser.ToWebDriverBy(Core.LocatorWrapper)">
+            <summary>
+            Converts the provided string element locator to a WebDriver By object
+            </summary>
+            <param name="locator">String element locator</param>
+            <returns>WebDriver By object</returns>
+        </member>
+        <member name="M:Core.Core.Browser.Browser.SelectWindow(System.Int32)">
+            <summary>
+            Selects a window by its order of appearance on screen
+            </summary>
+            <param name="windowOrderNumber">Number, representing order of appearance on screen of the window to be selected</param>
+        </member>
+        <member name="M:Core.Core.Browser.Browser.SelectLatestWindow">
+            <summary>
+            Selects the latest opened window of the browser and sets WebDriver focus to it
+            </summary>
+        </member>
+        <member name="M:Core.Core.Browser.Browser.SelectActiveFrame">
+            <summary>
+            Selects the topmost (active) frame and switches WebDriver focus to it
+            </summary>
+        </member>
+        <member name="M:Core.Core.Browser.Browser.IsTextPresent(System.String)">
+            <summary>
+            Determines whether the specified message is present on the current page
+            </summary>
+            <param name="message">Message text</param>
+            <returns>True if the text is present and false if it does not</returns>
+        </member>
+        <member name="M:Core.Core.Browser.Browser.Open(System.String,System.Boolean)">
+            <summary>
+            Navigates the browser to the provided Url or ScreenId
+            </summary>
+            <param name="urlOrScreenId">Url or ScreenId to navigate to</param>
+            <param name="openInNewWindow">Whether to open the provided Url or ScreenId in a new window</param>
+        </member>
+        <member name="M:Core.Core.Browser.DownloadsHelper.GetLastFile(System.String)">
+            <summary>
+            Gets last downloaded file with the specified name
+            </summary>
+            <param name="filename">The name of a file</param>
+        </member>
+        <member name="M:Core.Core.Browser.DownloadsHelper.GetLastFile">
+            <summary>
+            Gets last downloaded file
+            </summary>
+        </member>
+        <member name="T:Core.Comparator">
+            <summary>
+            Use to compare downloaded files
+            </summary>
+        </member>
+        <member name="T:Core.Comparator.Xml">
+            <summary>
+            Compares Xml files
+            </summary>
+        </member>
+        <member name="M:Core.Comparator.Xml.Compare(System.String,System.Xml.Linq.XDocument,System.Boolean,System.DateTime[])">
+            <summary>
+            Compare Xml files
+            </summary>
+            <param name="baseline">Baseline</param>
+            <param name="currentXml">File to be compared (.csv and .xlsx alowed)</param>
+            <param name="ignoreOrder">Ignore order of xml tags</param>
+            <param name="datesToIgnore">Dates, which should be ignored in current file during comparation</param>
+        </member>
+        <member name="M:Core.Comparator.Xml.Compare(System.String,System.Xml.Linq.XDocument,System.DateTime[])">
+            <summary>
+            Compare Xml files
+            </summary>
+            <param name="baseline">Baseline</param>
+            <param name="currentXml">File to be compared (.csv and .xlsx alowed)</param>
+            <param name="datesToIgnore">Dates, which should be ignored in current file during comparation</param>
+        </member>
+        <member name="M:Core.Comparator.Xml.Compare(System.IO.FileInfo,System.Xml.Linq.XDocument,System.DateTime[])">
+            <summary>
+            Compare Xml files
+            </summary>
+            <param name="baseline">Baseline</param>
+            <param name="currentXml">File to be compared (.csv and .xlsx alowed)</param>
+            <param name="datesToIgnore">Dates, which should be ignored in current file during comparation</param>
+        </member>
+        <member name="M:Core.Comparator.Xml.Compare(System.String,System.IO.FileInfo,System.Boolean,System.DateTime[])">
+            <summary>
+            Compare Xml files
+            </summary>
+            <param name="baseline">Baseline</param>
+            <param name="currentFile">File to be compared (.csv and .xlsx alowed)</param>
+            <param name="ignoreOrder">Ignore order of xml tags</param>
+            <param name="datesToIgnore">Dates, which should be ignored in current file during comparation</param>
+        </member>
+        <member name="M:Core.Comparator.Xml.Compare(System.String,System.IO.FileInfo,System.DateTime[])">
+            <summary>
+            Compare Xml files
+            </summary>
+            <param name="baseline">Baseline</param>
+            <param name="currentFile">File to be compared (.csv and .xlsx alowed)</param>
+            <param name="datesToIgnore">Dates, which should be ignored in current file during comparation</param>
+        </member>
+        <member name="M:Core.Comparator.Xml.Compare(System.IO.FileInfo,System.IO.FileInfo,System.DateTime[])">
+            <summary>
+            Compare Xml files
+            </summary>
+            <param name="baseline">Baseline</param>
+            <param name="currentFile">File to be compared (.csv and .xlsx alowed)</param>
+            <param name="datesToIgnore">Dates, which should be ignored in current file during comparation</param>
+        </member>
+        <member name="T:Core.Comparator.Table">
+            <summary>
+            Compares Excel and CSV files
+            </summary>
+        </member>
+        <member name="M:Core.Comparator.Table.Compare(System.String,System.IO.FileInfo,System.Boolean,System.DateTime[])">
+            <summary>
+            Compare Excel or .csv files
+            </summary>
+            <param name="baseline">Baseline</param>
+            <param name="currentFile">File to be compared (.csv and .xlsx alowed)</param>
+            <param name="dependsOnDBProvider">pass true, when baseline template has specific version for MySQL runs, which name ends with _mysql</param>
+            <param name="datesToIgnore">Dates, which should be ignored in current file during comparation</param>
+        </member>
+        <member name="M:Core.Comparator.Table.Compare(System.String,System.IO.FileInfo,System.DateTime[])">
+            <summary>
+            Compare Excel or .csv files
+            </summary>
+            <param name="baseline">Baseline</param>
+            <param name="currentFile">File to be compared (.csv and .xlsx alowed)</param>
+            <param name="datesToIgnore">Dates, which should be ignored in current file during comparation</param>
+        </member>
+        <member name="M:Core.Comparator.Table.Compare(System.IO.FileInfo,System.IO.FileInfo,System.DateTime[])">
+            <summary>
+            Compare Excel or .csv files
+            </summary>
+            <param name="baseline">Baseline</param>
+            <param name="currentFile">File to be compared (.csv and .xlsx alowed)</param>
+            <param name="datesToIgnore">Dates, which should be ignored in current file during comparation</param>
+        </member>
+        <member name="M:Core.Comparator.Table.Compare``2(System.String,Controls.Grid.Grid{``0,``1},System.DateTime[])">
+            <summary>
+            Grid Content with .CSV baseline
+            </summary>
+            <param name="baseline">Baseline</param>
+            <param name="grid">grid to be compared</param>
+            <param name="datesToIgnore">Dates, which should be ignored in current file during comparation</param>
+        </member>
+        <member name="M:Core.Comparator.Table.Compare``2(System.IO.FileInfo,Controls.Grid.Grid{``0,``1},System.DateTime[])">
+            <summary>
+            Grid Content with .CSV baseline
+            </summary>
+            <param name="baseline">Baseline</param>
+            <param name="grid">Grid to be compared</param>
+            <param name="datesToIgnore">Dates, which should be ignored in current file during comparation</param>
+        </member>
+        <member name="M:Core.Comparator.Table.Compare(System.String,System.String[][],System.DateTime[])">
+            <summary>
+            Grid Content with .CSV baseline
+            </summary>
+            <param name="baseline">Baseline</param>
+            <param name="data">Data to be compared</param>
+            <param name="datesToIgnore">Dates, which should be ignored in current file during comparation</param>
+        </member>
+        <member name="M:Core.Comparator.Table.Compare(System.IO.FileInfo,System.String[][],System.DateTime[])">
+            <summary>
+            Grid Content with .CSV baseline
+            </summary>
+            <param name="baseline">Baseline</param>
+            <param name="data">Data to be compared</param>
+            <param name="datesToIgnore">Dates, which should be ignored in current file during comparation</param>
+        </member>
+        <member name="T:Core.Comparator.Pdf">
+            <summary>
+            Compares PDF files
+            </summary>
+        </member>
+        <member name="M:Core.Comparator.Pdf.Compare(System.IO.FileInfo,System.IO.FileInfo,System.DateTime[])">
+            <summary>
+            Compare PDF files
+            </summary>
+            <param name="baseline">Baseline</param>
+            <param name="currentFile">File to be compared (.csv and .xlsx alowed)</param>
+            <param name="datesToIgnore">Dates, which should be ignored in current file during comparation</param>
+        </member>
+        <member name="M:Core.Comparator.Pdf.Compare(System.String,System.IO.FileInfo,System.DateTime[])">
+            <summary>
+            Compare PDF files
+            </summary>
+            <param name="baseline">Baseline</param>
+            <param name="currentFile">File to be compared (.csv and .xlsx alowed)</param>
+            <param name="datesToIgnore">Dates, which should be ignored in current file during comparation</param>
+        </member>
+        <member name="T:Core.Comparator.Image">
+            <summary>
+            Compares Image files
+            </summary>
+        </member>
+        <member name="M:Core.Comparator.Image.Compare(System.IO.FileInfo,System.IO.FileInfo)">
+            <summary>
+            Compare Image files
+            </summary>
+            <param name="baseline">Baseline</param>
+            <param name="currentFile">Image to be compared</param>
+        </member>
+        <member name="M:Core.Comparator.Image.Compare(System.String,System.IO.FileInfo)">
+            <summary>
+            Compare Image files
+            </summary>
+            <param name="baseline">Baseline</param>
+            <param name="currentFile">Image to be compared</param>
+        </member>
+        <member name="M:Core.Comparator.Image.Compare(System.IO.FileInfo,System.Byte[])">
+            <summary>
+            Compare Image files
+            </summary>
+            <param name="baseline">Baseline</param>
+            <param name="current">Image to be compared</param>
+        </member>
+        <member name="M:Core.Comparator.Image.Compare(System.String,System.Byte[])">
+            <summary>
+            Compare Image files
+            </summary>
+            <param name="baseline">Baseline</param>
+            <param name="current">Image to be compared</param>
+        </member>
+        <member name="T:Core.Comparator.Binary">
+            <summary>
+            Compares Binary files
+            </summary>
+        </member>
+        <member name="M:Core.Comparator.Binary.Compare(System.IO.FileInfo,System.IO.FileInfo)">
+            <summary>
+            Compare Binary files
+            </summary>
+            <param name="baseline">Baseline</param>
+            <param name="currentFile">File to be compared</param>
+        </member>
+        <member name="M:Core.Comparator.Binary.Compare(System.String,System.IO.FileInfo)">
+            <summary>
+            Compare Binary files
+            </summary>
+            <param name="baseline">Baseline</param>
+            <param name="currentFile">File to be compared</param>
+        </member>
+        <member name="T:Core.Comparators.AbstractDataWrapper">
+            <summary>
+            Abstract class for representing files in tests
+            </summary>
+        </member>
+        <member name="P:Core.Comparators.AbstractDataWrapper.Extension">
+            <summary>
+            File extension
+            </summary>
+        </member>
+        <member name="M:Core.Comparators.AbstractDataWrapper.GetBytes">
+            <summary>
+            Returns data as a byte array
+            </summary>
+        </member>
+        <member name="M:Core.Comparators.AbstractDataWrapper.GetTemplatePath(System.String)">
+            <summary>
+            Search for file with specified name in directory, where current Assembly (Core.dll) is located
+            </summary>
+            <param name="name">file name without extension or full file path</param>
+            <returns>Located file</returns>
+        </member>
+        <member name="T:Core.Comparators.BinaryDataWrapper">
+            <summary>
+            Provide ability to compare binary files.
+            </summary>
+        </member>
+        <member name="M:Core.Comparators.BinaryDataWrapper.#ctor(System.Byte[],System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Core.Comparators.BinaryDataWrapper"/> class with specified array of bytes.
+            </summary>
+            <param name="bytes">File bytes.</param>
+            <param name="extension">File extension.</param>
+        </member>
+        <member name="P:Core.Comparators.BinaryDataWrapper.Data">
+            <summary>
+            Gets file contents as bytes;
+            </summary>
+        </member>
+        <member name="P:Core.Comparators.BinaryDataWrapper.Extension">
+            <summary>
+            Extension of file
+            </summary>
+        </member>
+        <member name="M:Core.Comparators.BinaryDataWrapper.GetBytes">
+            <summary>
+            Returns data as a byte array
+            </summary>
+            <returns>Byte array backing this wrapper</returns>
+        </member>
+        <member name="M:Core.Comparators.BinaryDataWrapper.Load(System.IO.FileInfo)">
+            <summary>
+            Creates <see cref="T:Core.Comparators.BinaryDataWrapper"/> from specified file
+            </summary>
+            <param name="fileInfo">file to wrap</param>
+            <returns>new instance of <see cref="T:Core.Comparators.BinaryDataWrapper"/></returns>
+        </member>
+        <member name="M:Core.Comparators.BinaryDataWrapper.Compare(Core.Comparators.BinaryDataWrapper)">
+            <summary>
+            Compares baseline <see cref="T:Core.Comparators.BinaryDataWrapper"/> with provided current file.
+            </summary>
+            <param name="current">File to compare with baseline</param>
+            <returns>new <see cref="T:Core.Comparators.CompareResult`1"/> with diff as difference in bytes values</returns>
+        </member>
+        <member name="T:Core.Comparators.CsvDataWrapper">
+            <summary>
+            Provide ability to operate with .csv files
+            </summary>
+        </member>
+        <member name="P:Core.Comparators.CsvDataWrapper.Extension">
+            <summary>
+            Extension of file: csv
+            </summary>
+        </member>
+        <member name="M:Core.Comparators.CsvDataWrapper.#ctor(System.String[][])">
+            <summary>
+            Creates new CsvDataWrapper with given data
+            </summary>
+            <param name="data">array of table rows</param>
+        </member>
+        <member name="M:Core.Comparators.CsvDataWrapper.GetBytes">
+            <summary>
+            Returns data as a byte array
+            </summary>
+        </member>
+        <member name="M:Core.Comparators.CsvDataWrapper.Load(System.IO.FileInfo)">
+            <summary>
+            Creates CsvDataWrapper from specified file
+            </summary>
+            <param name="path">file path</param>
+            <returns>new instance of CsvDataWrapper</returns>
+        </member>
+        <member name="M:Core.Comparators.CsvDataWrapper.FromTemplate(System.String)">
+            <summary>
+            Creates CsvDataWrapper from file, located in Core.dll directory
+            </summary>
+            <param name="name">name of file (without extension) or path to it</param>
+            <returns>new instance of CsvDataWrapper</returns>
+        </member>
+        <member name="M:Core.Comparators.CsvDataWrapper.FromFile(System.IO.FileInfo)">
+            <summary>
+            Parse .csv into array of arrays of strings
+            </summary>
+            <param name="path">.csv file</param>
+        </member>
+        <member name="T:Core.Comparators.ExcelDataWrapper">
+            <summary>
+            Provide ability to operate with .xlsx files
+            </summary>
+        </member>
+        <member name="P:Core.Comparators.ExcelDataWrapper.Extension">
+            <summary>
+            Extension of file: xlsx
+            </summary>
+        </member>
+        <member name="M:Core.Comparators.ExcelDataWrapper.#ctor(OfficeOpenXml.ExcelPackage)">
+            <summary>
+            Creates new instance from OfficeOpenXml.ExcelPackage object
+            </summary>
+            <param name="data">OfficeOpenXml.ExcelPackage object</param>
+        </member>
+        <member name="M:Core.Comparators.ExcelDataWrapper.#ctor(System.String)">
+            <summary>
+            Returns empty ExcelDataWrapper with one worksheet
+            </summary>
+            <param name="name">worksheet name</param>
+            <returns>New instance</returns>
+        </member>
+        <member name="M:Core.Comparators.ExcelDataWrapper.AddWorkSheet(System.String)">
+            <summary>
+            Add worksheet into workbook
+            </summary>
+            <param name="name">worksheet name</param>
+        </member>
+        <member name="M:Core.Comparators.ExcelDataWrapper.GetBytes">
+            <summary>
+            Returns data as a byte array
+            </summary>
+        </member>
+        <member name="M:Core.Comparators.ExcelDataWrapper.Load(System.IO.FileInfo)">
+            <summary>
+            Creates ExcelDataWrapper from specified file
+            </summary>
+            <param name="path">file path</param>
+            <returns>new instance of CsvDataWrapper</returns>
+        </member>
+        <member name="M:Core.Comparators.ExcelDataWrapper.FromTemplate(System.String)">
+            <summary>
+            Creates ExcelDataWrapper from file, located in Core.dll directory
+            </summary>
+            <param name="name">name of file (without extension) or path to it</param>
+            <returns>new instance of ExcelDataWrapper</returns>
+        </member>
+        <member name="T:Core.Comparators.TableDataWrapper">
+            <summary>
+            represents table-like file formats such as .csv and .xlsx
+            </summary>
+        </member>
+        <member name="P:Core.Comparators.TableDataWrapper.Header">
+            <summary>
+            Returns first row
+            </summary>
+        </member>
+        <member name="M:Core.Comparators.TableDataWrapper.AddWorkSheet(System.String)">
+            <summary>
+            Add worksheet into workbook
+            </summary>
+            <param name="name">worksheet name</param>
+        </member>
+        <member name="M:Core.Comparators.TableDataWrapper.Compare``2(Controls.Grid.Grid{``0,``1},System.DateTime[])">
+            <summary>
+            Compares Table data with grid content. Ignores grid columns not presented in baseline.
+            </summary>
+            <param name="grid">Grid to compare data</param>
+            <param name="datesToIgnore">Dates which should be ignored in current data (most of files creating by Acumatica has current date specified)</param>
+        </member>
+        <member name="M:Core.Comparators.TableDataWrapper.Compare(Core.Comparators.TableDataWrapper,System.DateTime[])">
+            <summary>
+            Compares this TableDataWrapper data with currrent data
+            </summary>
+            <param name="current">data to be compared with this</param>
+            <param name="datesToIgnore">Dates which should be ignored in current data (most of files creating by Acumatica has current date specified)</param>
+            <returns>CompareResult object, which can be used to save Current, Baseline and Diff files</returns>
+        </member>
+        <member name="M:Core.Comparators.TableDataWrapper.Compare(Core.Comparators.TableDataWrapper,Core.Comparators.ValueComparator)">
+            <summary>
+            Compares this TableDataWrapper data with currrent data
+            </summary>
+            <param name="current">data to be compared with this</param>
+            <param name="comparator">Comparator object</param>
+            <returns>CompareResult object, which can be used to save Current, Baseline and Diff files</returns>
+        </member>
+        <member name="P:Core.Comparators.WorksheetWrapper.RowsCount">
+            <summary>
+            Rows count in current worksheet
+            </summary>
+        </member>
+        <member name="P:Core.Comparators.WorksheetWrapper.ColumnsCount">
+            <summary>
+            Columns count in current worksheet
+            </summary>
+        </member>
+        <member name="P:Core.Comparators.WorksheetWrapper.Name">
+            <summary>
+            Returns the name of current worksheet
+            </summary>
+        </member>
+        <member name="P:Core.Comparators.WorksheetWrapper.Item(System.Int32,System.Int32)">
+            <summary>
+            Returns item of data by indexes
+            </summary>
+            <param name="i">row index (zero-based)</param>
+            <param name="j">column index (zero-based)</param>
+        </member>
+        <member name="M:Core.Comparators.WorksheetWrapper.GetColumnWidth(System.Int32)">
+            <summary>
+            Returs colun width. Used to create diff file
+            </summary>
+            <param name="j">column index (zero-based)</param>
+            <returns>colun width</returns>
+        </member>
+        <member name="M:Core.Comparators.WorksheetWrapper.SetColumnWidth(System.Int32,System.Double)">
+            <summary>
+            Sets colun width. Used to create .xlsx diff
+            </summary>
+            <param name="j">column index (zero-based)</param>
+            <param name="width"> with value</param>
+        </member>
+        <member name="M:Core.Comparators.WorksheetWrapper.GetCellStyle(System.Int32,System.Int32)">
+            <summary>
+            Returns cell style. Used to create .xlsx diff
+            </summary>
+            <param name="i">row index (zero-based)</param>
+            <param name="j">column index (zero-based)</param>
+        </member>
+        <member name="M:Core.Comparators.WorksheetWrapper.SetCellFill(System.Int32,System.Int32,OfficeOpenXml.Style.ExcelFill)">
+            <summary>
+            Sets cell fill Used to create .xlsx diff
+            </summary>
+            <param name="i">row index (zero-based)</param>
+            <param name="j">column index (zero-based)</param>
+            <param name="excelFill">Fill to set</param>
+        </member>
+        <member name="M:Core.Comparators.WorksheetWrapper.MarkAsError(System.Int32,System.Int32,System.String,System.String)">
+            <summary> Mark error (in diff file) like [Expected/Actual]</summary>
+            <param name="i">row index (zero-based)</param>
+            <param name="j">column index (zero-based)</param>
+            <param name="expected">Expected value</param>
+            <param name="actual">Actual value</param>
+        </member>
+        <member name="M:Core.Comparators.ValueComparator.ConvertToDateTime(System.String)">
+            <summary>
+            Converts string to datetime
+            </summary>
+            <param name="value">value to convert.
+            Formats to expect: standart or specified in
+            https://stash.acumatica.com/projects/AC/repos/code/browse/NetTools/PX.Common/LocaleInfo.cs
+            </param>
+            <returns>Parsed DateTime. Returns DateTime.MinValue, if cannot be parsed</returns>
+        </member>
+        <member name="M:Core.IExtendedApi.ConfigureExportScenario">
+            <summary>
+            Configures export sceanrio at source installation.
+            </summary>
+        </member>
+        <member name="M:Core.IExtendedApi.PrepareExportScenario">
+            <summary>
+            Prepares data for export from source installation.
+            </summary>
+        </member>
+        <member name="M:Core.IExtendedApi.RunExportScenario">
+            <summary>
+            Imports data at source installation.
+            </summary>
+        </member>
+        <member name="M:Core.IExtendedApi.GetScenarioFileLink">
+            <summary>
+            Gets external file link.
+            </summary>
+            <returns>External file link.</returns>
+        </member>
+        <member name="M:Core.IExtendedApi.SyncronizeScenarioFile(System.String)">
+            <summary>
+            Syncronizes file with data between source and destination installations.
+            </summary>
+        </member>
+        <member name="M:Core.IExtendedApi.ConfigureImportScenario">
+            <summary>
+            Configures import sceanrio at destination installation.
+            </summary>
+        </member>
+        <member name="M:Core.IExtendedApi.PrepareImportScenario">
+            <summary>
+            Prepares data for import at destination installation.
+            </summary>
+        </member>
+        <member name="M:Core.IExtendedApi.RunImportScenario">
+            <summary>
+            Imports data at destination installation.
+            </summary>
+        </member>
+        <member name="M:Core.IExtendedApi.ValidateScenario">
+            <summary>
+            Validates data at destination installation.
+            </summary>
+        </member>
+        <member name="M:Core.IExtendedApi.Move(Core.Wrapper)">
+            <summary>
+            Exports entities from source installation and imports entities to destination installation using integration services.
+            </summary>
+            <param name="screenWrapper">Screen wrapper for which the move is performed</param>
+        </member>
+        <member name="T:Core.Profile.ProfileBuilder">
+            <summary>
+            Provides the interface for building and customizing the current browser profile.
+            </summary>
+        </member>
+        <member name="M:Core.Profile.ProfileBuilder.SetPreference(System.String,System.Object)">
+            <summary>
+            Adds the specified preference to the browser profile.
+            </summary>
+            <param name="name">Browser profile preference name.</param>
+            <param name="value">Browser profile preference value</param>
+        </member>
+        <member name="M:Core.Profile.ProfileBuilder.SetPreferences(System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Adds the specified preferences to the browser profile.
+            </summary>
+            <param name="preferences">Dictionary, containing name/value pairs for the browser profile</param>
+        </member>
+        <member name="M:Core.Profile.ProfileBuilder.AddExtension(System.String)">
+            <summary>
+            Adds the specified extension to the browser profile.
+            </summary>
+            <param name="pathToExtension">Path to extension to be installed</param>
+        </member>
+        <member name="M:Core.Profile.ProfileBuilder.AddExtensions(System.String[])">
+            <summary>
+            Adds the specified extensions to the browser profile.
+            </summary>
+            <param name="pathsToExtensions">Paths to extensions to be installed</param>
+        </member>
+        <member name="M:Core.Profile.ProfileBuilder.SetCapability(System.String,System.Object)">
+            <summary>
+            Adds the specified capability to the browser profile.
+            </summary>
+            <param name="capabilityName">Browser profile capability name.</param>
+            <param name="capabilityValue">Browser profile capability value</param>
+        </member>
+        <member name="M:Core.Profile.ProfileBuilder.AddArgument(System.String)">
+            <summary>
+            Adds the specified argument to the browser profile.
+            </summary>
+            <param name="argument">Argument to be added</param>
+        </member>
+        <member name="M:Core.Profile.ProfileBuilder.AddArguments(System.String[])">
+            <summary>
+            Adds the specified arguments to the browser profile.
+            </summary>
+            <param name="arguments">Arguments to be added</param>
+        </member>
+        <member name="M:Core.Profile.ProfileBuilder.ResetProfile">
+            <summary>
+            Resets all profile settings to their defaults (which are specified in a browser *.xml configuration file, e.g. FirefoxProfile.xml).
+            </summary>
+        </member>
+        <member name="M:Core.Profile.ProfileBuilder.ApplyProfile">
+            <summary>
+            Applies all added customizations to the browser profile and restarts the browser.
+            </summary>
+        </member>
+        <member name="M:Core.Login.PxLogin.RefreshScreen">
+            <summary>
+            Refreshes login page.
+            </summary>
+        </member>
+        <member name="M:Core.Report.Save(System.String)">
+            <summary>
+            Save to baseline file
+            </summary>
+            <param name="fileName">Name of the baseline file</param>
+        </member>
+        <member name="M:Core.Report.Compare(System.String,System.Collections.Generic.IEnumerable{System.DateTime},System.Boolean)">
+            <summary>
+            Compare report with previosly saved baseline
+            </summary>
+            <param name="xmlFileName">Name of baseline file</param>
+            <param name="datesToIgnore">Dates to ignore during comparison</param>
+            <param name="ignoreOrder">Ignore order of xml tags</param>
+        </member>
+        <member name="M:Core.Report.Compare(System.String,System.Boolean)">
+            <summary>
+            Compare report with previosly saved baseline
+            </summary>
+            <param name="xmlFileName">Name of baseline file</param>
+            <param name="ignoreOrder">Ignore order of xml tags</param>
+        </member>
+        <member name="T:Core.Wait.Wait">
+            <summary>
+            Implemets operations related to wait delays.
+            </summary>
+        </member>
+        <member name="P:Core.Wait.Wait.ShortTimeOut">
+            <summary>
+            Short timeout: 4000 milliseconds
+            </summary>
+        </member>
+        <member name="P:Core.Wait.Wait.TimeSpan">
+            <summary>
+            2 hours long time span
+            </summary>
+        </member>
+        <member name="M:Core.Wait.Wait.WaitForCallbackToComplete(System.Int32)">
+            <summary>
+            Waits for callback to complete within timout.
+            </summary>
+            <param name="timeOutInMilliseconds">Timeout in milliseconds to wait for callback to complete.</param>
+        </member>
+        <member name="M:Core.Wait.Wait.WaitForCallbackToComplete">
+            <summary>
+            Waits for callback to complete within the long timout.
+            </summary>
+        </member>
+        <member name="M:Core.Wait.Wait.WaitForCallbackToStart(System.Int32)">
+            <summary>
+            Waits for callback to start within specified timeout.
+            </summary>
+            <param name="timeOutInMilliseconds">Timeout in milliseconds to wait for callback to start (maximum value is 3000ms).</param>
+        </member>
+        <member name="M:Core.Wait.Wait.WaitForCallbackToStart">
+            <summary>
+            Waits for callback to start within the 500ms default timeout.
+            </summary>
+        </member>
+        <member name="M:Core.Wait.Wait.WaitForLongOperationToComplete(System.Int32,System.Boolean,System.String)">
+            <summary>
+            Waits for long-run-operation to complete within the specified timeout with expected status and message.
+            </summary>
+            <param name="timeOutInMilliseconds">Timeout in milliseconds to wait for long-run-operation to complete.</param>
+            <param name="expectedStatus">Long-run operation expected status.</param>
+            <param name="expectedMessage">Long-run operation expected message.</param>
+        </member>
+        <member name="M:Core.Wait.Wait.WaitForLongOperationToComplete(System.Int32,System.Boolean)">
+            <summary>
+            Waits for long-run-operation to complete within the specified timeout with expected status.
+            </summary>
+            <param name="timeOutInMilliseconds">Timeout in milliseconds to wait for long-run-operation to complete.</param>
+            <param name="expectedStatus">Long-run operation expected status.</param>
+        </member>
+        <member name="M:Core.Wait.Wait.WaitForLongOperationToComplete(System.Boolean,System.String)">
+            <summary>
+            Waits for long-run-operation to complete within the long timeout with expected status and message.
+            </summary>
+            <param name="expectedStatus">Long-run operation expected status.</param>
+            <param name="expectedMessage">Long-run operation expected message.</param>
+        </member>
+        <member name="M:Core.Wait.Wait.WaitForLongOperationToComplete(System.Int32)">
+            <summary>
+            Waits for long-run-operation to complete within the specified timeout with sucessfull status.
+            </summary>
+            <param name="timeOutInMilliseconds">Timeout in milliseconds to wait for long-run-operation to complete.</param>
+        </member>
+        <member name="M:Core.Wait.Wait.WaitForLongOperationToComplete(System.Boolean)">
+            <summary>
+            Waits for long-run-operation to complete within the long timeout with expected status.
+            </summary>
+            <param name="expectedStatus">Long-run operation expected status.</param>
+        </member>
+        <member name="M:Core.Wait.Wait.WaitForLongOperationToComplete">
+            <summary>
+            Waits for long-run-operation to complete within the long timeout with sucessfull status.
+            </summary>
+        </member>
+        <member name="M:Core.Wait.Wait.WaitForPageToLoad(System.Int32)">
+            <summary>
+            Waits for the page to load in the current window withtin the provided timeout.
+            </summary>
+            <param name="timeOutInMilliseconds">Timeout in milliseconds to wait for the page to load.</param>
+        </member>
+        <member name="M:Core.Wait.Wait.WaitForPageToLoad(System.Int32,System.Boolean)">
+            <summary>
+            Waits for the page to load in a new or in the current window withtin the provided timeout.
+            </summary>
+            <param name="timeOutInMilliseconds">Timeout in milliseconds to wait for the page to load.</param>
+            <param name="isNewWindow">Whether the page is loading in a new popup (true) or in the current (false) window.</param>
+        </member>
+        <member name="M:Core.Wait.Wait.WaitForPageToLoad(System.Boolean)">
+            <summary>
+            Waits for the page to load in a new or in the current window withtin the long timeout.
+            </summary>
+            <param name="isNewWindow">Whether the page is loading in a new popup (true) or in the current (false) window.</param>
+        </member>
+        <member name="M:Core.Wait.Wait.WaitForPageToLoad">
+            <summary>
+            Waits for the page to load in the current window withtin the long timeout.
+            </summary>
+        </member>
+        <member name="M:Core.Wait.Wait.WaitForCurrentWindowToClose(System.Int32)">
+            <summary>
+            Waits for the current window to close within the provided timeout.
+            </summary>
+            <param name="timeOutInMilliseconds">Timeout in milliseconds to wait for the current window to close.</param>
+        </member>
+        <member name="M:Core.Wait.Wait.WaitForCurrentWindowToClose">
+            <summary>
+            Waits for the current window to close within the long timeout.
+            </summary>
+        </member>
+        <member name="M:Core.Wait.Wait.WaitForNewWindowToOpen(System.Int32,System.Int32)">
+            <summary>
+            Waits for the specified number of new windows to open within the provided timeout.
+            </summary>
+            <param name="timeOutInMilliseconds">Timeout in milliseconds to wait for a new window to open.</param>
+            <param name="windowsNumber">New windows number to wait for</param>
+        </member>
+        <member name="M:Core.Wait.Wait.WaitForNewWindowToOpen(System.Int32)">
+            <summary>
+            Waits for a new window to open within the provided timeout.
+            </summary>
+            <param name="timeOutInMilliseconds">Timeout in milliseconds to wait for a new window to open.</param>
+        </member>
+        <member name="M:Core.Wait.Wait.WaitForNewWindowToOpen">
+            <summary>
+            Waits for a new window to open within the long timeout.
+            </summary>
+        </member>
+        <member name="M:Core.Wait.Wait.WaitForFileDownloadComplete(System.Int32)">
+            <summary>
+            Waits for a new file to appear in Config.BROWSER_DOWNLOADS_FOLDER.
+            </summary>
+            <param name="timeOutInMilliseconds">Timeout in milliseconds to wait for the file.</param>
+        </member>
+        <member name="M:Core.Wait.Wait.WaitForFileDownloadComplete">
+            <summary>
+            Waits for a new file to appear in Config.BROWSER_DOWNLOADS_FOLDER.
+            </summary>
+        </member>
+        <member name="T:Core.Wrapper">
+            <summary>
+            Wrapper class, which implements common wrappers logic.
+            </summary>
+        </member>
+        <member name="M:Core.Wrapper.Move">
+            <summary>
+            Exports entities from source installation and imports entities to destination installation using integration services.
+            The move is performed for a screen object (wrapper) from which the method is invoked.
+            </summary>
+        </member>
+        <member name="M:Core.Wrapper.CloseWindow(System.Boolean)">
+            <summary>
+            Closes browser window that is curently in use.
+            </summary>
+            <param name="discardChanges">Whether to close an alert with unsaved changes notification or not</param>
+        </member>
+        <member name="M:Core.Wrapper.RefreshScreen(System.Boolean)">
+            <summary>
+            Refreshes browser window that is curently in use.
+            </summary>
+            <param name="discardChanges">Whether to close an alert with unsaved changes notification or not</param>
+        </member>
+        <member name="M:Core.Wrapper.DynamicControl``1(System.String)">
+            <summary>
+            Searches for the dynamic form control by the provided label/name/tooltip.
+            Can be used in dynamic forms in which controls are added/deleted depending on the form data or applied customization.
+            </summary>
+            <typeparam name="T">
+            Control type of the dynamic form control.
+            Possible control types (all control types are available in the Controls namespace):
+            ToolBarButton - for toolbar button fields.
+            Button - for button fields.
+            CheckBox - for fields with checkboxes;
+            Input - for text/numeric fields;
+            Selector - for fields with selector;
+            FormulaCombo - for fields with formulas;
+            DropDown - for dropdown fields;
+            DateSelector - for fields with date/time.
+            Container - for tab controls.
+            SmartPanel - for smartpanel controls.
+            GroupBox - for groupbox controls.
+            QuickSearch - for quick search controls.
+            </typeparam>
+            <param name="labelNameTooltip">The label, name or tooltip of the control in the UI</param>
+            <returns>Dynamic form control</returns>
+        </member>
+        <member name="M:Core.Wrapper.DynamicGrid(System.String)">
+            <summary>
+            Searches for the dynamic grid control by the provided tab name
+            </summary>
+            <param name="tabName">The name of the tab, containing the grid (if
+            <paramref name="tabName"/> is empty - first grid on the screen will be returned)</param>
+            <returns>Dynamic grid control</returns>
+        </member>
+        <member name="M:Core.Wrapper.GetAlert(System.Action)">
+            <summary>
+            Gets an alert text as a result of the provided action
+            </summary>
+            <param name="action">Action, which produces an alert</param>
+        </member>
+        <member name="M:Core.Wrapper.VerifyAlert(System.Action)">
+            <summary>
+            Verify that any alert occurs after executing the provided action
+            </summary>
+            <param name="action">Action, which produces an alert.</param>
+        </member>
+        <member name="M:Core.Wrapper.VerifyAlert(System.Action,System.String)">
+            <summary>
+            Verify that an alert with the specified message occurs after executing the provided action
+            </summary>
+            <param name="action">Action, which produces an alert.</param>
+            <param name="errorMessage">Expected alert message.</param>
+        </member>
+        <member name="M:Core.Wrapper.VerifyLongOperation(System.Action,System.Boolean,System.String)">
+            <summary>
+            Verify the result of the long operation
+            </summary>
+            <param name="action">Action, which starts long operation</param>
+            <param name="expectedStatus">Expected long operation result (success - true, fail - false)</param>
+            <param name="expectedMessage">Expected long operation message</param>
+        </member>
+        <member name="M:Core.Wrapper.VerifyLongOperation(System.Action,System.Boolean)">
+            <summary>
+            Verify the result of the long operation
+            </summary>
+            <param name="action">Action, which starts long operation</param>
+            <param name="expectedStatus">Expected long operation result (success - true, fail - false)</param>
+        </member>
+        <member name="M:Core.Wrapper.VerifyScreenID">
+            <summary>
+            Verifies, this.ScreenID equals to ScreenID of opened screen
+            </summary>
+        </member>
+        <member name="M:Core.Wrapper.VerifyScreenID(System.String)">
+            <summary>
+            Verifies screenId of the current screen
+            </summary>
+            <param name="expectedScreenId">ScreenId to verify</param>
+        </member>
+    </members>
+</doc>
