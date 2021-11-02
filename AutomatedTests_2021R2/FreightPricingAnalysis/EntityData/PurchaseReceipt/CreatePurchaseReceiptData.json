@@ -1,0 +1,6 @@
+{
+  "VendorID": "UVENDOR",
+  "InvoiceNbr": "INVREF",
+  "InventoryID":"TESTINV012",
+  "ReceiptQty": 2.00
+}

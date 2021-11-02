@@ -1,0 +1,12 @@
+{
+  "VendorClassID": "TESTCLASSV",
+  "Descr":"Test Vendor Class",
+  "CountryID":"US",
+  "TermsID":"30D",
+  "PaymentMethodID": "CHECK",
+  "CashAcctID": "10200",
+  "APAcctID": "20000 - Accounts Payable",
+  "APSubID": "000-000",
+  "DiscTakenAcctID": "52600 - Cash Discount",
+  "DiscTakenSubID": "000-000"
+}
