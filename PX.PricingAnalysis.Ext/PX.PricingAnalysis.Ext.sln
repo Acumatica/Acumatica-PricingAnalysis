@@ -5,6 +5,28 @@ VisualStudioVersion = 16.0.30128.74
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PX.PricingAnalysis.Ext", "PX.PricingAnalysis.Ext\PX.PricingAnalysis.Ext.csproj", "{4713CF99-DB9E-4B6C-88E9-6D38C5C4DE98}"
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AcmProfit21V110", "http://localhost/AcmProfit21V110", "{FA0C6E7C-159C-40BE-B674-EC99BEF72F80}"
+	ProjectSection(WebsiteProperties) = preProject
+		UseIISExpress = "false"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
+		ProjectReferences = "{4713cf99-db9e-4b6c-88e9-6d38c5c4de98}|PX.PricingAnalysis.Ext.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/AcmProfit21V110"
+		Debug.AspNetCompiler.PhysicalPath = "..\..\..\..\Program Files (x86)\Acumatica ERP\AcmProfit21V110\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\AcmProfit21V110\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/AcmProfit21V110"
+		Release.AspNetCompiler.PhysicalPath = "..\..\..\..\Program Files (x86)\Acumatica ERP\AcmProfit21V110\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\AcmProfit21V110\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "..\..\..\..\Program Files (x86)\Acumatica ERP\AcmProfit21V110\"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +37,10 @@ Global
 		{4713CF99-DB9E-4B6C-88E9-6D38C5C4DE98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4713CF99-DB9E-4B6C-88E9-6D38C5C4DE98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4713CF99-DB9E-4B6C-88E9-6D38C5C4DE98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA0C6E7C-159C-40BE-B674-EC99BEF72F80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA0C6E7C-159C-40BE-B674-EC99BEF72F80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA0C6E7C-159C-40BE-B674-EC99BEF72F80}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA0C6E7C-159C-40BE-B674-EC99BEF72F80}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

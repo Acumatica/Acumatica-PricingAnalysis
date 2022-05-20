@@ -44,12 +44,21 @@ namespace PX.PricingAnalysis.Ext
         public Decimal? UsrCuryLineCost { get; set; }
         #endregion
 
+        #region UsrQtyOnHand
+        public abstract class usrQtyOnHand : PX.Data.BQL.BqlDecimal.Field<usrQtyOnHand> { }
+
+        [PXQuantity()]
+        [PXFormula(typeof(Selector<FSAppointmentDet.siteID, INItemStats.qtyOnHand>))]
+        [PXFormula(typeof(Default<FSAppointmentDet.inventoryID, FSAppointmentDet.siteID>))]
+        public Decimal? UsrQtyOnHand { get; set; }
+        #endregion
+
         #region UsrIsLastCostUsed
         public abstract class usrIsLastCostUsed : PX.Data.BQL.BqlDecimal.Field<usrIsLastCostUsed> { }
 
         [PXBool]
         [PXUnboundDefault(false, PersistingCheck = PXPersistingCheck.Nothing)]
-        [PXFormula(typeof(Switch<Case<Where<FSAppointmentDet.extCost, IsNull, Or<FSAppointmentDet.extCost, Equal<Objects.CS.decimal0>>>, True>, False>))]
+        [PXFormula(typeof(Switch<Case<Where<FSAppointmentDetPricingPXExt.usrQtyOnHand, IsNull, Or<FSAppointmentDetPricingPXExt.usrQtyOnHand, Equal<Objects.CS.decimal0>>>, True>, False>))]
         public bool? UsrIsLastCostUsed { get; set; }
         #endregion
     }

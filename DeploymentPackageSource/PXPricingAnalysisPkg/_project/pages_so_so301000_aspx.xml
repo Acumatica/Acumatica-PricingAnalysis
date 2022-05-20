@@ -37,7 +37,7 @@
                     <Prop Key="Virtual:ApplyStylesheetSkin" />
                     <Prop Key="DesignView" Value="Content" />
                     <Prop Key="Height" Value="450px" />
-                    <Prop Key="Width" Value="1200px" />
+                    <Prop Key="Width" Value="1300px" />
                     <Prop Key="ID" Value="pnlProfitAnalysis" />
                     <Prop Key="LoadOnDemand" Value="True" />
                     <Prop Key="CaptionVisible" Value="True" />

@@ -38,12 +38,21 @@ namespace PX.PricingAnalysis.Ext
         public bool? UsrPricingEligible { get; set; }
         #endregion
 
+        #region UsrQtyOnHand
+        public abstract class usrQtyOnHand : PX.Data.BQL.BqlDecimal.Field<usrQtyOnHand> { }
+
+        [PXQuantity()]
+        [PXFormula(typeof(Selector<CROpportunityProducts.siteID, INItemStats.qtyOnHand>))]
+        [PXFormula(typeof(Default<CROpportunityProducts.inventoryID, CROpportunityProducts.siteID>))]
+        public Decimal? UsrQtyOnHand { get; set; }
+        #endregion
+
         #region UsrIsLastCostUsed
         public abstract class usrIsLastCostUsed : PX.Data.BQL.BqlDecimal.Field<usrIsLastCostUsed> { }
 
         [PXBool]
         [PXUnboundDefault(false, PersistingCheck = PXPersistingCheck.Nothing)]
-        [PXFormula(typeof(Switch<Case<Where<CROpportunityProducts.curyExtCost, IsNull, Or<CROpportunityProducts.curyExtCost, Equal<Objects.CS.decimal0>>>, True>, False>))]
+        [PXFormula(typeof(Switch<Case<Where<CROpportunityProductsPricingPXExt.usrQtyOnHand, IsNull, Or<CROpportunityProductsPricingPXExt.usrQtyOnHand, Equal<Objects.CS.decimal0>>>, True>, False>))]
         public bool? UsrIsLastCostUsed { get; set; }
         #endregion
     }

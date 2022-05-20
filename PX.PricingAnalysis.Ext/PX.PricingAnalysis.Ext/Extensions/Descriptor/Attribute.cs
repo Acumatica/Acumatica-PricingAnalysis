@@ -131,12 +131,12 @@ namespace PX.PricingAnalysis.Ext
 							}
 							else
 							{
-								dValueCaled += GetValuationBasedCost(cache, split.InventoryID, split.SiteID, split.Qty);
+								dValueCaled += GetValuationBasedCost(cache, split.InventoryID, split.SiteID, split.Qty, true);
 							}
 						}
 						if (qtyRemaining != quantity)
                         {
-							dValueCaled += GetValuationBasedCost(cache, inventoryID, siteID, qtyRemaining);
+							dValueCaled += GetValuationBasedCost(cache, inventoryID, siteID, qtyRemaining, true);
 						}
 					}
 					else if (item is FSSODet)
@@ -155,17 +155,17 @@ namespace PX.PricingAnalysis.Ext
 							}
 							else
 							{
-								dValueCaled += GetValuationBasedCost(cache, split.InventoryID, split.SiteID, split.Qty);
+								dValueCaled += GetValuationBasedCost(cache, split.InventoryID, split.SiteID, split.Qty, true);
 							}
 						}
 						if (qtyRemaining != quantity)
 						{
-							dValueCaled += GetValuationBasedCost(cache, inventoryID, siteID, qtyRemaining);
+							dValueCaled += GetValuationBasedCost(cache, inventoryID, siteID, qtyRemaining, true);
 						}
 					}
 					else
 					{
-						dValueCaled = GetValuationBasedCost(cache, inventoryID, siteID, quantity);
+						dValueCaled = GetValuationBasedCost(cache, inventoryID, siteID, quantity, true);
 					}
 				}
 				else
@@ -257,14 +257,22 @@ namespace PX.PricingAnalysis.Ext
 			return dReturnValue;
 		}
 
-		private decimal? GetValuationBasedCost(PXCache cache, int? inventoryID, int? siteID, decimal? qty)
+		private decimal? GetValuationBasedCost(PXCache cache, int? inventoryID, int? siteID, decimal? qty, bool bUseAvg = false)
 		{
 			INItemSite data = PXSelect<INItemSite, Where<INItemSite.inventoryID, Equal<Required<INItemSite.inventoryID>>,
 													And<INItemSite.siteID, Equal<Required<INItemSite.siteID>>>>>
 													.SelectWindowed(cache.Graph, 0, 1, inventoryID, siteID);
 
-			decimal? dValuedCost = (qty.GetValueOrDefault(0)) * (data?.TranUnitCost ?? 0m);
-			return dValuedCost.GetValueOrDefault(0) > 0 ? dValuedCost : GetLastCost(cache, inventoryID, qty);
+			if (!bUseAvg)
+			{
+				decimal? dValuedCost = (qty.GetValueOrDefault(0)) * (data?.TranUnitCost ?? 0m);
+				return dValuedCost.GetValueOrDefault(0) > 0 ? dValuedCost : GetLastCost(cache, inventoryID, qty);
+			}
+			else
+            {
+				decimal? dValuedCost = (qty.GetValueOrDefault(0)) * (data?.AvgCost ?? 0m);
+				return dValuedCost.GetValueOrDefault(0) > 0 ? dValuedCost : GetLastCost(cache, inventoryID, qty);
+			}
 		}
 
 		private decimal? GetLastCost(PXCache cache, int? inventoryID, decimal? qty)

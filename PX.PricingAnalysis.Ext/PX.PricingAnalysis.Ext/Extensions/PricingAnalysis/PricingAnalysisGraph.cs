@@ -794,6 +794,8 @@ namespace PX.PricingAnalysis.Ext
             PXCache sender = e.Cache;
             if (data == null || sender == null) { return; }
 
+            PricingAnalysis.SetEnabled(e.Cache.GetStatus(data) != PXEntryStatus.Inserted);
+
             bool bAllowEdit = DocumentLineData.BaseSelect.AllowUpdate;
             ProfitBreakUpByCurrentItem.SetEnabled(bAllowEdit);
             ProfitBreakUpByDocument.SetEnabled(bAllowEdit);
@@ -893,8 +895,11 @@ namespace PX.PricingAnalysis.Ext
         [PXButton(CommitChanges = true)]
         public virtual IEnumerable pricingAnalysis(PXAdapter adapter)
         {
+            Base.Persist();
+
             if (PricingAnalysisPreviewHeaderFilter.AskExtFullyValid((graph, viewName) =>
             {
+                Base.Actions.PressCancel();
                 PricingAnalysisPreviewHeaderRecs.Cache.Clear();
                 PricingAnalysisPreviewHeaderRecs.Cache.ClearQueryCache();
                 PricingAnalysisPreview.Cache.Clear();
