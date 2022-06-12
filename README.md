@@ -21,6 +21,7 @@ Cost is determined based on
 * [Acumatica 2020 R2 (20.202.0043 or higher)](https://github.com/Acumatica/Acumatica-PricingAnalysis/tree/2020)
 * [Acumatica 2021 R1 (21.110.0032 or higher)](https://github.com/Acumatica/Acumatica-PricingAnalysis/tree/2021)
 * [Acumatica 2021 R2 (21.200.0145 or higher)](https://github.com/Acumatica/Acumatica-PricingAnalysis/tree/2021)
+* [Acumatica 2022 R1 (22.105.0031 or higher)](https://github.com/Acumatica/Acumatica-PricingAnalysis/tree/2021)
 
 Quick Start
 -----------
