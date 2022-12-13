@@ -277,8 +277,7 @@ namespace PX.PricingAnalysis.Ext
 
 		private decimal? GetLastCost(PXCache cache, int? inventoryID, decimal? qty)
         {
-			INItemCost data = PXSelect<INItemCost, Where<INItemCost.inventoryID, Equal<Required<InventoryItem.inventoryID>>>>
-								.SelectWindowed(cache.Graph, 0, 1, inventoryID);
+			INItemCost data = INItemCost.PK.Find(cache.Graph, inventoryID, cache.Graph.Accessinfo.BaseCuryID);
 			return (qty.GetValueOrDefault(0)) * (data?.LastCost ?? 0m);
 		}
 	}

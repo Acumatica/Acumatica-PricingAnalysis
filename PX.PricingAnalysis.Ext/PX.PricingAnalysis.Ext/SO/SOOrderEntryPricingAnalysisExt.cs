@@ -1,4 +1,5 @@
 ﻿using PX.Data;
+using PX.Objects.IN;
 using PX.Objects.SO;
 using System;
 using System.Collections.Generic;
@@ -47,5 +48,12 @@ namespace PX.PricingAnalysis.Ext
         [PXMergeAttributes(Method = MergeMethod.Append)]
         [PXFormula(typeof(PALineCostValueExtAttribute<SOLine.inventoryID, SOLine.siteID, SOLine.extCost, SOLine.orderQty, SOLine.curyUnitCost>))]
         protected virtual void _(Events.CacheAttached<SOLinePricingPXExt.usrCuryLineCost> e) { }
+
+        [PXMergeAttributes(Method = MergeMethod.Append)]
+        [PXUnboundDefault(typeof(Search<INItemStats.qtyOnHand,
+                                    Where<INItemStats.inventoryID, Equal<Current<SOLine.inventoryID>>,
+                                        And<INItemStats.siteID, Equal<Current<SOLine.siteID>>>>>), PersistingCheck = PXPersistingCheck.Nothing)]
+        [PXFormula(typeof(Default<SOLine.inventoryID, SOLine.siteID>))]
+        protected virtual void _(Events.CacheAttached<SOLinePricingPXExt.usrQtyOnHand> e) { }
     }
 }

@@ -67,6 +67,8 @@ namespace PX.PricingAnalysis.Ext
 
                     erHdb.Row.Cells["HeaderInfoType"].Style.CssClass = (dataHeader.HeaderInfoType == HeaderInfoTypes.Current) ?
                                                                         "CssStyleHeaderCurrent" : "CssStyleHeaderPreview";
+
+                    erHdb.Row.Cells["HeaderInfoType"].Column.Header.ImageUrl = "control@Empty";
                 };
             }
 

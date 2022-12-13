@@ -42,7 +42,9 @@ namespace PX.PricingAnalysis.Ext
         public abstract class usrQtyOnHand : PX.Data.BQL.BqlDecimal.Field<usrQtyOnHand> { }
 
         [PXQuantity()]
-        [PXFormula(typeof(Selector<CROpportunityProducts.siteID, INItemStats.qtyOnHand>))]
+        [PXUnboundDefault(typeof(Search<INItemStats.qtyOnHand,
+                                    Where<INItemStats.inventoryID, Equal<Current<CROpportunityProducts.inventoryID>>,
+                                        And<INItemStats.siteID, Equal<Current<CROpportunityProducts.siteID>>>>>), PersistingCheck = PXPersistingCheck.Nothing)]
         [PXFormula(typeof(Default<CROpportunityProducts.inventoryID, CROpportunityProducts.siteID>))]
         public Decimal? UsrQtyOnHand { get; set; }
         #endregion

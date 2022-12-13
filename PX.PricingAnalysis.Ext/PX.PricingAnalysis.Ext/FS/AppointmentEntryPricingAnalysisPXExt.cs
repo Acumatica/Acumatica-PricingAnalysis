@@ -1,6 +1,7 @@
 ﻿using System;
 using PX.Data;
 using PX.Objects.FS;
+using PX.Objects.IN;
 
 namespace PX.PricingAnalysis.Ext
 {
@@ -36,5 +37,12 @@ namespace PX.PricingAnalysis.Ext
         [PXMergeAttributes(Method = MergeMethod.Append)]
         [PXFormula(typeof(PALineCostValueExtAttribute<FSAppointmentDet.inventoryID, FSAppointmentDet.siteID, FSAppointmentDet.extCost, FSAppointmentDet.estimatedQty, FSAppointmentDet.curyUnitCost>))]
         protected virtual void _(Events.CacheAttached<FSAppointmentDetPricingPXExt.usrCuryLineCost> e) { }
+
+        [PXMergeAttributes(Method = MergeMethod.Append)]
+        [PXUnboundDefault(typeof(Search<INItemStats.qtyOnHand,
+                                    Where<INItemStats.inventoryID, Equal<Current<FSAppointmentDet.inventoryID>>,
+                                        And<INItemStats.siteID, Equal<Current<FSAppointmentDet.siteID>>>>>), PersistingCheck = PXPersistingCheck.Nothing)]
+        [PXFormula(typeof(Default<FSSODet.inventoryID, FSSODet.siteID>))]
+        protected virtual void _(Events.CacheAttached<FSAppointmentDetPricingPXExt.usrQtyOnHand> e) { }
     }
 }

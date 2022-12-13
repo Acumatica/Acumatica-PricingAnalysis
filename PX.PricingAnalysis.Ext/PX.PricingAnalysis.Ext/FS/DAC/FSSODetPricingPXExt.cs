@@ -51,8 +51,7 @@ namespace PX.PricingAnalysis.Ext
         public abstract class usrQtyOnHand : PX.Data.BQL.BqlDecimal.Field<usrQtyOnHand> { }
 
         [PXQuantity()]
-        [PXFormula(typeof(Selector<FSSODet.siteID, INItemStats.qtyOnHand>))]
-        [PXFormula(typeof(Default<FSSODet.inventoryID, FSSODet.siteID>))]
+        [PXUIField(DisplayName = "Qty. On Hand (For Pricing)", Enabled = false)]
         public Decimal? UsrQtyOnHand { get; set; }
         #endregion
 

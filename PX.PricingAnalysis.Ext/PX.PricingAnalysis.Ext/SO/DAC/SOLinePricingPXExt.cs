@@ -34,12 +34,20 @@ namespace PX.PricingAnalysis.Ext
         public Decimal? UsrCuryLineCost { get; set; }
         #endregion
 
+        #region UsrQtyOnHand 
+        public abstract class usrQtyOnHand : PX.Data.BQL.BqlDecimal.Field<usrQtyOnHand> { }
+        [PXQuantity()]
+        [PXUIField(DisplayName = "Qty. On Hand (For Pricing)", Enabled = false)]
+        public Decimal? UsrQtyOnHand { get; set; }
+        #endregion
+
         #region UsrIsLastCostUsed
         public abstract class usrIsLastCostUsed : PX.Data.BQL.BqlDecimal.Field<usrIsLastCostUsed> { }
 
         [PXBool]
         [PXUnboundDefault(false, PersistingCheck = PXPersistingCheck.Nothing)]
-        [PXFormula(typeof(Switch<Case<Where<SOLine.qtyOnHand, IsNull, Or<SOLine.qtyOnHand, Equal<Objects.CS.decimal0>>>, True>, False>))]
+        [PXFormula(typeof(Switch<Case<Where<SOLinePricingPXExt.usrQtyOnHand, IsNull, 
+                                        Or<SOLinePricingPXExt.usrQtyOnHand, Equal<Objects.CS.decimal0>>>, True>, False>))]
         public bool? UsrIsLastCostUsed { get; set; }
         #endregion
     }
