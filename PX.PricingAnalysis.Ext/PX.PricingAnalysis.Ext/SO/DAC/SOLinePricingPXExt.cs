@@ -46,7 +46,7 @@ namespace PX.PricingAnalysis.Ext
 
         [PXBool]
         [PXUnboundDefault(false, PersistingCheck = PXPersistingCheck.Nothing)]
-        [PXFormula(typeof(Switch<Case<Where<SOLinePricingPXExt.usrQtyOnHand, IsNull, 
+        [PXFormula(typeof(Switch<Case<Where<SOLinePricingPXExt.usrQtyOnHand, IsNull,
                                         Or<SOLinePricingPXExt.usrQtyOnHand, Equal<Objects.CS.decimal0>>>, True>, False>))]
         public bool? UsrIsLastCostUsed { get; set; }
         #endregion

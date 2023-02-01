@@ -1,10 +1,7 @@
 ﻿using System;
 using PX.Data;
-using PX.Objects.CM;
 using PX.Objects.CR;
-using PX.Objects.CS;
 using PX.Objects.IN;
-using static PX.Objects.FS.SharedClasses;
 
 namespace PX.PricingAnalysis.Ext
 {

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using PX.Data;
 using PX.Objects.AR;
 using PX.Objects.CM;
-using PX.Objects.CS;
 using PX.Objects.FS;
 using PX.Objects.IN;
 using PX.Objects.SO;
@@ -22,7 +21,7 @@ namespace PX.PricingAnalysis.Ext
 				})
 			{ }
 		}
-
+		
 		public const string CurrentLineType = "C";
 		public const string PreviewLineType = "P";
 
@@ -35,7 +34,7 @@ namespace PX.PricingAnalysis.Ext
 			public document() : base(PreviewLineType) { }
 		}
 	}
-
+	
 	public class BreakupBy
 	{
 		public class ListAttribute : PXStringListAttribute
@@ -91,6 +90,7 @@ namespace PX.PricingAnalysis.Ext
 				where Quantity : IBqlOperand
 				where LineOUnitCost : IBqlOperand
 	{
+
 		public override object Evaluate(PXCache cache, object item, Dictionary<Type, object> pars)
 		{
 			int? inventoryID = (int?)pars[typeof(InventoryID)];
@@ -282,7 +282,6 @@ namespace PX.PricingAnalysis.Ext
 		}
 	}
 
-	
 	public class AdjustmentType
 	{
 		public class ListAttribute : PXStringListAttribute

@@ -1,8 +1,5 @@
 ﻿using System;
-using PX.Data;
-using PX.Objects.CM;
 using PX.Objects.PM;
-using PX.Objects.IN;
 using PX.Objects.CR;
 
 namespace PX.PricingAnalysis.Ext

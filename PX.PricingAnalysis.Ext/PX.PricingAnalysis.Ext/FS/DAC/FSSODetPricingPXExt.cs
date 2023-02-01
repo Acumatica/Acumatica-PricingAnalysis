@@ -8,16 +8,16 @@ namespace PX.PricingAnalysis.Ext
 {
     public sealed class FSSODetPricingPXExt : PXCacheExtension<FSSODet>
     {
-		#region UsrCuryExtCost
-		public abstract class usrCuryExtCost : PX.Data.BQL.BqlDecimal.Field<usrCuryExtCost> { }
+        #region UsrCuryExtCost
+        public abstract class usrCuryExtCost : PX.Data.BQL.BqlDecimal.Field<usrCuryExtCost> { }
 
-		[PXPriceCost]
-		[PXUIField(DisplayName = "Line Cost", Enabled = false)]
-		[PXUnboundDefault(TypeCode.Decimal, "0.0", PersistingCheck = PXPersistingCheck.Nothing)]
-		[PXFormula(typeof(Switch<Case<Where<FSSODet.estimatedQty, IsNotNull, And<FSSODet.curyUnitCost, IsNotNull>>, 
-							Mult<FSSODet.curyUnitCost, FSSODet.estimatedQty>>, decimal_0>))]
-		[PXDependsOnFields(typeof(FSSODet.curyUnitCost), typeof(FSSODet.estimatedQty))]
-		public Decimal? UsrCuryExtCost { get; set; }
+        [PXPriceCost]
+        [PXUIField(DisplayName = "Line Cost", Enabled = false)]
+        [PXUnboundDefault(TypeCode.Decimal, "0.0", PersistingCheck = PXPersistingCheck.Nothing)]
+        [PXFormula(typeof(Switch<Case<Where<FSSODet.estimatedQty, IsNotNull, And<FSSODet.curyUnitCost, IsNotNull>>,
+                            Mult<FSSODet.curyUnitCost, FSSODet.estimatedQty>>, decimal_0>))]
+        [PXDependsOnFields(typeof(FSSODet.curyUnitCost), typeof(FSSODet.estimatedQty))]
+        public Decimal? UsrCuryExtCost { get; set; }
         #endregion
 
         #region UsrAccrueCost

@@ -1,22 +1,23 @@
 ﻿using System;
 using PX.Data;
-using PX.Objects.CS;
 using PX.Objects.IN;
 
 namespace PX.PricingAnalysis.Ext
 {
-    [Serializable]
-    [PXHidden]
-    public class PricingAnalysisPreviewLine : IBqlTable
+	[Serializable]
+	[PXHidden]
+	public class PricingAnalysisPreviewLine : IBqlTable
 	{
 		#region RecordID
 		public abstract class recordID : PX.Data.BQL.BqlInt.Field<recordID> { }
+
 		[PXInt(IsKey = true)]
 		public virtual int? RecordID { get; set; }
 		#endregion
 
 		#region LineNbr
 		public abstract class lineNbr : PX.Data.BQL.BqlInt.Field<lineNbr> { }
+
 		[PXInt]
 		[PXUIField(DisplayName = "Line Nbr.", Visible = false, Enabled = false)]
 		public virtual Int32? LineNbr { get; set; }
@@ -24,17 +25,20 @@ namespace PX.PricingAnalysis.Ext
 
 		#region InventoryID
 		public abstract class inventoryID : PX.Data.BQL.BqlInt.Field<inventoryID> { }
+
 		public virtual Int32? InventoryID { get; set; }
 		#endregion
 
 		#region IsFreightLine
 		public abstract class isFreightLine : PX.Data.BQL.BqlBool.Field<isFreightLine> { }
+
 		[PXUnboundDefault(false, PersistingCheck = PXPersistingCheck.Nothing)]
 		public virtual bool? IsFreightLine { get; set; }
 		#endregion
 
 		#region EnableLinePriceAnalysis
 		public abstract class enablePriceAnalysisByLine : PX.Data.BQL.BqlBool.Field<enablePriceAnalysisByLine> { }
+
 		[PXBool]
 		[PXUIField]
 		[PXUnboundDefault(true, PersistingCheck = PXPersistingCheck.Nothing)]
@@ -44,6 +48,7 @@ namespace PX.PricingAnalysis.Ext
 
 		#region InventoryIDDisplay
 		public abstract class inventoryIDDisplay : PX.Data.BQL.BqlString.Field<inventoryIDDisplay> { }
+
 		[PXString]
 		[PXUIField(DisplayName = "Inventory ID", Enabled = false)]
 		public virtual String InventoryIDDisplay { get; set; }
@@ -51,6 +56,7 @@ namespace PX.PricingAnalysis.Ext
 
 		#region InventoryDescription
 		public abstract class inventoryDescription : PX.Data.BQL.BqlString.Field<inventoryDescription> { }
+
 		[PXString]
 		[PXUIField(DisplayName = "Description", Enabled = false)]
 		public virtual String InventoryDescription { get; set; }
@@ -78,6 +84,14 @@ namespace PX.PricingAnalysis.Ext
 		[PXString(6, IsUnicode = true, InputMask = ">aaaaaa")]
 		[PXUIField(DisplayName = "UOM", Enabled = false)]
 		public virtual String UOM { get; set; }
+		#endregion
+
+		#region InvtRefNbr
+		public abstract class invtRefNbr : PX.Data.BQL.BqlString.Field<invtRefNbr> { }
+
+		[PXString]
+		[PXUIField(DisplayName = "Inventory Ref. Nbr.", Enabled = false)]
+		public virtual string InvtRefNbr { get; set; }
 		#endregion
 
 		#region OrderQtyDisplay
@@ -114,6 +128,7 @@ namespace PX.PricingAnalysis.Ext
 
 		#region CuryUnitCost
 		public abstract class curyUnitCost : PX.Data.BQL.BqlDecimal.Field<curyUnitCost> { }
+
 		[PXPriceCost]
 		[PXUIField(DisplayName = "Unit Cost", Enabled = false)]
 		public virtual Decimal? CuryUnitCost { get; set; }
@@ -166,6 +181,6 @@ namespace PX.PricingAnalysis.Ext
 		[PXDecimal(2)]
 		[PXUIField(DisplayName = "Margin %", Enabled = true)]
 		public virtual decimal? MarginPercent { get; set; }
-        #endregion
-    }
+		#endregion
+	}
 }

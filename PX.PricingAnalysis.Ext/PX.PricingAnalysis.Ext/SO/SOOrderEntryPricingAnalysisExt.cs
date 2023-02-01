@@ -1,11 +1,7 @@
-﻿using PX.Data;
+﻿using System;
+using PX.Data;
 using PX.Objects.IN;
 using PX.Objects.SO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PX.PricingAnalysis.Ext
 {

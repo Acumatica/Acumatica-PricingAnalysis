@@ -1,5 +1,7 @@
 ﻿using PX.Data;
+using PX.Objects.AR;
 using PX.Objects.IN;
+using PX.Objects.SO;
 using PX.Web.UI;
 using System;
 using System.Collections;
@@ -18,6 +20,8 @@ namespace PX.PricingAnalysis.Ext
         public PXSelectExtension<DocumentLine> DocumentLineData;
 
         protected virtual bool CalcFreightPrices => false;
+
+        protected virtual bool PreviewOnly => false;
 
         #region SmartPanel Styling
         public override void Initialize()
@@ -65,12 +69,16 @@ namespace PX.PricingAnalysis.Ext
 
                     erHdb.Row.Cells["CuryProfitTotal"].Style.CssClass = (dataHeader.CuryProfitTotal < 0M) ? "red20" : "green20";
 
-                    erHdb.Row.Cells["HeaderInfoType"].Style.CssClass = (dataHeader.HeaderInfoType == HeaderInfoTypes.Current) ?
-                                                                        "CssStyleHeaderCurrent" : "CssStyleHeaderPreview";
-
+                    if(!PreviewOnly)
+                    {
+                        erHdb.Row.Cells["HeaderInfoType"].Style.CssClass = (dataHeader.HeaderInfoType == HeaderInfoTypes.Current) ?
+                                                                           "CssStyleHeaderCurrent" : "CssStyleHeaderPreview";
+                    }
                     erHdb.Row.Cells["HeaderInfoType"].Column.Header.ImageUrl = "control@Empty";
                 };
             }
+
+            if (PreviewOnly) { return; }
 
             PX.Web.UI.PXGrid grdProfitPreview = (PX.Web.UI.PXGrid)ControlHelper.FindControl("grdProfitPreview", page);
             if (grdProfitPreview != null)
@@ -267,6 +275,9 @@ namespace PX.PricingAnalysis.Ext
 
                 var inventoryItem = InventoryItem.PK.Find(Base, orgLine.InventoryID);
 
+                
+                if (PreviewOnly) { orgLine.CuryExtCost = orgLine.UnitCost * orgLine.OrderQty; }
+
                 PricingAnalysisPreviewLine line = new PricingAnalysisPreviewLine()
                 {
                     RecordID = iRecordCounter++,
@@ -277,6 +288,7 @@ namespace PX.PricingAnalysis.Ext
                     InventoryDescription = inventoryItem.Descr,
                     IsLastCostUsed = orgLine.IsLastCostUsed,
                     UOM = orgLine.UOM,
+                    InvtRefNbr = orgLine.InvtRefNbr,
                     OrderQty = orgLine.OrderQty,
                     OrderQtyDisplay = orgLine.OrderQty,
                     CuryDiscAmt = orgLine.CuryDiscAmt,
@@ -291,18 +303,21 @@ namespace PX.PricingAnalysis.Ext
                 //if (line.CuryExtCost.GetValueOrDefault(0) <= 0m) { line.MarkupPercent = null; }
                 line = PricingAnalysisPreview.Insert(line);
                 PricingAnalysisPreview.Cache.SetStatus(line, PXEntryStatus.Held);
-                PricingAnalysisPreviewLine prvLine = PXCache<PricingAnalysisPreviewLine>.CreateCopy(line);
-                prvLine.RecordID = iRecordCounter++;
-                prvLine.LineType = ProfitLineType.PreviewLineType;
-                prvLine.InventoryIDDisplay = null;
-                prvLine.InventoryDescription = null;
-                prvLine.OrderQtyDisplay = null;
-                prvLine.UOM = null;
-                prvLine.CuryExtCostDisplay = null;
-                prvLine = PricingAnalysisPreview.Insert(prvLine);
-                PricingAnalysisPreview.Cache.SetStatus(prvLine, PXEntryStatus.Held);
-            }
 
+                if (!PreviewOnly)
+                {
+                    PricingAnalysisPreviewLine prvLine = PXCache<PricingAnalysisPreviewLine>.CreateCopy(line);
+                    prvLine.RecordID = iRecordCounter++;
+                    prvLine.LineType = ProfitLineType.PreviewLineType;
+                    prvLine.InventoryIDDisplay = null;
+                    prvLine.InventoryDescription = null;
+                    prvLine.OrderQtyDisplay = null;
+                    prvLine.UOM = null;
+                    prvLine.CuryExtCostDisplay = null;
+                    prvLine = PricingAnalysisPreview.Insert(prvLine);
+                    PricingAnalysisPreview.Cache.SetStatus(prvLine, PXEntryStatus.Held);
+                }
+            }
             InitializeFreightPreviewData(iRecordCounter);
         }
 
@@ -336,10 +351,7 @@ namespace PX.PricingAnalysis.Ext
             record = PricingAnalysisPreview.Insert(record);
             PricingAnalysisPreview.Cache.SetStatus(record, PXEntryStatus.Held);
 
-            if (!freightDetail.OverrideFreightAmount.GetValueOrDefault(false))
-            {
-                return;
-            }
+            if (!freightDetail.OverrideFreightAmount.GetValueOrDefault(false)) { return; }
 
             PricingAnalysisPreviewLine recordPrvLine = PXCache<PricingAnalysisPreviewLine>.CreateCopy(record);
             recordPrvLine.RecordID = currentRecordCounter++;
@@ -394,7 +406,6 @@ namespace PX.PricingAnalysis.Ext
                     }
                 }
             }
-
             header.CuryProfitTotalCurrent = cprofitTotal;
             header.CuryExtCostTotalCurrent = ccostTotal;
             header.CuryAmountTotalCurrent = camountTotal;
@@ -434,8 +445,11 @@ namespace PX.PricingAnalysis.Ext
                 MarkupPercent = (costTotal.GetValueOrDefault(0) > 0) ? (profitTotal / costTotal) * 100 : null,
                 MarginPercent = (amountTotal.GetValueOrDefault(0) > 0) ? (profitTotal / amountTotal) * 100 : null
             };
-            PricingAnalysisPreviewHeaderRecs.Insert(previewHeaderLine);
-            PricingAnalysisPreviewHeaderRecs.Cache.SetStatus(previewHeaderLine, PXEntryStatus.Held);
+            if (!PreviewOnly)
+            {
+                PricingAnalysisPreviewHeaderRecs.Insert(previewHeaderLine);
+                PricingAnalysisPreviewHeaderRecs.Cache.SetStatus(previewHeaderLine, PXEntryStatus.Held);
+            }
         }
 
         public virtual void PopulateBreaupLines()
@@ -782,10 +796,15 @@ namespace PX.PricingAnalysis.Ext
             e.Cancel = true;
         }
 
+        //Enables/Disables the applyAdjustmentAs drop-down
         public void _(Events.RowSelected<PricingAnalysisPreviewHeader> e)
         {
             if (e.Cache == null || e.Row == null) { return; }
-
+            if (PreviewOnly)
+            {
+                PXUIFieldAttribute.SetVisible<PricingAnalysisPreviewHeader.applyAdjustmentAs>(e.Cache, e.Row, false);
+                return;
+            }
             bool bAllowEdit = DocumentLineData.BaseSelect.AllowUpdate;
             PXUIFieldAttribute.SetEnabled<PricingAnalysisPreviewHeader.applyAdjustmentAs>(e.Cache, e.Row, bAllowEdit);
         }
@@ -797,6 +816,13 @@ namespace PX.PricingAnalysis.Ext
             if (data == null || sender == null) { return; }
 
             PricingAnalysis.SetEnabled(e.Cache.GetStatus(data) != PXEntryStatus.Inserted);
+
+            if (PreviewOnly)
+            {
+                ProfitBreakUpByCurrentItem.SetVisible(false);
+                ProfitBreakUpByDocument.SetVisible(false);
+                return;
+            }
 
             bool bAllowEdit = DocumentLineData.BaseSelect.AllowUpdate;
             ProfitBreakUpByCurrentItem.SetEnabled(bAllowEdit);
@@ -815,6 +841,12 @@ namespace PX.PricingAnalysis.Ext
                                                 || (PricingAnalysisPreview.Current != null && PricingAnalysisPreview.Current.IsFreightLine.GetValueOrDefault(false)));
             bool bAllowEditDisc = bAllowEdit && (PricingAnalysisPreviewHeaderFilter.Current?.ApplyAdjustmentAs == AdjustmentType.Discount)
                                                  && PricingAnalysisPreview.Current != null && !PricingAnalysisPreview.Current.IsFreightLine.GetValueOrDefault(false);
+
+            if (this.Base is ARInvoiceEntry && !(this.Base is SOInvoiceEntry))
+            {
+                PXUIFieldAttribute.SetVisible<PricingAnalysisPreviewLine.invtRefNbr>(sender, null, false);
+            }
+
             PXUIFieldAttribute.SetEnabled<PricingAnalysisPreviewLine.curyUnitPrice>(sender, data, bAllowEditPrice);
             PXUIFieldAttribute.SetEnabled<PricingAnalysisPreviewLine.curyDiscAmt>(sender, data, bAllowEditDisc);
             PXUIFieldAttribute.SetEnabled<PricingAnalysisPreviewLine.curyLineAmt>(sender, data, bAllowEdit);
@@ -1070,6 +1102,8 @@ namespace PX.PricingAnalysis.Ext
             public Type InventoryID = typeof(DocumentLine.inventoryID);
             public Type IsStockItem = typeof(DocumentLine.isStockItem);
             public Type UOM = typeof(DocumentLine.uOM);
+            public Type InvtRefNbr = typeof(DocumentLine.invtRefNbr);
+            public Type UnitCost = typeof(DocumentLine.unitCost);
             public Type OrderQty = typeof(DocumentLine.orderQty);
             public Type CuryDiscAmt = typeof(DocumentLine.curyDiscAmt);
             public Type CuryUnitPrice = typeof(DocumentLine.curyUnitPrice);
@@ -1156,6 +1190,18 @@ namespace PX.PricingAnalysis.Ext
         public abstract class uOM : PX.Data.BQL.BqlString.Field<uOM> { }
 
         public virtual String UOM { get; set; }
+        #endregion
+
+        #region InvtRefNbr
+        public abstract class invtRefNbr : PX.Data.BQL.BqlString.Field<invtRefNbr> { }
+
+        public virtual String InvtRefNbr { get; set; }
+        #endregion
+
+        #region UnitCost
+        public abstract class unitCost : PX.Data.BQL.BqlDecimal.Field<unitCost> { }
+
+        public virtual decimal? UnitCost { get; set; }
         #endregion
 
         #region OrderQty

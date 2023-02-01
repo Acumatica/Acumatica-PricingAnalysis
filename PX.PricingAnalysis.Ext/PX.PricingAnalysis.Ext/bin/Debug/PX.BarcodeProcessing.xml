@@ -1,0 +1,950 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PX.BarcodeProcessing</name>
+    </assembly>
+    <members>
+        <member name="T:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2">
+            <summary>The core class of Acumatica's barcode-driven engine.
+            It connects all components of the barcode-driven engine.</summary>
+            <typeparam name="TSelf">The type of the self. BarcodeDrivenStateMachine uses curiously recurring template pattern (CRTP) approach to keep its members and components highly typed.</typeparam>
+            <typeparam name="TGraph">
+            The host graph. Since the barcode processing is built upon an existing Acumatica ERP form and automates its functions, it is optimal to place all barcode processing logic in a generic extension, which can access the original graph. However, it is necessary to have both the original and the extended forms in the system. That's why the BarcodeDrivenStateMachine descendants do not use an exact target graph by itself, instead they use its empty descendant.
+            </typeparam>
+            <remarks>
+              <para>
+            While creating a new barcode-driven Acumatica ERP form, you introduce a descendant of this class
+            enclosed with itself in the TSelf type parameter and with an empty descendant of the target graph
+            in the TGraph type parameter, and then implement its abstract members.
+            All the components of this descendant will have the TScanBasis type parameter set to the class
+            passed into the TSelf type parameter of the descendant.
+            </para>
+              <para>All components can access the core class via their Basis property. </para>
+            </remarks>
+        </member>
+        <member name="P:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.Graph">
+            <summary>
+            Grants access to a strongly typed version of the host graph
+            (as compared to PXGraph used in the <see cref="T:PX.BarcodeProcessing.IBarcodeDrivenStateMachine" /> interface)
+            and also lifts its accessibility up to public
+            (as compared to the protected Base member of the <see cref="T:PX.Data.PXGraphExtension`1" />).
+            </summary>
+        </member>
+        <member name="P:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.ScanModes">
+            <summary>Holds the collection of all modes of the barcode-driven Acumatica ERP form.</summary>
+            <value>
+            The value is populated on the extension initialization and is based on the results of
+            the protected <see cref="M:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.CreateScanModes">CreateScanModes()</see>method.
+            </value>
+        </member>
+        <member name="M:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.CreateScanModes">
+            <summary>Creates the modes of the barcode-driven form.
+            It is the most important method of the class because it provides the most part of the configuration
+            of the barcode-driven engine.</summary>
+        </member>
+        <member name="M:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.GetDefaultMode">
+            <summary>Returns the default mode of the barcode-driven form.</summary>
+            <returns>By default, it returns the first mode of the <see cref="P:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.ScanModes" /> collection.</returns>
+        </member>
+        <member name="P:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.CurrentMode">
+            <summary>Grants access to the current mode, similar to <see cref="P:PX.BarcodeProcessing.IBarcodeDrivenStateMachine.CurrentMode" />,
+            but uses a typed approach (that is, ScanMode&lt;TSelf&gt; instead of IScanMode)</summary>
+        </member>
+        <member name="F:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.HeaderView">
+            <summary>The main data view of <see cref="T:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2" /> that holds the current mode and state.
+            This is an extension point for additional states.</summary>
+            <remarks>This view is virtual (that is, of the <see cref="T:PX.Data.PXFilter`1" /> type) and uses unbound DACs.
+            Usually it is not used directly by an application developer.</remarks>
+        </member>
+        <member name="F:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.Info">
+            <summary>An additional data view that is used for reporting purposes.</summary>
+            <remarks>This view is virtual (that is, of the <see cref="T:PX.Data.PXFilter`1" /> type) and uses unbound DACs.
+            Usually it is not used directly by an application developer.</remarks>
+        </member>
+        <member name="F:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.Logs">
+            <summary>
+            An additional data view that keeps scan logs of the session.
+            </summary>
+            <remarks>This view is virtual (that is, of the <see cref="T:PX.Data.PXFilter`1" /> type) and uses unbound DACs.
+            Usually it is not used directly by an application developer.</remarks>
+        </member>
+        <member name="F:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.Save">
+            <summary>
+            Saves a form's state, as the standard Save button does.
+            However, this action is used mostly internally
+            by the <see cref="M:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.SaveChanges">BarcodeDrivenStateMachine.SaveChanges()</see> method.
+            </summary>
+            <remarks>This action is not intended to be used by an application developer.
+            It has complete and fixed functionality that is vital for the barcode-based forms.</remarks>
+        </member>
+        <member name="F:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.Cancel">
+            <summary>
+            Resets a form's state, as the standard Cancel button does. 
+            </summary>
+            <inheritdoc cref="F:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.Save" path="/remarks"/>
+        </member>
+        <member name="F:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.ScanConfirm">
+            <summary>Is used for the OK answer to questions and warnings generated by <see cref="T:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2" />.</summary>
+            <inheritdoc cref="F:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.Save" path="/remarks"/>
+        </member>
+        <member name="F:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.ScanReset">
+            <summary>
+            Is used for resetting the barcode processing cycle.
+            As compared to the <see cref="F:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.Cancel"/> action, this action does not clear the form completely.
+            </summary>
+            <inheritdoc cref="F:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.Save" path="/remarks"/>
+        </member>
+        <member name="F:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.Scan">
+            <summary>The main action of <see cref="T:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2" /> that is executed every time
+            a barcode is scanned. It is an entry point for the barcode processing cycle.</summary>
+            <inheritdoc cref="F:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.Save" path="/remarks"/>
+        </member>
+        <member name="M:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.CanHandleScan(System.String)">
+            <summary>Indicates (if set to <see langword="true" />) that the scanned value can be handled by the system.</summary>
+            <param name="barcode">The scanned barcode value.</param>
+            <returns>
+              <c>The value is always <see langword="true" /> by default.</c>
+            </returns>
+        </member>
+        <member name="M:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.ProcessCustomScan(System.String)">
+            <summary>Provides an ability to process the input that could not be processed by any step of the barcode processing.</summary>
+            <param name="barcode">The scanned barcode value.</param>
+        </member>
+        <member name="M:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.DecorateScanMode(PX.BarcodeProcessing.ScanMode{`0})">
+            <summary>Reconfigures a created mode before its initialization, which means that its initialization could be altered.</summary>
+            <param name="original">The original scan mode.</param>
+        </member>
+        <member name="M:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.LateDecorateScanMode(PX.BarcodeProcessing.ScanMode{`0})">
+            <summary>Reconfigure a created mode after its initialization, which means that its behavior could be altered based on a component presence.</summary>
+            <param name="original">The original scan mode.</param>
+        </member>
+        <member name="M:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.DecorateScanState(PX.BarcodeProcessing.ScanState{`0})">
+            <summary>Reconfigures a created state, which means that its behavior could be altered.</summary>
+            <param name="original">The original scan state.</param>
+        </member>
+        <member name="M:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.DecorateScanCommand(PX.BarcodeProcessing.ScanCommand{`0})">
+            <summary>Reconfigures a created command, which means that its behavior could be altered.</summary>
+            <param name="original">The original scan command.</param>
+        </member>
+        <member name="M:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.DecorateScanRedirect(PX.BarcodeProcessing.ScanRedirect{`0})">
+            <summary>Reconfigures a created mode redirect, which means that its behavior can be altered.</summary>
+            <param name="original">The original mode redirect.</param>
+        </member>
+        <member name="M:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.DecorateScanTransition(PX.BarcodeProcessing.ScanTransition{`0})">
+            <summary>
+            Reconfigures a created transition, which means that its behavior could be altered.
+            </summary>
+            <param name="original">The original scan transition.</param>
+        </member>
+        <member name="M:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.DecorateScanQuestion(PX.BarcodeProcessing.ScanQuestion{`0})">
+            <summary>Reconfigures a created question, which means that its behavior can be altered.</summary>
+            <param name="original">The original scan question.</param>
+        </member>
+        <member name="T:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.ScanMode">
+            <summary>A non-generic version of the <see cref="T:PX.BarcodeProcessing.ScanMode`1" /> class.</summary>
+            <remarks>This nested class encloses the TScanBasis type parameter of its base generic class with the TSelf type parameter of its Basis.
+            Therefore, the class simplifies component defining in scope of an extension.</remarks>
+        </member>
+        <member name="T:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.EntityState`1">
+            <summary>
+            A simplified version of the <see cref="T:PX.BarcodeProcessing.EntityState`2" /> class.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <inheritdoc cref="T:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.ScanMode" path="/remarks"/>
+        </member>
+        <member name="T:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.ConfirmationState">
+            <summary>A non-generic version of the <see cref="T:PX.BarcodeProcessing.ConfirmationState`1" /> class.</summary>
+            <inheritdoc cref="T:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.ScanMode" path="/remarks"/>
+        </member>
+        <member name="T:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.ScanCommand">
+            <summary>A non-generic version of the <see cref="T:PX.BarcodeProcessing.ScanCommand`1" /> class.</summary>
+            <inheritdoc cref="T:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.ScanMode" path="/remarks"/>
+        </member>
+        <member name="T:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.ScanQuestion">
+            <summary>A non-generic version of the <see cref="T:PX.BarcodeProcessing.ScanQuestion`1" /> class.</summary>
+            <inheritdoc cref="T:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.ScanMode" path="/remarks"/>
+        </member>
+        <member name="M:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.WaitFor``1(System.Action{`0,``0})">
+            <summary>Starts an awaitable long-running operation upon a document (usually within a ScanCommand&lt;TScanBasis&gt;).</summary>
+            <typeparam name="TData">The type of the data.</typeparam>
+            <param name="action">The action.</param>
+            <returns>
+              <br />
+            </returns>
+            <remarks>You should configure the long-running operation by using the following methods:
+            <see cref="M:PX.BarcodeProcessing.ScanLongRunAwaiter`2.WithDescription(System.String,System.Object[])"/>,
+            <see cref="M:PX.BarcodeProcessing.ScanLongRunAwaiter`2.ActualizeDataBy(System.Func{`0,`1,`1})"/>,
+            <see cref="M:PX.BarcodeProcessing.ScanLongRunAwaiter`2.OnSuccess(System.Action{PX.BarcodeProcessing.ScanLongRunAwaiter{`0,`1}.ISuccessProcessor})"/>,
+            <see cref="M:PX.BarcodeProcessing.ScanLongRunAwaiter`2.OnFail(System.Action{PX.BarcodeProcessing.ScanLongRunAwaiter{`0,`1}.IResultProcessor})"/>, and
+            <see cref="M:PX.BarcodeProcessing.ScanLongRunAwaiter`2.BeginAwait(`1)"/>.</remarks>
+        </member>
+        <member name="M:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.get_PrimaryItemType(System.Func{System.Type})">
+            <summary>
+            Overrides <see cref="P:PX.Data.PXGraph.PrimaryItemType"/>
+            </summary>
+        </member>
+        <member name="M:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.get_PrimaryView(System.Func{System.String})">
+            <summary>
+            Overrides <see cref="P:PX.Data.PXGraph.PrimaryView"/>
+            </summary>
+        </member>
+        <member name="T:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.ScanExtension">
+            <summary>
+            A simplified version of the <see cref="T:PX.Data.PXGraphExtension`2" />,
+            which is used to simplify creation of the logic parts of the components.
+            </summary>
+        </member>
+        <member name="T:PX.BarcodeProcessing.CommandOnlyStateBase`1">
+            <summary>
+            A built-in scan state that rejects any non-fixed input and reports to users that they should use only commands.
+            </summary>
+            <typeparam name="TScanBasis">
+            The barcode scan class.
+            </typeparam>
+        </member>
+        <member name="T:PX.BarcodeProcessing.ConfirmationState`1">
+            <summary>
+            A special scan state that validates and confirms all changes accumulated by other scan states and completes the barcode processing cycle.
+            </summary>
+            <typeparam name="TScanBasis">
+            The barcode scan class.
+            </typeparam>
+        </member>
+        <member name="P:PX.BarcodeProcessing.ConfirmationState`1.ExplicitConfirmation">
+            <summary>
+            Indicates (if set to <see langword="true"/>) that the state should explicitly ask a user's permission to complete the cycle.
+            </summary>
+            <value>
+            If the value is <see langword="false"/>, the <see cref="M:PX.BarcodeProcessing.IScanState.Process(System.String)"/> method is called automatically after the state has taken over.
+            </value>
+        </member>
+        <member name="P:PX.BarcodeProcessing.ConfirmationState`1.ExecuteInTransaction">
+            <summary>
+            Indicates (if set to <see langword="true"/>) that the confirmation logic should be executed in a transaction scope.
+            </summary>
+            <remarks>
+            It can be useful to set this property to <see langword="true"/> when the confirmation logic affects two graphs (the original one that is extended with the scan extension and an external one).
+            </remarks>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ConfirmationState`1.OnTakingOver">
+            <summary>
+            Contains the logic that is executed once the processing is moved to this state.
+            </summary>
+            <remarks>
+            The method is called in the end of the <see cref="M:PX.BarcodeProcessing.IScanState.TakeOver"/> method.
+            The method is intended only for override. We strongly recommend that you do not call this method directly.
+            If you need to execute this method, you call the <see cref="M:PX.BarcodeProcessing.ConfirmationState`1.TakeOver"/> method.
+            </remarks>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ConfirmationState`1.OnDismissing">
+            <summary>
+            Contains the logic that is executed once the processing is moved from this state to another one.
+            </summary>
+            <remarks>
+            The method is called in the end of the <see cref="M:PX.BarcodeProcessing.IScanState.Dismiss"/> method.
+            The method is intended only for override. We strongly recommend that you do not call this method directly.
+            If you need to execute this method, you call the <see cref="M:PX.BarcodeProcessing.ConfirmationState`1.Dismiss"/> method.
+            </remarks>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ConfirmationState`1.PerformConfirmation">
+            <summary>
+            Performs the confirmation.
+            </summary>
+            <returns>
+            The method returns a description of what the system should do next.
+            The method is intended only for override. We strongly recommend that you do not call this method directly.
+            If you need to execute this method, you call the <see cref="M:PX.BarcodeProcessing.ConfirmationState`1.Confirm"/> method.
+            </returns>
+        </member>
+        <member name="F:PX.BarcodeProcessing.ConfirmationState`1.Intercept">
+            <summary>
+            A set of method interceptors.
+            </summary>
+        </member>
+        <member name="T:PX.BarcodeProcessing.EntityState`2">
+            <summary>
+            A standard scan state that is used to transform a barcode to a particular entity, validate it, and apply it to the barcode-driven form.
+            </summary>
+            <typeparam name="TScanBasis">
+            The barcode scan class.
+            </typeparam>
+            <typeparam name="TEntity">
+            The type of the entity.
+            </typeparam>
+        </member>
+        <member name="M:PX.BarcodeProcessing.EntityState`2.OnTakingOver">
+            <summary>
+            Contains the logic that is executed once the processing is moved to this state.
+            </summary>
+            <remarks>
+            The method is called in the end of the <see cref="M:PX.BarcodeProcessing.IScanState.TakeOver"/> method.
+            The method is intended only for override. We strongly recommend that you do not call this method directly.
+            If you need to execute this method, you call the <see cref="M:PX.BarcodeProcessing.EntityState`2.TakeOver"/> method.
+            </remarks>
+        </member>
+        <member name="M:PX.BarcodeProcessing.EntityState`2.OnDismissing">
+            <summary>
+            Contains the logic that is executed once the processing is moved from this state to another one.
+            </summary>
+            <remarks>
+            The method is called in the end of the <see cref="M:PX.BarcodeProcessing.IScanState.Dismiss"/> method.
+            The method is intended only for override. We strongly recommend that you do not call this method directly.
+            If you need to execute this method, you call the <see cref="M:PX.BarcodeProcessing.EntityState`2.Dismiss"/> method.
+            </remarks>
+        </member>
+        <member name="M:PX.BarcodeProcessing.EntityState`2.IsStateActive">
+            <summary>
+            Indicates (if set to <see langword="true"/>) that the state is active for the current data state of the barcode-driven from.
+            </summary>
+            <remarks>
+            Inactive states are not participating in automatic transition processing.
+            Their missing input can be ignored on confirmation execution.
+            You can check whether a particular scan state is active by using the <see cref="M:PX.BarcodeProcessing.ScanMode`1.HasActive(System.String)"/>
+            or <see cref="M:PX.BarcodeProcessing.ScanMode`1.HasActive``1"/> method. 
+            The method is intended only for override. We strongly recommend that you do not call this method directly.
+            </remarks>
+        </member>
+        <member name="M:PX.BarcodeProcessing.EntityState`2.IsStateSkippable">
+            <summary>
+            Indicates (if set to <see langword="true"/>) that the state can be skipped. Once the processing is moved to this state, it can be automatically moved to the next state.
+            </summary>
+            <remarks>
+            The method is intended only for override. We strongly recommend that you do not call this method directly.
+            </remarks>
+        </member>
+        <member name="M:PX.BarcodeProcessing.EntityState`2.GetByBarcode(System.String)">
+            <summary>
+            Converts the barcode to a particular entity.
+            </summary>
+            <param name="barcode">
+            The barcode value.
+            </param>
+            <remarks>
+            We recommend that you keep this method as simple as possible and implement all filtering in the <see cref="M:PX.BarcodeProcessing.EntityState`2.Validate(`1)"/> method.
+            The method is intended only for override. We strongly recommend that you do not call this method directly.
+            </remarks>
+        </member>
+        <member name="M:PX.BarcodeProcessing.EntityState`2.ReportMissing(System.String)">
+            <summary>
+            Reports to the user that the entity cannot be found by the provided barcode.
+            </summary>
+            <param name="barcode">
+            The barcode value.
+            </param>
+            <remarks>
+            The method is intended only for override. We strongly recommend that you do not call this method directly.
+            </remarks>
+        </member>
+        <member name="M:PX.BarcodeProcessing.EntityState`2.ReportSuccess(`1)">
+            <summary>
+            Reports to the user that the entity was successfully found, validated, and applied to the state of the barcode-driven form.
+            </summary>
+            <param name="entity">
+            The entity.
+            </param>
+            <remarks>
+            The method is intended only for override. We strongly recommend that you do not call this method directly.
+            </remarks>
+        </member>
+        <member name="M:PX.BarcodeProcessing.EntityState`2.HandleAbsence(System.String)">
+            <summary>
+            Addresses the absence of the entity. The method can try to find the entity by using another query, or to process the input by another state.
+            </summary>
+            <param name="barcode">
+            The barcode value.
+            </param>
+            <remarks>
+            The method is intended only for override. We strongly recommend that you do not call this method directly.
+            </remarks>
+        </member>
+        <member name="M:PX.BarcodeProcessing.EntityState`2.Validate(`1)">
+            <summary>
+            Validates the found entity.
+            </summary>
+            <param name="entity">
+            The entity.
+            </param>
+            <remarks>
+            The method is intended only for override. We strongly recommend that you do not call this method directly.
+            </remarks>
+        </member>
+        <member name="M:PX.BarcodeProcessing.EntityState`2.Apply(`1)">
+            <summary>
+            Applies the found entity to the data state of the barcode-driven form.
+            </summary>
+            <param name="entity">
+            The entity.
+            </param>
+            <remarks>
+            The method is intended only for override. We strongly recommend that you do not call this method directly.
+            </remarks>
+        </member>
+        <member name="M:PX.BarcodeProcessing.EntityState`2.SetNextState">
+            <summary>
+            Contain a custom state transition logic.
+            </summary>
+            <remarks>
+            By default, <see cref="M:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.DispatchNextFrom(System.String,System.String,System.Object[])"/> is used to change the state.
+            The method is intended only for override. We strongly recommend that you do not call this method directly.
+            </remarks>
+        </member>
+        <member name="M:PX.BarcodeProcessing.EntityState`2.ClearState">
+            <summary>
+            Clears the data state of the barcode-driven form from the changes made in the <see cref="M:PX.BarcodeProcessing.EntityState`2.Apply(`1)"/> method.
+            </summary>
+            <remarks>
+            The method is intended only for override. We strongly recommend that you do not call this method directly.
+            </remarks>
+        </member>
+        <member name="F:PX.BarcodeProcessing.EntityState`2.Intercept">
+            <summary>
+            A set of method interceptors.
+            </summary>
+        </member>
+        <member name="T:PX.BarcodeProcessing.ScanCommand`1">
+            <summary>
+            A piece of logic that can be executed in any scan state either by clicking on a button associated with this command in the UI, or by scanning a fixed barcode associated with it.
+            </summary>
+            <typeparam name="TScanBasis">
+            The barcode scan class
+            </typeparam>
+        </member>
+        <member name="P:PX.BarcodeProcessing.ScanCommand`1.IsEnabled">
+            <summary>
+            Indicates (if set to <see langword="true"/>) that the command is possible. This flag affects both the user interface state of the button and the possibility to execute the command via barcode scanning.
+            </summary>
+            <remarks>
+            The property is intended only for override. 
+            </remarks>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ScanCommand`1.Process">
+            <summary>
+            Contains custom logic of the command.
+            </summary>
+            <remarks>
+            The method implementation can call for <tt>Basis.WaitFor&lt;TDoc&gt;().BeginAwait(doc)</tt>
+            or can simply change data state of the barcode-driven form.
+            The method is intended only for override. We strongly recommend that you do not call this method directly.
+            </remarks>
+        </member>
+        <member name="F:PX.BarcodeProcessing.ScanCommand`1.Intercept">
+            <summary>
+            A set of method interceptors.
+            </summary>
+        </member>
+        <member name="T:PX.BarcodeProcessing.ScanComponent`1">
+            <summary>
+            A base class for a barcode scan component. All barcode scan components except <see cref="T:PX.BarcodeProcessing.ScanMode`1" /> are descendants of this class.
+            </summary>
+            <typeparam name="TScanBasis">A barcode scan class.</typeparam>
+        </member>
+        <member name="P:PX.BarcodeProcessing.ScanComponent`1.Basis">
+            <summary>
+            Provides access to a <see cref="T:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2">BarcodeDrivenStateMachine</see> instance.
+            </summary>
+        </member>
+        <member name="P:PX.BarcodeProcessing.ScanComponent`1.ModeCode">
+            <summary>The code of the mode the component belongs to.</summary>
+            <remarks>
+            This field can be useful if you are developing multiple different modes with similar components and you want to alter particular shared components only for a single mode.
+            </remarks>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ScanComponent`1.Initialize">
+            <summary>
+            Initializes this instance.
+            The <see cref="P:PX.BarcodeProcessing.ScanComponent`1.Basis" /> property has not yet been set when the constructor of the component is called.
+            Therefore, any initializations related to the barcode scan class must be placed in the <see cref="M:PX.BarcodeProcessing.ScanComponent`1.Initialize" /> method of the component.
+            </summary>
+        </member>
+        <member name="T:PX.BarcodeProcessing.ScanLongRunAwaiter`2">
+            <summary>Configures a long-running operation.</summary>
+            <typeparam name="TScanBasis">The barcode scan class.</typeparam>
+            <typeparam name="TData">The entity to be processed.</typeparam>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ScanLongRunAwaiter`2.BeginAwait(`1)">
+            <summary>Completes the configuration of the long-running operation and starts it by accepting the document.</summary>
+            <param name="data">The document.</param>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ScanLongRunAwaiter`2.WithDescription(System.String,System.Object[])">
+            <summary>Accepts a description of the long-running operation that will be shown during the processing.</summary>
+            <param name="message">The description of the operation</param>
+            <param name="args">The arguments of the description message.</param>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ScanLongRunAwaiter`2.OnSuccess(System.Action{PX.BarcodeProcessing.ScanLongRunAwaiter{`0,`1}.ISuccessProcessor})">
+            <summary>
+            Configures what should happen on success of the long-running operation.
+            </summary>
+            <param name="config">The method that accepts a message that should be shown on success of the long-running operation.
+            </param>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ScanLongRunAwaiter`2.OnFail(System.Action{PX.BarcodeProcessing.ScanLongRunAwaiter{`0,`1}.IResultProcessor})">
+            <summary>
+            Configures what should happen on failure of the long-running operation.
+            </summary>
+            <param name="config">The method that accepts a message that should be shown on failure of the long-running operation.</param>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ScanLongRunAwaiter`2.ActualizeDataBy(System.Func{`0,`1,`1})">
+            <summary>Accepts a function that helps to actualize the state of the awaited document
+            if this document is updated by an external logic.</summary>
+            <param name="actualizer">The function.</param>
+        </member>
+        <member name="T:PX.BarcodeProcessing.ScanMode`1">
+            <summary>
+            The main component of the barcode-driven engine. It is the base class for all modes. It provides access to all other components, defines their structure, and relations.
+            </summary>
+            <typeparam name="TScanBasis">The barcode scan class.</typeparam>
+        </member>
+        <member name="P:PX.BarcodeProcessing.ScanMode`1.Basis">
+            <inheritdoc cref="P:PX.BarcodeProcessing.ScanComponent`1.Basis"/>
+        </member>
+        <member name="P:PX.BarcodeProcessing.ScanMode`1.Code">
+            <summary>
+            A string identifier of the scan mode.
+            </summary>
+            <example>
+            This is an abstract get-only property that you always should implement by returning a constant value,
+            as shown in the following example.
+            <code>public const string Value = "ABC";
+            public override string Code =&gt; Value;</code></example>
+        </member>
+        <member name="P:PX.BarcodeProcessing.ScanMode`1.Description">
+            <summary>A description of the mode.</summary>
+        </member>
+        <member name="P:PX.BarcodeProcessing.ScanMode`1.CurrentState">
+            <summary>The current scan state of the barcode scan mode.</summary>
+        </member>
+        <member name="P:PX.BarcodeProcessing.ScanMode`1.DefaultState">
+            <summary>
+            The default scan state of the barcode scan mode.
+            </summary>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ScanMode`1.GetDefaultState">
+            <summary>
+            Selects the default scan state for the mode.
+            </summary>
+            <remarks>
+            This method is used in the <see cref="P:PX.BarcodeProcessing.ScanMode`1.DefaultState" /> implementation.
+            Its default implementation returns the first scan state of the <see cref="P:PX.BarcodeProcessing.ScanMode`1.States" /> collection.
+            The method is intended only for override. We strongly recommend that you do not call this method directly.
+            </remarks>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ScanMode`1.FindState``1(System.Boolean)">
+            <summary>
+            Finds and grants access to a certain scan state of the mode by the type of the state.
+            </summary>
+            <typeparam name="TScanState">
+            The type of the scan state.
+            </typeparam>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ScanMode`1.FindState(System.String)">
+            <summary>
+            Finds and grants access to a certain scan state of the mode by the code of the state.
+            </summary>
+            <param name="state">
+            The code of the state.
+            </param>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ScanMode`1.HasActive(System.String)">
+            <summary>
+            Checks if the scan mode has a certain scan state active by the code of the state.
+            </summary>
+            <param name="state">
+            The code of the state.
+            </param>
+            <returns>
+              The method returns <see langword="true"/> if the specified scan state is active
+              and <see langword="false"/> if the state is inactive.</returns>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ScanMode`1.HasActive``1">
+            <summary>
+            Checks if the scan mode has a certain scan state active by the type of the state.
+            </summary>
+            <typeparam name="TScanState">
+            The type of the scan state.
+            </typeparam>
+            <returns>
+              The method returns <see langword="true"/> if the specified scan state is active
+              and <see langword="false"/> if the state is inactive.</returns>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ScanMode`1.TryValidate``1(``0)">
+            <summary>
+            Tries to validate an entity.
+            </summary>
+            <typeparam name="TEntity">
+            The type of the entity.
+            </typeparam>
+            <param name="entity">
+            The entity.
+            </param>
+            <returns>
+            The method returns the <see cref="T:PX.BarcodeProcessing.ScanMode`1.Validator`1"/> class.
+            You can use its <see cref="M:PX.BarcodeProcessing.ScanMode`1.Validator`1.By(System.String)"/> and <see cref="M:PX.BarcodeProcessing.ScanMode`1.Validator`1.By``1"/> methods
+            to validate the entity by the scan state.
+            </returns>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ScanMode`1.Clear(System.String,System.Boolean)">
+            <summary>
+            Forces a certain state, which is selected by its code, to clear the data related to it.
+            </summary>
+            <param name="state">
+            The code of the state.
+            </param>
+            <param name="when">The condition when the state should be cleared.</param>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ScanMode`1.Clear``1(System.Boolean)">
+            <summary>
+            Forces a certain scan state, which is selected by its type, to clear the data related to it.
+            </summary>
+            <typeparam name="TScanState">
+            The type of the scan state.
+            </typeparam>
+            <param name="when">The condition when the state should be cleared.</param>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ScanMode`1.TryProcessBy(System.String,System.String,PX.BarcodeProcessing.StateSubstitutionRule)">
+            <summary>
+            Tries to process a given barcode by a certain scan state, which is selected by its code.
+            </summary>
+            <param name="state">
+            The code of the scan state.
+            </param>
+            <param name="barcode">
+            The barcode.
+            </param>
+            <param name="substitutionRule">
+            A flag enumeration, which configures how exactly the entity state should handle the input.
+            Multiple options can be used simultaneously.
+            </param>
+            <returns>
+              <br />
+            </returns>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ScanMode`1.TryProcessBy``1(System.String,PX.BarcodeProcessing.StateSubstitutionRule)">
+            <summary>
+            Tries to process a given barcode by a certain scan state, which is selected by its type. 
+            </summary>
+            <typeparam name="TScanState">
+            The type of the scan state.
+            </typeparam>
+            <param name="barcode">
+            The barcode value.
+            </param>
+            <param name="substitutionRule">
+            A flag enumeration, which configures how exactly the other entity state should handle the input.
+            </param>
+        </member>
+        <member name="P:PX.BarcodeProcessing.ScanMode`1.Commands">
+            <summary>The collection of all scan commands of the barcode scan mode.</summary>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ScanMode`1.CreateCommands">
+            <summary>
+            Defines how to create the commands of the mode.
+            </summary>
+            <remarks>
+            This method is used to populate the <see cref="P:PX.BarcodeProcessing.ScanMode`1.Commands" /> collection. Its default implementation returns an empty collection.
+            The method is intended only for override. We strongly recommend that you do not call this method directly.
+            </remarks>
+        </member>
+        <member name="P:PX.BarcodeProcessing.ScanMode`1.States">
+            <summary>The collection of all states of the barcode scan mode.</summary>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ScanMode`1.CreateStates">
+            <summary>
+            Defines how to create the states of the mode.
+            </summary>
+            <remarks>
+            This method is used to populate the <see cref="P:PX.BarcodeProcessing.ScanMode`1.States" /> collection. Its default implementation returns an empty collection.
+            The method is intended only for override. We strongly recommend that you do not call this method directly.
+            </remarks>
+        </member>
+        <member name="P:PX.BarcodeProcessing.ScanMode`1.Transitions">
+            <summary>The collection of all transition rules between states of the barcode scan mode.</summary>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ScanMode`1.CreateTransitions">
+            <summary>
+            Defines how to create the transitions between states of the mode.
+            </summary>
+            <remarks>
+            This method is used to populate the <see cref="P:PX.BarcodeProcessing.ScanMode`1.Transitions" /> collection.
+            Its default implementation returns an empty collection.
+            The method is intended only for override. We strongly recommend that you do not call this method directly.
+            </remarks>
+        </member>
+        <member name="P:PX.BarcodeProcessing.ScanMode`1.Redirects">
+            <summary>The collection of all mode redirects of the barcode scan mode.</summary>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ScanMode`1.CreateRedirects">
+            <summary>
+            Defines how to create the redirects from the current mode to other modes.
+            </summary>
+            <remarks>
+            This method is used to populate the <see cref="P:PX.BarcodeProcessing.ScanMode`1.Redirects" /> collection.
+            Its default implementation returns an empty collection.
+            The method is intended only for override. We strongly recommend that you do not call this method directly.
+            </remarks>
+        </member>
+        <member name="P:PX.BarcodeProcessing.ScanMode`1.Questions">
+            <summary>The collection of all questions of the barcode scan mode.</summary>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ScanMode`1.CreateQuestions">
+            <summary>
+            Defines how to create the questions of the mode.
+            </summary>
+            <remarks>
+            This method is used to populate the <see cref="P:PX.BarcodeProcessing.ScanMode`1.Questions" /> collection.
+            Its default implementation returns an empty collection.
+            The method is intended only for override. We strongly recommend that you do not call this method directly.
+            </remarks>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ScanMode`1.ResetMode(System.Boolean)">
+            <summary>
+            Defines how the mode should be cleaned in the end of the processing cycle or on the full reset of the mode.
+            </summary>
+            <param name="fullReset">
+            if set to <c>true</c> [full reset].
+            </param>
+            <remarks>
+            This method is used in the <see cref="M:PX.BarcodeProcessing.IScanMode.Reset(System.Boolean)" /> implementation.
+            We recommend that you use the <see cref="M:PX.BarcodeProcessing.ScanMode`1.Clear(System.String,System.Boolean)" /> or <see cref="M:PX.BarcodeProcessing.ScanMode`1.Clear``1(System.Boolean)" /> method calls
+            in this method implementation. By default, it has an empty implementation.
+            The method is intended only for override. We strongly recommend that you do not call this method directly.
+            </remarks>
+        </member>
+        <member name="F:PX.BarcodeProcessing.ScanMode`1.Intercept">
+            <summary>A set of method interceptors.</summary>
+        </member>
+        <member name="T:PX.BarcodeProcessing.ScanMode`1.Validator`1">
+            <summary>
+            The validator class.
+            </summary>
+            <typeparam name="TEntity">
+            The type of the entity.
+            </typeparam>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ScanMode`1.Validator`1.By(System.String)">
+            <summary>
+            Validates an entity by a certain scan state, which is selected by its code.
+            </summary>
+            <param name="state">
+            The code of the scan state.
+            </param>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ScanMode`1.Validator`1.By``1">
+            <summary>
+            Validates an entity by a certain scan state, which is selected by its type.
+            </summary>
+            <typeparam name="TScanState">
+            The type of the scan state.
+            </typeparam>
+        </member>
+        <member name="T:PX.BarcodeProcessing.ScanQuestion`1">
+            <summary>
+            A component that contains logic to handle users response to a certain question.
+            </summary>
+            <typeparam name="TScanBasis">
+            The barcode scan class.
+            </typeparam>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ScanQuestion`1.GetPrompt">
+            <summary>
+            Returns a message that is shown to a user.
+            </summary>
+            <remarks>
+            The method is intended only for override. We strongly recommend that you do not call this method directly.
+            </remarks>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ScanQuestion`1.Confirm">
+            <summary>
+            Contains the logic that handles user's positive answer.
+            </summary>
+            <remarks>
+            The method is intended only for override. We strongly recommend that you do not call this method directly.
+            </remarks>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ScanQuestion`1.Reject">
+            <summary>
+            Contains the logic that handles user's negative answer.
+            </summary>
+            <remarks>
+            The method is intended only for override. We strongly recommend that you do not call this method directly.
+            </remarks>
+        </member>
+        <member name="F:PX.BarcodeProcessing.ScanQuestion`1.Intercept">
+            <summary>
+             A set of method interceptors.
+            </summary>
+        </member>
+        <member name="T:PX.BarcodeProcessing.ScanRedirect`1">
+            <summary>
+            A component that contains logic related to a transition from one mode to another.
+            </summary>
+            <typeparam name="TScanBasis">
+            The barcode scan class.
+            </typeparam>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ScanRedirect`1.PrepareRedirect">
+            <summary>
+            Prepares the redirect.
+            </summary>
+            <remarks>
+            For example, the method can find out that thought the redirect is possible, it cannot be perform due to some circumstances.
+            Also in the scenario of redirect to the same form, the method can be a good place for data state transition preparation between modes.
+            The method is intended only for override. We strongly recommend that you do not call this method directly.
+            </remarks>
+        </member>
+        <member name="M:PX.BarcodeProcessing.ScanRedirect`1.CompleteRedirect">
+            <summary>
+            Completes the redirect.
+            </summary>
+            <remarks>
+            For example, the method can apply the data prepared for the transition in the <see cref="M:PX.BarcodeProcessing.ScanRedirect`1.PrepareRedirect"/> method.
+            The method is intended only for override. We strongly recommend that you do not call this method directly.
+            </remarks>
+        </member>
+        <member name="F:PX.BarcodeProcessing.ScanRedirect`1.Intercept">
+            <summary>
+            A set of method interceptors.
+            </summary>
+        </member>
+        <member name="T:PX.BarcodeProcessing.ScanState`1">
+            <summary>
+            A component that contains the logic for handling non-fixed input values, such as barcode values, quantities, or dates.
+            </summary>
+            <typeparam name="TScanBasis">
+            The barcode scan class.
+            </typeparam>
+        </member>
+        <member name="T:PX.BarcodeProcessing.ScanTransition`1">
+            <summary>
+            A component that defines rules of automatic transitions between scan states.
+            </summary>
+            <typeparam name="TScanBasis">
+            The barcode scan class.
+            </typeparam>
+        </member>
+        <member name="M:PX.BarcodeProcessing.BarcodeQtySupport`2.DecorateScanState(PX.BarcodeProcessing.ScanState{`0},System.Func{PX.BarcodeProcessing.ScanState{`0},PX.BarcodeProcessing.ScanState{`0}})">
+            Overrides <see cref="M:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.DecorateScanState(PX.BarcodeProcessing.ScanState{`0})"/>
+        </member>
+        <member name="M:PX.BarcodeProcessing.BarcodeQtySupport`2.DecorateScanMode(PX.BarcodeProcessing.ScanMode{`0},System.Func{PX.BarcodeProcessing.ScanMode{`0},PX.BarcodeProcessing.ScanMode{`0}})">
+            Overrides <see cref="M:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.DecorateScanMode(PX.BarcodeProcessing.ScanMode{`0})"/>
+        </member>
+        <member name="M:PX.BarcodeProcessing.BarcodeQtySupport`2.ProcessCustomScan(System.String,System.Func{System.String,System.Nullable{System.Boolean}})">
+            Overrides <see cref="M:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.ProcessCustomScan(System.String)"/>
+        </member>
+        <member name="M:PX.BarcodeProcessing.CompositeBarcodeSupport`3.ProcessCustomScan(System.String,System.Func{System.String,System.Nullable{System.Boolean}})">
+            Overrides <see cref="M:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.ProcessCustomScan(System.String)"/>
+        </member>
+        <member name="M:PX.BarcodeProcessing.CompositeBarcodeSupport`3.DecorateScanMode(PX.BarcodeProcessing.ScanMode{`0},System.Func{PX.BarcodeProcessing.ScanMode{`0},PX.BarcodeProcessing.ScanMode{`0}})">
+            Overrides <see cref="M:PX.BarcodeProcessing.BarcodeDrivenStateMachine`2.DecorateScanMode(PX.BarcodeProcessing.ScanMode{`0})"/>
+        </member>
+        <member name="F:PX.BarcodeProcessing.FlowStatus.Ok">
+            <summary>
+            The confirmation was successful. The cycle can be started over.
+            </summary>
+        </member>
+        <member name="M:PX.BarcodeProcessing.FlowStatus.Fail(System.String,System.Object[])">
+            <summary>
+            The confirmation was not successful. The processing cycle cannot be started over.
+            </summary>
+            <param name="errorMsg">
+            The error message.
+            </param>
+            <param name="errorArgs">
+            The message arguments.
+            </param>
+        </member>
+        <member name="M:PX.BarcodeProcessing.FlowStatus.Warn(System.String,System.Object[])">
+            <summary>
+            The confirmation is incomplete because there are exceptional circumstances that the user should be informed of.
+            The user should allow (that is, scan *OK barcode or click the ScanConfirm button)
+            or reject (that is, scan *RESET barcode or click the ScanReset button) the confirmation.
+            </summary>
+            <param name="warnMsg">
+            The warning message.
+            </param>
+            <param name="warnArgs">
+            The message arguments.
+            </param>
+        </member>
+        <member name="P:PX.BarcodeProcessing.FlowStatus.WithModeReset">
+            <summary>
+            This option forces the mode reset despite of the actual result of the confirmation.
+            </summary>
+        </member>
+        <member name="P:PX.BarcodeProcessing.FlowStatus.WithSaveSkip">
+            <summary>
+            This option skips the auto-saving on successful cycles.
+            </summary>
+        </member>
+        <member name="P:PX.BarcodeProcessing.FlowStatus.WithDispatchNext">
+            <summary>
+            This option defines that a transition dispatch should happen after the confirmation.
+            </summary>
+        </member>
+        <member name="M:PX.BarcodeProcessing.FlowStatus.WithPostAction(System.Action)">
+            <summary>
+            This option performs an additional action after the confirmation process has completed.
+            </summary>
+            <param name="postAction">
+            The action to be performed.
+            </param>
+        </member>
+        <member name="M:PX.BarcodeProcessing.FlowStatus.WithPrompt(System.String,System.Object[])">
+            <summary>
+            This option changes the current prompt after the confirmation process has completed.
+            </summary>
+            <param name="promptMsg">
+            The prompt message.
+            </param>
+            <param name="promptArgs">
+            The message arguments.
+            </param>
+        </member>
+        <member name="T:PX.BarcodeProcessing.StateSubstitutionRule">
+            <summary>
+            A flag enumeration that configures how the entity state should handle the input. Multiple options can be used simultaneously.
+            </summary>
+        </member>
+        <member name="F:PX.BarcodeProcessing.StateSubstitutionRule.SuppressAll">
+            <summary>
+            The default option for the <see cref="M:PX.BarcodeProcessing.ScanMode`1.TryProcessBy(System.String,System.String,PX.BarcodeProcessing.StateSubstitutionRule)"/>
+            and <see cref="M:PX.BarcodeProcessing.ScanMode`1.TryProcessBy``1(System.String,PX.BarcodeProcessing.StateSubstitutionRule)"/> method calls.
+            Only the <see cref="M:PX.BarcodeProcessing.EntityState`2.GetByBarcode(System.String)"/>
+            and <see cref="M:PX.BarcodeProcessing.EntityState`2.Validate(`1)"/> methods of the entity state will be executed.
+            If an entity is successfully found and validated, the TryProcessBy method returns <see langword="true"/>.
+            </summary>
+        </member>
+        <member name="F:PX.BarcodeProcessing.StateSubstitutionRule.KeepAbsenceHandling">
+            <summary>
+            The option that allows the entity state to perform its own entity absence handling.
+            However, this could be dangerous if the entity state also uses the TryProcessBy method in its absence handling.
+            This can create endless recursion.
+            </summary>
+        </member>
+        <member name="F:PX.BarcodeProcessing.StateSubstitutionRule.KeepPositiveReports">
+            <summary>
+            The option that allows the entity state to report to a user that the barcode processing has been successfully completed.
+            </summary>
+        </member>
+        <member name="F:PX.BarcodeProcessing.StateSubstitutionRule.KeepNegativeReports">
+            <summary>
+            The option that allows the entity state to report to a user that the barcode processing has been failed.
+            </summary>
+        </member>
+        <member name="F:PX.BarcodeProcessing.StateSubstitutionRule.KeepStateChange">
+            <summary>
+            The option that allows the entity state to change the current state
+            once the barcode processing has been successfully completed.
+            </summary>
+        </member>
+        <member name="F:PX.BarcodeProcessing.StateSubstitutionRule.KeepApplication">
+            <summary>
+            The option that allows the entity state to apply an entity it has found using the given input.
+            </summary>
+        </member>
+        <member name="F:PX.BarcodeProcessing.StateSubstitutionRule.KeepAll">
+            <summary>
+            The option that allows the entity state to perform the full cycle of its barcode processing.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,19 +1,20 @@
 ﻿using System;
 using PX.Data;
-using PX.Objects.CS;
-using PX.Objects.IN;
 
 namespace PX.PricingAnalysis.Ext
 {
+
     [Serializable]
     [PXHidden]
     public class ProfitAnalysisByLineSetting : IBqlTable
     {
 		public abstract class inventoryID : PX.Data.BQL.BqlInt.Field<inventoryID> { }
+
 		public virtual int? InventoryID { get; set; }
 
 		#region InventoryIDDisplay
 		public abstract class inventoryIDDisplay : PX.Data.BQL.BqlString.Field<inventoryIDDisplay> { }
+
 		[PXString]
 		[PXUIField(DisplayName = "Inventory", Enabled = false)]
 		public virtual String InventoryIDDisplay { get; set; }
@@ -21,6 +22,7 @@ namespace PX.PricingAnalysis.Ext
 
 		#region InventoryDescription
 		public abstract class inventoryDescription : PX.Data.BQL.BqlString.Field<inventoryDescription> { }
+
 		[PXString]
 		[PXUIField(DisplayName = "Description", Enabled = false)]
 		public virtual String InventoryDescription { get; set; }
