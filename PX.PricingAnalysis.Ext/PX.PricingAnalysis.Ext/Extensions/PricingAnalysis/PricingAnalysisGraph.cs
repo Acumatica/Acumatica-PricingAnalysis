@@ -1,4 +1,6 @@
 ﻿using PX.Data;
+using PX.Data.BQL;
+using PX.Data.Licensing;
 using PX.Objects.AR;
 using PX.Objects.IN;
 using PX.Objects.SO;
@@ -170,6 +172,11 @@ namespace PX.PricingAnalysis.Ext
 
         [PXCopyPasteHiddenView]
         [PXVirtualDAC]
+        public PXSelect<PricingAnalysisPreviewHeaderLabels, Where<True, Equal<True>>,
+                    OrderBy<Asc<PricingAnalysisPreviewHeaderLabels.headerInfoID>>> PricingAnalysisPreviewHeaderRecsAR;
+
+        [PXCopyPasteHiddenView]
+        [PXVirtualDAC]
         public PXSelect<PricingAnalysisPreviewLine> PricingAnalysisPreview;
 
         public PXFilter<ProfitAnalysisByLineSetting> ProfitAnalysisSettingFilterByLine;
@@ -207,6 +214,13 @@ namespace PX.PricingAnalysis.Ext
             RefreshHeaderTotal();
             PricingAnalysisPreviewHeaderRecs.Cache.IsDirty = false;
             return PricingAnalysisPreviewHeaderRecs.Cache.Cached;
+        }
+
+        public IEnumerable pricingAnalysisPreviewHeaderRecsAR()
+        {
+            RefreshHeaderTotal();
+            PricingAnalysisPreviewHeaderRecsAR.Cache.IsDirty = false;
+            return PricingAnalysisPreviewHeaderRecsAR.Cache.Cached;
         }
 
         public IEnumerable pricingAnalysisBreakupLinesByLine()
@@ -271,12 +285,15 @@ namespace PX.PricingAnalysis.Ext
 
             foreach (DocumentLine orgLine in DocumentLineData.Select())
             {
-                if (!orgLine.IsStockItem.GetValueOrDefault(false) || orgLine.OrderQty.GetValueOrDefault(0) <= 0) { continue; }
-
                 var inventoryItem = InventoryItem.PK.Find(Base, orgLine.InventoryID);
 
-                
-                if (PreviewOnly) { orgLine.CuryExtCost = orgLine.UnitCost * orgLine.OrderQty; }
+                if (!orgLine.IsStockItem.GetValueOrDefault(false) || orgLine.OrderQty.GetValueOrDefault(0) <= 0) { continue; }//!inventoryItem.KitItem.GetValueOrDefault(false) && 
+
+                if (PreviewOnly && !(this.Base is KitAssemblyEntry)) { orgLine.CuryExtCost = orgLine.UnitCost * orgLine.OrderQty; }
+                if (DocumentData.Current?.DocType == ARDocType.CreditMemo) {
+                    if (orgLine.TranCostOrig.GetValueOrDefault(0) > 0) { orgLine.CuryExtCost = orgLine.TranCostOrig; }
+                    else { }   //TODO: add code
+                }
 
                 PricingAnalysisPreviewLine line = new PricingAnalysisPreviewLine()
                 {
@@ -421,7 +438,7 @@ namespace PX.PricingAnalysis.Ext
 
             //Grid View for Header
             PricingAnalysisPreviewHeaderRecs.Cache.Clear();
-
+            if (this.Base is ARInvoiceEntry) { PricingAnalysisPreviewHeaderRecsAR.Cache.Clear(); }
             var currentHeaderLine = new PricingAnalysisPreviewHeaderInfo()
             {
                 HeaderInfoID = 1,
@@ -434,6 +451,21 @@ namespace PX.PricingAnalysis.Ext
             };
             PricingAnalysisPreviewHeaderRecs.Insert(currentHeaderLine);
             PricingAnalysisPreviewHeaderRecs.Cache.SetStatus(currentHeaderLine, PXEntryStatus.Held);
+
+            if (this.Base is ARInvoiceEntry) {
+                var currentHeaderLineLabels = new PricingAnalysisPreviewHeaderLabels()
+                {
+                    HeaderInfoID = 1,
+                    HeaderInfoType = HeaderInfoTypes.Current,
+                    CuryAmountTotal = camountTotal,
+                    CuryExtCostTotal = ccostTotal,
+                    CuryProfitTotal = cprofitTotal,
+                    MarkupPercent = (ccostTotal.GetValueOrDefault(0) > 0) ? (cprofitTotal / ccostTotal) * 100 : null,
+                    MarginPercent = (camountTotal.GetValueOrDefault(0) > 0) ? (cprofitTotal / camountTotal) * 100 : null
+                };
+                PricingAnalysisPreviewHeaderRecsAR.Insert(currentHeaderLineLabels);
+                PricingAnalysisPreviewHeaderRecsAR.Cache.SetStatus(currentHeaderLineLabels, PXEntryStatus.Held);
+            }
 
             var previewHeaderLine = new PricingAnalysisPreviewHeaderInfo()
             {
@@ -772,6 +804,8 @@ namespace PX.PricingAnalysis.Ext
             PricingAnalysisPreview.Cache.IsDirty = false;
             PricingAnalysisPreviewHeaderFilter.Cache.IsDirty = false;
             PricingAnalysisPreviewHeaderRecs.Cache.IsDirty = false;
+            PricingAnalysisPreviewHeaderRecsAR.Cache.IsDirty = false;
+
             //To Apply Style.
             PricingAnalysisPreview.View.RequestRefresh();
         }
@@ -792,6 +826,10 @@ namespace PX.PricingAnalysis.Ext
         }
 
         public void _(Events.RowPersisting<PricingAnalysisPreviewHeaderInfo> e)
+        {
+            e.Cancel = true;
+        }
+        public void _(Events.RowPersisting<PricingAnalysisPreviewHeaderLabels> e)
         {
             e.Cancel = true;
         }
@@ -936,6 +974,8 @@ namespace PX.PricingAnalysis.Ext
                 Base.Actions.PressCancel();
                 PricingAnalysisPreviewHeaderRecs.Cache.Clear();
                 PricingAnalysisPreviewHeaderRecs.Cache.ClearQueryCache();
+                PricingAnalysisPreviewHeaderRecsAR.Cache.Clear();
+                PricingAnalysisPreviewHeaderRecsAR.Cache.ClearQueryCache();
                 PricingAnalysisPreview.Cache.Clear();
                 PricingAnalysisPreview.Cache.ClearQueryCache();
                 graph.Views[viewName].Cache.Clear();
@@ -1087,6 +1127,7 @@ namespace PX.PricingAnalysis.Ext
             public Type CuryPremiumFreightAmt = typeof(Document.curyFreightAmt);
             public Type CuryFreightCost = typeof(Document.curyFreightCost);
             public Type OverrideFreightAmount = typeof(Document.overrideFreightAmount);
+            public Type DocType = typeof(Document.docType);
         }
 
         protected abstract DocumentLineMapping GetDocumentLineMapping();
@@ -1110,6 +1151,7 @@ namespace PX.PricingAnalysis.Ext
             public Type CuryExtCost = typeof(DocumentLine.curyExtCost);
             public Type CuryLineAmt = typeof(DocumentLine.curyLineAmt);
             public Type IsLastCostUsed = typeof(DocumentLine.isLastCostUsed);
+            public Type TranCostOrig = typeof(DocumentLine.tranCostOrig);
         }
     }
 
@@ -1156,6 +1198,12 @@ namespace PX.PricingAnalysis.Ext
         public abstract class overrideFreightAmount : PX.Data.BQL.BqlBool.Field<overrideFreightAmount> { }
 
         public virtual bool? OverrideFreightAmount { get; set; }
+        #endregion
+
+        #region DocType
+        public abstract class docType : PX.Data.BQL.BqlString.Field<docType> { }
+
+        public virtual String DocType { get; set; }
         #endregion
     }
 
@@ -1244,6 +1292,12 @@ namespace PX.PricingAnalysis.Ext
         public abstract class isLastCostUsed : PX.Data.BQL.BqlBool.Field<isLastCostUsed> { }
 
         public virtual bool? IsLastCostUsed { get; set; }
+        #endregion
+
+        #region TranCostOrig
+        public abstract class tranCostOrig : PX.Data.BQL.BqlDecimal.Field<tranCostOrig> { }
+
+        public virtual decimal? TranCostOrig { get; set; }
         #endregion
     }
 }

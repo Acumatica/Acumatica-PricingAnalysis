@@ -23,5 +23,13 @@ namespace PX.PricingAnalysis.Ext
 		public Decimal? UsrUnitCost { get; set; }
 		#endregion
 
+		#region UsrUnitCostCM
+		public abstract class usrCostCM : PX.Data.BQL.BqlDecimal.Field<usrCostCM> { }
+
+		[PXPriceCost(MinValue = 0)]
+		[PXUIField(DisplayName = "Unit Cost", Enabled = false)]
+		public Decimal? UsrCostCM { get; set; }
+		#endregion
+
 	}
 }

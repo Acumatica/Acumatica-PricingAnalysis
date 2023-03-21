@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using PX.Data;
 using PX.Objects.AR;
 using PX.Objects.CM;
@@ -237,9 +238,15 @@ namespace PX.PricingAnalysis.Ext
 				dValueCaled = GetLastCost(cache, inventoryID, quantity);
 			}
 
-			PXCurrencyAttribute.CuryConvCury(cache, item, (dValueCaled ?? 0m), out dValue);
-
-            PXTrace.WriteInformation(dValue.ToString());
+			if (item is INComponentTran || item is INOverheadTran || item is INKitSpecStkDet || item is INKitSpecNonStkDet)
+			{
+				PXCurrencyAttribute.CuryConvCury<InventoryItemCurySettings.curyID>(cache, item, (dValueCaled ?? 0m), out dValue);
+			}
+			else
+            {
+				PXCurrencyAttribute.CuryConvCury(cache, item, (dValueCaled ?? 0m), out dValue);
+			}
+			PXTrace.WriteInformation(dValue.ToString());
 			return dValue;
 		}
 
@@ -360,4 +367,5 @@ namespace PX.PricingAnalysis.Ext
 			public document() : base(Document) { }
 		}
 	}
+
 }

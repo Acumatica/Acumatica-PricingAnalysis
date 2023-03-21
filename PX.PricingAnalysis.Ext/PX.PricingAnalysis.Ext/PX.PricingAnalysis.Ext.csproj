@@ -25,6 +25,9 @@
     <Reference Include="PX.Data">
       <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Acumatica ERP\AcmProfit21V110\Bin\PX.Data.dll</HintPath>
     </Reference>
+    <Reference Include="PX.Data.BQL.Fluent">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Acumatica ERP\AcmProfit21V110\Bin\PX.Data.BQL.Fluent.dll</HintPath>
+    </Reference>
     <Reference Include="PX.Objects">
       <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Acumatica ERP\AcmProfit21V110\Bin\PX.Objects.dll</HintPath>
     </Reference>

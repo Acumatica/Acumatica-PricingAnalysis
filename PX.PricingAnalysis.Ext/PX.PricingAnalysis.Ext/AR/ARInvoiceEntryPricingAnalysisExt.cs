@@ -2,7 +2,8 @@
 using PX.Data;
 using PX.Objects.IN;
 using System;
-using PX.Objects.SO;
+using PX.Objects.CS;
+using System.Linq;
 
 namespace PX.PricingAnalysis.Ext
 {
@@ -20,7 +21,8 @@ namespace PX.PricingAnalysis.Ext
                 CuryFreightTot = typeof(ARInvoice.curyFreightTot),
                 CuryFreightAmt = typeof(ARInvoice.curyFreightAmt),
                 CuryFreightCost = typeof(ARInvoice.curyFreightCost),
-                CuryPremiumFreightAmt = typeof(ARInvoice.curyPremiumFreightAmt)
+                CuryPremiumFreightAmt = typeof(ARInvoice.curyPremiumFreightAmt),
+                DocType = typeof(ARInvoice.docType)
             };
         }
 
@@ -39,7 +41,8 @@ namespace PX.PricingAnalysis.Ext
                 CuryDiscAmt = typeof(ARTran.curyDiscAmt),
                 CuryUnitPrice = typeof(ARTran.curyUnitPrice),
                 CuryLineAmt = typeof(ARTran.curyTranAmt),
-                IsLastCostUsed = typeof(True)
+                IsLastCostUsed = typeof(True),
+                TranCostOrig = typeof(ARTran.tranCostOrig)
             };
         }
 
@@ -81,5 +84,62 @@ namespace PX.PricingAnalysis.Ext
                     And<INTran.sOShipmentLineNbr, Equal<Current<ARTran.sOShipmentLineNbr>>,
                         And<INTran.inventoryID, Equal<Current<ARTran.inventoryID>>>>>>>>))]
         protected virtual void _(Events.CacheAttached<ARTranPricingAnalysisPXExt.usrUnitCost> e) { }
+
+        [PXFormula(typeof(PALineCostValueExtAttribute<ARTran.inventoryID, ARTran.siteID, ARTran.tranCost, ARTran.qty, ARTran.unitCost>))]
+        protected virtual void _(Events.CacheAttached<ARTranPricingAnalysisPXExt.usrCostCM> e) { }
+
+        protected void _(Events.RowSelecting<ARInvoice> e)
+        {
+            ARInvoice row = (ARInvoice)e.Row;
+            if (row == null) { return; }
+            PricingAnalysisPreviewHeaderRecs.Cache.AllowSelect = false;
+        }
+
+        #region Event Handlers
+
+        public virtual void _(Events.FieldSelecting<ARInvoice, ARInvoicePricingAnalysisPXExt.usrAmountTotal> args)
+        {
+            if (args.ReturnState == null)
+            {
+                return;
+            }
+            var row = args.Row;
+            var rowExt = row.GetExtension<ARInvoicePricingAnalysisPXExt>();
+            decimal? amount = 0;
+            decimal? cost = 0;
+            var trans = Base.Transactions.Select().FirstTableItems.ToList();
+            foreach (ARTran tran in trans)
+            {
+                if (!tran.IsStockItem.GetValueOrDefault(false) || tran.Qty.GetValueOrDefault(0) <= 0) { continue; }
+                var tranExt = tran.GetExtension<ARTranPricingAnalysisPXExt>();
+                var inventoryItem = InventoryItem.PK.Find(Base, tran.InventoryID);
+                if (tranExt == null) { return; }
+                else if (row.DocType == ARDocType.CreditMemo)
+                {
+                    if (tran.TranCostOrig.GetValueOrDefault(0) > 0)
+                    {
+                        if (tranExt != null) { tranExt.UsrUnitCost = tran.TranCostOrig / tran.Qty; }
+                        cost += tran.TranCostOrig;
+                    }
+                    else
+                    {
+                        if (tranExt != null) { tranExt.UsrUnitCost = tranExt.UsrCostCM / tran.Qty; }
+                        cost += tranExt.UsrCostCM;
+                    }
+                }
+                else { cost += tranExt.UsrUnitCost * tran.Qty; }
+
+                amount += tran.CuryTranAmt;
+            }
+            cost += row.CuryFreightCost;
+            amount += row.CuryFreightTot;
+            args.ReturnValue = amount;
+            rowExt.UsrAmountTotal = cost;
+            rowExt.UsrProfitTotal = amount - rowExt.UsrCostTotal;
+            rowExt.UsrMarkupPercent = (rowExt.UsrCostTotal > 0) ? (rowExt.UsrProfitTotal / rowExt.UsrCostTotal) * 100 : null;
+            rowExt.UsrMarginPercent = (amount > 0) ? (rowExt.UsrProfitTotal / amount) * 100 : null;
+        }
+
+        #endregion
     }
 }
