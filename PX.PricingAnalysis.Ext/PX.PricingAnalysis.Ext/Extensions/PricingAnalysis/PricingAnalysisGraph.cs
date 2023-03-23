@@ -287,12 +287,15 @@ namespace PX.PricingAnalysis.Ext
             {
                 var inventoryItem = InventoryItem.PK.Find(Base, orgLine.InventoryID);
 
-                if (!orgLine.IsStockItem.GetValueOrDefault(false) || orgLine.OrderQty.GetValueOrDefault(0) <= 0) { continue; }//!inventoryItem.KitItem.GetValueOrDefault(false) && 
+                if (!orgLine.IsStockItem.GetValueOrDefault(false) || orgLine.OrderQty.GetValueOrDefault(0) <= 0) { continue; }
 
                 if (PreviewOnly && !(this.Base is KitAssemblyEntry)) { orgLine.CuryExtCost = orgLine.UnitCost * orgLine.OrderQty; }
+
                 if (DocumentData.Current?.DocType == ARDocType.CreditMemo) {
                     if (orgLine.TranCostOrig.GetValueOrDefault(0) > 0) { orgLine.CuryExtCost = orgLine.TranCostOrig; }
-                    else { }   //TODO: add code
+                    else {
+                        orgLine.CuryExtCost = orgLine.UsrCostCM;
+                    }
                 }
 
                 PricingAnalysisPreviewLine line = new PricingAnalysisPreviewLine()
@@ -1152,6 +1155,7 @@ namespace PX.PricingAnalysis.Ext
             public Type CuryLineAmt = typeof(DocumentLine.curyLineAmt);
             public Type IsLastCostUsed = typeof(DocumentLine.isLastCostUsed);
             public Type TranCostOrig = typeof(DocumentLine.tranCostOrig);
+            public Type UsrCostCM = typeof(DocumentLine.usrCostCM);
         }
     }
 
@@ -1274,6 +1278,12 @@ namespace PX.PricingAnalysis.Ext
         public abstract class curyExtCost : PX.Data.BQL.BqlDecimal.Field<curyExtCost> { }
 
         public virtual decimal? CuryExtCost { get; set; }
+        #endregion
+
+        #region UsrCostCM
+        public abstract class usrCostCM : PX.Data.BQL.BqlDecimal.Field<usrCostCM> { }
+
+        public virtual decimal? UsrCostCM { get; set; }
         #endregion
 
         #region CuryLineAmt

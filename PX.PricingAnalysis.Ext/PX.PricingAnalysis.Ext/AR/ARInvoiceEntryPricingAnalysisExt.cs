@@ -42,7 +42,8 @@ namespace PX.PricingAnalysis.Ext
                 CuryUnitPrice = typeof(ARTran.curyUnitPrice),
                 CuryLineAmt = typeof(ARTran.curyTranAmt),
                 IsLastCostUsed = typeof(True),
-                TranCostOrig = typeof(ARTran.tranCostOrig)
+                TranCostOrig = typeof(ARTran.tranCostOrig),
+                UsrCostCM = typeof(ARTranPricingAnalysisPXExt.usrCostCM)
             };
         }
 
@@ -88,13 +89,10 @@ namespace PX.PricingAnalysis.Ext
         [PXFormula(typeof(PALineCostValueExtAttribute<ARTran.inventoryID, ARTran.siteID, ARTran.tranCost, ARTran.qty, ARTran.unitCost>))]
         protected virtual void _(Events.CacheAttached<ARTranPricingAnalysisPXExt.usrCostCM> e) { }
 
-        protected void _(Events.RowSelecting<ARInvoice> e)
+        protected void _(Events.RowSelected<ARInvoice> e)
         {
-            ARInvoice row = (ARInvoice)e.Row;
-            if (row == null) { return; }
             PricingAnalysisPreviewHeaderRecs.Cache.AllowSelect = false;
         }
-
         #region Event Handlers
 
         public virtual void _(Events.FieldSelecting<ARInvoice, ARInvoicePricingAnalysisPXExt.usrAmountTotal> args)
@@ -134,7 +132,7 @@ namespace PX.PricingAnalysis.Ext
             cost += row.CuryFreightCost;
             amount += row.CuryFreightTot;
             args.ReturnValue = amount;
-            rowExt.UsrAmountTotal = cost;
+            rowExt.UsrCostTotal = cost;
             rowExt.UsrProfitTotal = amount - rowExt.UsrCostTotal;
             rowExt.UsrMarkupPercent = (rowExt.UsrCostTotal > 0) ? (rowExt.UsrProfitTotal / rowExt.UsrCostTotal) * 100 : null;
             rowExt.UsrMarginPercent = (amount > 0) ? (rowExt.UsrProfitTotal / amount) * 100 : null;
