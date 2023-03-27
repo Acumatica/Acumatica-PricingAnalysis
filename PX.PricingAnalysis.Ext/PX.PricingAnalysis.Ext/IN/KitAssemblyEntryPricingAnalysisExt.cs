@@ -19,19 +19,17 @@ namespace PX.PricingAnalysis.Ext
         protected virtual void _(Events.CacheAttached<INOverheadTranPricingAnalysisExt.usrCostAmount> e) { }
 
         #region Event Handlers
-        protected void _(Events.RowSelecting<INKitRegister> e)
+        public virtual void _(Events.FieldSelecting<INKitRegister, INKitRegisterPricingAnalysisExt.maxQtyOnHand> args)
         {
-            INKitRegister row = (INKitRegister)e.Row;
+            INKitRegister row = (INKitRegister)args.Row;
             if (row == null) { return; }
             var rowExt = row.GetExtension<INKitRegisterPricingAnalysisExt>();
             if (rowExt == null) { return; }
             var INKitItemAvailability = this.Base.GetExtension<INComponentItemAvailabilityExtension>();
-            using (new PXConnectionScope())
-            {
-                var components = Base.Components.Select().FirstTableItems.ToList();
-                decimal maxOnHand = decimal.MaxValue;
-                decimal maxAvailable = decimal.MaxValue;
-                foreach (INComponentTran component in components)
+            var components = Base.Components.Select().FirstTableItems.ToList();
+            decimal maxOnHand = decimal.MaxValue;
+            decimal maxAvailable = decimal.MaxValue;
+            foreach (INComponentTran component in components)
                 {
                     bool exclude = !Base.Document.Current.Released ?? true;
                     if (INKitItemAvailability.FetchWithLineUOM(component, exclude) is IStatus availability)
@@ -42,11 +40,10 @@ namespace PX.PricingAnalysis.Ext
                         maxAvailable = Math.Min(maxAvailable, (decimal)availability.QtyAvail / (decimal)spec.DfltCompQty);
                     }
                 }
-                maxOnHand = Math.Round(maxOnHand, 2);
-                maxAvailable = Math.Round(maxAvailable, 2);
-                rowExt.MaxQtyOnHand = maxOnHand == decimal.MaxValue ? 0 : maxOnHand;
-                rowExt.MaxQtyAvailable = maxAvailable == decimal.MaxValue ? 0 : maxAvailable;
-            }
+            maxOnHand = Math.Round(maxOnHand, 2);
+            maxAvailable = Math.Round(maxAvailable, 2);
+            args.ReturnValue = maxOnHand == decimal.MaxValue ? 0 : maxOnHand;
+            rowExt.MaxQtyAvailable = maxAvailable == decimal.MaxValue ? 0 : maxAvailable;
         }
 
         public virtual void _(Events.FieldSelecting<INKitRegister, INKitRegisterPricingAnalysisExt.usrTotalAmount> args)

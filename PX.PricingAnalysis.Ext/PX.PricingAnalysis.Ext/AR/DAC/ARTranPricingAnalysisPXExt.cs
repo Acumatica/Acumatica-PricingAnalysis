@@ -15,20 +15,26 @@ namespace PX.PricingAnalysis.Ext
 		public string UsrInvtRefNbr { get; set; }
 		#endregion
 
+		#region UsrUnitCostFinal
+		public abstract class usrUnitCostFinal : PX.Data.BQL.BqlDecimal.Field<usrUnitCostFinal> { }
+
+		[PXPriceCost()]
+		[PXUIField(DisplayName = "Unit Cost", Enabled = false)]
+		public Decimal? UsrUnitCostFinal { get; set; }
+		#endregion
+
 		#region UsrUnitCost
 		public abstract class usrUnitCost : PX.Data.BQL.BqlDecimal.Field<usrUnitCost> { }
 
-		[PXPriceCost(MinValue = 0)]
-		[PXUIField(DisplayName = "Unit Cost", Enabled = false)]
+		[PXPriceCost()]
 		public Decimal? UsrUnitCost { get; set; }
 		#endregion
 
 		#region UsrUnitCostCM
-		public abstract class usrCostCM : PX.Data.BQL.BqlDecimal.Field<usrCostCM> { }
+		public abstract class usrUnitCostCM : PX.Data.BQL.BqlDecimal.Field<usrUnitCostCM> { }
 
-		[PXPriceCost(MinValue = 0)]
-		[PXUIField(DisplayName = "Unit Cost", Enabled = false)]
-		public Decimal? UsrCostCM { get; set; }
+		[PXPriceCost()]
+		public Decimal? UsrUnitCostCM { get; set; }
 		#endregion
 
 	}

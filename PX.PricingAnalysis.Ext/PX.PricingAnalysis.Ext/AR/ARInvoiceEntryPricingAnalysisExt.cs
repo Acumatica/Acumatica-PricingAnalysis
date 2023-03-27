@@ -36,14 +36,12 @@ namespace PX.PricingAnalysis.Ext
                 IsStockItem = typeof(ARTran.isStockItem),
                 UOM = typeof(ARTran.uOM),
                 InvtRefNbr = typeof(ARTranPricingAnalysisPXExt.usrInvtRefNbr),
-                UnitCost = typeof(ARTranPricingAnalysisPXExt.usrUnitCost),
+                UnitCost = typeof(ARTranPricingAnalysisPXExt.usrUnitCostFinal),
                 OrderQty = typeof(ARTran.qty),
                 CuryDiscAmt = typeof(ARTran.curyDiscAmt),
                 CuryUnitPrice = typeof(ARTran.curyUnitPrice),
                 CuryLineAmt = typeof(ARTran.curyTranAmt),
-                IsLastCostUsed = typeof(True),
-                TranCostOrig = typeof(ARTran.tranCostOrig),
-                UsrCostCM = typeof(ARTranPricingAnalysisPXExt.usrCostCM)
+                IsLastCostUsed = typeof(True)
             };
         }
 
@@ -66,7 +64,7 @@ namespace PX.PricingAnalysis.Ext
             }
         }
 
-        //BUG IN AR010717
+
         [PXMergeAttributes(Method = MergeMethod.Append)]
         [PXUnboundDefault(typeof(Coalesce<
             Search<INTran.refNbr, Where<INTran.docType, Equal<INDocType.issue>, And<INTran.aRRefNbr, Equal<Current<ARTran.refNbr>>>>>,
@@ -79,15 +77,28 @@ namespace PX.PricingAnalysis.Ext
             Search<INTran.unitCost, Where<INTran.docType, Equal<INDocType.issue>,
                 And<INTran.aRRefNbr, Equal<Current<ARTran.refNbr>>,
                     And<INTran.aRLineNbr, Equal<Current<ARTran.lineNbr>>,
-                        And<INTran.inventoryID, Equal<Current<ARTran.inventoryID>>>>>>>,
+                        And<INTran.inventoryID, Equal<Current<ARTran.inventoryID>>>>>>>, 
+            Coalesce<
             Search<INTran.unitCost, Where<INTran.docType, Equal<INDocType.issue>,
                 And<INTran.sOShipmentNbr, Equal<Current<ARTran.sOShipmentNbr>>,
                     And<INTran.sOShipmentLineNbr, Equal<Current<ARTran.sOShipmentLineNbr>>,
-                        And<INTran.inventoryID, Equal<Current<ARTran.inventoryID>>>>>>>>))]
+                        And<INTran.inventoryID, Equal<Current<ARTran.inventoryID>>>>>>>, Search<INTran.unitCost, Where<INTran.docType, Equal<INDocType.issue>,
+                And<INTran.sOOrderNbr, Equal<Current<ARTran.sOOrderNbr>>,
+                    And<INTran.sOOrderLineNbr, Equal<Current<ARTran.sOOrderLineNbr>>,
+                        And<INTran.inventoryID, Equal<Current<ARTran.inventoryID>>>>>>>
+            >>))]
         protected virtual void _(Events.CacheAttached<ARTranPricingAnalysisPXExt.usrUnitCost> e) { }
 
-        [PXFormula(typeof(PALineCostValueExtAttribute<ARTran.inventoryID, ARTran.siteID, ARTran.tranCost, ARTran.qty, ARTran.unitCost>))]
-        protected virtual void _(Events.CacheAttached<ARTranPricingAnalysisPXExt.usrCostCM> e) { }
+        [PXFormula(typeof(IIf<ARTran.qty.IsGreater<decimal0>, Div<PALineCostValueExtAttribute<ARTran.inventoryID, ARTran.siteID, ARTran.tranCost, ARTran.qty, ARTran.unitCost>, ARTran.qty>, decimal0>))]
+        protected virtual void _(Events.CacheAttached<ARTranPricingAnalysisPXExt.usrUnitCostCM> e) { }
+
+
+        [PXFormula(typeof(IIf<ARTran.tranType.FromCurrent.IsNotEqual<ARDocType.creditMemo>,
+            ARTranPricingAnalysisPXExt.usrUnitCost, 
+            IIf<ARTran.tranCostOrig.IsNotNull.And<ARTran.tranCostOrig.IsNotEqual<decimal0>>, 
+                Div<ARTran.tranCostOrig, ARTran.qty>, 
+                ARTranPricingAnalysisPXExt.usrUnitCostCM>>))]
+        protected virtual void _(Events.CacheAttached<ARTranPricingAnalysisPXExt.usrUnitCostFinal> e) { }
 
         protected void _(Events.RowSelected<ARInvoice> e)
         {
@@ -112,21 +123,7 @@ namespace PX.PricingAnalysis.Ext
                 var tranExt = tran.GetExtension<ARTranPricingAnalysisPXExt>();
                 var inventoryItem = InventoryItem.PK.Find(Base, tran.InventoryID);
                 if (tranExt == null) { return; }
-                else if (row.DocType == ARDocType.CreditMemo)
-                {
-                    if (tran.TranCostOrig.GetValueOrDefault(0) > 0)
-                    {
-                        if (tranExt != null) { tranExt.UsrUnitCost = tran.TranCostOrig / tran.Qty; }
-                        cost += tran.TranCostOrig;
-                    }
-                    else
-                    {
-                        if (tranExt != null) { tranExt.UsrUnitCost = tranExt.UsrCostCM / tran.Qty; }
-                        cost += tranExt.UsrCostCM;
-                    }
-                }
-                else { cost += tranExt.UsrUnitCost * tran.Qty; }
-
+                cost += tranExt.UsrUnitCostFinal * tran.Qty;
                 amount += tran.CuryTranAmt;
             }
             cost += row.CuryFreightCost;
