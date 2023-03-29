@@ -64,5 +64,23 @@ namespace PX.PricingAnalysis.Ext
 		[PXUIField(DisplayName = "Margin %", Enabled = false)]
 		public Decimal? UsrMargin { get; set; }
 		#endregion
+
+		#region QtyOnHand
+		public abstract class qtyOnHand : BqlDecimal.Field<qtyOnHand> { }
+
+		[PXUIField(DisplayName = "Qty. On Hand", Enabled = false)]
+		[PXDecimal(2)]
+		[PXUnboundDefault(TypeCode.Decimal, "0.0")]
+		public Decimal? QtyOnHand { get; set; }
+		#endregion
+
+		#region QtyAvailable
+		public abstract class qtyAvailable : BqlDecimal.Field<qtyAvailable> { }
+
+		[PXUIField(DisplayName = "Qty. Available", Enabled = false)]
+		[PXDecimal(2)]
+		[PXUnboundDefault(TypeCode.Decimal, "0.0")]
+		public Decimal? QtyAvailable { get; set; }
+		#endregion
 	}
 }

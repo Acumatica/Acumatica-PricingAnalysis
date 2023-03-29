@@ -19,8 +19,39 @@ namespace PX.PricingAnalysis.Ext
         [PXMergeAttributes(Method = MergeMethod.Append)]
         [PXFormula(typeof(PALineCostValueExtAttribute<INKitSpecNonStkDet.compInventoryID, INKitSpecNonStkDetPricingAnalysisExt.usrSiteID, decimal0, INKitSpecNonStkDet.dfltCompQty, decimal0>))]
         protected virtual void _(Events.CacheAttached<INKitSpecNonStkDetPricingAnalysisExt.usrCostAmount> e) { }
-        
+
         #region Event Handlers
+        protected void _(Events.RowSelected<INKitSpecHdr> e)
+        {
+            bool isNewRecord = e?.Row?.KitInventoryID == null || e?.Row?.RevisionID == null;
+            PXUIFieldAttribute.SetVisible<INKitSpecHdrPricingAnalysisExt.usrTotalAmount>(e.Cache, e.Row, !isNewRecord);
+            PXUIFieldAttribute.SetVisible<INKitSpecHdrPricingAnalysisExt.usrTotalCost>(e.Cache, e.Row, !isNewRecord);
+            PXUIFieldAttribute.SetVisible<INKitSpecHdrPricingAnalysisExt.usrProfitAmount>(e.Cache, e.Row, !isNewRecord);
+            PXUIFieldAttribute.SetVisible<INKitSpecHdrPricingAnalysisExt.markupPercent>(e.Cache, e.Row, !isNewRecord);
+            PXUIFieldAttribute.SetVisible<INKitSpecHdrPricingAnalysisExt.marginPercent>(e.Cache, e.Row, !isNewRecord);
+        }
+
+        protected void _(Events.RowSelected<INKitSpecStkDet> e)
+        {
+            bool isNewRecord = e?.Row?.KitInventoryID == null || e?.Row?.RevisionID == null;
+
+            PXUIFieldAttribute.SetVisible<INKitSpecStkDetPricingAnalysisExt.usrAmount>(e.Cache, e.Row, !isNewRecord);
+            PXUIFieldAttribute.SetVisible<INKitSpecStkDetPricingAnalysisExt.usrCostAmount>(e.Cache, e.Row, !isNewRecord);
+            PXUIFieldAttribute.SetVisible<INKitSpecStkDetPricingAnalysisExt.usrProfitAmount>(e.Cache, e.Row, !isNewRecord);
+            PXUIFieldAttribute.SetVisible<INKitSpecStkDetPricingAnalysisExt.usrMargin>(e.Cache, e.Row, !isNewRecord);
+            PXUIFieldAttribute.SetVisible<INKitSpecStkDetPricingAnalysisExt.usrMarkup>(e.Cache, e.Row, !isNewRecord);
+        }
+
+        protected void _(Events.RowSelected<INKitSpecNonStkDet> e)
+        {
+            bool isNewRecord = e?.Row?.KitInventoryID == null || e?.Row?.RevisionID == null;
+
+            PXUIFieldAttribute.SetVisible<INKitSpecNonStkDetPricingAnalysisExt.usrAmount>(e.Cache, e.Row, !isNewRecord);
+            PXUIFieldAttribute.SetVisible<INKitSpecNonStkDetPricingAnalysisExt.usrCostAmount>(e.Cache, e.Row, !isNewRecord);
+            PXUIFieldAttribute.SetVisible<INKitSpecNonStkDetPricingAnalysisExt.usrProfitAmount>(e.Cache, e.Row, !isNewRecord);
+            PXUIFieldAttribute.SetVisible<INKitSpecNonStkDetPricingAnalysisExt.usrMargin>(e.Cache, e.Row, !isNewRecord);
+            PXUIFieldAttribute.SetVisible<INKitSpecNonStkDetPricingAnalysisExt.usrMarkup>(e.Cache, e.Row, !isNewRecord);
+        }
 
         public virtual void _(Events.FieldSelecting<INKitSpecHdr, INKitSpecHdrPricingAnalysisExt.usrTotalAmount> args)
         {

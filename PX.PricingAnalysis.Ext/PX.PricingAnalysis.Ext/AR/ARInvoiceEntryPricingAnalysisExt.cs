@@ -89,10 +89,11 @@ namespace PX.PricingAnalysis.Ext
             >>))]
         protected virtual void _(Events.CacheAttached<ARTranPricingAnalysisPXExt.usrUnitCost> e) { }
 
+        [PXMergeAttributes(Method = MergeMethod.Append)]
         [PXFormula(typeof(IIf<ARTran.qty.IsGreater<decimal0>, Div<PALineCostValueExtAttribute<ARTran.inventoryID, ARTran.siteID, ARTran.tranCost, ARTran.qty, ARTran.unitCost>, ARTran.qty>, decimal0>))]
         protected virtual void _(Events.CacheAttached<ARTranPricingAnalysisPXExt.usrUnitCostCM> e) { }
 
-
+        [PXMergeAttributes(Method = MergeMethod.Append)]
         [PXFormula(typeof(IIf<ARTran.tranType.FromCurrent.IsNotEqual<ARDocType.creditMemo>,
             ARTranPricingAnalysisPXExt.usrUnitCost, 
             IIf<ARTran.tranCostOrig.IsNotNull.And<ARTran.tranCostOrig.IsNotEqual<decimal0>>, 
@@ -103,6 +104,18 @@ namespace PX.PricingAnalysis.Ext
         protected void _(Events.RowSelected<ARInvoice> e)
         {
             PricingAnalysisPreviewHeaderRecs.Cache.AllowSelect = false;
+            bool isNewRecord = e?.Row?.RefNbr == " <NEW>";
+            PXUIFieldAttribute.SetVisible<ARInvoicePricingAnalysisPXExt.usrAmountTotal>(e.Cache, e.Row, !isNewRecord);
+            PXUIFieldAttribute.SetVisible<ARInvoicePricingAnalysisPXExt.usrCostTotal>(e.Cache, e.Row, !isNewRecord);
+            PXUIFieldAttribute.SetVisible<ARInvoicePricingAnalysisPXExt.usrMarginPercent>(e.Cache, e.Row, !isNewRecord);
+            PXUIFieldAttribute.SetVisible<ARInvoicePricingAnalysisPXExt.usrMarkupPercent>(e.Cache, e.Row, !isNewRecord);
+            PXUIFieldAttribute.SetVisible<ARInvoicePricingAnalysisPXExt.usrProfitTotal>(e.Cache, e.Row, !isNewRecord);
+        }
+        protected void _(Events.RowSelected<ARTran> e)
+        {
+            PricingAnalysisPreviewHeaderRecs.Cache.AllowSelect = false;
+            bool isNewRecord = e?.Row?.RefNbr == null;
+            PXUIFieldAttribute.SetVisible<ARTranPricingAnalysisPXExt.usrUnitCostFinal>(e.Cache, e.Row, !isNewRecord);
         }
         #region Event Handlers
 

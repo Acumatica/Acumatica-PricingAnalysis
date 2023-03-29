@@ -56,19 +56,10 @@ namespace PX.PricingAnalysis.Ext
         #region MaxQtyOnHand
         public abstract class maxQtyOnHand : BqlDecimal.Field<maxQtyOnHand> { }
 
-        [PXUIField(DisplayName = "Max Qty On Hand", Enabled = false)]
+        [PXUIField(DisplayName = "Max Qty", Enabled = false)]
         [PXDecimal(2)]
         [PXUnboundDefault(TypeCode.Decimal, "0.0")]
         public virtual Decimal? MaxQtyOnHand { get; set; }
-        #endregion
-
-        #region MaxQtyAvailable
-        public abstract class maxQtyAvailable : BqlDecimal.Field<maxQtyAvailable> { }
-
-        [PXUIField(DisplayName = "Max Qty Available", Enabled = false)]
-        [PXDecimal(2)]
-        [PXUnboundDefault(TypeCode.Decimal, "0.0")]
-        public virtual Decimal? MaxQtyAvailable { get; set; }
         #endregion
     }
 }
