@@ -1,0 +1,220 @@
+﻿<Page path="~/pages/in/in307000.aspx" pageSource="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">
+    <PXDataSource ID="ds" ParentId="phDS_ds" TypeFullName="PX.Web.UI.PXDataSource">
+        <Prop Key="ClientEvents.CommandPerformed" Value="setColors" />
+    </PXDataSource>
+    <PXFormView ID="form" ParentId="phF_form" TypeFullName="PX.Web.UI.PXFormView">
+        <Children Key="Template">
+            <AddItem>
+                <PXLabel TypeFullName="PX.Web.UI.PXLabel">
+                    <Prop Key="Virtual:ApplyStylesheetSkin" />
+                    <Children Key="Controls" />
+                </PXLabel>
+            </AddItem>
+            <AddItem>
+                <PXLabel TypeFullName="PX.Web.UI.PXLabel">
+                    <Prop Key="Virtual:ApplyStylesheetSkin" />
+                    <Children Key="Controls" />
+                </PXLabel>
+            </AddItem>
+            <AddItem>
+                <PXLabel TypeFullName="PX.Web.UI.PXLabel">
+                    <Prop Key="Virtual:ApplyStylesheetSkin" />
+                    <Children Key="Controls" />
+                </PXLabel>
+            </AddItem>
+            <PXLayoutRule ID="PXLayoutRule5" OriginalIndex="11" />
+            <AddItem>
+                <PXTextEdit TypeFullName="PX.Web.UI.PXTextEdit">
+                    <Prop Key="Virtual:ApplyStylesheetSkin" />
+                    <Prop Key="DataField" Value="MaxQtyOnHand" />
+                    <Prop Key="ID" Value="edMaxQtyOnHand" />
+                </PXTextEdit>
+            </AddItem>
+            <AddItem>
+                <PXJavaScript TypeFullName="PX.Web.UI.PXJavaScript">
+                    <Prop Key="Virtual:ApplyStylesheetSkin" />
+                    <Prop Key="Script" Value="function setColors(sender, e) {             var edMaxQtyOnHand = px_all[&quot;ctl00_phF_form_t0_edMaxQtyOnHand&quot;];             var edMaxQtyOnHandControl = document.getElementById(&quot;ctl00_phF_form_t0_edMaxQtyOnHand&quot;);              if (edMaxQtyOnHand &amp;&amp; edMaxQtyOnHand.value &lt;= 0)                 edMaxQtyOnHandControl.style.setProperty('background-color', 'rgba(255, 0, 0, 0.2)', 'important');             else                 edMaxQtyOnHandControl.style.setProperty('background-color', 'rgba(112, 173, 71, 0.2)', 'important');             var edUsrProfitAmount = px_all[&quot;ctl00_phF_form_t0_edUsrProfitAmount&quot;]; var edUsrProfitAmountControl = document.getElementById(&quot;ctl00_phF_form_t0_edUsrProfitAmount&quot;); if (edUsrProfitAmount &amp;&amp; edUsrProfitAmount.value &lt;= 0) edUsrProfitAmountControl.style.setProperty('background-color', 'rgba(255, 0, 0, 0.2)', 'important'); else                  edUsrProfitAmountControl.style.setProperty('background-color', 'rgba(112, 173, 71, 0.2)', 'important');         }" />
+                    <Prop Key="ID" Value="CstJavaScript3" />
+                    <Children Key="Controls" />
+                </PXJavaScript>
+            </AddItem>
+            <AddItem>
+                <PXLayoutRule TypeFullName="PX.Web.UI.PXLayoutRule">
+                    <Prop Key="Virtual:ApplyStylesheetSkin" />
+                    <Prop Key="StartColumn" Value="True" />
+                    <Prop Key="LabelsWidth" Value="S" />
+                    <Prop Key="ControlSize" Value="M" />
+                    <Children Key="Controls" />
+                </PXLayoutRule>
+            </AddItem>
+            <AddItem>
+                <PXNumberEdit TypeFullName="PX.Web.UI.PXNumberEdit">
+                    <Prop Key="Virtual:ApplyStylesheetSkin" />
+                    <Prop Key="CommitChanges" Value="True" />
+                    <Prop Key="DataField" Value="UsrTotalAmount" />
+                    <Prop Key="ID" Value="edUsrTotalAmount" />
+                    <Prop Key="Enabled" Value="False" />
+                </PXNumberEdit>
+            </AddItem>
+            <AddItem>
+                <PXNumberEdit TypeFullName="PX.Web.UI.PXNumberEdit">
+                    <Prop Key="Virtual:ApplyStylesheetSkin" />
+                    <Prop Key="CommitChanges" Value="True" />
+                    <Prop Key="DataField" Value="UsrTotalCost" />
+                    <Prop Key="ID" Value="edTotalCost" />
+                    <Prop Key="Enabled" Value="False" />
+                </PXNumberEdit>
+            </AddItem>
+            <AddItem>
+                <PXNumberEdit TypeFullName="PX.Web.UI.PXNumberEdit">
+                    <Prop Key="Virtual:ApplyStylesheetSkin" />
+                    <Prop Key="CommitChanges" Value="True" />
+                    <Prop Key="DataField" Value="UsrProfitAmount" />
+                    <Prop Key="ID" Value="edUsrProfitAmount" />
+                    <Prop Key="Enabled" Value="False" />
+                </PXNumberEdit>
+            </AddItem>
+            <AddItem>
+                <PXNumberEdit TypeFullName="PX.Web.UI.PXNumberEdit">
+                    <Prop Key="Virtual:ApplyStylesheetSkin" />
+                    <Prop Key="CommitChanges" Value="True" />
+                    <Prop Key="DataField" Value="MarkupPercent" />
+                    <Prop Key="ID" Value="edMarkupPercent" />
+                    <Prop Key="Enabled" Value="False" />
+                </PXNumberEdit>
+            </AddItem>
+            <AddItem>
+                <PXNumberEdit TypeFullName="PX.Web.UI.PXNumberEdit">
+                    <Prop Key="Virtual:ApplyStylesheetSkin" />
+                    <Prop Key="CommitChanges" Value="True" />
+                    <Prop Key="DataField" Value="MarginPercent" />
+                    <Prop Key="ID" Value="edMarginPercent" />
+                    <Prop Key="Enabled" Value="False" />
+                </PXNumberEdit>
+            </AddItem>
+        </Children>
+    </PXFormView>
+    <PXGridLevel DataMember="Components" ParentId="phG_tab_Items#0_componentsGrid_Levels#0" TypeFullName="PX.Web.UI.PXGridLevel">
+        <Children Key="Columns">
+            <AddItem>
+                <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                    <Prop Key="DataField" Value="UsrUnitPrice" />
+                </PXGridColumn>
+            </AddItem>
+            <AddItem>
+                <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                    <Prop Key="DataField" Value="UsrAmount" />
+                </PXGridColumn>
+            </AddItem>
+            <AddItem>
+                <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                    <Prop Key="DataField" Value="usrCostAmount" />
+                </PXGridColumn>
+            </AddItem>
+            <AddItem>
+                <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                    <Prop Key="DataField" Value="usrProfitAmount" />
+                </PXGridColumn>
+            </AddItem>
+            <AddItem>
+                <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                    <Prop Key="DataField" Value="usrMarkup" />
+                </PXGridColumn>
+            </AddItem>
+            <AddItem>
+                <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                    <Prop Key="DataField" Value="usrMargin" />
+                </PXGridColumn>
+            </AddItem>
+            <AddItem>
+                <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                    <Prop Key="DataField" Value="QtyOnHand" />
+                    <Prop Key="Width" Value="100" />
+                </PXGridColumn>
+            </AddItem>
+            <AddItem>
+                <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                    <Prop Key="DataField" Value="QtyAvailable" />
+                    <Prop Key="Width" Value="100" />
+                </PXGridColumn>
+            </AddItem>
+        </Children>
+    </PXGridLevel>
+    <PXGridLevel DataMember="Overhead" ParentId="phG_tab_Items#1_overheadGrid_Levels#0" TypeFullName="PX.Web.UI.PXGridLevel">
+        <Children Key="Columns">
+            <AddItem>
+                <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                    <Prop Key="DataField" Value="UsrUnitPrice" />
+                </PXGridColumn>
+            </AddItem>
+            <AddItem>
+                <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                    <Prop Key="DataField" Value="UsrAmount" />
+                </PXGridColumn>
+            </AddItem>
+            <AddItem>
+                <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                    <Prop Key="DataField" Value="usrCostAmount" />
+                </PXGridColumn>
+            </AddItem>
+            <AddItem>
+                <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                    <Prop Key="DataField" Value="usrProfitAmount" />
+                </PXGridColumn>
+            </AddItem>
+            <AddItem>
+                <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                    <Prop Key="DataField" Value="usrMarkup" />
+                </PXGridColumn>
+            </AddItem>
+            <AddItem>
+                <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                    <Prop Key="DataField" Value="usrMargin" />
+                </PXGridColumn>
+            </AddItem>
+        </Children>
+    </PXGridLevel>
+    <PXGrid ID="componentsGrid" ParentId="phG_tab_Items#0_componentsGrid" TypeFullName="PX.Web.UI.PXGrid">
+        <Prop Key="ClientEvents.AfterRowDelete" Value="setColors" />
+        <Prop Key="ClientEvents.AfterExitEditMode" Value="setColors" />
+        <Prop Key="ClientEvents.CellEditorCreated" Value="setColors" />
+        <Prop Key="ClientEvents.AfterCellChange" Value="setColors" />
+        <Prop Key="ClientEvents.AfterCellUpdate" Value="setColors" />
+        <Prop Key="ClientEvents.AfterRowChange" Value="setColors" />
+        <Prop Key="ClientEvents.AfterRowUpdate" Value="setColors" />
+        <Prop Key="ClientEvents.AfterColSort" Value="setColors" />
+        <Prop Key="ClientEvents.AfterRowFormOpen" Value="setColors" />
+        <Prop Key="ClientEvents.AfterRowFormClose" Value="setColors" />
+        <Prop Key="ClientEvents.AfterEnterEditMode" Value="setColors" />
+        <Prop Key="ClientEvents.ColHeaderClick" Value="setColors" />
+        <Prop Key="ClientEvents.CellClick" Value="setColors" />
+        <Prop Key="ClientEvents.AfterColMove" Value="setColors" />
+        <Prop Key="ClientEvents.AfterColResize" Value="setColors" />
+        <Prop Key="ClientEvents.AfterRefresh" Value="setColors" />
+        <Prop Key="ClientEvents.CellButtonClick" Value="setColors" />
+        <Prop Key="ClientEvents.EditorKeyDown" Value="setColors" />
+    </PXGrid>
+    <PXGrid ID="overheadGrid" ParentId="phG_tab_Items#1_overheadGrid" TypeFullName="PX.Web.UI.PXGrid">
+        <Prop Key="ClientEvents.AfterRowDelete" />
+        <Prop Key="ClientEvents.AfterExitEditMode" Value="setColors" />
+        <Prop Key="ClientEvents.CellEditorCreated" Value="setColors" />
+        <Prop Key="ClientEvents.AfterCellChange" Value="setColors" />
+        <Prop Key="ClientEvents.AfterCellUpdate" Value="setColors" />
+        <Prop Key="ClientEvents.AfterRowChange" Value="setColors" />
+        <Prop Key="ClientEvents.AfterRowUpdate" Value="setColors" />
+        <Prop Key="ClientEvents.AfterColSort" Value="setColors" />
+        <Prop Key="ClientEvents.AfterRowFormOpen" Value="setColors" />
+        <Prop Key="ClientEvents.AfterRowFormClose" Value="setColors" />
+        <Prop Key="ClientEvents.AfterEnterEditMode" Value="setColors" />
+        <Prop Key="ClientEvents.ColHeaderClick" Value="setColors" />
+        <Prop Key="ClientEvents.CellClick" Value="setColors" />
+        <Prop Key="ClientEvents.AfterColMove" Value="setColors" />
+        <Prop Key="ClientEvents.AfterColResize" Value="setColors" />
+        <Prop Key="ClientEvents.AfterRefresh" Value="setColors" />
+        <Prop Key="ClientEvents.CellButtonClick" Value="setColors" />
+        <Prop Key="ClientEvents.EditorKeyDown" Value="setColors" />
+    </PXGrid>
+    <PXNumberEdit DataField="Qty" ParentId="phF_form_edQty" TypeFullName="PX.Web.UI.PXNumberEdit">
+        <Prop Key="ClientEvents.ValueChanged" Value="setColors" />
+    </PXNumberEdit>
+</Page>
