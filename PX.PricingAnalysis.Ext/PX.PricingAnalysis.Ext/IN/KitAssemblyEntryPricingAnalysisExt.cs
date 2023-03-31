@@ -12,6 +12,34 @@ namespace PX.PricingAnalysis.Ext
 {
     public class KitAssemblyEntryPricingAnalysisExt : PXGraphExtension<KitAssemblyEntry>
     {
+        public override void Initialize()
+        {
+            Page page = HttpContext.Current?.Handler as PXPage;
+            if (page != null)
+            {
+                page.Load += Page_Load;
+            }
+        }
+
+        private void Page_Load(object sender, EventArgs e)
+        {
+            Page page = (Page)sender;
+
+            PX.Web.UI.PXGrid grdComponents = (PX.Web.UI.PXGrid)ControlHelper.FindControl("componentsGrid", page);
+            if (grdComponents != null)
+            {
+                grdComponents.RowDataBound += (object grdSender, PXGridRowEventArgs erdb) =>
+                {
+                    var data = ((PX.Data.PXResult)erdb.Row.DataItem).GetItem<INComponentTran>();
+                    var dataSpec = ((PX.Data.PXResult)erdb.Row.DataItem).GetItem<INKitSpecStkDet>();
+                    var dataExt = data.GetExtension<INComponentTranPricingAnalysisExt>();
+                    erdb.Row.Cells["QtyAvailable"].Style.CssClass = (dataExt.QtyAvailable <= 0M) ? "red20" : 
+                    (dataSpec.MinCompQty != null && dataExt.QtyAvailable < dataSpec.MinCompQty) ? "yellow20" : "green20";
+                    erdb.Row.Cells["QtyOnHand"].Style.CssClass = (dataExt.QtyOnHand <= 0M) ? "red20" : "green20";
+                };
+            }
+        }
+
         [PXMergeAttributes(Method = MergeMethod.Append)]
         [PXFormula(typeof(PALineCostValueExtAttribute<INComponentTran.inventoryID, INComponentTran.siteID, decimal0, INComponentTran.qty, decimal0>))]
         protected virtual void _(Events.CacheAttached<INComponentTranPricingAnalysisExt.usrCostAmount> e) { }
