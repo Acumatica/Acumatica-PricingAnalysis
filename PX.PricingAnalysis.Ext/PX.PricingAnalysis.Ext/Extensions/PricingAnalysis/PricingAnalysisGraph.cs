@@ -876,11 +876,6 @@ namespace PX.PricingAnalysis.Ext
             bool bAllowEditDisc = bAllowEdit && (PricingAnalysisPreviewHeaderFilter.Current?.ApplyAdjustmentAs == AdjustmentType.Discount)
                                                  && PricingAnalysisPreview.Current != null && !PricingAnalysisPreview.Current.IsFreightLine.GetValueOrDefault(false);
 
-            if (this.Base is ARInvoiceEntry && !(this.Base is SOInvoiceEntry))
-            {
-                PXUIFieldAttribute.SetVisible<PricingAnalysisPreviewLine.invtRefNbr>(sender, null, false);
-            }
-
             PXUIFieldAttribute.SetEnabled<PricingAnalysisPreviewLine.curyUnitPrice>(sender, data, bAllowEditPrice);
             PXUIFieldAttribute.SetEnabled<PricingAnalysisPreviewLine.curyDiscAmt>(sender, data, bAllowEditDisc);
             PXUIFieldAttribute.SetEnabled<PricingAnalysisPreviewLine.curyLineAmt>(sender, data, bAllowEdit);

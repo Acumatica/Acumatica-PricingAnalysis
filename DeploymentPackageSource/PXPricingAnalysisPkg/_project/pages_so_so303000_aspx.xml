@@ -450,7 +450,6 @@
                     <Prop Key="Width" Value="70" />
                 </PXGridColumn>
             </AddItem>
-            <PXGridColumn DataField="BranchID" OriginalIndex="0" />
         </Children>
     </PXGridLevel>
     <PXFormView ID="form" ParentId="phF_form" TypeFullName="PX.Web.UI.PXFormView">
