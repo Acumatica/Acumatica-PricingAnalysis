@@ -21,7 +21,7 @@ namespace PX.PricingAnalysis.Ext
 
         [PXBool]
         [PXUnboundDefault(false, PersistingCheck = PXPersistingCheck.Nothing)]
-        [PXFormula(typeof(Switch<Case<Where<SOLine.isStockItem, Equal<True>, Or<SOLinePricingPXExt.usrAccrueCost, Equal<True>>>, True>, False>))]
+        [PXFormula(typeof(Switch<Case<Where<SOLine.isStockItem, Equal<True>, Or<SOLinePricingPXExt.usrAccrueCost, Equal<True>, Or<SOLine.isKit, Equal<True>>>>, True>, False>))]
         public bool? UsrPricingEligible { get; set; }
         #endregion
 

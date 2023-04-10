@@ -23,7 +23,8 @@ namespace PX.PricingAnalysis.Ext
         #region Event Handlers
         protected void _(Events.RowSelected<INKitSpecHdr> e)
         {
-            bool isNewRecord = e?.Row?.KitInventoryID == null || e?.Row?.RevisionID == null;
+            if (e.Cache == null || e.Row == null) return;
+            bool isNewRecord = e.Cache.GetStatus(e.Row) == PXEntryStatus.Inserted;
             PXUIFieldAttribute.SetVisible<INKitSpecHdrPricingAnalysisExt.usrTotalAmount>(e.Cache, e.Row, !isNewRecord);
             PXUIFieldAttribute.SetVisible<INKitSpecHdrPricingAnalysisExt.usrTotalCost>(e.Cache, e.Row, !isNewRecord);
             PXUIFieldAttribute.SetVisible<INKitSpecHdrPricingAnalysisExt.usrProfitAmount>(e.Cache, e.Row, !isNewRecord);
@@ -33,8 +34,8 @@ namespace PX.PricingAnalysis.Ext
 
         protected void _(Events.RowSelected<INKitSpecStkDet> e)
         {
-            bool isNewRecord = e?.Row?.KitInventoryID == null || e?.Row?.RevisionID == null;
-
+            if (e.Cache == null || e.Row == null) return;
+            bool isNewRecord = e.Cache.GetStatus(e.Row) == PXEntryStatus.Inserted;
             PXUIFieldAttribute.SetVisible<INKitSpecStkDetPricingAnalysisExt.usrAmount>(e.Cache, e.Row, !isNewRecord);
             PXUIFieldAttribute.SetVisible<INKitSpecStkDetPricingAnalysisExt.usrCostAmount>(e.Cache, e.Row, !isNewRecord);
             PXUIFieldAttribute.SetVisible<INKitSpecStkDetPricingAnalysisExt.usrProfitAmount>(e.Cache, e.Row, !isNewRecord);
@@ -44,8 +45,8 @@ namespace PX.PricingAnalysis.Ext
 
         protected void _(Events.RowSelected<INKitSpecNonStkDet> e)
         {
-            bool isNewRecord = e?.Row?.KitInventoryID == null || e?.Row?.RevisionID == null;
-
+            if (e.Cache == null || e.Row == null) return;
+            bool isNewRecord = e.Cache.GetStatus(e.Row) == PXEntryStatus.Inserted;
             PXUIFieldAttribute.SetVisible<INKitSpecNonStkDetPricingAnalysisExt.usrAmount>(e.Cache, e.Row, !isNewRecord);
             PXUIFieldAttribute.SetVisible<INKitSpecNonStkDetPricingAnalysisExt.usrCostAmount>(e.Cache, e.Row, !isNewRecord);
             PXUIFieldAttribute.SetVisible<INKitSpecNonStkDetPricingAnalysisExt.usrProfitAmount>(e.Cache, e.Row, !isNewRecord);
@@ -55,10 +56,7 @@ namespace PX.PricingAnalysis.Ext
 
         public virtual void _(Events.FieldSelecting<INKitSpecHdr, INKitSpecHdrPricingAnalysisExt.usrTotalAmount> args)
         {
-            if (args.ReturnState == null)
-            {
-                return;
-            }
+            if (args.Cache == null || args.Row == null) return;
             decimal? amount = 0;
             decimal? cost = 0;
             var components = Base.StockDet.Select().FirstTableItems.ToList();

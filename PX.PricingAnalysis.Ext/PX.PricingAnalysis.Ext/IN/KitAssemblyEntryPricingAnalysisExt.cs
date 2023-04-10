@@ -51,7 +51,8 @@ namespace PX.PricingAnalysis.Ext
         #region Event Handlers
         protected void _(Events.RowSelected<INKitRegister> e)
         {
-            bool isNewRecord = e?.Row?.RefNbr == " <NEW>";
+            if (e.Cache == null || e.Row == null) return;
+            bool isNewRecord = e.Cache.GetStatus(e.Row) == PXEntryStatus.Inserted;
             PXUIFieldAttribute.SetVisible<INKitRegisterPricingAnalysisExt.usrTotalAmount>(e.Cache, e.Row, !isNewRecord);
             PXUIFieldAttribute.SetVisible<INKitRegisterPricingAnalysisExt.usrTotalCost>(e.Cache, e.Row, !isNewRecord);
             PXUIFieldAttribute.SetVisible<INKitRegisterPricingAnalysisExt.usrProfitAmount>(e.Cache, e.Row, !isNewRecord);
@@ -61,8 +62,8 @@ namespace PX.PricingAnalysis.Ext
         }
         protected void _(Events.RowSelected<INComponentTran> e)
         {
-            bool isNewRecord = e?.Row?.RefNbr == null;
-            
+            if (e.Cache == null || e.Row == null) return;
+            bool isNewRecord = e.Cache.GetStatus(e.Row) == PXEntryStatus.Inserted;
             PXUIFieldAttribute.SetVisible<INComponentTranPricingAnalysisExt.usrAmount>(e.Cache, e.Row, !isNewRecord);
             PXUIFieldAttribute.SetVisible<INComponentTranPricingAnalysisExt.usrCostAmount>(e.Cache, e.Row, !isNewRecord);
             PXUIFieldAttribute.SetVisible<INComponentTranPricingAnalysisExt.usrProfitAmount>(e.Cache, e.Row, !isNewRecord);
@@ -73,7 +74,8 @@ namespace PX.PricingAnalysis.Ext
         }
         protected void _(Events.RowSelected<INOverheadTran> e)
         {
-            bool isNewRecord = e?.Row?.RefNbr == null;
+            if (e.Cache == null || e.Row == null) return;
+            bool isNewRecord = e.Cache.GetStatus(e.Row) == PXEntryStatus.Inserted;
             PXUIFieldAttribute.SetVisible<INOverheadTranPricingAnalysisExt.usrAmount>(e.Cache, e.Row, !isNewRecord);
             PXUIFieldAttribute.SetVisible<INOverheadTranPricingAnalysisExt.usrCostAmount>(e.Cache, e.Row, !isNewRecord);
             PXUIFieldAttribute.SetVisible<INOverheadTranPricingAnalysisExt.usrProfitAmount>(e.Cache, e.Row, !isNewRecord);
@@ -83,10 +85,9 @@ namespace PX.PricingAnalysis.Ext
 
         public virtual void _(Events.FieldSelecting<INKitRegister, INKitRegisterPricingAnalysisExt.maxQtyOnHand> args)
         {
+            if (args.Cache == null || args.Row == null) return;
             INKitRegister row = (INKitRegister)args.Row;
-            if (row == null) { return; }
             var rowExt = row.GetExtension<INKitRegisterPricingAnalysisExt>();
-            if (rowExt == null) { return; }
             var INKitItemAvailability = this.Base.GetExtension<INComponentItemAvailabilityExtension>();
             var components = Base.Components.Select().FirstTableItems.ToList();
             decimal maxOnHand = decimal.MaxValue;
@@ -109,10 +110,7 @@ namespace PX.PricingAnalysis.Ext
 
         public virtual void _(Events.FieldSelecting<INKitRegister, INKitRegisterPricingAnalysisExt.usrTotalAmount> args)
         {
-            if (args.ReturnState == null)
-            {
-                return;
-            }
+            if (args.Cache == null || args.Row == null) return;
             decimal? amount = 0;
             decimal? cost = 0;
             var components = Base.Components.Select().FirstTableItems.ToList();

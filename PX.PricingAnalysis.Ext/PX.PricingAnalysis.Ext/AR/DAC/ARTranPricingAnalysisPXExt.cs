@@ -18,6 +18,9 @@ namespace PX.PricingAnalysis.Ext
 		#region UsrUnitCostFinal
 		public abstract class usrUnitCostFinal : PX.Data.BQL.BqlDecimal.Field<usrUnitCostFinal> { }
 
+		/// <summary>
+		/// Unit Cost calculated using usrUnitCost and usrUnitCostCM, depending on Invoice type
+		/// </summary>
 		[PXPriceCost()]
 		[PXUIField(DisplayName = "Unit Cost", Enabled = false)]
 		public Decimal? UsrUnitCostFinal { get; set; }
@@ -26,6 +29,9 @@ namespace PX.PricingAnalysis.Ext
 		#region UsrUnitCost
 		public abstract class usrUnitCost : PX.Data.BQL.BqlDecimal.Field<usrUnitCost> { }
 
+		/// <summary>
+		/// Unit Cost calculated for the Invoice type
+		/// </summary>
 		[PXPriceCost()]
 		public Decimal? UsrUnitCost { get; set; }
 		#endregion
@@ -33,6 +39,9 @@ namespace PX.PricingAnalysis.Ext
 		#region UsrUnitCostCM
 		public abstract class usrUnitCostCM : PX.Data.BQL.BqlDecimal.Field<usrUnitCostCM> { }
 
+		/// <summary>
+		/// Unit Cost calculated for the Credit Memo type
+		/// </summary>
 		[PXPriceCost()]
 		public Decimal? UsrUnitCostCM { get; set; }
 		#endregion

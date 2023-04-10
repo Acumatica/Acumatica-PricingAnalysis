@@ -104,7 +104,8 @@ namespace PX.PricingAnalysis.Ext
         protected void _(Events.RowSelected<ARInvoice> e)
         {
             PricingAnalysisPreviewHeaderRecs.Cache.AllowSelect = false;
-            bool isNewRecord = e?.Row?.RefNbr == " <NEW>";
+            if (e.Cache == null || e.Row == null) return;
+            bool isNewRecord = e.Cache.GetStatus(e.Row) == PXEntryStatus.Inserted;
             PXUIFieldAttribute.SetVisible<ARInvoicePricingAnalysisPXExt.usrAmountTotal>(e.Cache, e.Row, !isNewRecord);
             PXUIFieldAttribute.SetVisible<ARInvoicePricingAnalysisPXExt.usrCostTotal>(e.Cache, e.Row, !isNewRecord);
             PXUIFieldAttribute.SetVisible<ARInvoicePricingAnalysisPXExt.usrMarginPercent>(e.Cache, e.Row, !isNewRecord);
@@ -114,17 +115,15 @@ namespace PX.PricingAnalysis.Ext
         protected void _(Events.RowSelected<ARTran> e)
         {
             PricingAnalysisPreviewHeaderRecs.Cache.AllowSelect = false;
-            bool isNewRecord = e?.Row?.RefNbr == null;
+            if (e.Cache == null || e.Row == null) return;
+            bool isNewRecord = e.Cache.GetStatus(e.Row) == PXEntryStatus.Inserted;
             PXUIFieldAttribute.SetVisible<ARTranPricingAnalysisPXExt.usrUnitCostFinal>(e.Cache, e.Row, !isNewRecord);
         }
         #region Event Handlers
 
         public virtual void _(Events.FieldSelecting<ARInvoice, ARInvoicePricingAnalysisPXExt.usrAmountTotal> args)
         {
-            if (args.ReturnState == null)
-            {
-                return;
-            }
+            if (args.Cache == null || args.Row == null) return;
             var row = args.Row;
             var rowExt = row.GetExtension<ARInvoicePricingAnalysisPXExt>();
             decimal? amount = 0;
