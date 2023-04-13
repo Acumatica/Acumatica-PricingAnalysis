@@ -7,6 +7,32 @@ namespace PX.PricingAnalysis.Ext
 {
     public sealed class ARTranPricingAnalysisPXExt : PXCacheExtension<ARTran>
     {
+		#region UsrAccrueCost
+		public abstract class usrAccrueCost : PX.Data.BQL.BqlBool.Field<usrAccrueCost> { }
+
+		[PXBool]
+		[PXUnboundDefault(false, PersistingCheck = PXPersistingCheck.Nothing)]
+		[PXFormula(typeof(Selector<ARTran.inventoryID, InventoryItem.accrueCost>))]
+		public bool? UsrAccrueCost { get; set; }
+		#endregion
+
+		#region UsrKitItem
+		public abstract class usrKitItem : PX.Data.BQL.BqlBool.Field<usrKitItem> { }
+
+		[PXBool]
+		[PXUnboundDefault(false, PersistingCheck = PXPersistingCheck.Nothing)]
+		[PXFormula(typeof(Selector<ARTran.inventoryID, InventoryItem.kitItem>))]
+		public bool? UsrKitItem { get; set; }
+		#endregion
+
+		#region UsrPricingEligible
+		public abstract class usrPricingEligible : PX.Data.BQL.BqlDecimal.Field<usrPricingEligible> { }
+
+		[PXBool]
+		[PXUnboundDefault(false, PersistingCheck = PXPersistingCheck.Nothing)]
+		[PXFormula(typeof(Switch<Case<Where<ARTran.isStockItem, Equal<True>, Or<ARTranPricingAnalysisPXExt.usrAccrueCost, Equal<True>, Or<ARTranPricingAnalysisPXExt.usrKitItem, Equal<True>>>>, True>, False>))]
+		public bool? UsrPricingEligible { get; set; }
+		#endregion
 
 		#region UsrInvtRefNbr
 		public abstract class usrInvtRefNbr : PX.Data.BQL.BqlString.Field<usrInvtRefNbr> { }
@@ -15,35 +41,35 @@ namespace PX.PricingAnalysis.Ext
 		public string UsrInvtRefNbr { get; set; }
 		#endregion
 
-		#region UsrUnitCostFinal
-		public abstract class usrUnitCostFinal : PX.Data.BQL.BqlDecimal.Field<usrUnitCostFinal> { }
+		#region UsrCostFinal
+		public abstract class usrCostFinal : PX.Data.BQL.BqlDecimal.Field<usrCostFinal> { }
 
 		/// <summary>
-		/// Unit Cost calculated using usrUnitCost and usrUnitCostCM, depending on Invoice type
+		/// Cost Amount calculated using usrCost, usrCost, and curyAccruedCost depending on Invoice type and the isStockItem boolean.
 		/// </summary>
 		[PXPriceCost()]
-		[PXUIField(DisplayName = "Unit Cost", Enabled = false)]
-		public Decimal? UsrUnitCostFinal { get; set; }
+		[PXUIField(DisplayName = "Cost Amount", Enabled = false)]
+		public Decimal? UsrCostFinal { get; set; }
 		#endregion
 
-		#region UsrUnitCost
-		public abstract class usrUnitCost : PX.Data.BQL.BqlDecimal.Field<usrUnitCost> { }
+		#region UsrCost
+		public abstract class usrCost : PX.Data.BQL.BqlDecimal.Field<usrCost> { }
 
 		/// <summary>
-		/// Unit Cost calculated for the Invoice type
+		/// Cost Amount calculated for the Invoice type
 		/// </summary>
 		[PXPriceCost()]
-		public Decimal? UsrUnitCost { get; set; }
+		public Decimal? UsrCost { get; set; }
 		#endregion
 
-		#region UsrUnitCostCM
-		public abstract class usrUnitCostCM : PX.Data.BQL.BqlDecimal.Field<usrUnitCostCM> { }
+		#region UsrCostCM
+		public abstract class usrCostCM : PX.Data.BQL.BqlDecimal.Field<usrCostCM> { }
 
 		/// <summary>
-		/// Unit Cost calculated for the Credit Memo type
+		/// Cost Amount calculated for the Credit Memo type
 		/// </summary>
 		[PXPriceCost()]
-		public Decimal? UsrUnitCostCM { get; set; }
+		public Decimal? UsrCostCM { get; set; }
 		#endregion
 
 	}

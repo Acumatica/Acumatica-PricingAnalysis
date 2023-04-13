@@ -9,14 +9,6 @@ namespace PX.PricingAnalysis.Ext
 {
     public sealed class INKitSpecStkDetPricingAnalysisExt : PXCacheExtension<INKitSpecStkDet>
 	{
-		#region USRIsStockItem
-		public abstract class usrIsStockItem : PX.Data.BQL.BqlBool.Field<usrIsStockItem> { }
-
-		[PXBool]
-		[PXUnboundDefault(true)]
-		public bool? UsrIsStockItem { get; set; }
-		#endregion
-
 		#region UsrUnitPrice
 		public abstract class usrUnitPrice : PX.Data.BQL.BqlDecimal.Field<usrUnitPrice> { }
 

@@ -33,14 +33,14 @@ namespace PX.PricingAnalysis.Ext
                 NoteID = typeof(ARTran.noteID),
                 LineNbr = typeof(ARTran.lineNbr),
                 InventoryID = typeof(ARTran.inventoryID),
-                IsStockItem = typeof(ARTran.isStockItem),
+                IsStockItem = typeof(ARTranPricingAnalysisPXExt.usrPricingEligible),
                 UOM = typeof(ARTran.uOM),
                 InvtRefNbr = typeof(ARTranPricingAnalysisPXExt.usrInvtRefNbr),
-                UnitCost = typeof(ARTranPricingAnalysisPXExt.usrUnitCostFinal),
                 OrderQty = typeof(ARTran.qty),
                 CuryDiscAmt = typeof(ARTran.curyDiscAmt),
                 CuryUnitPrice = typeof(ARTran.curyUnitPrice),
                 CuryLineAmt = typeof(ARTran.curyTranAmt),
+                CuryExtCost = typeof(ARTranPricingAnalysisPXExt.usrCostFinal),
                 IsLastCostUsed = typeof(True)
             };
         }
@@ -74,50 +74,51 @@ namespace PX.PricingAnalysis.Ext
 
         [PXMergeAttributes(Method = MergeMethod.Append)]
         [PXUnboundDefault(TypeCode.Decimal, "0.0", typeof(Coalesce<
-            Search<INTran.unitCost, Where<INTran.docType, Equal<INDocType.issue>,
+            Search<INTran.tranCost, Where<INTran.docType, Equal<INDocType.issue>,
                 And<INTran.aRRefNbr, Equal<Current<ARTran.refNbr>>,
                     And<INTran.aRLineNbr, Equal<Current<ARTran.lineNbr>>,
                         And<INTran.inventoryID, Equal<Current<ARTran.inventoryID>>>>>>>, 
             Coalesce<
-            Search<INTran.unitCost, Where<INTran.docType, Equal<INDocType.issue>,
+            Search<INTran.tranCost, Where<INTran.docType, Equal<INDocType.issue>,
                 And<INTran.sOShipmentNbr, Equal<Current<ARTran.sOShipmentNbr>>,
                     And<INTran.sOShipmentLineNbr, Equal<Current<ARTran.sOShipmentLineNbr>>,
-                        And<INTran.inventoryID, Equal<Current<ARTran.inventoryID>>>>>>>, Search<INTran.unitCost, Where<INTran.docType, Equal<INDocType.issue>,
+                        And<INTran.inventoryID, Equal<Current<ARTran.inventoryID>>>>>>>, Search<INTran.tranCost, Where<INTran.docType, Equal<INDocType.issue>,
                 And<INTran.sOOrderNbr, Equal<Current<ARTran.sOOrderNbr>>,
                     And<INTran.sOOrderLineNbr, Equal<Current<ARTran.sOOrderLineNbr>>,
                         And<INTran.inventoryID, Equal<Current<ARTran.inventoryID>>>>>>>
             >>))]
-        protected virtual void _(Events.CacheAttached<ARTranPricingAnalysisPXExt.usrUnitCost> e) { }
+        protected virtual void _(Events.CacheAttached<ARTranPricingAnalysisPXExt.usrCost> e) { }
 
         [PXMergeAttributes(Method = MergeMethod.Append)]
-        [PXFormula(typeof(IIf<ARTran.qty.IsGreater<decimal0>, Div<PALineCostValueExtAttribute<ARTran.inventoryID, ARTran.siteID, ARTran.tranCost, ARTran.qty, ARTran.unitCost>, ARTran.qty>, decimal0>))]
-        protected virtual void _(Events.CacheAttached<ARTranPricingAnalysisPXExt.usrUnitCostCM> e) { }
+        [PXFormula(typeof(IIf<ARTran.qty.IsGreater<decimal0>, PALineCostValueExtAttribute<ARTran.inventoryID, ARTran.siteID, ARTran.tranCost, ARTran.qty, ARTran.unitCost>, decimal0>))]
+        protected virtual void _(Events.CacheAttached<ARTranPricingAnalysisPXExt.usrCostCM> e) { }
 
         [PXMergeAttributes(Method = MergeMethod.Append)]
         [PXFormula(typeof(IIf<ARTran.tranType.FromCurrent.IsNotEqual<ARDocType.creditMemo>,
-            ARTranPricingAnalysisPXExt.usrUnitCost, 
-            IIf<ARTran.tranCostOrig.IsNotNull.And<ARTran.tranCostOrig.IsNotEqual<decimal0>>, 
-                Div<ARTran.tranCostOrig, ARTran.qty>, 
-                ARTranPricingAnalysisPXExt.usrUnitCostCM>>))]
-        protected virtual void _(Events.CacheAttached<ARTranPricingAnalysisPXExt.usrUnitCostFinal> e) { }
+            IIf<ARTran.isStockItem.IsEqual<False>.And<ARTranPricingAnalysisPXExt.usrAccrueCost.IsEqual<True>>, ARTran.curyAccruedCost, ARTranPricingAnalysisPXExt.usrCost>, 
+            IIf<ARTran.tranCostOrig.IsNotNull.And<ARTran.tranCostOrig.IsNotEqual<decimal0>>,
+                ARTran.tranCostOrig, 
+                ARTranPricingAnalysisPXExt.usrCostCM>>))]
+        protected virtual void _(Events.CacheAttached<ARTranPricingAnalysisPXExt.usrCostFinal> e) { }
 
         protected void _(Events.RowSelected<ARInvoice> e)
         {
             PricingAnalysisPreviewHeaderRecs.Cache.AllowSelect = false;
             if (e.Cache == null || e.Row == null) return;
-            bool isNewRecord = e.Cache.GetStatus(e.Row) == PXEntryStatus.Inserted;
-            PXUIFieldAttribute.SetVisible<ARInvoicePricingAnalysisPXExt.usrAmountTotal>(e.Cache, e.Row, !isNewRecord);
-            PXUIFieldAttribute.SetVisible<ARInvoicePricingAnalysisPXExt.usrCostTotal>(e.Cache, e.Row, !isNewRecord);
-            PXUIFieldAttribute.SetVisible<ARInvoicePricingAnalysisPXExt.usrMarginPercent>(e.Cache, e.Row, !isNewRecord);
-            PXUIFieldAttribute.SetVisible<ARInvoicePricingAnalysisPXExt.usrMarkupPercent>(e.Cache, e.Row, !isNewRecord);
-            PXUIFieldAttribute.SetVisible<ARInvoicePricingAnalysisPXExt.usrProfitTotal>(e.Cache, e.Row, !isNewRecord);
+            bool isNewUnreleased = e.Cache.GetStatus(e.Row) == PXEntryStatus.Inserted
+                || e.Row.Status == ARDocStatus.Hold || e.Row.Status == ARDocStatus.Balanced;
+            PXUIFieldAttribute.SetVisible<ARInvoicePricingAnalysisPXExt.usrAmountTotal>(e.Cache, e.Row, !isNewUnreleased);
+            PXUIFieldAttribute.SetVisible<ARInvoicePricingAnalysisPXExt.usrCostTotal>(e.Cache, e.Row, !isNewUnreleased);
+            PXUIFieldAttribute.SetVisible<ARInvoicePricingAnalysisPXExt.usrMarginPercent>(e.Cache, e.Row, !isNewUnreleased);
+            PXUIFieldAttribute.SetVisible<ARInvoicePricingAnalysisPXExt.usrMarkupPercent>(e.Cache, e.Row, !isNewUnreleased);
+            PXUIFieldAttribute.SetVisible<ARInvoicePricingAnalysisPXExt.usrProfitTotal>(e.Cache, e.Row, !isNewUnreleased);
         }
         protected void _(Events.RowSelected<ARTran> e)
         {
             PricingAnalysisPreviewHeaderRecs.Cache.AllowSelect = false;
             if (e.Cache == null || e.Row == null) return;
             bool isNewRecord = e.Cache.GetStatus(e.Row) == PXEntryStatus.Inserted;
-            PXUIFieldAttribute.SetVisible<ARTranPricingAnalysisPXExt.usrUnitCostFinal>(e.Cache, e.Row, !isNewRecord);
+            PXUIFieldAttribute.SetVisible<ARTranPricingAnalysisPXExt.usrCostFinal>(e.Cache, e.Row, !isNewRecord);
         }
         #region Event Handlers
 
@@ -131,11 +132,11 @@ namespace PX.PricingAnalysis.Ext
             var trans = Base.Transactions.Select().FirstTableItems.ToList();
             foreach (ARTran tran in trans)
             {
-                if (!tran.IsStockItem.GetValueOrDefault(false) || tran.Qty.GetValueOrDefault(0) <= 0) { continue; }
                 var tranExt = tran.GetExtension<ARTranPricingAnalysisPXExt>();
+                if (!tranExt.UsrPricingEligible.GetValueOrDefault(false) || tran.Qty.GetValueOrDefault(0) <= 0) { continue; }
                 var inventoryItem = InventoryItem.PK.Find(Base, tran.InventoryID);
                 if (tranExt == null) { return; }
-                cost += tranExt.UsrUnitCostFinal * tran.Qty;
+                cost += tranExt.UsrCostFinal;
                 amount += tran.CuryTranAmt;
             }
             cost += row.CuryFreightCost;

@@ -289,8 +289,6 @@ namespace PX.PricingAnalysis.Ext
 
                 if (!orgLine.IsStockItem.GetValueOrDefault(false) || orgLine.OrderQty.GetValueOrDefault(0) <= 0) { continue; }
 
-                if (PreviewOnly && !(this.Base is KitAssemblyEntry)) { orgLine.CuryExtCost = orgLine.UnitCost * orgLine.OrderQty; }
-
                 PricingAnalysisPreviewLine line = new PricingAnalysisPreviewLine()
                 {
                     RecordID = iRecordCounter++,
@@ -1135,7 +1133,6 @@ namespace PX.PricingAnalysis.Ext
             public Type IsStockItem = typeof(DocumentLine.isStockItem);
             public Type UOM = typeof(DocumentLine.uOM);
             public Type InvtRefNbr = typeof(DocumentLine.invtRefNbr);
-            public Type UnitCost = typeof(DocumentLine.unitCost);
             public Type OrderQty = typeof(DocumentLine.orderQty);
             public Type CuryDiscAmt = typeof(DocumentLine.curyDiscAmt);
             public Type CuryUnitPrice = typeof(DocumentLine.curyUnitPrice);
@@ -1234,12 +1231,6 @@ namespace PX.PricingAnalysis.Ext
         public abstract class invtRefNbr : PX.Data.BQL.BqlString.Field<invtRefNbr> { }
 
         public virtual String InvtRefNbr { get; set; }
-        #endregion
-
-        #region UnitCost
-        public abstract class unitCost : PX.Data.BQL.BqlDecimal.Field<unitCost> { }
-
-        public virtual decimal? UnitCost { get; set; }
         #endregion
 
         #region OrderQty
