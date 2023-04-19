@@ -271,23 +271,29 @@ namespace PX.PricingAnalysis.Ext
 			INItemSite data = PXSelect<INItemSite, Where<INItemSite.inventoryID, Equal<Required<INItemSite.inventoryID>>,
 													And<INItemSite.siteID, Equal<Required<INItemSite.siteID>>>>>
 													.SelectWindowed(cache.Graph, 0, 1, inventoryID, siteID);
-
+			decimal? dValuedCost;
+			decimal unitCost;
 			if (!bUseAvg)
 			{
-				decimal? dValuedCost = (qty.GetValueOrDefault(0)) * (data?.TranUnitCost ?? 0m);
-				return dValuedCost.GetValueOrDefault(0) > 0 ? dValuedCost : GetLastCost(cache, inventoryID, qty);
+				unitCost = (data?.TranUnitCost ?? 0m);
 			}
 			else
             {
-				decimal? dValuedCost = (qty.GetValueOrDefault(0)) * (data?.AvgCost ?? 0m);
-				return dValuedCost.GetValueOrDefault(0) > 0 ? dValuedCost : GetLastCost(cache, inventoryID, qty);
+				unitCost = (data?.AvgCost ?? 0m);
 			}
+			unitCost = Math.Round(unitCost, 2);
+			dValuedCost = (qty.GetValueOrDefault(0)) * unitCost;
+
+			return dValuedCost.GetValueOrDefault(0) > 0 ? dValuedCost.Value : GetLastCost(cache, inventoryID, qty);
+
 		}
 
 		private decimal? GetLastCost(PXCache cache, int? inventoryID, decimal? qty)
         {
 			INItemCost data = INItemCost.PK.Find(cache.Graph, inventoryID, cache.Graph.Accessinfo.BaseCuryID);
-			return (qty.GetValueOrDefault(0)) * (data?.LastCost ?? 0m);
+			decimal unitCost = (data?.LastCost ?? 0m);
+			unitCost = Math.Round(unitCost, 2);
+			return (qty.GetValueOrDefault(0)) * unitCost;
 		}
 	}
 

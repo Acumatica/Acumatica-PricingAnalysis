@@ -500,14 +500,7 @@
         <Prop Key="ClientEvents.CommandPerformed" Value="setColors" />
     </PXDataSource>
     <PXGridLevel DataMember="Transactions" ParentId="phG_tab_Items#0_grid_Levels#0" TypeFullName="PX.Web.UI.PXGridLevel">
-        <Children Key="Columns">
-            <AddItem>
-                <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
-                    <Prop Key="DataField" Value="UsrUnitCostFinal" />
-                    <Prop Key="Width" Value="70" />
-                </PXGridColumn>
-            </AddItem>
-        </Children>
+        <Children Key="Columns" />
     </PXGridLevel>
     <PXGrid ID="grid" ParentId="phG_tab_Items#0_grid" TypeFullName="PX.Web.UI.PXGrid">
         <Prop Key="ClientEvents.AfterRowDelete" Value="setColors" />

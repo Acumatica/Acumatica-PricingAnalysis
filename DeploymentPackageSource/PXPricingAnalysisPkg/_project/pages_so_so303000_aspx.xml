@@ -443,14 +443,7 @@
             <PXSelector DataField="BlanketNbr" OriginalIndex="46" />
             <PXSelector DataField="InvtRefNbr" OriginalIndex="45" Remove="True" />
         </Children>
-        <Children Key="Columns">
-            <AddItem>
-                <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
-                    <Prop Key="DataField" Value="UsrUnitCostFinal" />
-                    <Prop Key="Width" Value="70" />
-                </PXGridColumn>
-            </AddItem>
-        </Children>
+        <Children Key="Columns" />
     </PXGridLevel>
     <PXFormView ID="form" ParentId="phF_form" TypeFullName="PX.Web.UI.PXFormView">
         <Children Key="Template">

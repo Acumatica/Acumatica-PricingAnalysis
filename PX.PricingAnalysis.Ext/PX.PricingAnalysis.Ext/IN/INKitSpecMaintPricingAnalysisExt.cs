@@ -28,8 +28,8 @@ namespace PX.PricingAnalysis.Ext
             PXUIFieldAttribute.SetVisible<INKitSpecHdrPricingAnalysisExt.usrTotalAmount>(e.Cache, e.Row, !isNewRecord);
             PXUIFieldAttribute.SetVisible<INKitSpecHdrPricingAnalysisExt.usrTotalCost>(e.Cache, e.Row, !isNewRecord);
             PXUIFieldAttribute.SetVisible<INKitSpecHdrPricingAnalysisExt.usrProfitAmount>(e.Cache, e.Row, !isNewRecord);
-            PXUIFieldAttribute.SetVisible<INKitSpecHdrPricingAnalysisExt.markupPercent>(e.Cache, e.Row, !isNewRecord);
-            PXUIFieldAttribute.SetVisible<INKitSpecHdrPricingAnalysisExt.marginPercent>(e.Cache, e.Row, !isNewRecord);
+            PXUIFieldAttribute.SetVisible<INKitSpecHdrPricingAnalysisExt.usrMarkupPercent>(e.Cache, e.Row, !isNewRecord);
+            PXUIFieldAttribute.SetVisible<INKitSpecHdrPricingAnalysisExt.usrMarginPercent>(e.Cache, e.Row, !isNewRecord);
         }
 
         protected void _(Events.RowSelected<INKitSpecStkDet> e)
@@ -78,8 +78,8 @@ namespace PX.PricingAnalysis.Ext
             var rowExt = row.GetExtension<INKitSpecHdrPricingAnalysisExt>();
             rowExt.UsrTotalCost = cost;
             rowExt.UsrProfitAmount = amount - rowExt.UsrTotalCost;
-            rowExt.MarkupPercent = (rowExt.UsrTotalCost > 0) ? (rowExt.UsrProfitAmount / rowExt.UsrTotalCost) * 100 : null;
-            rowExt.MarginPercent = (amount > 0) ? (rowExt.UsrProfitAmount / amount) * 100 : null;
+            rowExt.UsrMarkupPercent = (rowExt.UsrTotalCost > 0) ? (rowExt.UsrProfitAmount / rowExt.UsrTotalCost) * 100 : null;
+            rowExt.UsrMarginPercent = (amount > 0) ? (rowExt.UsrProfitAmount / amount) * 100 : null;
         }
 
         #endregion

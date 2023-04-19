@@ -1,20 +1,13 @@
 ﻿using System;
 using PX.Data;
 using PX.Objects.AR;
+using PX.Objects.CS;
 using PX.Objects.IN;
 
 namespace PX.PricingAnalysis.Ext
 {
     public sealed class ARInvoicePricingAnalysisPXExt : PXCacheExtension<ARInvoice>
     {
-        #region UsrCostTotal
-        public abstract class usrCostTotal : PX.Data.BQL.BqlDecimal.Field<usrCostTotal> { }
-
-        [PXPriceCost]
-        [PXUIField(DisplayName = "Cost", Enabled = false)]
-        [PXUnboundDefault(TypeCode.Decimal, "0.0")]
-        public Decimal? UsrCostTotal { get; set; }
-        #endregion
         
         #region UsrAmountTotal
         public abstract class usrAmountTotal : PX.Data.BQL.BqlDecimal.Field<usrAmountTotal> { }
@@ -25,12 +18,22 @@ namespace PX.PricingAnalysis.Ext
         public Decimal? UsrAmountTotal { get; set; }
         #endregion
 
+        #region UsrCostTotal
+        public abstract class usrCostTotal : PX.Data.BQL.BqlDecimal.Field<usrCostTotal> { }
+
+        [PXPriceCost]
+        [PXUIField(DisplayName = "Cost", Enabled = false)]
+        [PXUnboundDefault(TypeCode.Decimal, "0.0")]
+        public Decimal? UsrCostTotal { get; set; }
+        #endregion
+
         #region UsrProfitTotal
         public abstract class usrProfitTotal : PX.Data.BQL.BqlDecimal.Field<usrProfitTotal> { }
 
         [PXPriceCost]
         [PXUIField(DisplayName = "Profit", Enabled = false)]
         [PXUnboundDefault(TypeCode.Decimal, "0.0")]
+
         public decimal? UsrProfitTotal { get; set; }
         #endregion
 

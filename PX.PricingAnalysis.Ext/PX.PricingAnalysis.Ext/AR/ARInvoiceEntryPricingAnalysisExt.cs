@@ -147,7 +147,6 @@ namespace PX.PricingAnalysis.Ext
             rowExt.UsrMarkupPercent = (rowExt.UsrCostTotal > 0) ? (rowExt.UsrProfitTotal / rowExt.UsrCostTotal) * 100 : null;
             rowExt.UsrMarginPercent = (amount > 0) ? (rowExt.UsrProfitTotal / amount) * 100 : null;
         }
-
         #endregion
     }
 }

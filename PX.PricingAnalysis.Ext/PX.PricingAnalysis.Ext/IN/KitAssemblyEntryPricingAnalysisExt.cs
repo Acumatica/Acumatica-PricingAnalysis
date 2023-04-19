@@ -33,10 +33,11 @@ namespace PX.PricingAnalysis.Ext
                     var data = ((PX.Data.PXResult)erdb.Row.DataItem).GetItem<INComponentTran>();
                     var dataSpec = ((PX.Data.PXResult)erdb.Row.DataItem).GetItem<INKitSpecStkDet>();
                     var dataExt = data.GetExtension<INComponentTranPricingAnalysisExt>();
-                    erdb.Row.Cells["QtyAvailable"].Style.CssClass = (dataExt.QtyAvailable <= 0M) ? "red20" : 
-                    (dataSpec.MinCompQty != null && dataExt.QtyAvailable < dataSpec.MinCompQty) ? "yellow20" : "green20";
-                    erdb.Row.Cells["QtyOnHand"].Style.CssClass = (dataExt.QtyOnHand <= 0M) ? "red20" : "green20";
-                };
+                    erdb.Row.Cells["UsrQtyOnHand"].Style.CssClass = ((dataSpec.MinCompQty != null && dataExt.UsrQtyOnHand < dataExt.UsrKitQty.GetValueOrDefault(0) * dataSpec.MinCompQty) ||
+                    dataSpec.MinCompQty == null && dataExt.UsrQtyOnHand < dataExt.UsrKitQty.GetValueOrDefault(0) * dataSpec.DfltCompQty) ? "red20" : 
+                    (dataSpec.MinCompQty != null && dataExt.UsrQtyOnHand < dataExt.UsrKitQty.GetValueOrDefault(0) * dataSpec.DfltCompQty) ? "yellow20" : "green20";
+                    erdb.Row.Cells["UsrQtyAvailable"].Style.CssClass = (dataExt.UsrQtyAvailable < dataExt.UsrKitQty.GetValueOrDefault(0) * dataSpec.DfltCompQty) ? "red20" : "green20";
+                }; 
             }
         }
 
@@ -56,9 +57,9 @@ namespace PX.PricingAnalysis.Ext
             PXUIFieldAttribute.SetVisible<INKitRegisterPricingAnalysisExt.usrTotalAmount>(e.Cache, e.Row, !isNewRecord);
             PXUIFieldAttribute.SetVisible<INKitRegisterPricingAnalysisExt.usrTotalCost>(e.Cache, e.Row, !isNewRecord);
             PXUIFieldAttribute.SetVisible<INKitRegisterPricingAnalysisExt.usrProfitAmount>(e.Cache, e.Row, !isNewRecord);
-            PXUIFieldAttribute.SetVisible<INKitRegisterPricingAnalysisExt.markupPercent>(e.Cache, e.Row, !isNewRecord);
-            PXUIFieldAttribute.SetVisible<INKitRegisterPricingAnalysisExt.marginPercent>(e.Cache, e.Row, !isNewRecord);
-            PXUIFieldAttribute.SetVisible<INKitRegisterPricingAnalysisExt.maxQtyOnHand>(e.Cache, e.Row, !isNewRecord);
+            PXUIFieldAttribute.SetVisible<INKitRegisterPricingAnalysisExt.usrMarkupPercent>(e.Cache, e.Row, !isNewRecord);
+            PXUIFieldAttribute.SetVisible<INKitRegisterPricingAnalysisExt.usrMarginPercent>(e.Cache, e.Row, !isNewRecord);
+            PXUIFieldAttribute.SetVisible<INKitRegisterPricingAnalysisExt.usrMaxQtyOnHand>(e.Cache, e.Row, !isNewRecord);
         }
         protected void _(Events.RowSelected<INComponentTran> e)
         {
@@ -69,8 +70,8 @@ namespace PX.PricingAnalysis.Ext
             PXUIFieldAttribute.SetVisible<INComponentTranPricingAnalysisExt.usrProfitAmount>(e.Cache, e.Row, !isNewRecord);
             PXUIFieldAttribute.SetVisible<INComponentTranPricingAnalysisExt.usrMargin>(e.Cache, e.Row, !isNewRecord);
             PXUIFieldAttribute.SetVisible<INComponentTranPricingAnalysisExt.usrMarkup>(e.Cache, e.Row, !isNewRecord);
-            PXUIFieldAttribute.SetVisible<INComponentTranPricingAnalysisExt.qtyOnHand>(e.Cache, e.Row, !isNewRecord);
-            PXUIFieldAttribute.SetVisible<INComponentTranPricingAnalysisExt.qtyAvailable>(e.Cache, e.Row, !isNewRecord);
+            PXUIFieldAttribute.SetVisible<INComponentTranPricingAnalysisExt.usrQtyOnHand>(e.Cache, e.Row, !isNewRecord);
+            PXUIFieldAttribute.SetVisible<INComponentTranPricingAnalysisExt.usrQtyAvailable>(e.Cache, e.Row, !isNewRecord);
         }
         protected void _(Events.RowSelected<INOverheadTran> e)
         {
@@ -83,7 +84,7 @@ namespace PX.PricingAnalysis.Ext
             PXUIFieldAttribute.SetVisible<INOverheadTranPricingAnalysisExt.usrMarkup>(e.Cache, e.Row, !isNewRecord);
         }
 
-        public virtual void _(Events.FieldSelecting<INKitRegister, INKitRegisterPricingAnalysisExt.maxQtyOnHand> args)
+        public virtual void _(Events.FieldSelecting<INKitRegister, INKitRegisterPricingAnalysisExt.usrMaxQtyOnHand> args)
         {
             if (args.Cache == null || args.Row == null) return;
             INKitRegister row = (INKitRegister)args.Row;
@@ -92,18 +93,19 @@ namespace PX.PricingAnalysis.Ext
             var components = Base.Components.Select().FirstTableItems.ToList();
             decimal maxOnHand = decimal.MaxValue;
             foreach (INComponentTran component in components)
+            {
+                var componentTranExt = component.GetExtension<INComponentTranPricingAnalysisExt>();
+                bool exclude = !Base.Document.Current.Released ?? true;
+                if (INKitItemAvailability.FetchWithLineUOM(component, exclude) is IStatus availability)
                 {
-                    bool exclude = !Base.Document.Current.Released ?? true;
-                    if (INKitItemAvailability.FetchWithLineUOM(component, exclude) is IStatus availability)
-                    {
-                        var componentTranExt = component.GetExtension<INComponentTranPricingAnalysisExt>();
-                        componentTranExt.QtyOnHand = availability.QtyOnHand;
-                        componentTranExt.QtyAvailable = availability.QtyAvail;
-                        INKitSpecStkDet spec = Base.GetComponentSpecByID(component.InventoryID, component.SubItemID);
-                        if (spec?.DfltCompQty == null) { continue; }
-                        maxOnHand = Math.Min(maxOnHand, (decimal)availability.QtyOnHand / (decimal)spec.DfltCompQty);
-                    }
+                    componentTranExt.UsrQtyOnHand = availability.QtyOnHand;
+                    componentTranExt.UsrQtyAvailable = availability.QtyAvail;
+                    INKitSpecStkDet spec = Base.GetComponentSpecByID(component.InventoryID, component.SubItemID);
+                    if (spec?.DfltCompQty == null) { continue; }
+                    maxOnHand = Math.Min(maxOnHand, (decimal)availability.QtyOnHand / (decimal)spec.DfltCompQty);
                 }
+                componentTranExt.UsrKitQty = row.Qty;
+            }
             maxOnHand = Math.Round(maxOnHand, 2);
             args.ReturnValue = maxOnHand == decimal.MaxValue ? 0 : maxOnHand;
         }
@@ -132,10 +134,10 @@ namespace PX.PricingAnalysis.Ext
             var rowExt = row.GetExtension<INKitRegisterPricingAnalysisExt>();
             rowExt.UsrTotalCost = cost;
             rowExt.UsrProfitAmount = amount - rowExt.UsrTotalCost;
-            rowExt.MarkupPercent = (rowExt.UsrTotalCost > 0) ? (rowExt.UsrProfitAmount / rowExt.UsrTotalCost) * 100 : null;
-            rowExt.MarginPercent = (amount > 0) ? (rowExt.UsrProfitAmount / amount) * 100 : null;
+            rowExt.UsrMarkupPercent = (rowExt.UsrTotalCost > 0) ? (rowExt.UsrProfitAmount / rowExt.UsrTotalCost) * 100 : null;
+            rowExt.UsrMarginPercent = (amount > 0) ? (rowExt.UsrProfitAmount / amount) * 100 : null;
         }
 
-        #endregion
+            #endregion
     }
 }

@@ -41,17 +41,6 @@ namespace PX.PricingAnalysis.Ext
 		public string UsrInvtRefNbr { get; set; }
 		#endregion
 
-		#region UsrCostFinal
-		public abstract class usrCostFinal : PX.Data.BQL.BqlDecimal.Field<usrCostFinal> { }
-
-		/// <summary>
-		/// Cost Amount calculated using usrCost, usrCost, and curyAccruedCost depending on Invoice type and the isStockItem boolean.
-		/// </summary>
-		[PXPriceCost()]
-		[PXUIField(DisplayName = "Cost Amount", Enabled = false)]
-		public Decimal? UsrCostFinal { get; set; }
-		#endregion
-
 		#region UsrCost
 		public abstract class usrCost : PX.Data.BQL.BqlDecimal.Field<usrCost> { }
 
@@ -72,5 +61,15 @@ namespace PX.PricingAnalysis.Ext
 		public Decimal? UsrCostCM { get; set; }
 		#endregion
 
+		#region UsrCostFinal
+		public abstract class usrCostFinal : PX.Data.BQL.BqlDecimal.Field<usrCostFinal> { }
+
+		/// <summary>
+		/// Cost Amount calculated using usrCost, usrCost, and curyAccruedCost depending on Invoice type and the isStockItem boolean.
+		/// </summary>
+		[PXPriceCost()]
+		[PXUIField(DisplayName = "Cost Amount", Enabled = false)]
+		public Decimal? UsrCostFinal { get; set; }
+		#endregion
 	}
 }

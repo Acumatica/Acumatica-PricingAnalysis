@@ -26,7 +26,7 @@
             <AddItem>
                 <PXTextEdit TypeFullName="PX.Web.UI.PXTextEdit">
                     <Prop Key="Virtual:ApplyStylesheetSkin" />
-                    <Prop Key="DataField" Value="MaxQtyOnHand" />
+                    <Prop Key="DataField" Value="UsrMaxQtyOnHand" />
                     <Prop Key="ID" Value="edMaxQtyOnHand" />
                 </PXTextEdit>
             </AddItem>
@@ -78,7 +78,7 @@
                 <PXNumberEdit TypeFullName="PX.Web.UI.PXNumberEdit">
                     <Prop Key="Virtual:ApplyStylesheetSkin" />
                     <Prop Key="CommitChanges" Value="True" />
-                    <Prop Key="DataField" Value="MarkupPercent" />
+                    <Prop Key="DataField" Value="UsrMarkupPercent" />
                     <Prop Key="ID" Value="edMarkupPercent" />
                     <Prop Key="Enabled" Value="False" />
                 </PXNumberEdit>
@@ -87,7 +87,7 @@
                 <PXNumberEdit TypeFullName="PX.Web.UI.PXNumberEdit">
                     <Prop Key="Virtual:ApplyStylesheetSkin" />
                     <Prop Key="CommitChanges" Value="True" />
-                    <Prop Key="DataField" Value="MarginPercent" />
+                    <Prop Key="DataField" Value="UsrMarginPercent" />
                     <Prop Key="ID" Value="edMarginPercent" />
                     <Prop Key="Enabled" Value="False" />
                 </PXNumberEdit>
@@ -96,6 +96,19 @@
     </PXFormView>
     <PXGridLevel DataMember="Components" ParentId="phG_tab_Items#0_componentsGrid_Levels#0" TypeFullName="PX.Web.UI.PXGridLevel">
         <Children Key="Columns">
+            <AddItem>
+                <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                    <Prop Key="DataField" Value="UsrQtyOnHand" />
+                    <Prop Key="Width" Value="100" />
+                </PXGridColumn>
+            </AddItem>
+            <AddItem>
+                <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
+                    <Prop Key="DataField" Value="UsrQtyAvailable" />
+                    <Prop Key="Width" Value="100" />
+                </PXGridColumn>
+            </AddItem>
+            <PXGridColumn DataField="Qty" OriginalIndex="5" />
             <AddItem>
                 <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
                     <Prop Key="DataField" Value="UsrUnitPrice" />
@@ -124,18 +137,6 @@
             <AddItem>
                 <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
                     <Prop Key="DataField" Value="usrMargin" />
-                </PXGridColumn>
-            </AddItem>
-            <AddItem>
-                <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
-                    <Prop Key="DataField" Value="QtyOnHand" />
-                    <Prop Key="Width" Value="100" />
-                </PXGridColumn>
-            </AddItem>
-            <AddItem>
-                <PXGridColumn TypeFullName="PX.Web.UI.PXGridColumn">
-                    <Prop Key="DataField" Value="QtyAvailable" />
-                    <Prop Key="Width" Value="100" />
                 </PXGridColumn>
             </AddItem>
         </Children>

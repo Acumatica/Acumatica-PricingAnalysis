@@ -50,7 +50,7 @@
                     <Prop Key="Virtual:ApplyStylesheetSkin" />
                     <Prop Key="Enabled" Value="False" />
                     <Prop Key="CommitChanges" Value="True" />
-                    <Prop Key="DataField" Value="MarkupPercent" />
+                    <Prop Key="DataField" Value="UsrMarkupPercent" />
                     <Prop Key="ID" Value="edMarkupPercent" />
                 </PXNumberEdit>
             </AddItem>
@@ -59,7 +59,7 @@
                     <Prop Key="Virtual:ApplyStylesheetSkin" />
                     <Prop Key="Enabled" Value="False" />
                     <Prop Key="CommitChanges" Value="True" />
-                    <Prop Key="DataField" Value="MarginPercent" />
+                    <Prop Key="DataField" Value="UsrMarginPercent" />
                     <Prop Key="ID" Value="edMarginPercent" />
                 </PXNumberEdit>
             </AddItem>

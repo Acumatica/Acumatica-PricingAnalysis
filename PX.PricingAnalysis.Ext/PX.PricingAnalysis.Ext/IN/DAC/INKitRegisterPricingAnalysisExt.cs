@@ -31,35 +31,38 @@ namespace PX.PricingAnalysis.Ext
         public abstract class usrProfitAmount : PX.Data.BQL.BqlDecimal.Field<usrProfitAmount> { }
 
 		[PXPriceCost()]
+        [PXUnboundDefault(TypeCode.Decimal, "0.00")]
         [PXUIField(DisplayName = "Profit Amount", Enabled = false)]
 		public Decimal? UsrProfitAmount { get; set; }
         #endregion
 
-        #region MarkupPercent
-        public abstract class markupPercent : PX.Data.BQL.BqlDecimal.Field<markupPercent> { }
+        #region UsrMarkupPercent
+        public abstract class usrMarkupPercent : PX.Data.BQL.BqlDecimal.Field<usrMarkupPercent> { }
 
         [PXDecimal(2)]
         [PXUIField(DisplayName = "Markup %", Enabled = false)]
         [PXUnboundDefault(TypeCode.Decimal, "0.0")]
-        public virtual decimal? MarkupPercent { get; set; }
+
+        public virtual decimal? UsrMarkupPercent { get; set; }
         #endregion
 
-        #region MarginPercent
-        public abstract class marginPercent : PX.Data.BQL.BqlDecimal.Field<marginPercent> { }
+        #region UsrMarginPercent
+        public abstract class usrMarginPercent : PX.Data.BQL.BqlDecimal.Field<usrMarginPercent> { }
 
         [PXDecimal(2)]
         [PXUIField(DisplayName = "Margin %", Enabled = false)]
         [PXUnboundDefault(TypeCode.Decimal, "0.0")]
-        public virtual decimal? MarginPercent { get; set; }
+
+        public virtual decimal? UsrMarginPercent { get; set; }
         #endregion
 
-        #region MaxQtyOnHand
-        public abstract class maxQtyOnHand : BqlDecimal.Field<maxQtyOnHand> { }
+        #region UsrMaxQtyOnHand
+        public abstract class usrMaxQtyOnHand : BqlDecimal.Field<usrMaxQtyOnHand> { }
 
         [PXUIField(DisplayName = "Max Qty", Enabled = false)]
         [PXDecimal(2)]
         [PXUnboundDefault(TypeCode.Decimal, "0.0")]
-        public virtual Decimal? MaxQtyOnHand { get; set; }
+        public virtual Decimal? UsrMaxQtyOnHand { get; set; }
         #endregion
     }
 }
