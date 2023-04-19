@@ -9,8 +9,11 @@ namespace PX.PricingAnalysis.Ext
 {
     public class ARInvoiceEntryPricingAnalysisExt : PricingAnalysisGraph<ARInvoiceEntry, ARInvoice>
     {
-        protected override bool CalcFreightPrices => true;
+        private decimal? amount = 0;
+        private decimal? cost = 0;
+        private decimal? profit = 0;
 
+        protected override bool CalcFreightPrices => true;
         protected override bool PreviewOnly => true;
 
         protected override DocumentMapping GetDocumentMapping()
@@ -141,11 +144,26 @@ namespace PX.PricingAnalysis.Ext
             }
             cost += row.CuryFreightCost;
             amount += row.CuryFreightTot;
+            this.amount = amount;
+            this.cost = cost;
+            this.profit = amount - cost;
             args.ReturnValue = amount;
-            rowExt.UsrCostTotal = cost;
-            rowExt.UsrProfitTotal = amount - rowExt.UsrCostTotal;
-            rowExt.UsrMarkupPercent = (rowExt.UsrCostTotal > 0) ? (rowExt.UsrProfitTotal / rowExt.UsrCostTotal) * 100 : null;
-            rowExt.UsrMarginPercent = (amount > 0) ? (rowExt.UsrProfitTotal / amount) * 100 : null;
+        }
+        public virtual void _(Events.FieldSelecting<ARInvoice, ARInvoicePricingAnalysisPXExt.usrCostTotal> args)
+        {
+            args.ReturnValue = cost;
+        }
+        public virtual void _(Events.FieldSelecting<ARInvoice, ARInvoicePricingAnalysisPXExt.usrProfitTotal> args)
+        {
+            args.ReturnValue = profit;
+        }
+        public virtual void _(Events.FieldSelecting<ARInvoice, ARInvoicePricingAnalysisPXExt.usrMarkupPercent> args)
+        {
+            args.ReturnValue = (cost > 0) ? (profit / cost) * 100 : null;
+        }
+        public virtual void _(Events.FieldSelecting<ARInvoice, ARInvoicePricingAnalysisPXExt.usrMarginPercent> args)
+        {
+            args.ReturnValue = (amount > 0) ? (profit / amount) * 100 : null;
         }
         #endregion
     }

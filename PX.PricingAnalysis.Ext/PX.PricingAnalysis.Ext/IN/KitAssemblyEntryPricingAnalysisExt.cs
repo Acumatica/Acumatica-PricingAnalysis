@@ -12,6 +12,10 @@ namespace PX.PricingAnalysis.Ext
 {
     public class KitAssemblyEntryPricingAnalysisExt : PXGraphExtension<KitAssemblyEntry>
     {
+        private decimal? amount = 0;
+        private decimal? cost = 0;
+        private decimal? profit = 0;
+
         public override void Initialize()
         {
             Page page = HttpContext.Current?.Handler as PXPage;
@@ -129,15 +133,28 @@ namespace PX.PricingAnalysis.Ext
                 amount += componentTranExt.UsrAmount;
                 cost += componentTranExt.UsrCostAmount;
             }
+            this.amount = amount;
+            this.cost = cost;
+            this.profit = amount - cost;
             args.ReturnValue = amount;
-            var row = args.Row;
-            var rowExt = row.GetExtension<INKitRegisterPricingAnalysisExt>();
-            rowExt.UsrTotalCost = cost;
-            rowExt.UsrProfitAmount = amount - rowExt.UsrTotalCost;
-            rowExt.UsrMarkupPercent = (rowExt.UsrTotalCost > 0) ? (rowExt.UsrProfitAmount / rowExt.UsrTotalCost) * 100 : null;
-            rowExt.UsrMarginPercent = (amount > 0) ? (rowExt.UsrProfitAmount / amount) * 100 : null;
+        }
+        public virtual void _(Events.FieldSelecting<INKitRegister, INKitRegisterPricingAnalysisExt.usrTotalCost> args)
+        {
+            args.ReturnValue = cost;
+        }
+        public virtual void _(Events.FieldSelecting<INKitRegister, INKitRegisterPricingAnalysisExt.usrProfitAmount> args)
+        {
+            args.ReturnValue = profit;
+        }
+        public virtual void _(Events.FieldSelecting<INKitRegister, INKitRegisterPricingAnalysisExt.usrMarkupPercent> args)
+        {
+            args.ReturnValue = (cost > 0) ? (profit / cost) * 100 : null;
+        }
+        public virtual void _(Events.FieldSelecting<INKitRegister, INKitRegisterPricingAnalysisExt.usrMarginPercent> args)
+        {
+            args.ReturnValue = (amount > 0) ? (profit / amount) * 100 : null;
         }
 
-            #endregion
+        #endregion
     }
 }

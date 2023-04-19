@@ -10,7 +10,10 @@ using PX.Data.BQL;
 namespace PX.PricingAnalysis.Ext
 {
 	public class INKitSpecMaintPricingAnalysisExt : PXGraphExtension<INKitSpecMaint>
-	{
+    {
+        private decimal? amount = 0;
+        private decimal? cost = 0;
+        private decimal? profit = 0;
 
         [PXMergeAttributes(Method = MergeMethod.Append)]
         [PXFormula(typeof(PALineCostValueExtAttribute<INKitSpecStkDet.compInventoryID, INKitSpecStkDetPricingAnalysisExt.usrSiteID, decimal0, INKitSpecStkDet.dfltCompQty, decimal0>))]
@@ -73,15 +76,27 @@ namespace PX.PricingAnalysis.Ext
                 amount += componentTranExt.UsrAmount;
                 cost += componentTranExt.UsrCostAmount;
             }
+            this.amount = amount;
+            this.cost = cost;
+            this.profit = amount - cost;
             args.ReturnValue = amount;
-            var row = args.Row;
-            var rowExt = row.GetExtension<INKitSpecHdrPricingAnalysisExt>();
-            rowExt.UsrTotalCost = cost;
-            rowExt.UsrProfitAmount = amount - rowExt.UsrTotalCost;
-            rowExt.UsrMarkupPercent = (rowExt.UsrTotalCost > 0) ? (rowExt.UsrProfitAmount / rowExt.UsrTotalCost) * 100 : null;
-            rowExt.UsrMarginPercent = (amount > 0) ? (rowExt.UsrProfitAmount / amount) * 100 : null;
         }
-
+        public virtual void _(Events.FieldSelecting<INKitSpecHdr, INKitSpecHdrPricingAnalysisExt.usrTotalCost> args)
+        {
+            args.ReturnValue = cost;
+        }
+        public virtual void _(Events.FieldSelecting<INKitSpecHdr, INKitSpecHdrPricingAnalysisExt.usrProfitAmount> args)
+        {
+            args.ReturnValue = profit;
+        }
+        public virtual void _(Events.FieldSelecting<INKitSpecHdr, INKitSpecHdrPricingAnalysisExt.usrMarkupPercent> args)
+        {
+            args.ReturnValue = (cost > 0) ? (profit / cost) * 100 : null;
+        }
+        public virtual void _(Events.FieldSelecting<INKitSpecHdr, INKitSpecHdrPricingAnalysisExt.usrMarginPercent> args)
+        {
+            args.ReturnValue = (amount > 0) ? (profit / amount) * 100 : null;
+        }
         #endregion
     }
 }
