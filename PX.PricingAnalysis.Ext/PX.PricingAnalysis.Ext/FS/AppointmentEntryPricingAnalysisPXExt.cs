@@ -23,7 +23,7 @@ namespace PX.PricingAnalysis.Ext
                 NoteID = typeof(FSAppointmentDet.noteID),
                 LineNbr = typeof(FSAppointmentDet.lineNbr),
                 InventoryID = typeof(FSAppointmentDet.inventoryID),
-                IsStockItem = typeof(FSAppointmentDetPricingPXExt.usrPricingEligible),
+                PricingEligible = typeof(FSAppointmentDetPricingPXExt.usrPricingEligible),
                 UOM = typeof(FSAppointmentDet.uOM),
                 OrderQty = typeof(FSAppointmentDet.estimatedQty),
                 CuryDiscAmt = typeof(FSAppointmentDet.curyDiscAmt),

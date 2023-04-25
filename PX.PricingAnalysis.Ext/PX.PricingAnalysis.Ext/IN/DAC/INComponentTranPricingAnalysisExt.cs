@@ -83,13 +83,12 @@ namespace PX.PricingAnalysis.Ext
 		public Decimal? UsrQtyAvailable { get; set; }
 		#endregion
 
-		#region UsrKitQty
-		public abstract class usrKitQty : PX.Data.BQL.BqlDecimal.Field<usrKitQty> { }
+		#region UsrQtyActual
+		public abstract class usrQtyActual : BqlDecimal.Field<usrQtyActual> { }
 
 		[PXDecimal(2)]
-		[PXUnboundDefault(TypeCode.Decimal, "0.00")]
-
-		public Decimal? UsrKitQty { get; set; }
+		[PXUnboundDefault(TypeCode.Decimal, "0.0")]
+		public Decimal? UsrQtyActual { get; set; }
 		#endregion
 	}
 }

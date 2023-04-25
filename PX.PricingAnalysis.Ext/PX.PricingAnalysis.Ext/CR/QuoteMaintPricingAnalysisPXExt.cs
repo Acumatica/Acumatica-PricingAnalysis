@@ -21,7 +21,7 @@ namespace PX.PricingAnalysis.Ext
                 NoteID = typeof(CROpportunityProducts.noteID),
                 LineNbr = typeof(CROpportunityProducts.lineNbr),
                 InventoryID = typeof(CROpportunityProducts.inventoryID),
-                IsStockItem = typeof(CROpportunityProductsPricingPXExt.usrPricingEligible),
+                PricingEligible = typeof(CROpportunityProductsPricingPXExt.usrPricingEligible),
                 UOM = typeof(CROpportunityProducts.uOM),
                 OrderQty = typeof(CROpportunityProducts.quantity),
                 CuryDiscAmt = typeof(CROpportunityProducts.curyDiscAmt),

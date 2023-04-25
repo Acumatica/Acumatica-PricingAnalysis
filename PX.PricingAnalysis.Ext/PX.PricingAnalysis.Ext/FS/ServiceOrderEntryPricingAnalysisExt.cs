@@ -23,7 +23,7 @@ namespace PX.PricingAnalysis.Ext
                 NoteID = typeof(FSSODet.noteID),
                 LineNbr = typeof(FSSODet.lineNbr),
                 InventoryID = typeof(FSSODet.inventoryID),
-                IsStockItem = typeof(FSSODetPricingPXExt.usrPricingEligible),
+                PricingEligible = typeof(FSSODetPricingPXExt.usrPricingEligible),
                 UOM = typeof(FSSODet.uOM),
                 OrderQty = typeof(FSSODet.estimatedQty),
                 CuryDiscAmt = typeof(FSSODet.curyDiscAmt),

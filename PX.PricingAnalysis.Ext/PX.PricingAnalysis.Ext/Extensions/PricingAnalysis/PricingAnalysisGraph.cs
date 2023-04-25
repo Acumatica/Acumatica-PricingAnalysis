@@ -287,7 +287,22 @@ namespace PX.PricingAnalysis.Ext
             {
                 var inventoryItem = InventoryItem.PK.Find(Base, orgLine.InventoryID);
 
-                if (!orgLine.IsStockItem.GetValueOrDefault(false) || orgLine.OrderQty.GetValueOrDefault(0) <= 0) { continue; }
+                if (orgLine.OrderQty.GetValueOrDefault(0) <= 0) { continue; }
+
+                //if (!inventoryItem.StkItem.GetValueOrDefault(false) && inventoryItem.KitItem.GetValueOrDefault(false)
+                //    && this.Base is ARInvoiceEntry && orgLine.InvtRefNbr != null)
+                //{
+                //    decimal? kitCost = 0;
+                //    foreach (INTran component in PXSelect<INTran, Where<INTran.refNbr, Equal<Required<INTran.refNbr>>, 
+                //        And<INTran.docType, Equal<INDocType.issue>, And<INTran.aRLineNbr, Equal<Required<INTran.aRLineNbr>>>>>>.
+                //                                            SelectMultiBound(Base, null, orgLine.InvtRefNbr, orgLine.LineNbr))
+                //    {
+                //        kitCost += component.TranCost;
+
+                //    }
+                //    orgLine.CuryExtCost = kitCost;
+                //}
+                orgLine.CuryExtCost = orgLine.PricingEligible.GetValueOrDefault(false) ? orgLine.CuryExtCost : 0;
 
                 PricingAnalysisPreviewLine line = new PricingAnalysisPreviewLine()
                 {
@@ -1130,7 +1145,7 @@ namespace PX.PricingAnalysis.Ext
             public Type NoteID = typeof(DocumentLine.noteID);
             public Type LineNbr = typeof(DocumentLine.lineNbr);
             public Type InventoryID = typeof(DocumentLine.inventoryID);
-            public Type IsStockItem = typeof(DocumentLine.isStockItem);
+            public Type PricingEligible = typeof(DocumentLine.pricingEligible);
             public Type UOM = typeof(DocumentLine.uOM);
             public Type InvtRefNbr = typeof(DocumentLine.invtRefNbr);
             public Type OrderQty = typeof(DocumentLine.orderQty);
@@ -1215,10 +1230,10 @@ namespace PX.PricingAnalysis.Ext
         public virtual int? InventoryID { get; set; }
         #endregion
 
-        #region IsStockItem
-        public abstract class isStockItem : PX.Data.BQL.BqlBool.Field<isStockItem> { }
+        #region PricingEligible
+        public abstract class pricingEligible : PX.Data.BQL.BqlBool.Field<pricingEligible> { }
 
-        public virtual bool? IsStockItem { get; set; }
+        public virtual bool? PricingEligible { get; set; }
         #endregion
 
         #region UOM

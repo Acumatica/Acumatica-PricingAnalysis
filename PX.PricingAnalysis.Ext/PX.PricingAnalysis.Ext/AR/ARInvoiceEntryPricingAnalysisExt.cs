@@ -36,7 +36,7 @@ namespace PX.PricingAnalysis.Ext
                 NoteID = typeof(ARTran.noteID),
                 LineNbr = typeof(ARTran.lineNbr),
                 InventoryID = typeof(ARTran.inventoryID),
-                IsStockItem = typeof(ARTranPricingAnalysisPXExt.usrPricingEligible),
+                PricingEligible = typeof(ARTranPricingAnalysisPXExt.usrPricingEligible),
                 UOM = typeof(ARTran.uOM),
                 InvtRefNbr = typeof(ARTranPricingAnalysisPXExt.usrInvtRefNbr),
                 OrderQty = typeof(ARTran.qty),
@@ -110,11 +110,15 @@ namespace PX.PricingAnalysis.Ext
             if (e.Cache == null || e.Row == null) return;
             bool isNewUnreleased = e.Cache.GetStatus(e.Row) == PXEntryStatus.Inserted
                 || e.Row.Status == ARDocStatus.Hold || e.Row.Status == ARDocStatus.Balanced;
-            PXUIFieldAttribute.SetVisible<ARInvoicePricingAnalysisPXExt.usrAmountTotal>(e.Cache, e.Row, !isNewUnreleased);
+            bool isTaxed = isNewUnreleased || e.Row.CuryTaxTotal.GetValueOrDefault(0) > 0;
+            PXUIFieldAttribute.SetVisible<ARInvoicePricingAnalysisPXExt.usrAmountTotal>(e.Cache, e.Row, !isNewUnreleased && !isTaxed);
+            PXUIFieldAttribute.SetVisible<ARInvoicePricingAnalysisPXExt.usrExTaxAmountTotal>(e.Cache, e.Row, !isNewUnreleased && isTaxed);
             PXUIFieldAttribute.SetVisible<ARInvoicePricingAnalysisPXExt.usrCostTotal>(e.Cache, e.Row, !isNewUnreleased);
             PXUIFieldAttribute.SetVisible<ARInvoicePricingAnalysisPXExt.usrMarginPercent>(e.Cache, e.Row, !isNewUnreleased);
             PXUIFieldAttribute.SetVisible<ARInvoicePricingAnalysisPXExt.usrMarkupPercent>(e.Cache, e.Row, !isNewUnreleased);
             PXUIFieldAttribute.SetVisible<ARInvoicePricingAnalysisPXExt.usrProfitTotal>(e.Cache, e.Row, !isNewUnreleased);
+            PXUIFieldAttribute.SetVisible<ARInvoice.curyTaxTotal>(e.Cache, e.Row, isTaxed);
+            PXUIFieldAttribute.SetVisible<ARInvoice.curyOrigDocAmt>(e.Cache, e.Row, isTaxed);
         }
         protected void _(Events.RowSelected<ARTran> e)
         {
@@ -136,10 +140,24 @@ namespace PX.PricingAnalysis.Ext
             foreach (ARTran tran in trans)
             {
                 var tranExt = tran.GetExtension<ARTranPricingAnalysisPXExt>();
-                if (!tranExt.UsrPricingEligible.GetValueOrDefault(false) || tran.Qty.GetValueOrDefault(0) <= 0) { continue; }
+                if (tran.Qty.GetValueOrDefault(0) <= 0) { continue; }
                 var inventoryItem = InventoryItem.PK.Find(Base, tran.InventoryID);
                 if (tranExt == null) { return; }
-                cost += tranExt.UsrCostFinal;
+
+                //if (!inventoryItem.StkItem.GetValueOrDefault(false) && inventoryItem.KitItem.GetValueOrDefault(false))
+                //{
+                //    decimal? kitCost = 0;
+                //    foreach (INTran component in PXSelect<INTran, Where<INTran.refNbr, Equal<Required<INTran.refNbr>>,
+                //        And<INTran.docType, Equal<INDocType.issue>, And<INTran.aRLineNbr, Equal<Required<INTran.aRLineNbr>>>>>>.
+                //                                            SelectMultiBound(Base, null, tranExt.UsrInvtRefNbr, tran.LineNbr))
+                //    {
+                //        kitCost += component.TranCost;
+
+                //    }
+                //    cost += kitCost;
+                //}
+
+                cost += tranExt.UsrPricingEligible.GetValueOrDefault(false) ? tranExt.UsrCostFinal : 0;
                 amount += tran.CuryTranAmt;
             }
             cost += row.CuryFreightCost;
@@ -149,6 +167,12 @@ namespace PX.PricingAnalysis.Ext
             this.profit = amount - cost;
             args.ReturnValue = amount;
         }
+
+        public virtual void _(Events.FieldSelecting<ARInvoice, ARInvoicePricingAnalysisPXExt.usrExTaxAmountTotal> args)
+        {
+            args.ReturnValue = amount;
+        }
+
         public virtual void _(Events.FieldSelecting<ARInvoice, ARInvoicePricingAnalysisPXExt.usrCostTotal> args)
         {
             args.ReturnValue = cost;

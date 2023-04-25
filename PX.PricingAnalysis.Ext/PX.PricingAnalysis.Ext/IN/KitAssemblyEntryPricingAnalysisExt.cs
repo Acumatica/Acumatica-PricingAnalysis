@@ -37,10 +37,9 @@ namespace PX.PricingAnalysis.Ext
                     var data = ((PX.Data.PXResult)erdb.Row.DataItem).GetItem<INComponentTran>();
                     var dataSpec = ((PX.Data.PXResult)erdb.Row.DataItem).GetItem<INKitSpecStkDet>();
                     var dataExt = data.GetExtension<INComponentTranPricingAnalysisExt>();
-                    erdb.Row.Cells["UsrQtyOnHand"].Style.CssClass = ((dataSpec.MinCompQty != null && dataExt.UsrQtyOnHand < dataExt.UsrKitQty.GetValueOrDefault(0) * dataSpec.MinCompQty) ||
-                    dataSpec.MinCompQty == null && dataExt.UsrQtyOnHand < dataExt.UsrKitQty.GetValueOrDefault(0) * dataSpec.DfltCompQty) ? "red20" : 
-                    (dataSpec.MinCompQty != null && dataExt.UsrQtyOnHand < dataExt.UsrKitQty.GetValueOrDefault(0) * dataSpec.DfltCompQty) ? "yellow20" : "green20";
-                    erdb.Row.Cells["UsrQtyAvailable"].Style.CssClass = (dataExt.UsrQtyAvailable < dataExt.UsrKitQty.GetValueOrDefault(0) * dataSpec.DfltCompQty) ? "red20" : "green20";
+                    erdb.Row.Cells["UsrQtyOnHand"].Style.CssClass = (dataExt.UsrQtyOnHand < data.Qty) ? "red20" : 
+                    (dataExt.UsrQtyActual < data.Qty) ? "yellow20" : erdb.Row.Cells["UsrQtyOnHand"].Style.CssClass;
+                    erdb.Row.Cells["UsrQtyAvailable"].Style.CssClass = (dataExt.UsrQtyOnHand < data.Qty) ? "red20" : erdb.Row.Cells["UsrQtyAvailable"].Style.CssClass;
                 }; 
             }
         }
@@ -104,13 +103,14 @@ namespace PX.PricingAnalysis.Ext
                 {
                     componentTranExt.UsrQtyOnHand = availability.QtyOnHand;
                     componentTranExt.UsrQtyAvailable = availability.QtyAvail;
+                    componentTranExt.UsrQtyActual = availability.QtyActual;
+
                     INKitSpecStkDet spec = Base.GetComponentSpecByID(component.InventoryID, component.SubItemID);
                     if (spec?.DfltCompQty == null) { continue; }
                     maxOnHand = Math.Min(maxOnHand, (decimal)availability.QtyOnHand / (decimal)spec.DfltCompQty);
                 }
-                componentTranExt.UsrKitQty = row.Qty;
             }
-            maxOnHand = Math.Round(maxOnHand, 2);
+            maxOnHand = Math.Floor(maxOnHand);
             args.ReturnValue = maxOnHand == decimal.MaxValue ? 0 : maxOnHand;
         }
 
@@ -131,7 +131,7 @@ namespace PX.PricingAnalysis.Ext
             {
                 var componentTranExt = overhead.GetExtension<INOverheadTranPricingAnalysisExt>();
                 amount += componentTranExt.UsrAmount;
-                cost += componentTranExt.UsrCostAmount;
+                cost += componentTranExt.UsrAccrueCost.GetValueOrDefault(false) ? componentTranExt.UsrCostAmount : 0;
             }
             this.amount = amount;
             this.cost = cost;

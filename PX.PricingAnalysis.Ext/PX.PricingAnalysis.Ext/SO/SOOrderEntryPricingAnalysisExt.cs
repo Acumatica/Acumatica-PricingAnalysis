@@ -32,7 +32,7 @@ namespace PX.PricingAnalysis.Ext
                 NoteID = typeof(SOLine.noteID),
                 LineNbr = typeof(SOLine.lineNbr),
                 InventoryID = typeof(SOLine.inventoryID),
-                IsStockItem = typeof(SOLinePricingPXExt.usrPricingEligible),
+                PricingEligible = typeof(SOLinePricingPXExt.usrPricingEligible),
                 UOM = typeof(SOLine.uOM),
                 OrderQty = typeof(SOLine.orderQty),
                 CuryDiscAmt = typeof(SOLine.curyDiscAmt),

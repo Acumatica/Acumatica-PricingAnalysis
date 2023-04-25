@@ -18,6 +18,15 @@ namespace PX.PricingAnalysis.Ext
         public Decimal? UsrAmountTotal { get; set; }
         #endregion
 
+        #region UsrExTaxAmountTotal
+        public abstract class usrExTaxAmountTotal : PX.Data.BQL.BqlDecimal.Field<usrExTaxAmountTotal> { }
+
+        [PXPriceCost]
+        [PXUIField(DisplayName = "Ex. Tax", Enabled = false)]
+        [PXUnboundDefault(TypeCode.Decimal, "0.0")]
+        public Decimal? UsrExTaxAmountTotal { get; set; }
+        #endregion
+
         #region UsrCostTotal
         public abstract class usrCostTotal : PX.Data.BQL.BqlDecimal.Field<usrCostTotal> { }
 

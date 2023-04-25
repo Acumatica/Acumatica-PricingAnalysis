@@ -74,7 +74,7 @@ namespace PX.PricingAnalysis.Ext
             {
                 var componentTranExt = overhead.GetExtension<INKitSpecNonStkDetPricingAnalysisExt>();
                 amount += componentTranExt.UsrAmount;
-                cost += componentTranExt.UsrCostAmount;
+                cost += componentTranExt.UsrAccrueCost.GetValueOrDefault(false) ? componentTranExt.UsrCostAmount : 0;
             }
             this.amount = amount;
             this.cost = cost;

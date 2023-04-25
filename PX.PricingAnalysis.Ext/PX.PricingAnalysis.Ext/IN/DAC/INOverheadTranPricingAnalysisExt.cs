@@ -7,6 +7,15 @@ namespace PX.PricingAnalysis.Ext
 {
     public sealed class INOverheadTranPricingAnalysisExt : PXCacheExtension<INOverheadTran>
     {
+		#region UsrAccrueCost
+		public abstract class usrAccrueCost : PX.Data.BQL.BqlBool.Field<usrAccrueCost> { }
+
+		[PXBool]
+		[PXUnboundDefault(false, PersistingCheck = PXPersistingCheck.Nothing)]
+		[PXFormula(typeof(Selector<INOverheadTran.inventoryID, InventoryItem.accrueCost>))]
+		public bool? UsrAccrueCost { get; set; }
+		#endregion
+
 		#region UsrUnitPrice
 		public abstract class usrUnitPrice : PX.Data.BQL.BqlDecimal.Field<usrUnitPrice> { }
 
