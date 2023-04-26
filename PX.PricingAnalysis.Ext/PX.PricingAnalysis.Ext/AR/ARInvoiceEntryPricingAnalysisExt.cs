@@ -144,6 +144,7 @@ namespace PX.PricingAnalysis.Ext
                 var inventoryItem = InventoryItem.PK.Find(Base, tran.InventoryID);
                 if (tranExt == null) { return; }
 
+                //NSK
                 //if (!inventoryItem.StkItem.GetValueOrDefault(false) && inventoryItem.KitItem.GetValueOrDefault(false))
                 //{
                 //    decimal? kitCost = 0;
@@ -152,10 +153,10 @@ namespace PX.PricingAnalysis.Ext
                 //                                            SelectMultiBound(Base, null, tranExt.UsrInvtRefNbr, tran.LineNbr))
                 //    {
                 //        kitCost += component.TranCost;
-
                 //    }
-                //    cost += kitCost;
+                //    tranExt.UsrCostFinal = kitCost;
                 //}
+                //NSK
 
                 cost += tranExt.UsrPricingEligible.GetValueOrDefault(false) ? tranExt.UsrCostFinal : 0;
                 amount += tran.CuryTranAmt;

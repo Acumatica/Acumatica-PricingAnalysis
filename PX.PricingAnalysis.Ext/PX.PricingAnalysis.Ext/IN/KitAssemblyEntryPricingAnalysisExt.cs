@@ -131,7 +131,7 @@ namespace PX.PricingAnalysis.Ext
             {
                 var componentTranExt = overhead.GetExtension<INOverheadTranPricingAnalysisExt>();
                 amount += componentTranExt.UsrAmount;
-                cost += componentTranExt.UsrAccrueCost.GetValueOrDefault(false) ? componentTranExt.UsrCostAmount : 0;
+                cost += componentTranExt.UsrCostAmount;
             }
             this.amount = amount;
             this.cost = cost;

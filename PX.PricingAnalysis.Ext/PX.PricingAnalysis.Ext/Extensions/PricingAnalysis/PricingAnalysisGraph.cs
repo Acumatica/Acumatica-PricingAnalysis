@@ -289,11 +289,12 @@ namespace PX.PricingAnalysis.Ext
 
                 if (orgLine.OrderQty.GetValueOrDefault(0) <= 0) { continue; }
 
+                //NSK
                 //if (!inventoryItem.StkItem.GetValueOrDefault(false) && inventoryItem.KitItem.GetValueOrDefault(false)
                 //    && this.Base is ARInvoiceEntry && orgLine.InvtRefNbr != null)
                 //{
                 //    decimal? kitCost = 0;
-                //    foreach (INTran component in PXSelect<INTran, Where<INTran.refNbr, Equal<Required<INTran.refNbr>>, 
+                //    foreach (INTran component in PXSelect<INTran, Where<INTran.refNbr, Equal<Required<INTran.refNbr>>,
                 //        And<INTran.docType, Equal<INDocType.issue>, And<INTran.aRLineNbr, Equal<Required<INTran.aRLineNbr>>>>>>.
                 //                                            SelectMultiBound(Base, null, orgLine.InvtRefNbr, orgLine.LineNbr))
                 //    {
@@ -302,6 +303,8 @@ namespace PX.PricingAnalysis.Ext
                 //    }
                 //    orgLine.CuryExtCost = kitCost;
                 //}
+                //NSK
+
                 orgLine.CuryExtCost = orgLine.PricingEligible.GetValueOrDefault(false) ? orgLine.CuryExtCost : 0;
 
                 PricingAnalysisPreviewLine line = new PricingAnalysisPreviewLine()
