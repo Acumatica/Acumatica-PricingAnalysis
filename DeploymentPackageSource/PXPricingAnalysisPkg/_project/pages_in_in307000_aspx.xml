@@ -61,7 +61,7 @@
                     <Prop Key="Virtual:ApplyStylesheetSkin" />
                     <Prop Key="CommitChanges" Value="True" />
                     <Prop Key="DataField" Value="UsrTotalCost" />
-                    <Prop Key="ID" Value="edTotalCost" />
+                    <Prop Key="ID" Value="edUsrTotalCost" />
                     <Prop Key="Enabled" Value="False" />
                 </PXNumberEdit>
             </AddItem>

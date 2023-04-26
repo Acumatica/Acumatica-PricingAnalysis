@@ -25,7 +25,7 @@
                     <Prop Key="Enabled" Value="False" />
                     <Prop Key="CommitChanges" Value="True" />
                     <Prop Key="DataField" Value="UsrTotalCost" />
-                    <Prop Key="ID" Value="edTotalCost" />
+                    <Prop Key="ID" Value="edUsrTotalCost" />
                 </PXNumberEdit>
             </AddItem>
             <AddItem>
@@ -51,7 +51,7 @@
                     <Prop Key="Enabled" Value="False" />
                     <Prop Key="CommitChanges" Value="True" />
                     <Prop Key="DataField" Value="UsrMarkupPercent" />
-                    <Prop Key="ID" Value="edMarkupPercent" />
+                    <Prop Key="ID" Value="edUsrMarkupPercent" />
                 </PXNumberEdit>
             </AddItem>
             <AddItem>
@@ -60,7 +60,7 @@
                     <Prop Key="Enabled" Value="False" />
                     <Prop Key="CommitChanges" Value="True" />
                     <Prop Key="DataField" Value="UsrMarginPercent" />
-                    <Prop Key="ID" Value="edMarginPercent" />
+                    <Prop Key="ID" Value="edUsrMarginPercent" />
                 </PXNumberEdit>
             </AddItem>
         </Children>

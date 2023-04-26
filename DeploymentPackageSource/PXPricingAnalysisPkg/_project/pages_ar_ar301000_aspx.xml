@@ -452,7 +452,7 @@
             <AddItem>
                 <PXNumberEdit TypeFullName="PX.Web.UI.PXNumberEdit">
                     <Prop Key="Virtual:ApplyStylesheetSkin" />
-                    <Prop Key="ID" Value="CstPXNumberEdit2" />
+                    <Prop Key="ID" Value="edUsrExTaxAmountTotal" />
                     <Prop Key="DataField" Value="UsrExTaxAmountTotal" />
                 </PXNumberEdit>
             </AddItem>
@@ -461,15 +461,15 @@
                     <Prop Key="Virtual:ApplyStylesheetSkin" />
                     <Prop Key="CommitChanges" Value="True" />
                     <Prop Key="DataField" Value="usrCostTotal" />
-                    <Prop Key="ID" Value="edCuryExtCostTotal" />
+                    <Prop Key="ID" Value="edUsrCostTotal" />
                     <Prop Key="Enabled" Value="False" />
                 </PXNumberEdit>
             </AddItem>
             <AddItem>
                 <PXJavaScript TypeFullName="PX.Web.UI.PXJavaScript">
                     <Prop Key="Virtual:ApplyStylesheetSkin" />
-                    <Prop Key="ID" Value="CstJavaScript1" />
-                    <Prop Key="Script" Value="function setColors(sender, e) {   var edCuryProfitTotal = px_all[&quot;ctl00_phF_form_t0_edCuryProfitTotal&quot;];   var edCuryProfitTotalControl = document.getElementById(&quot;ctl00_phF_form_t0_edCuryProfitTotal&quot;);   var edCuryProfitTotalPanelControl = document.getElementById(&quot;ctl00_phDS_pnlProfitAnalysis_frmLineAllocationLabels_edCuryProfitTotal&quot;);     if (edCuryProfitTotal &amp;&amp; edCuryProfitTotal.value &lt;= 0)   {     edCuryProfitTotalControl.style.setProperty('background-color', 'rgba(255, 0, 0, 0.2)', 'important');     edCuryProfitTotalPanelControl.style.setProperty('background-color', 'rgba(255, 0, 0, 0.2)', 'important');   }   else   {     edCuryProfitTotalControl.style.setProperty('background-color', 'rgba(112, 173, 71, 0.2)', 'important');     edCuryProfitTotalPanelControl.style.setProperty('background-color', 'rgba(112, 173, 71, 0.2)', 'important');   } }" />
+                    <Prop Key="ID" Value="setColors" />
+                    <Prop Key="Script" Value="function setColors(sender, e) {   var edUsrProfitTotal= px_all[&quot;ctl00_phF_form_t0_edUsrProfitTotal&quot;];   var edUsrProfitTotalControl = document.getElementById(&quot;ctl00_phF_form_t0_edUsrProfitTotal&quot;);   var edCuryProfitTotalPanelControl = document.getElementById(&quot;ctl00_phDS_pnlProfitAnalysis_frmLineAllocationLabels_edCuryProfitTotal&quot;);     if (edUsrProfitTotal &amp;&amp; edUsrProfitTotal.value &lt;= 0)   {     edUsrProfitTotalControl.style.setProperty('background-color', 'rgba(255, 0, 0, 0.2)', 'important');     edCuryProfitTotalPanelControl.style.setProperty('background-color', 'rgba(255, 0, 0, 0.2)', 'important');   }   else   {     edUsrProfitTotalControl.style.setProperty('background-color', 'rgba(112, 173, 71, 0.2)', 'important');     edCuryProfitTotalPanelControl.style.setProperty('background-color', 'rgba(112, 173, 71, 0.2)', 'important');   } }" />
                 </PXJavaScript>
             </AddItem>
             <AddItem>
@@ -477,7 +477,7 @@
                     <Prop Key="Virtual:ApplyStylesheetSkin" />
                     <Prop Key="CommitChanges" Value="True" />
                     <Prop Key="DataField" Value="usrProfitTotal" />
-                    <Prop Key="ID" Value="edCuryProfitTotal" />
+                    <Prop Key="ID" Value="edUsrProfitTotal" />
                     <Prop Key="LinkCommand.Target" Value="ds" />
                     <Prop Key="LinkCommand.Command" Value="PricingAnalysis" />
                     <Prop Key="Enabled" Value="False" />
