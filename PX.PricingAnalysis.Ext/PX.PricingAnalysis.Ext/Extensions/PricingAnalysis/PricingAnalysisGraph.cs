@@ -1,7 +1,6 @@
 ﻿using PX.Data;
-using PX.Data.BQL;
-using PX.Data.Licensing;
 using PX.Objects.AR;
+using PX.Objects.CS;
 using PX.Objects.IN;
 using PX.Objects.SO;
 using PX.Web.UI;
@@ -71,16 +70,16 @@ namespace PX.PricingAnalysis.Ext
 
                     erHdb.Row.Cells["CuryProfitTotal"].Style.CssClass = (dataHeader.CuryProfitTotal < 0M) ? "red20" : "green20";
 
-                    if(!PreviewOnly)
+                    if (!PreviewOnly)
                     {
                         erHdb.Row.Cells["HeaderInfoType"].Style.CssClass = (dataHeader.HeaderInfoType == HeaderInfoTypes.Current) ?
                                                                            "CssStyleHeaderCurrent" : "CssStyleHeaderPreview";
                     }
                     erHdb.Row.Cells["HeaderInfoType"].Column.Header.ImageUrl = "control@Empty";
+
+                    erHdb.Row.Cells["MarkupPercent"].Style.CssClass = (dataHeader.MarkupPercent < 0M) ? "red20" : erHdb.Row.Cells["MarkupPercent"].Style.CssClass;
                 };
             }
-
-            if (PreviewOnly) { return; }
 
             PX.Web.UI.PXGrid grdProfitPreview = (PX.Web.UI.PXGrid)ControlHelper.FindControl("grdProfitPreview", page);
             if (grdProfitPreview != null)
@@ -89,8 +88,22 @@ namespace PX.PricingAnalysis.Ext
                 {
                     var data = erdb.Row.DataItem as PX.PricingAnalysis.Ext.PricingAnalysisPreviewLine;
                     if (data == null) { return; }
+                    var inventoryItem = InventoryItem.PK.Find(Base, data.InventoryID);
+                    SOSetup sosetup = PXSelect<SOSetup>.Select(Base);
+
                     if (data.LineType == PX.PricingAnalysis.Ext.ProfitLineType.CurrentLineType)
                     {
+                        if (data.MarkupPercent.GetValueOrDefault(0) == 0M ||
+                        (this.Base is SOOrderEntry && data.MarkupPercent.GetValueOrDefault(0) < inventoryItem.MinGrossProfitPct.GetValueOrDefault(0)
+                        && !(data.IsPromotionalPrice == true && sosetup.IgnoreMinGrossProfitPromotionalPrice == true
+                        || data.PriceType == PriceTypes.Customer && sosetup.IgnoreMinGrossProfitCustomerPrice == true
+                        || data.PriceType == PriceTypes.CustomerPriceClass && sosetup.IgnoreMinGrossProfitCustomerPriceClass == true)))
+                        {
+                            erdb.Row.Cells["MarkupPercent"].Style.CssClass = "red20";
+                        }
+
+                        if (PreviewOnly) { return; }
+
                         erdb.Row.Style.CssClass = "CssCurentRowStyle";
 
                         if (data.IsLastCostUsed.GetValueOrDefault(false))
@@ -101,11 +114,6 @@ namespace PX.PricingAnalysis.Ext
                         if (data.MarginPercent.GetValueOrDefault(0) == 0M)
                         {
                             erdb.Row.Cells["MarginPercent"].Style.CssClass = "bad";
-                        }
-
-                        if (data.MarkupPercent.GetValueOrDefault(0) == 0M)
-                        {
-                            erdb.Row.Cells["MarkupPercent"].Style.CssClass = "bad";
                         }
                     }
                     else
@@ -118,7 +126,11 @@ namespace PX.PricingAnalysis.Ext
                         erdb.Row.Cells["CuryLineAmt"].Style.CssClass = "CssCurentCellStyleEditing";
                         erdb.Row.Cells["CuryProfit"].Style.CssClass = "CssCurentCellStyleEditing";
                         erdb.Row.Cells["MarginPercent"].Style.CssClass = (data.MarginPercent.GetValueOrDefault(0) == 0M) ? "bad" : "CssCurentCellStyleEditing";
-                        erdb.Row.Cells["MarkupPercent"].Style.CssClass = (data.MarkupPercent.GetValueOrDefault(0) == 0M) ? "bad" : "CssCurentCellStyleEditing";
+                        erdb.Row.Cells["MarkupPercent"].Style.CssClass = (data.MarkupPercent.GetValueOrDefault(0) == 0M ||
+                        (this.Base is SOOrderEntry && data.MarkupPercent.GetValueOrDefault(0) < inventoryItem.MinGrossProfitPct.GetValueOrDefault(0)
+                        && !(data.IsPromotionalPrice == true && sosetup.IgnoreMinGrossProfitPromotionalPrice == true
+                        || data.PriceType == PriceTypes.Customer && sosetup.IgnoreMinGrossProfitCustomerPrice == true
+                        || data.PriceType == PriceTypes.CustomerPriceClass && sosetup.IgnoreMinGrossProfitCustomerPriceClass == true))) ? "bad" : "CssCurentCellStyleEditing";
                     }
                 };
             }
@@ -156,6 +168,36 @@ namespace PX.PricingAnalysis.Ext
                     {
                         erdb.Row.Style.CssClass = "CssCurentRowStyleEditing";
                     }
+                };
+            }
+
+            PX.Web.UI.PXGrid grdComponents = (PX.Web.UI.PXGrid)ControlHelper.FindControl("grid", page);
+            if (grdComponents != null && this.Base is SOOrderEntry)
+            {
+                grdComponents.RowDataBound += (object grdSender, PXGridRowEventArgs erdb) =>
+                {
+                    var data = erdb.Row.DataItem as SOLine;
+                    var dataExt = data.GetExtension<SOLinePricingPXExt>();
+                    if (dataExt.UsrQtyOnHand == null || dataExt.UsrQtyOnHand == "" || dataExt.UsrQtyOnHand == "View") { return; }
+                    erdb.Row.Cells["UsrQtyOnHand"].Style.CssClass =
+                    (Decimal.Parse(dataExt.UsrQtyOnHand ?? "0") < data.OrderQty) ? "red20" :
+                    (Decimal.Parse(dataExt.UsrQtyAvailable ?? "0") < data.OrderQty) ? "yellow20" :
+                    erdb.Row.Cells["UsrQtyOnHand"].Style.CssClass;
+
+                    erdb.Row.Cells["UsrQtyAvailable"].Style.CssClass =
+                    (Decimal.Parse(dataExt.UsrQtyAvailable ?? "0") < data.OrderQty) ? "red20" :
+                    erdb.Row.Cells["UsrQtyAvailable"].Style.CssClass;
+                };
+            }
+
+            PX.Web.UI.PXGrid grdLimiting = (PX.Web.UI.PXGrid)ControlHelper.FindControl("KitDetails", page);
+            if (grdLimiting != null && this.Base is SOOrderEntry)
+            {
+                grdLimiting.RowDataBound += (object grdSender, PXGridRowEventArgs erdb) =>
+                {
+                    var data = erdb.Row.DataItem as NSKitAvailabilityLine;
+                    erdb.Row.Cells["QtyAvailable"].Style.CssClass =
+                    data.IsLimiting.GetValueOrDefault(false) ? "yellow20" : erdb.Row.Cells["QtyAvailable"].Style.CssClass;
                 };
             }
         }
@@ -290,22 +332,69 @@ namespace PX.PricingAnalysis.Ext
                 if (orgLine.OrderQty.GetValueOrDefault(0) <= 0) { continue; }
 
                 //NSK
-                //if (!inventoryItem.StkItem.GetValueOrDefault(false) && inventoryItem.KitItem.GetValueOrDefault(false)
-                //    && this.Base is ARInvoiceEntry && orgLine.InvtRefNbr != null)
-                //{
-                //    decimal? kitCost = 0;
-                //    foreach (INTran component in PXSelect<INTran, Where<INTran.refNbr, Equal<Required<INTran.refNbr>>,
-                //        And<INTran.docType, Equal<INDocType.issue>, And<INTran.aRLineNbr, Equal<Required<INTran.aRLineNbr>>>>>>.
-                //                                            SelectMultiBound(Base, null, orgLine.InvtRefNbr, orgLine.LineNbr))
-                //    {
-                //        kitCost += component.TranCost;
-
-                //    }
-                //    orgLine.CuryExtCost = kitCost;
-                //}
+                if (!inventoryItem.StkItem.GetValueOrDefault(false) && inventoryItem.KitItem.GetValueOrDefault(false))
+                {
+                    orgLine.CuryExtCost = 0;
+                    decimal? kitCost = 0;
+                    if (this.Base is ARInvoiceEntry)
+                    {
+                        if (orgLine.InvtRefNbr != null)
+                        {
+                            foreach (INTran component in PXSelect<INTran, Where<INTran.refNbr, Equal<Required<INTran.refNbr>>,
+                            And<INTran.docType, Equal<INDocType.issue>, And<INTran.aRLineNbr, Equal<Required<INTran.aRLineNbr>>>>>>.
+                                                            SelectMultiBound(Base, null, orgLine.InvtRefNbr, orgLine.LineNbr))
+                            {
+                                kitCost += component.TranCost;
+                            }
+                            foreach (INKitSpecNonStkDet det in PXSelect<INKitSpecNonStkDet, Where<INKitSpecNonStkDet.kitInventoryID, Equal<Required<INKitSpecNonStkDet.kitInventoryID>>>>.
+                                                                SelectMultiBound(Base, null, orgLine.InventoryID))
+                            {
+                                var a = new PALineCostValueExtAttribute<INKitSpecNonStkDet.compInventoryID, DocumentLine.siteID, decimal0, INKitSpecNonStkDet.dfltCompQty, decimal0>();
+                                Dictionary<Type, object> d = new Dictionary<Type, object>();
+                                d.Add(typeof(INKitSpecNonStkDet.compInventoryID), det.CompInventoryID);
+                                d.Add(typeof(DocumentLine.siteID), orgLine.SiteID);
+                                d.Add(typeof(decimal0), 0m);
+                                d.Add(typeof(INKitSpecNonStkDet.dfltCompQty), det.DfltCompQty);
+                                var value = a.Evaluate(Base.Caches.Caches[0], orgLine, d);
+                                kitCost += (decimal?)value * orgLine.OrderQty.GetValueOrDefault(0);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        foreach (INKitSpecStkDet det in PXSelect<INKitSpecStkDet, Where<INKitSpecStkDet.kitInventoryID, Equal<Required<INKitSpecStkDet.kitInventoryID>>>>.
+                                                            SelectMultiBound(Base, null, orgLine.InventoryID))
+                        {
+                            var a = new PALineCostValueExtAttribute<INKitSpecStkDet.compInventoryID, DocumentLine.siteID, decimal0, INKitSpecStkDet.dfltCompQty, decimal0>();
+                            Dictionary<Type, object> d = new Dictionary<Type, object>();
+                            d.Add(typeof(INKitSpecStkDet.compInventoryID), det.CompInventoryID);
+                            d.Add(typeof(DocumentLine.siteID), orgLine.SiteID);
+                            d.Add(typeof(decimal0), 0m);
+                            d.Add(typeof(INKitSpecStkDet.dfltCompQty), det.DfltCompQty);
+                            var value = a.Evaluate(Base.Caches.Caches[0], orgLine, d);
+                            kitCost += (decimal?)value * orgLine.OrderQty.GetValueOrDefault(0);
+                        }
+                        foreach (INKitSpecNonStkDet det in PXSelect<INKitSpecNonStkDet, Where<INKitSpecNonStkDet.kitInventoryID, Equal<Required<INKitSpecNonStkDet.kitInventoryID>>>>.
+                                                            SelectMultiBound(Base, null, orgLine.InventoryID))
+                        {
+                            var detItem = InventoryItem.PK.Find(Base, det.CompInventoryID);
+                            if (!detItem.AccrueCost.GetValueOrDefault(false)) { continue; }
+                            var a = new PALineCostValueExtAttribute<INKitSpecNonStkDet.compInventoryID, DocumentLine.siteID, decimal0, INKitSpecNonStkDet.dfltCompQty, decimal0>();
+                            Dictionary<Type, object> d = new Dictionary<Type, object>();
+                            d.Add(typeof(INKitSpecNonStkDet.compInventoryID), det.CompInventoryID);
+                            d.Add(typeof(DocumentLine.siteID), orgLine.SiteID);
+                            d.Add(typeof(decimal0), 0m);
+                            d.Add(typeof(INKitSpecNonStkDet.dfltCompQty), det.DfltCompQty);
+                            var value = a.Evaluate(Base.Caches.Caches[0], orgLine, d);
+                            kitCost += (decimal?)value * orgLine.OrderQty.GetValueOrDefault(0);
+                        }
+                    }
+                    orgLine.CuryExtCost = kitCost;
+                }
                 //NSK
 
                 orgLine.CuryExtCost = orgLine.PricingEligible.GetValueOrDefault(false) ? orgLine.CuryExtCost : 0;
+                if (!(inventoryItem.StkItem.GetValueOrDefault(false) || inventoryItem.KitItem.GetValueOrDefault(false))) { orgLine.InvtRefNbr = null; }
 
                 PricingAnalysisPreviewLine line = new PricingAnalysisPreviewLine()
                 {
@@ -327,7 +416,9 @@ namespace PX.PricingAnalysis.Ext
                     CuryLineAmt = orgLine.CuryLineAmt,
                     CuryProfit = orgLine.CuryLineAmt - orgLine.CuryExtCost,
                     MarkupPercent = PXPriceCostAttribute.Round((decimal)((orgLine.CuryExtCost != 0) ? ((orgLine.CuryLineAmt - orgLine.CuryExtCost) / orgLine.CuryExtCost) * 100 : 0m)),
-                    MarginPercent = PXPriceCostAttribute.Round((decimal)((orgLine.CuryLineAmt != 0) ? ((orgLine.CuryLineAmt - orgLine.CuryExtCost) / orgLine.CuryLineAmt) * 100 : 0m))
+                    MarginPercent = PXPriceCostAttribute.Round((decimal)((orgLine.CuryLineAmt != 0) ? ((orgLine.CuryLineAmt - orgLine.CuryExtCost) / orgLine.CuryLineAmt) * 100 : 0m)),
+                    IsPromotionalPrice = orgLine.IsPromotionalPrice,
+                    PriceType = orgLine.PriceType
                 };
                 //if (line.CuryExtCost.GetValueOrDefault(0) <= 0m) { line.MarkupPercent = null; }
                 line = PricingAnalysisPreview.Insert(line);
@@ -464,7 +555,8 @@ namespace PX.PricingAnalysis.Ext
             PricingAnalysisPreviewHeaderRecs.Insert(currentHeaderLine);
             PricingAnalysisPreviewHeaderRecs.Cache.SetStatus(currentHeaderLine, PXEntryStatus.Held);
 
-            if (this.Base is ARInvoiceEntry) {
+            if (this.Base is ARInvoiceEntry)
+            {
                 var currentHeaderLineLabels = new PricingAnalysisPreviewHeaderLabels()
                 {
                     HeaderInfoID = 1,
@@ -1157,6 +1249,9 @@ namespace PX.PricingAnalysis.Ext
             public Type CuryExtCost = typeof(DocumentLine.curyExtCost);
             public Type CuryLineAmt = typeof(DocumentLine.curyLineAmt);
             public Type IsLastCostUsed = typeof(DocumentLine.isLastCostUsed);
+            public Type PriceType = typeof(DocumentLine.priceType);
+            public Type IsPromotionalPrice = typeof(DocumentLine.isPromotionalPrice);
+            public Type SiteID = typeof(DocumentLine.siteID);
         }
     }
 
@@ -1293,5 +1388,22 @@ namespace PX.PricingAnalysis.Ext
         public virtual bool? IsLastCostUsed { get; set; }
         #endregion
 
+        #region IsPromotionalPrice	
+        public abstract class isPromotionalPrice : PX.Data.BQL.BqlBool.Field<isPromotionalPrice> { }
+
+        public virtual bool? IsPromotionalPrice { get; set; }
+        #endregion
+
+        #region PriceType	
+        public abstract class priceType : PX.Data.BQL.BqlString.Field<priceType> { }
+
+        public virtual String PriceType { get; set; }
+        #endregion
+
+        #region SiteID	
+        public abstract class siteID : PX.Data.BQL.BqlInt.Field<siteID> { }
+
+        public virtual int? SiteID { get; set; }
+        #endregion
     }
 }

@@ -1,4 +1,3 @@
-C:\Work Acumatica\AcumaticaGIT\Acumatica-PricingAnalysis-2022\PX.PricingAnalysis.Ext\PX.PricingAnalysis.Ext\obj\Debug\PX.PricingAnalysis.Ext.csproj.AssemblyReference.cache
 C:\Work Acumatica\AcumaticaGIT\Acumatica-PricingAnalysis-2022\PX.PricingAnalysis.Ext\PX.PricingAnalysis.Ext\obj\Debug\PX.PricingAnalysis.Ext.GeneratedMSBuildEditorConfig.editorconfig
 C:\Work Acumatica\AcumaticaGIT\Acumatica-PricingAnalysis-2022\PX.PricingAnalysis.Ext\PX.PricingAnalysis.Ext\obj\Debug\PX.PricingAnalysis.Ext.AssemblyInfoInputs.cache
 C:\Work Acumatica\AcumaticaGIT\Acumatica-PricingAnalysis-2022\PX.PricingAnalysis.Ext\PX.PricingAnalysis.Ext\obj\Debug\PX.PricingAnalysis.Ext.AssemblyInfo.cs
@@ -345,3 +344,4 @@ C:\Work Acumatica\AcumaticaGIT\Acumatica-PricingAnalysis-2022\PX.PricingAnalysis
 C:\Work Acumatica\AcumaticaGIT\Acumatica-PricingAnalysis-2022\PX.PricingAnalysis.Ext\PX.PricingAnalysis.Ext\bin\Debug\PX.Web.Customization.Abstractions.pdb
 C:\Work Acumatica\AcumaticaGIT\Acumatica-PricingAnalysis-2022\PX.PricingAnalysis.Ext\PX.PricingAnalysis.Ext\bin\Debug\PX.AssemblyPatcher.pdb
 C:\Work Acumatica\AcumaticaGIT\Acumatica-PricingAnalysis-2022\PX.PricingAnalysis.Ext\PX.PricingAnalysis.Ext\bin\Debug\PX.MySql.pdb
+C:\Work Acumatica\AcumaticaGIT\Acumatica-PricingAnalysis-2022\PX.PricingAnalysis.Ext\PX.PricingAnalysis.Ext\obj\Debug\PX.PricingAnalysis.Ext.csproj.AssemblyReference.cache

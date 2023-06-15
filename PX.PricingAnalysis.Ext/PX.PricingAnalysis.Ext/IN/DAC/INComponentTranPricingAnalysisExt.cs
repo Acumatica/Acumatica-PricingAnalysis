@@ -32,8 +32,18 @@ namespace PX.PricingAnalysis.Ext
 
 		[PXPriceCost()]
 		[PXUnboundDefault(TypeCode.Decimal, "0.00")]
-		[PXUIField(DisplayName = "Current Cost Amount", Enabled = false)]
+		[PXUIField(DisplayName = "Cost Amount", Enabled = false)]
 		public Decimal? UsrCostAmount { get; set; }
+		#endregion
+
+		#region UsrUnitCost
+		public abstract class usrUnitCost : PX.Data.BQL.BqlDecimal.Field<usrUnitCost> { }
+
+		[PXPriceCost()]
+		[PXUnboundDefault(TypeCode.Decimal, "0.00")]
+		[PXFormula(typeof(IIf<INComponentTran.qty.IsEqual<decimal0>, decimal0, Div<usrCostAmount, INComponentTran.qty>>))]
+		[PXUIField(DisplayName = "Current Unit Cost", Enabled = false)]
+		public Decimal? UsrUnitCost { get; set; }
 		#endregion
 
 		#region UsrProfitAmount
@@ -45,6 +55,18 @@ namespace PX.PricingAnalysis.Ext
 		[PXUIField(DisplayName = "Profit Amount", Enabled = false)]
 		public Decimal? UsrProfitAmount { get; set; }
 		#endregion
+
+		#region UsrUnitProfitAmount
+		public abstract class usrUnitProfitAmount : PX.Data.BQL.BqlDecimal.Field<usrUnitProfitAmount> { }
+
+		[PXPriceCost()]
+		[PXUnboundDefault(TypeCode.Decimal, "0.00")]
+		[PXFormula(typeof(IIf<INComponentTran.qty.IsEqual<decimal0>, decimal0, Div<usrProfitAmount, INComponentTran.qty>>))]
+		[PXUIField(DisplayName = "Unit Profit", Enabled = false)]
+		public Decimal? UsrUnitProfitAmount { get; set; }
+		#endregion
+
+		
 
 		#region UsrMarkup
 		public abstract class usrMarkup : PX.Data.BQL.BqlDecimal.Field<usrMarkup> { }
@@ -83,12 +105,12 @@ namespace PX.PricingAnalysis.Ext
 		public Decimal? UsrQtyAvailable { get; set; }
 		#endregion
 
-		#region UsrQtyActual
-		public abstract class usrQtyActual : BqlDecimal.Field<usrQtyActual> { }
+		#region UsrQtyWarehouseAvailable
+		public abstract class usrQtyWarehouseAvailable : BqlDecimal.Field<usrQtyWarehouseAvailable> { }
 
 		[PXDecimal(2)]
 		[PXUnboundDefault(TypeCode.Decimal, "0.0")]
-		public Decimal? UsrQtyActual { get; set; }
+		public Decimal? UsrQtyWarehouseAvailable { get; set; }
 		#endregion
 	}
 }

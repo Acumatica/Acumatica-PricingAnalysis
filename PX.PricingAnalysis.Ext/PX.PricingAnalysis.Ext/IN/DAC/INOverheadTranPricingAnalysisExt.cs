@@ -27,15 +27,7 @@ namespace PX.PricingAnalysis.Ext
 		public Decimal? UsrAmount { get; set; }
 		#endregion
 
-		#region UsrLineCost
-		public abstract class usrLineCost : PX.Data.BQL.BqlDecimal.Field<usrLineCost> { }
-
-		[PXPriceCost()]
-		[PXUnboundDefault(TypeCode.Decimal, "0.00")]
-		[PXUIField(DisplayName = "Cost Amount", Enabled = false)]
-		[PXFormula(typeof(Mult<INOverheadTran.unitCost, INOverheadTran.qty>))]
-		public Decimal? UsrLineCost { get; set; }
-		#endregion
+		
 
 		#region UsrCostAmount
 		public abstract class usrCostAmount : PX.Data.BQL.BqlDecimal.Field<usrCostAmount> { }
@@ -44,10 +36,20 @@ namespace PX.PricingAnalysis.Ext
         [PXUnboundDefault(TypeCode.Decimal, "0.00")]
         [PXUIField(DisplayName = "Cost Amount", Enabled = false)]
 		public Decimal? UsrCostAmount { get; set; }
-        #endregion
+		#endregion
 
-        #region UsrProfitAmount
-        public abstract class usrProfitAmount : PX.Data.BQL.BqlDecimal.Field<usrProfitAmount> { }
+		#region UsrUnitCost
+		public abstract class usrUnitCost : PX.Data.BQL.BqlDecimal.Field<usrUnitCost> { }
+
+		[PXPriceCost()]
+		[PXUnboundDefault(TypeCode.Decimal, "0.00")]
+		[PXFormula(typeof(IIf<INOverheadTran.qty.IsEqual<decimal0>, decimal0, Div<usrCostAmount, INOverheadTran.qty>>))]
+		[PXUIField(DisplayName = "Current Unit Cost", Enabled = false)]
+		public Decimal? UsrUnitCost { get; set; }
+		#endregion
+
+		#region UsrProfitAmount
+		public abstract class usrProfitAmount : PX.Data.BQL.BqlDecimal.Field<usrProfitAmount> { }
 
 		[PXPriceCost()]
 		[PXUnboundDefault(TypeCode.Decimal, "0.00")]
@@ -55,6 +57,17 @@ namespace PX.PricingAnalysis.Ext
 		[PXUIField(DisplayName = "Profit Amount", Enabled = false)]
 		public Decimal? UsrProfitAmount { get; set; }
 		#endregion
+
+		#region UsrUnitProfitAmount
+		public abstract class usrUnitProfitAmount : PX.Data.BQL.BqlDecimal.Field<usrUnitProfitAmount> { }
+
+		[PXPriceCost()]
+		[PXUnboundDefault(TypeCode.Decimal, "0.00")]
+		[PXFormula(typeof(IIf<INOverheadTran.qty.IsEqual<decimal0>, decimal0, Div<usrProfitAmount, INOverheadTran.qty>>))]
+		[PXUIField(DisplayName = "Unit Profit", Enabled = false)]
+		public Decimal? UsrUnitProfitAmount { get; set; }
+		#endregion
+
 
 		#region UsrMarkup
 		public abstract class usrMarkup : PX.Data.BQL.BqlDecimal.Field<usrMarkup> { }

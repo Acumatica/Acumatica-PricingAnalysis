@@ -56,13 +56,13 @@ namespace PX.PricingAnalysis.Ext
         public virtual decimal? UsrMarginPercent { get; set; }
         #endregion
 
-        #region UsrMaxQtyOnHand
-        public abstract class usrMaxQtyOnHand : BqlDecimal.Field<usrMaxQtyOnHand> { }
+        #region UsrMaxQty
+        public abstract class usrMaxQty : BqlDecimal.Field<usrMaxQty> { }
 
         [PXUIField(DisplayName = "Max Qty", Enabled = false)]
         [PXDecimal(2)]
         [PXUnboundDefault(TypeCode.Decimal, "0.0")]
-        public virtual Decimal? UsrMaxQtyOnHand { get; set; }
+        public virtual Decimal? UsrMaxQty { get; set; }
         #endregion
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using PX.Data;
 using PX.Objects.AR;
 using PX.Objects.CM;
@@ -248,6 +247,7 @@ namespace PX.PricingAnalysis.Ext
             {
 				PXCurrencyAttribute.CuryConvCury(cache, item, (dValueCaled ?? 0m), out dValue);
 			}
+
 			PXTrace.WriteInformation(dValue.ToString());
 			return dValue;
 		}

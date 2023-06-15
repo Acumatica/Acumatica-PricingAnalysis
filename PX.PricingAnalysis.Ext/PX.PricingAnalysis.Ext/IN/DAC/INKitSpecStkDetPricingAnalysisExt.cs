@@ -33,15 +33,25 @@ namespace PX.PricingAnalysis.Ext
 
         [PXUnboundDefault(TypeCode.Int32, "-1", typeof(Search<InventoryItemCurySettings.dfltSiteID, Where<InventoryItemCurySettings.inventoryID, Equal<Current<INKitSpecStkDet.compInventoryID>>, And<InventoryItemCurySettings.curyID, Equal<Current<AccessInfo.baseCuryID>>>>>))]
         public Int32? UsrSiteID { get; set; }
-        #endregion
+		#endregion
 
-        #region UsrCostAmount
-        public abstract class usrCostAmount : PX.Data.BQL.BqlDecimal.Field<usrCostAmount> { }
+		#region UsrCostAmount
+		public abstract class usrCostAmount : PX.Data.BQL.BqlDecimal.Field<usrCostAmount> { }
 
 		[PXPriceCost()]
 		[PXDefault(TypeCode.Decimal, "0.00", PersistingCheck = PXPersistingCheck.Nothing)]
 		[PXUIField(DisplayName = "Cost Amount", Enabled = false)]
 		public Decimal? UsrCostAmount { get; set; }
+		#endregion
+
+		#region UsrUnitCost
+		public abstract class usrUnitCost : PX.Data.BQL.BqlDecimal.Field<usrUnitCost> { }
+
+		[PXPriceCost()]
+		[PXUnboundDefault(TypeCode.Decimal, "0.00")]
+		[PXFormula(typeof(IIf<INKitSpecStkDet.dfltCompQty.IsEqual<decimal0>, decimal0, Div<usrCostAmount, INKitSpecStkDet.dfltCompQty>>))]
+		[PXUIField(DisplayName = "Current Unit Cost", Enabled = false)]
+		public Decimal? UsrUnitCost { get; set; }
 		#endregion
 
 		#region UsrProfitAmount
@@ -52,6 +62,16 @@ namespace PX.PricingAnalysis.Ext
 		[PXFormula(typeof(Sub<usrAmount, usrCostAmount>))]
 		[PXUIField(DisplayName = "Profit Amount", Enabled = false)]
 		public Decimal? UsrProfitAmount { get; set; }
+		#endregion
+
+		#region UsrUnitProfitAmount
+		public abstract class usrUnitProfitAmount : PX.Data.BQL.BqlDecimal.Field<usrUnitProfitAmount> { }
+
+		[PXPriceCost()]
+		[PXUnboundDefault(TypeCode.Decimal, "0.00")]
+		[PXFormula(typeof(IIf<INKitSpecStkDet.dfltCompQty.IsEqual<decimal0>, decimal0, Div<usrProfitAmount, INKitSpecStkDet.dfltCompQty>>))]
+		[PXUIField(DisplayName = "Unit Profit", Enabled = false)]
+		public Decimal? UsrUnitProfitAmount { get; set; }
 		#endregion
 
 		#region UsrMarkup
@@ -71,6 +91,5 @@ namespace PX.PricingAnalysis.Ext
 		[PXUIField(DisplayName = "Margin %", Enabled = false)]
 		public Decimal? UsrMargin { get; set; }
 		#endregion
-
 	}
 }

@@ -2,14 +2,15 @@
 using PX.Data;
 using PX.Objects.IN;
 using System;
+using System.Collections;
 using PX.Objects.CS;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace PX.PricingAnalysis.Ext
 {
     public class ARInvoiceEntryPricingAnalysisExt : PricingAnalysisGraph<ARInvoiceEntry, ARInvoice>
     {
-        private decimal? amount = 0;
         private decimal? cost = 0;
         private decimal? profit = 0;
 
@@ -44,7 +45,9 @@ namespace PX.PricingAnalysis.Ext
                 CuryUnitPrice = typeof(ARTran.curyUnitPrice),
                 CuryLineAmt = typeof(ARTran.curyTranAmt),
                 CuryExtCost = typeof(ARTranPricingAnalysisPXExt.usrCostFinal),
-                IsLastCostUsed = typeof(True)
+                IsLastCostUsed = typeof(True),
+                //nsk
+                SiteID = typeof(ARTran.siteID)
             };
         }
 
@@ -110,15 +113,10 @@ namespace PX.PricingAnalysis.Ext
             if (e.Cache == null || e.Row == null) return;
             bool isNewUnreleased = e.Cache.GetStatus(e.Row) == PXEntryStatus.Inserted
                 || e.Row.Status == ARDocStatus.Hold || e.Row.Status == ARDocStatus.Balanced;
-            bool isTaxed = isNewUnreleased || e.Row.CuryTaxTotal.GetValueOrDefault(0) > 0;
-            PXUIFieldAttribute.SetVisible<ARInvoicePricingAnalysisPXExt.usrAmountTotal>(e.Cache, e.Row, !isNewUnreleased && !isTaxed);
-            PXUIFieldAttribute.SetVisible<ARInvoicePricingAnalysisPXExt.usrExTaxAmountTotal>(e.Cache, e.Row, !isNewUnreleased && isTaxed);
             PXUIFieldAttribute.SetVisible<ARInvoicePricingAnalysisPXExt.usrCostTotal>(e.Cache, e.Row, !isNewUnreleased);
             PXUIFieldAttribute.SetVisible<ARInvoicePricingAnalysisPXExt.usrMarginPercent>(e.Cache, e.Row, !isNewUnreleased);
             PXUIFieldAttribute.SetVisible<ARInvoicePricingAnalysisPXExt.usrMarkupPercent>(e.Cache, e.Row, !isNewUnreleased);
             PXUIFieldAttribute.SetVisible<ARInvoicePricingAnalysisPXExt.usrProfitTotal>(e.Cache, e.Row, !isNewUnreleased);
-            PXUIFieldAttribute.SetVisible<ARInvoice.curyTaxTotal>(e.Cache, e.Row, isTaxed);
-            PXUIFieldAttribute.SetVisible<ARInvoice.curyOrigDocAmt>(e.Cache, e.Row, isTaxed);
         }
         protected void _(Events.RowSelected<ARTran> e)
         {
@@ -129,12 +127,11 @@ namespace PX.PricingAnalysis.Ext
         }
         #region Event Handlers
 
-        public virtual void _(Events.FieldSelecting<ARInvoice, ARInvoicePricingAnalysisPXExt.usrAmountTotal> args)
+        public virtual void _(Events.FieldSelecting<ARInvoice, ARInvoicePricingAnalysisPXExt.usrCostTotal> args)
         {
             if (args.Cache == null || args.Row == null) return;
             var row = args.Row;
             var rowExt = row.GetExtension<ARInvoicePricingAnalysisPXExt>();
-            decimal? amount = 0;
             decimal? cost = 0;
             var trans = Base.Transactions.Select().FirstTableItems.ToList();
             foreach (ARTran tran in trans)
@@ -145,37 +142,44 @@ namespace PX.PricingAnalysis.Ext
                 if (tranExt == null) { return; }
 
                 //NSK
-                //if (!inventoryItem.StkItem.GetValueOrDefault(false) && inventoryItem.KitItem.GetValueOrDefault(false))
-                //{
-                //    decimal? kitCost = 0;
-                //    foreach (INTran component in PXSelect<INTran, Where<INTran.refNbr, Equal<Required<INTran.refNbr>>,
-                //        And<INTran.docType, Equal<INDocType.issue>, And<INTran.aRLineNbr, Equal<Required<INTran.aRLineNbr>>>>>>.
-                //                                            SelectMultiBound(Base, null, tranExt.UsrInvtRefNbr, tran.LineNbr))
-                //    {
-                //        kitCost += component.TranCost;
-                //    }
-                //    tranExt.UsrCostFinal = kitCost;
-                //}
+                if (!inventoryItem.StkItem.GetValueOrDefault(false) && inventoryItem.KitItem.GetValueOrDefault(false) && tranExt.UsrInvtRefNbr != null)
+                {
+                    tranExt.UsrCostFinal = 0;
+                    decimal? kitCost = 0;
+                    foreach (INTran component in PXSelect<INTran, Where<INTran.refNbr, Equal<Required<INTran.refNbr>>,
+                        And<INTran.docType, Equal<INDocType.issue>, And<INTran.aRLineNbr, Equal<Required<INTran.aRLineNbr>>>>>>.
+                                                            SelectMultiBound(Base, null, tranExt.UsrInvtRefNbr, tran.LineNbr))
+                    {
+                        kitCost += component.TranCost;
+                    }
+                    foreach (INKitSpecNonStkDet det in PXSelect<INKitSpecNonStkDet, Where<INKitSpecNonStkDet.kitInventoryID, Equal<Required<INKitSpecNonStkDet.kitInventoryID>>>>.
+                                                            SelectMultiBound(Base, null, tran.InventoryID))
+                    {
+                        var detItem = InventoryItem.PK.Find(Base, det.CompInventoryID);
+                        if (!detItem.AccrueCost.GetValueOrDefault(false))
+                        {
+                            INKitSpecNonStkDetPricingAnalysisExt detExt = det.GetExtension<INKitSpecNonStkDetPricingAnalysisExt>();
+                            detExt.UsrCostAmount = 0;
+                            continue;
+                        }
+                        var a = new PALineCostValueExtAttribute<INKitSpecNonStkDet.compInventoryID, ARTran.siteID, decimal0, INKitSpecNonStkDet.dfltCompQty, decimal0>();
+                        Dictionary<Type, object> d = new Dictionary<Type, object>();
+                        d.Add(typeof(INKitSpecNonStkDet.compInventoryID), det.CompInventoryID);
+                        d.Add(typeof(ARTran.siteID), tran.SiteID);
+                        d.Add(typeof(decimal0), 0m);
+                        d.Add(typeof(INKitSpecNonStkDet.dfltCompQty), det.DfltCompQty);
+                        var value = a.Evaluate(args.Cache, tran, d);
+                        kitCost += (decimal?)value * tran.Qty.GetValueOrDefault(0);
+                    }
+                    tranExt.UsrCostFinal = kitCost;
+                }
                 //NSK
 
                 cost += tranExt.UsrPricingEligible.GetValueOrDefault(false) ? tranExt.UsrCostFinal : 0;
-                amount += tran.CuryTranAmt;
             }
             cost += row.CuryFreightCost;
-            amount += row.CuryFreightTot;
-            this.amount = amount;
             this.cost = cost;
-            this.profit = amount - cost;
-            args.ReturnValue = amount;
-        }
-
-        public virtual void _(Events.FieldSelecting<ARInvoice, ARInvoicePricingAnalysisPXExt.usrExTaxAmountTotal> args)
-        {
-            args.ReturnValue = amount;
-        }
-
-        public virtual void _(Events.FieldSelecting<ARInvoice, ARInvoicePricingAnalysisPXExt.usrCostTotal> args)
-        {
+            this.profit = row.CuryLineTotal - cost;
             args.ReturnValue = cost;
         }
         public virtual void _(Events.FieldSelecting<ARInvoice, ARInvoicePricingAnalysisPXExt.usrProfitTotal> args)
@@ -188,7 +192,9 @@ namespace PX.PricingAnalysis.Ext
         }
         public virtual void _(Events.FieldSelecting<ARInvoice, ARInvoicePricingAnalysisPXExt.usrMarginPercent> args)
         {
-            args.ReturnValue = (amount > 0) ? (profit / amount) * 100 : null;
+            if (args.Cache == null || args.Row == null) return;
+            var row = args.Row;
+            args.ReturnValue = (row.CuryLineTotal.GetValueOrDefault(0) > 0) ? (profit / row.CuryLineTotal * 100) : null;
         }
         #endregion
     }

@@ -8,7 +8,6 @@ namespace PX.PricingAnalysis.Ext
 {
     public sealed class INKitSpecNonStkDetPricingAnalysisExt : PXCacheExtension<INKitSpecNonStkDet>
 	{
-
 		#region UsrUnitPrice
 		public abstract class usrUnitPrice : PX.Data.BQL.BqlDecimal.Field<usrUnitPrice> { }
 
@@ -44,6 +43,16 @@ namespace PX.PricingAnalysis.Ext
 		public Decimal? UsrCostAmount { get; set; }
 		#endregion
 
+		#region UsrUnitCost
+		public abstract class usrUnitCost : PX.Data.BQL.BqlDecimal.Field<usrUnitCost> { }
+
+		[PXPriceCost()]
+		[PXUnboundDefault(TypeCode.Decimal, "0.00")]
+		[PXFormula(typeof(IIf<INKitSpecNonStkDet.dfltCompQty.IsEqual<decimal0>, decimal0, Div<usrCostAmount, INKitSpecNonStkDet.dfltCompQty>>))]
+		[PXUIField(DisplayName = "Current Unit Cost", Enabled = false)]
+		public Decimal? UsrUnitCost { get; set; }
+		#endregion
+
 		#region UsrProfitAmount
 		public abstract class usrProfitAmount : PX.Data.BQL.BqlDecimal.Field<usrProfitAmount> { }
 
@@ -52,6 +61,16 @@ namespace PX.PricingAnalysis.Ext
 		[PXFormula(typeof(Sub<usrAmount, usrCostAmount>))]
 		[PXUIField(DisplayName = "Profit Amount", Enabled = false)]
 		public Decimal? UsrProfitAmount { get; set; }
+		#endregion
+
+		#region UsrUnitProfitAmount
+		public abstract class usrUnitProfitAmount : PX.Data.BQL.BqlDecimal.Field<usrUnitProfitAmount> { }
+
+		[PXPriceCost()]
+		[PXUnboundDefault(TypeCode.Decimal, "0.00")]
+		[PXFormula(typeof(IIf<INKitSpecNonStkDet.dfltCompQty.IsEqual<decimal0>, decimal0, Div<usrProfitAmount, INKitSpecNonStkDet.dfltCompQty>>))]
+		[PXUIField(DisplayName = "Unit Profit", Enabled = false)]
+		public Decimal? UsrUnitProfitAmount { get; set; }
 		#endregion
 
 		#region UsrMarkup

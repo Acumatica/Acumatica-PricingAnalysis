@@ -443,22 +443,6 @@
             <AddItem>
                 <PXNumberEdit TypeFullName="PX.Web.UI.PXNumberEdit">
                     <Prop Key="Virtual:ApplyStylesheetSkin" />
-                    <Prop Key="ID" Value="edUsrAmountTotal" />
-                    <Prop Key="CommitChanges" Value="True" />
-                    <Prop Key="DataField" Value="UsrAmountTotal" />
-                    <Prop Key="Enabled" Value="False" />
-                </PXNumberEdit>
-            </AddItem>
-            <AddItem>
-                <PXNumberEdit TypeFullName="PX.Web.UI.PXNumberEdit">
-                    <Prop Key="Virtual:ApplyStylesheetSkin" />
-                    <Prop Key="ID" Value="edUsrExTaxAmountTotal" />
-                    <Prop Key="DataField" Value="UsrExTaxAmountTotal" />
-                </PXNumberEdit>
-            </AddItem>
-            <AddItem>
-                <PXNumberEdit TypeFullName="PX.Web.UI.PXNumberEdit">
-                    <Prop Key="Virtual:ApplyStylesheetSkin" />
                     <Prop Key="CommitChanges" Value="True" />
                     <Prop Key="DataField" Value="usrCostTotal" />
                     <Prop Key="ID" Value="edUsrCostTotal" />

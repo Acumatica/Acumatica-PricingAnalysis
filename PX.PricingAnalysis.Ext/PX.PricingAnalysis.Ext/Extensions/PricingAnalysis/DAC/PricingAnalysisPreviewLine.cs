@@ -182,5 +182,19 @@ namespace PX.PricingAnalysis.Ext
 		[PXUIField(DisplayName = "Margin %", Enabled = true)]
 		public virtual decimal? MarginPercent { get; set; }
 		#endregion
+
+		#region IsPromotionalPrice
+		public abstract class isPromotionalPrice : PX.Data.BQL.BqlBool.Field<isPromotionalPrice>{}
+		[PXBool]
+		[PXUnboundDefault(false)]
+		public virtual bool? IsPromotionalPrice { get; set; }
+		#endregion
+
+		#region PriceType
+		public abstract class priceType : PX.Data.BQL.BqlString.Field<priceType>{}
+		[PXString(1, IsFixed = true)]
+		public virtual String PriceType { get; set; }
+		#endregion
+
 	}
 }

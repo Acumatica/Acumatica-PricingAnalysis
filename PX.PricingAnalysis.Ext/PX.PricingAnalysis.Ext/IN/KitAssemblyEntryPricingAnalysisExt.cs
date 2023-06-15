@@ -37,10 +37,32 @@ namespace PX.PricingAnalysis.Ext
                     var data = ((PX.Data.PXResult)erdb.Row.DataItem).GetItem<INComponentTran>();
                     var dataSpec = ((PX.Data.PXResult)erdb.Row.DataItem).GetItem<INKitSpecStkDet>();
                     var dataExt = data.GetExtension<INComponentTranPricingAnalysisExt>();
+                    var inventoryItem = InventoryItem.PK.Find(Base, data.InventoryID);
+
                     erdb.Row.Cells["UsrQtyOnHand"].Style.CssClass = (dataExt.UsrQtyOnHand < data.Qty) ? "red20" : 
-                    (dataExt.UsrQtyActual < data.Qty) ? "yellow20" : erdb.Row.Cells["UsrQtyOnHand"].Style.CssClass;
-                    erdb.Row.Cells["UsrQtyAvailable"].Style.CssClass = (dataExt.UsrQtyOnHand < data.Qty) ? "red20" : erdb.Row.Cells["UsrQtyAvailable"].Style.CssClass;
+                    (dataExt.UsrQtyWarehouseAvailable < data.Qty) ? "yellow20" : erdb.Row.Cells["UsrQtyOnHand"].Style.CssClass;
+                    erdb.Row.Cells["UsrQtyAvailable"].Style.CssClass = (dataExt.UsrQtyAvailable < data.Qty) ? "red20" : erdb.Row.Cells["UsrQtyAvailable"].Style.CssClass;
+                    if (dataExt.UsrMarkup.GetValueOrDefault(0) == 0M || dataExt.UsrMarkup.GetValueOrDefault(0) < inventoryItem.MinGrossProfitPct.GetValueOrDefault(0))
+                    {
+                        erdb.Row.Cells["UsrMarkup"].Style.CssClass = "red20";
+                    }
                 }; 
+            }
+
+            PX.Web.UI.PXGrid overheadGrid = (PX.Web.UI.PXGrid)ControlHelper.FindControl("overheadGrid", page);
+            if (overheadGrid != null)
+            {
+                overheadGrid.RowDataBound += (object grdSender, PXGridRowEventArgs erdb) =>
+                {
+                    var data = ((PX.Data.PXResult)erdb.Row.DataItem).GetItem<INOverheadTran>();
+                    var dataExt = data.GetExtension<INOverheadTranPricingAnalysisExt>();
+                    var inventoryItem = InventoryItem.PK.Find(Base, data.InventoryID);
+
+                    if (dataExt.UsrMarkup.GetValueOrDefault(0) == 0M || dataExt.UsrMarkup.GetValueOrDefault(0) < inventoryItem.MinGrossProfitPct.GetValueOrDefault(0))
+                    {
+                        erdb.Row.Cells["UsrMarkup"].Style.CssClass = "red20";
+                    }
+                };
             }
         }
 
@@ -49,7 +71,7 @@ namespace PX.PricingAnalysis.Ext
         protected virtual void _(Events.CacheAttached<INComponentTranPricingAnalysisExt.usrCostAmount> e) { }
 
         [PXMergeAttributes(Method = MergeMethod.Append)]
-        [PXFormula(typeof(PALineCostValueExtAttribute<INOverheadTran.inventoryID, INOverheadTran.siteID, INOverheadTranPricingAnalysisExt.usrLineCost, INOverheadTran.qty, INOverheadTran.unitCost>))]
+        [PXFormula(typeof(PALineCostValueExtAttribute<INOverheadTran.inventoryID, INOverheadTran.siteID, decimal0, INOverheadTran.qty, INOverheadTran.unitCost>))]
         protected virtual void _(Events.CacheAttached<INOverheadTranPricingAnalysisExt.usrCostAmount> e) { }
 
         #region Event Handlers
@@ -62,7 +84,7 @@ namespace PX.PricingAnalysis.Ext
             PXUIFieldAttribute.SetVisible<INKitRegisterPricingAnalysisExt.usrProfitAmount>(e.Cache, e.Row, !isNewRecord);
             PXUIFieldAttribute.SetVisible<INKitRegisterPricingAnalysisExt.usrMarkupPercent>(e.Cache, e.Row, !isNewRecord);
             PXUIFieldAttribute.SetVisible<INKitRegisterPricingAnalysisExt.usrMarginPercent>(e.Cache, e.Row, !isNewRecord);
-            PXUIFieldAttribute.SetVisible<INKitRegisterPricingAnalysisExt.usrMaxQtyOnHand>(e.Cache, e.Row, !isNewRecord);
+            PXUIFieldAttribute.SetVisible<INKitRegisterPricingAnalysisExt.usrMaxQty>(e.Cache, e.Row, !isNewRecord);
         }
         protected void _(Events.RowSelected<INComponentTran> e)
         {
@@ -87,7 +109,7 @@ namespace PX.PricingAnalysis.Ext
             PXUIFieldAttribute.SetVisible<INOverheadTranPricingAnalysisExt.usrMarkup>(e.Cache, e.Row, !isNewRecord);
         }
 
-        public virtual void _(Events.FieldSelecting<INKitRegister, INKitRegisterPricingAnalysisExt.usrMaxQtyOnHand> args)
+        public virtual void _(Events.FieldSelecting<INKitRegister, INKitRegisterPricingAnalysisExt.usrMaxQty> args)
         {
             if (args.Cache == null || args.Row == null) return;
             INKitRegister row = (INKitRegister)args.Row;
@@ -99,16 +121,30 @@ namespace PX.PricingAnalysis.Ext
             {
                 var componentTranExt = component.GetExtension<INComponentTranPricingAnalysisExt>();
                 bool exclude = !Base.Document.Current.Released ?? true;
+
+                
+
                 if (INKitItemAvailability.FetchWithLineUOM(component, exclude) is IStatus availability)
                 {
                     componentTranExt.UsrQtyOnHand = availability.QtyOnHand;
                     componentTranExt.UsrQtyAvailable = availability.QtyAvail;
-                    componentTranExt.UsrQtyActual = availability.QtyActual;
 
                     INKitSpecStkDet spec = Base.GetComponentSpecByID(component.InventoryID, component.SubItemID);
                     if (spec?.DfltCompQty == null) { continue; }
-                    maxOnHand = Math.Min(maxOnHand, (decimal)availability.QtyOnHand / (decimal)spec.DfltCompQty);
+                    maxOnHand = Math.Min(maxOnHand, (decimal)availability.QtyActual / (decimal)spec.DfltCompQty);
                 }
+
+
+                string tempLotSerial = component.LotSerialNbr;
+                int? tempLocation = component.LocationID;
+                component.LotSerialNbr = null;
+                component.LocationID = null;
+                if (INKitItemAvailability.FetchWithLineUOM(component, exclude) is IStatus warehouseAvailability)
+                {
+                    componentTranExt.UsrQtyWarehouseAvailable = warehouseAvailability.QtyAvail;
+                }
+                component.LotSerialNbr = tempLotSerial;
+                component.LocationID = tempLocation;
             }
             maxOnHand = Math.Floor(maxOnHand);
             args.ReturnValue = maxOnHand == decimal.MaxValue ? 0 : maxOnHand;
@@ -130,14 +166,25 @@ namespace PX.PricingAnalysis.Ext
             foreach (INOverheadTran overhead in overheads)
             {
                 var componentTranExt = overhead.GetExtension<INOverheadTranPricingAnalysisExt>();
+                var inventoryItem = InventoryItem.PK.Find(Base, overhead.InventoryID);
+
+                if (!inventoryItem.AccrueCost.GetValueOrDefault(false)) { 
+                    componentTranExt.UsrCostAmount = 0;
+                    componentTranExt.UsrUnitCost = 0;
+                    componentTranExt.UsrProfitAmount = componentTranExt.UsrAmount;
+                    componentTranExt.UsrUnitProfitAmount = componentTranExt.UsrUnitPrice;
+                    componentTranExt.UsrMarkup = 0;
+                    componentTranExt.UsrMargin = 100;
+                }
+                else { cost += componentTranExt.UsrCostAmount; }
                 amount += componentTranExt.UsrAmount;
-                cost += componentTranExt.UsrCostAmount;
             }
             this.amount = amount;
             this.cost = cost;
             this.profit = amount - cost;
             args.ReturnValue = amount;
         }
+
         public virtual void _(Events.FieldSelecting<INKitRegister, INKitRegisterPricingAnalysisExt.usrTotalCost> args)
         {
             args.ReturnValue = cost;
@@ -156,5 +203,25 @@ namespace PX.PricingAnalysis.Ext
         }
 
         #endregion
+
+        public PXAction<INComponentTran> ComponentsItemAvailability;
+        [PXLookupButton()]
+        [PXUIField(Visibility = PXUIVisibility.Invisible)]
+        protected virtual void componentsItemAvailability()
+        {
+            PXCache tCache = Base.Components.Cache;
+            INComponentTran line = Base.Components.Current;
+
+            if (line == null) return;
+
+            INSubItem sbitem = (INSubItem)PXSelectorAttribute.Select<INComponentTran.subItemID>(tCache, line);
+
+            InventoryAllocDetEnq.Redirect(line.InventoryID,
+                                         ((sbitem != null) ? sbitem.SubItemCD : null),
+                                         line.LotSerialNbr,
+                                         line.SiteID,
+                                         line.LocationID,
+                                         PXBaseRedirectException.WindowMode.New);
+        }
     }
 }
