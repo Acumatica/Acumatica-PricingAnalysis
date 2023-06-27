@@ -1,0 +1,3055 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PX.Objects.FS</name>
+    </assembly>
+    <members>
+        <member name="M:PX.Objects.FS.AppointmentClosingMaint.AreServicesDBActionsAllowed(PX.Objects.FS.FSAppointment)">
+            <summary>
+            Verifies if the status of the appointment is CANCELED or CLOSED.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentClosingMaint.AllowOrForbidDetailsDBactions(PX.Objects.FS.FSAppointment)">
+            <summary>
+            Allow Or Forbid Insert, Update and Delete operations in the Services tab.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.GetAppointmentDetServiceRowLicenses(System.Collections.Generic.List{PX.Objects.FS.FSAppointmentDet},System.Collections.Generic.List{System.Nullable{System.Int32}}@)">
+            <summary>
+            Gets the license types related for the given appointment services. Also sets a list with the License Type identifiers 
+            related to the appointment services.
+            </summary>
+            <param name="bqlResultSet">Set of appointment detail services.</param>
+            <param name="serviceLicenseIDs">This list contains the union of all license types related to the given appointment services.</param>
+            <returns>List of services with their respective related license types.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.GetAppointmentEmpoyeeLicenseIDs(PX.Data.PXResultset{PX.Objects.FS.FSAppointmentEmployee})">
+            <summary>
+            Gets the license types related for the given appointment employees.  
+            </summary>
+            <param name="bqlResultSet">Set of appointment employees.</param>
+            <returns>List of unexpired license identifiers owned by the given appointment employees.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.GetAppointmentDetServiceRowSkills(System.Collections.Generic.List{PX.Objects.FS.FSAppointmentDet},System.Collections.Generic.List{System.Nullable{System.Int32}}@)">
+            <summary>
+            Gets the skills related for the given appointment services. Also sets a list with the skills identifiers 
+            related to the appointment services.
+            </summary>
+            <param name="bqlResultSet">Set of appointment detail services.</param>
+            <param name="serviceSkillIDs">This list contains the union of all skills related to the given appointment services.</param>
+            <returns>List of services with their respective related skills.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.GetAppointmentEmpoyeeSkillIDs(PX.Data.PXResultset{PX.Objects.FS.FSAppointmentEmployee})">
+            <summary>
+            Gets the skills related for the given appointment employees.  
+            </summary>
+            <param name="bqlResultSet">Set of appointment employees.</param>
+            <returns>List of skill identifiers owned by the given appointment employees.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.UpdateDetailsFromProjectID(System.Nullable{System.Int32})">
+            <summary>
+            Updates ProjectID in the Lines of the Appointment using the project in the <c>fsServiceOrderRow</c>. Also, sets ProjectTaskID to null.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.UpdateDetailsFromBranchID(PX.Objects.FS.FSServiceOrder)">
+            <summary>
+            Updates BranchID in the Lines of the Appointment using the branch in the <c>fsServiceOrderRow</c>.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.SendNotification(PX.Objects.FS.AppointmentEntry,PX.Data.PXCache,System.String,System.Nullable{System.Int32},System.Collections.Generic.IList{System.Nullable{System.Guid}})">
+            <summary>
+            Sends Mail.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.SetTimeRegister(PX.Objects.FS.FSAppointment,PX.Objects.FS.FSSrvOrdType,PX.Data.PXDBOperation)">
+            <summary>
+            Sets the TimeRegister depending on <c>Setup.RequireTimeApprovalToInvoice</c> and ActualTime.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.HideRooms(PX.Objects.FS.FSAppointment,PX.Objects.FS.FSSetup)">
+            <summary>
+            Check the ManageRooms value on Setup to check/hide the Rooms Values options.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.ValidateSignatureFields(PX.Data.PXCache,PX.Objects.FS.FSAppointment,System.Boolean)">
+            <summary>
+            Validates if the required information in the Signature tab is complete.
+            </summary>
+            <param name="cache">PXCache instance.</param>
+            <param name="fsAppointmentRow">Current FSAppointment object.</param>
+            <param name="mustValidateSignature">Indicates if the validation process will be applied.</param>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.ValidateMaxAppointmentQty(PX.Objects.FS.FSAppointment)">
+            <summary>
+            Validates if the maximum amount of appointments it is exceed for a specific route.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.ValidateWeekCode(PX.Objects.FS.FSAppointment)">
+            <summary>
+            Validates if the appointment Week Code is valid with the <c>datetime</c> of the appointment.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.SetRoutePosition(PX.Objects.FS.FSRouteDocument,PX.Objects.FS.FSAppointment)">
+            <summary>
+            Assign the [fsAppointmentRow] position on the current [fsRouteDocumentRow].
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.UpdateRouteAppointmentsOrder(PX.Data.PXGraph,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Updates the appointments' order in a route in ascending order setting the initial order.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.SetAppointmentRouteInfo(PX.Data.PXCache,PX.Objects.FS.FSAppointment,PX.Objects.FS.FSServiceOrder)">
+            <summary>
+            Set the route info necessary to the [fsAppointmentRow] using the [fsAppointmentRow].RouteID, [fsAppointmentRow].RouteDocumentID and [fsServiceOrderRow].BranchID.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.SetScheduleTimesByRouteAndContract(PX.Objects.FS.FSRouteDocument,PX.Objects.FS.FSAppointment)">
+            <summary>
+            Set schedule times to the [fsAppointmentRow] using Route and Schedule.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.SetScheduleTimesByContract(PX.Objects.FS.FSAppointment)">
+            <summary>
+            Set schedule times to the [fsAppointmentRow] using Contract and Schedule.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.IsAppointmentInValidRestriction(PX.Objects.FS.FSAppointment,PX.Objects.FS.FSContractSchedule)">
+            <summary>
+            Verifies if the [fsAppointmentRow].ScheduleTimeBegin and [fsAppointmentRow].ScheduleTimeEnd are valid in the fsContractScheduleRow restrictions.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.GetOrGenerateRoute(System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.Int32})">
+            <summary>
+            Get the specific route in the Routes Module using the [routeID], [routeDocumentID] and [appointmentScheduledDate].
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.CalculateRouteStats(PX.Objects.FS.FSAppointment,System.String,System.Boolean)">
+            <summary>
+            Calculate all the statistics for the routes involving the given appointment.
+            </summary>
+            <param name="graph">Context graph instance.</param>
+            <param name="fsAppointmentRow">FSAppointment Row.</param>
+            <param name="simpleStatsOnly">Boolean flag that controls whereas only single statistics need to be calculated or not.</param>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.CalculateRouteTotalServicesDuration(PX.Data.PXResultset{PX.Objects.FS.FSAppointmentDet})">
+            <summary>
+            Return the total duration of the services within a given route.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.CalculateRouteTotalAppointmentsDuration(PX.Data.PXGraph,System.Nullable{System.Int32},PX.Objects.FS.FSAppointment)">
+            <summary>
+            Return the total duration of the appointments within a given route.
+            </summary>
+            <param name="graph">Context graph instance.</param>
+            <param name="routeDocumentID">Id for Route Document.</param>
+            <param name="fsAppointmentRow">FSAppointment object.</param>
+            <returns>RowCount of appointments.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.GetRouteTotalAppointments(PX.Data.PXGraph,System.Nullable{System.Int32})">
+            <summary>
+            Return the total number of appointments for a given route.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.GetRouteServices(PX.Data.PXGraph,System.Nullable{System.Int32})">
+            <summary>
+            Return the services for a given route.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.SplitArrayInList(PX.Objects.FS.GLocation[],System.Int32)">
+            <summary>
+            Split an array [geoLocationArray] in a list of array of [length] element.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.CalculateRouteMapStats(PX.Data.PXGraph,System.Nullable{System.Int32},System.Nullable{System.Decimal}@,System.String@,System.Nullable{System.Int32}@,System.String)">
+            <summary>
+            Calculate the google map statistics for a given route.
+            </summary>
+            <param name="graph">Context graph instance.</param>
+            <param name="routeDocumentID">ID for the route.</param>
+            <param name="totalDistance">Total driving distance in meters.</param>
+            <param name="totalDistanceFriendly">Total driving distance user friendly.</param>
+            <param name="totalDuration">Total driving duration in seconds.</param>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.SetRouteSimpleStats(PX.Data.PXGraph,System.Nullable{System.Int32},PX.Objects.FS.FSRouteDocument@)">
+            <summary>
+            Set the simple stats for a given route.
+            </summary>
+            <param name="graph">Context graph instance.</param>
+            <param name="routeDocumentID">ID of the route.</param>
+            <param name="fsRouteDocumentRow">FSRoute object.</param>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.AreThereAnyEmployees">
+            <summary>
+            Return true if the current appointment has at least one <c>FSAppointmentEmployee</c> row with employee or employee combined type.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:PX.Objects.FS.AppointmentEntry.HideOrShowTabs(PX.Objects.FS.FSAppointment)" -->
+        <member name="M:PX.Objects.FS.AppointmentEntry.HideOrShowTimeCardsIntegration(PX.Data.PXCache,PX.Objects.FS.FSAppointment)">
+            <summary>
+            Hides or shows fields related to the Employee Time Cards Integration.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.SetBillServiceContractIDFromSO(PX.Data.PXCache,PX.Objects.FS.FSAppointment,PX.Objects.FS.FSServiceOrder)">
+            <summary>
+            Sets the BillServiceContractID field from the ServiceOrder's ServiceContractID/BillServiceContractID field depending on the contract's billing type.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.ForceExternalTaxCalc">
+            <summary>
+            Force calculate external taxes.
+            When changing status is a good practice to calculate again the taxes. This is because line Qty can be modified.
+            Also, new lines can be inserted on Details or Logs.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.IsNewItemLineStatusValid(PX.Objects.FS.FSAppointmentDet,System.String)">
+            <summary>
+            This method does not consider the current item line status.
+            This performs the basic validation of the new status for the given item line.
+            </summary>
+            <param name="apptDet"></param>
+            <param name="newStatus"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.IsItemLineStatusChangeValid(PX.Objects.FS.FSAppointmentDet,System.String)">
+            <summary>
+            This method considers the current item line status
+            and it's used into the actions Start, Complete, Cancel, etc.
+            The idea with this method is to force the normal workflow.
+            </summary>
+            <param name="apptDet"></param>
+            <param name="newStatus"></param>
+            
+            <returns></returns>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.SlotIsContainedInSlot(System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <summary>
+            Evaluates whether the Employee's slot can contain the Appointment's duration.
+            </summary>
+            <param name="slotBegin">DateTime of Start of the Employee Schedule.</param>
+            <param name="slotEnd">DateTime of End of the Employee Schedule.</param>
+            <param name="beginTime">Begin DateTime of the possible overlap Slot.</param>
+            <param name="endTime">End DateTime of the possible overlap Slot.</param>
+            <returns><c>Enum</c> indicating if the appointment is contained, partially contained or not contained in the Employee's work slot.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.AddEmailSource(PX.Data.PXGraph,System.Nullable{System.Int32},PX.Objects.EP.RecipientList)">
+            <summary>
+            Add the EmailSource.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.AddCustomerRecipient(PX.Objects.FS.AppointmentEntry,PX.Objects.CS.NotificationRecipient,PX.Objects.EP.RecipientList)">
+            <summary>
+            Add the Customer info as a recipient in the Email template generated by Appointment.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.AddEmployeeRecipient(PX.Data.PXGraph,PX.Objects.CS.NotificationRecipient,PX.Objects.EP.RecipientList)">
+            <summary>
+            Add the Employee info defined in the Notification tab defined in the <c>SrvOrdType</c> as a recipient(s) in the Email template generated by Appointment.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.AddBillingRecipient(PX.Objects.FS.AppointmentEntry,PX.Objects.CS.NotificationRecipient,PX.Objects.EP.RecipientList)">
+            <summary>
+            Add the Billing Customer info as a recipient(s) in the Email template generated by Appointment.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.AddGeoZoneStaffRecipient(PX.Objects.FS.AppointmentEntry,PX.Objects.CS.NotificationRecipient,PX.Objects.EP.RecipientList)">
+            <summary>
+            Adds the Employee(s) belonging to the Appointment's Service Area as recipients in the Email template generated by Appointment.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.AddSalespersonRecipient(PX.Objects.FS.AppointmentEntry,PX.Objects.CS.NotificationRecipient,PX.Objects.EP.RecipientList)">
+            <summary>
+            Add the Employee email that has assigned the salesperson as a recipient in the Email template generated by Appointment.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.GetsRecipientsFields(System.Collections.Generic.IEnumerable{PX.Objects.CS.NotificationRecipient},System.String@,System.String@)">
+            <summary>
+            Returns the emails address for the "To" and "BCC" sections.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentEntry.GetSODetFromAppointmentDetInt(PX.Data.PXGraph,PX.Objects.FS.FSAppointmentDet)">
+            <summary>
+            Gets the corresponding Service Order Detail from the <c>fsAppointmentDetRow.SODetID</c>.
+            </summary>
+        </member>
+        <member name="T:PX.Objects.FS.AppointmentEntry.AppointmentEntryAddressLookupExtension">
+            <exclude/>
+        </member>
+        <member name="M:PX.Objects.FS.ContractGenerationEnqBase`4.GenerateAPPSOUpdateContracts(System.Collections.Generic.List{PX.Objects.FS.Scheduler.Schedule},System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},PX.Objects.FS.FSSchedule)">
+            <summary>
+            Generates Appointments (Routes Contract) or Service Orders (Service Contract) for each TimeSlot in the [scheduleRules] List.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ContractGenerationEnqBase`4.CreateAppointment(PX.Objects.FS.FSServiceOrder,PX.Objects.FS.Scheduler.TimeSlot,PX.Objects.FS.FSSchedule,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Create an Appointment from a TimeSlot.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ContractGenerationEnqBase`4.CreateServiceOrder(PX.Objects.FS.Scheduler.TimeSlot,System.Boolean,System.Boolean)">
+            <summary>
+            Create a Service Order from a TimeSlot.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ContractGenerationEnqBase`4.CreateContractGenerationHistory(System.Int32,System.Int32,System.DateTime,System.Nullable{System.DateTime},System.String)">
+            <summary>
+            Create a ContractGenerationHistory.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ContractGenerationEnqBase`4.UpdateGeneratedSchedule(System.Int32,System.Nullable{System.DateTime},System.Nullable{System.DateTime},PX.Objects.FS.FSSchedule)">
+            <summary>
+            Update an Schedule (lastGeneratedAppointmentDate and lastProcessedDate).
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ContractGenerationEnqBase`4.GetLastGenerationHistoryRowBySchedule(System.Int32)">
+            <summary>
+            Return the last FSContractGenerationHistory by Schedule.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ContractGenerationEnqBase`4.GetProcessEndDate(PX.Objects.FS.Scheduler.Schedule,System.Nullable{System.DateTime})">
+            <summary>
+            Return the smallest date between schedule EndDate and Process EndDate.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.FSPostingBase`1.SetCombinedSubID(PX.Data.PXGraph,PX.Data.PXCache,PX.Objects.AR.ARTran,PX.Objects.AP.APTran,PX.Objects.SO.SOLine,PX.Objects.FS.FSSetup,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Sets the SubID for AR or SalesSubID for SO.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.FSPostingBase`1.SetCombinedSubID(PX.Data.PXGraph,PX.Data.PXCache,PX.Objects.AR.ARTran,PX.Objects.AP.APTran,PX.Objects.SO.SOLine,PX.Objects.FS.FSSrvOrdType,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Boolean)">
+            <summary>
+            Sets the SubID for AR or SalesSubID for SO.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.FSPostingBase`1.GetTermsIDFromCustomerOrVendor(PX.Data.PXGraph,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Returns the TermID from the Vendor or Customer.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.FSPostingBase`1.CleanPostingInfoLinkedToDoc(System.Object)">
+            <summary>
+            Cleans the posting information <c>(FSCreatedDoc, FSPostRegister, FSPostDoc, FSPostInfo, FSPostDet, FSPostBatch)</c> for the document created by the billing process.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.FSPostingBase`1.CleanContractPostingInfoLinkedToDoc(System.Object)">
+            <summary>
+            Cleans the posting information <c>(FSContractPostDoc, FSContractPostDet, FSContractPostBatch, FSContractPostRegister)</c> 
+            when erasing the entire posted document (SO, AR) coming from a contract.
+            </summary>
+        </member>
+        <member name="T:PX.Objects.FS.SalesPriceSet">
+            <summary>
+            Contains the information related to a price for an inventory item.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.FSPriceManagement.DeterminePriceCode(PX.Data.PXCache,PX.Objects.FS.SalesPriceSet@)">
+            <summary>
+            Determine the PriceCode value depending of PriceType of the calculated price.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.FSPriceManagement.CalculateSalesPriceWithCustomerContract(PX.Data.PXCache,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Decimal},System.String,System.DateTime,System.Nullable{System.Decimal},System.Boolean,PX.Objects.CM.CurrencyInfo,System.Boolean)">
+            <summary>
+            Calculates the price retrieving the correct price depending of the price set for that item.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.FSPriceManagement.CalculateSalesPriceWithCustomerContract(PX.Data.PXCache,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Decimal},System.String,System.DateTime,System.Nullable{System.Decimal},System.Boolean,PX.Objects.CM.CurrencyInfo,System.Boolean,System.String)">
+            <summary>
+            Calculates the price retrieving the correct price depending of the price set for that item.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.FSPriceManagement.GetCustomerContractPrice(PX.Data.PXCache,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Nullable{System.Int32})">
+            <summary>
+            Gets the price for the item in the contract if it exists.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.FSPriceManagement.CalculateSalesPrice(PX.Data.PXCache,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},PX.Objects.CM.CurrencyInfo,System.Nullable{System.Decimal},System.String,System.DateTime,System.Nullable{System.Decimal},System.Boolean,System.Boolean)">
+            <summary>
+            Calculates/Retrieves the price for an item depending on the price set for it.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.FSPriceManagement.CalculateSalesPrice(PX.Data.PXCache,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},PX.Objects.CM.CurrencyInfo,System.Nullable{System.Decimal},System.String,System.DateTime,System.Nullable{System.Decimal},System.Boolean,System.Boolean,System.String)">
+            <summary>
+            Calculates/Retrieves the price for an item depending on the price set for it.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.FSPriceManagement.DetermineCustomerPriceClass(PX.Data.PXCache,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},PX.Objects.CM.CurrencyInfo,System.Nullable{System.Decimal},System.String,System.DateTime,System.Boolean)">
+            <summary>
+            Determines if an item has a Customer Price Class defined depending on the Customer Location.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.FSPriceManagement.CheckPriceByPriceType(PX.Data.PXCache,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String,System.Nullable{System.Decimal},System.String,System.DateTime,System.String,System.String@)">
+            <summary>
+            Returns true if for the Customer and/or Customer Price Class there is a price defined for the item.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.FSPriceManagement.CheckInventoryItemUOM(PX.Data.PXCache,PX.Objects.AR.ARSalesPrice,System.Nullable{System.Int32},System.String)">
+            <summary>
+            Verifies whether or not the system can convert the InventoryItem's <c>UOM</c> to the one defined in the Sales Price screen.
+            If <c>arSalesPriceRow != null</c> means that the price from Sale Price applies.
+            If <c>arSalesPriceRow.UOM != uom</c> means that the <c>UOM</c> conversion applies.
+            </summary>
+            <param name="cache">PXCache instance.</param>
+            <param name="arSalesPriceRow"><c>ARSalesPrice</c> instance.</param>
+            <param name="inventoryID">Inventory Item ID.</param>
+            <param name="uom">Unit of measure required.</param>
+            <returns>Returns an errorCode status.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceContractEntryBase`3.EnableDisable_Document(PX.Data.PXCache,PX.Objects.FS.FSServiceContract)">
+            <summary>
+            Enable or Disable the ServiceContract fields.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceContractEntryBase`3.EnableDisable_ActionButtons(PX.Data.PXGraph,PX.Data.PXCache,PX.Objects.FS.FSServiceContract)">
+            <summary>
+            Enables/Disables the actions defined for ServiceContract
+            It's called by RowSelected event of FSServiceContract.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceContractEntryBase`3.ValidateDates(PX.Data.PXCache,PX.Objects.FS.FSServiceContract,PX.Data.PXResultset{PX.Objects.FS.FSContractSchedule})">
+            <summary>
+            Validates startDate and endDate have correct values.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceContractEntryBase`3.GetSalesPrice(PX.Data.PXCache,PX.Objects.FS.FSSalesPrice)">
+            <summary>
+            Sets the price configured in Price List for a Service when the <c>SourcePrice</c> is modified.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceContractEntryBase`3.UpdateSalesPrices(PX.Data.PXCache,PX.Objects.FS.FSServiceContract)">
+            <summary>
+            Updates all prices of <c>FSSalesPrice</c> lines.
+            </summary>
+            <param name="cache">PXCache instance.</param>
+            <param name="fsServiceContractRow">FSServiceContract current row.</param>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceContractEntryBase`3.SetUnitPriceForSalesPricesRows(PX.Objects.FS.FSServiceContract)">
+            <summary>
+            Verifies the cache of the views for FSSalesPrice.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceContractEntryBase`3.CanDeleteServiceContract(PX.Objects.FS.FSServiceContract)">
+            <summary>
+            Return true if the Service Contract [fsServiceContractRow] can be deleted based on its status
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceContractEntryBase`3.EnableDisableRenewalFields(PX.Data.PXCache,PX.Objects.FS.FSServiceContract)">
+            <summary>Update visibility and other UI things for duration options</summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceContractScheduleEntryBase`5.ShowHideSeasonSetting(PX.Data.PXCache,PX.Objects.FS.FSSchedule)">
+            <summary>
+            Shows/Hides Season settings depending on the setup's flag EnableSeasonScheduleContract and on the frequencyType selected.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceContractScheduleEntryBase`5.ContractSchedule_RowSelected_PartialHandler(PX.Data.PXCache,PX.Objects.FS.FSSchedule)">
+            <summary>
+            Manage common actions for FSRouteContractSchedule and FSContractSchedule in RowSelected event.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceContractScheduleEntryBase`5.ContractSchedule_RowPersisting_PartialHandler(PX.Data.PXCache,PX.Objects.FS.FSServiceContract,PX.Objects.FS.FSSchedule,PX.Data.PXDBOperation,System.String)">
+            <summary>
+            Manage common actions for FSRouteContractSchedule and FSContractSchedule in RowPersisting event.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceContractScheduleEntryBase`5.SetControlsState(PX.Data.PXCache,PX.Objects.FS.FSSchedule)">
+            <summary>
+            Makes visible the group that corresponds to the selected FrequencyType.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceContractScheduleEntryBase`5.SetDateFieldExceptions(PX.Data.PXCache,PX.Objects.FS.FSSchedule,System.Exception)">
+            <summary>
+            Set exceptions in date fields.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceContractScheduleEntryBase`5.HasSelectedAtLeastOneMonth(PX.Objects.FS.FSSchedule)">
+            <summary>
+            Check if at least one month is selected.
+            </summary>
+            <param name="fsScheduleRow">Instance of the FSSchedule DAC.</param>
+            <returns>True if at least one month is selected.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceContractScheduleEntryBase`5.HasSelectedAtLeastOneDay(PX.Objects.FS.FSSchedule)">
+            <summary>
+            Check if at least one day of the week is selected.
+            </summary>
+            <param name="fsScheduleRow">Instance of the FSSchedule DAC.</param>
+            <returns>True if at least one day is selected.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceContractScheduleEntryBase`5.EnableDisable_LineType(PX.Data.PXCache,PX.Objects.FS.FSScheduleDet)">
+            <summary>
+            This method enables or disables the fields on the grid depending on the selected LineType.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceContractScheduleEntryBase`5.ResetLineByType(PX.Objects.FS.FSScheduleDet,PX.Data.PXCache)">
+            <summary>
+            This method reset the fields of the <c>fsScheduleDetRow</c> depending on the selected LineType.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceOrderBase`2.SetEnabledAndPersistingCheck``1(PX.Data.PXCache,System.Object,PX.Objects.FS.ServiceOrderBase{`0,`1}.EventType,System.Boolean,System.Nullable{PX.Data.PXPersistingCheck})">
+            <summary>
+            Calls SetEnabled and SetPersistingCheck for the specified field depending on the event that is running.
+            </summary>
+            <typeparam name="Field">The field to set properties.</typeparam>
+            <param name="cache">The cache that is executing the event.</param>
+            <param name="row">The row for which the event is executed.</param>
+            <param name="eventType">The type of the event that is running.</param>
+            <param name="isEnabled">True to enable the field. False to disable it.</param>
+            <param name="persistingCheck">
+            <para>The type of PersistingCheck for the field.</para>
+            <para>Pass NULL if you don't want to set the PersistingCheck property for the field.</para>
+            </param>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceOrderBase`2.DisablePrepaidLine(PX.Data.PXCache,PX.Objects.FS.FSAppointmentDet)">
+            <summary>
+            If the given line is prepaid then disable all its editable fields.
+            </summary>
+            <param name="cacheAppointmentDet">Cache of the Appointment Detail.</param>
+            <param name="fsAppointmentDetRow">Appointment Detail row.</param>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceOrderBase`2.GetServiceOrderUrlArguments(PX.Objects.FS.FSServiceOrder)">
+            <summary>
+            Returns the url arguments for a Service Order [fsServiceOrderRow].
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceOrderBase`2.EnableDisable_Document(PX.Data.PXGraph,PX.Data.PXCache,PX.Objects.FS.FSServiceOrder,PX.Objects.FS.FSAppointment,PX.Objects.FS.FSSrvOrdType,PX.Objects.FS.FSBillingCycle,System.Int32,System.Int32,PX.Data.PXCache,PX.Data.PXCache,PX.Data.PXCache,PX.Data.PXCache,PX.Data.PXCache,PX.Data.PXCache,System.Nullable{System.Boolean},System.Boolean)">
+            <summary>
+            Enable / Disable the document depending of the Status of the Appointment [fsAppointmentRow] and ServiceOrder [fsServiceOrderRow].
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceOrderBase`2.CanUpdateServiceOrder(PX.Objects.FS.FSServiceOrder,PX.Objects.FS.FSSrvOrdType)">
+            <summary>
+            Returns true if a Service order [fsServiceOrderRow] can be updated based on its status and its SrvOrdtype's status.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceOrderBase`2.CanDeleteServiceOrder(PX.Data.PXGraph,PX.Objects.FS.FSServiceOrder)">
+            <summary>
+            Returns true if a Service order [fsServiceOrderRow] can be deleted based based in its status.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceOrderBase`2.ServiceOrderHasAppointment(PX.Data.PXGraph,PX.Objects.FS.FSServiceOrder)">
+            <summary>
+            Returns true if a Service order [fsServiceOrderRow] has an appointment assigned.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceOrderBase`2.FSSODetLinkedToAppointments(PX.Data.PXGraph,PX.Objects.FS.FSSODet)">
+            <summary>
+            Returns true if a Service in the Service Order <c>fsSODetServiceRow</c> is linked with an appointment.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceOrderBase`2.GetPendingLines(PX.Data.PXGraph,System.Nullable{System.Int32},PX.Data.PXResultset{PX.Objects.FS.FSSODet}@)">
+            <summary>
+            Search for <c>FSSODet</c> lines that are NOT in Status "Canceled" and return those rows in <c>bqlResultSet_FSSODet</c>.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceOrderBase`2.CanUpdateAppointment(PX.Objects.FS.FSAppointment,PX.Objects.FS.FSSrvOrdType)">
+            <summary>
+            Returns true if an Appointment [fsAppointmentRow] can be updated based in its status and the status of the Service Order [fsServiceOrderRow].
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceOrderBase`2.CanDeleteAppointment(PX.Objects.FS.FSAppointment,PX.Objects.FS.FSServiceOrder,PX.Objects.FS.FSSrvOrdType)">
+            <summary>
+            Returns true if an Appointment [fsAppointmentRow] can be deleted based in its status and the status of the Service Order [fsServiceOrderRow].
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceOrderBase`2.ServiceLinkedToPickupDeliveryItem(PX.Data.PXGraph,PX.Objects.FS.FSAppointmentDet,PX.Objects.FS.FSAppointment)">
+            <summary>
+            Determines if a Service line has at least one pickup/delivery item related.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.BillingCycleMaint.BillingCycleTypeFieldsSetup(PX.Data.PXCache,PX.Objects.FS.FSBillingCycle)">
+            <summary>
+            Show/Hide fields and make them Required/Not Required depending on the Billing Cycle Type selected.
+            </summary>
+            <param name="cache">BillingCycleRecords cache.</param>
+            <param name="fsBillingCycleRow">FSBillingCycle row.</param>
+        </member>
+        <member name="M:PX.Objects.FS.BillingCycleMaint.ResetTimeCycleOptions(PX.Objects.FS.FSBillingCycle)">
+            <summary>
+            Resets the values of the Time Cycle options depending on the Billing and Time Cycle Types.
+            </summary>
+            <param name="fsBillingCycleRow">FSBillingCycle row.</param>
+        </member>
+        <member name="M:PX.Objects.FS.BillingCycleMaint.KeepCustomerMultBillCyleSettings(PX.Data.PXGraph)">
+            <summary>
+            Keep synchronized the Customer's Billing Cycle settings when Multiple Billing Cycle option is turn on from Setup screen.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.BranchLocationMaint.EnableDisable_ActionButtons(PX.Data.PXCache,PX.Objects.FS.FSBranchLocation)">
+            <summary>
+            The Action buttons get enabled or disabled.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.BranchLocationMaint.GetPersistingCheckValueForDfltSiteID(System.Boolean)">
+            <summary>
+            Checks if the distribution module is enable and return the corresponding PersistingCheck value.
+            </summary>
+            <returns>PXPersistingCheck.NullOrBlank is the distribution module is enabled otherwise returns PXPersistingCheck.Nothing.</returns>
+        </member>
+        <member name="T:PX.Objects.FS.BranchLocationMaint.BranchLocationMaintAddressLookupExtension">
+            <exclude/>
+        </member>
+        <member name="M:PX.Objects.FS.WrkProcess.GetParameterList(System.String,System.Char)">
+            <summary>
+            Split a string in several substrings by a separator character.
+            </summary>
+            <param name="parameters">String representing the whole parameters.</param>
+            <param name="separator">Char representing the separation of parameters.</param>
+            <returns>A string list.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.WrkProcess.DeleteOldRecords">
+            <summary>
+            Delete old records from database.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.WrkProcess.GetSrvOrdType(PX.Data.PXGraph,PX.Objects.FS.FSWrkProcess,PX.Objects.FS.FSServiceOrder)">
+            <summary>
+            Try to get the appropriate ServiceOrderType from this sources:
+            a. <c>FSServiceOrder</c>
+            b. <c>FSWrkProcessRow</c>
+            c. <c>FSSetup</c>
+            </summary>
+            <param name="fsWrkProcessRow"><c>FSWrkProcess</c> row.</param>
+            <param name="fsServiceOrderRow">FSServiceOrder row.</param>
+        </member>
+        <member name="M:PX.Objects.FS.WrkProcess.GetServiceOrder(PX.Data.PXGraph,PX.Objects.FS.FSWrkProcess)">
+            <summary>
+            Try to retrieve a ServiceOrder row associated to the supplied <c>WrkProcess</c> row.
+            </summary>
+            <param name="fsWrkProcessRow"><c>FSWrkProcess</c> row.</param>
+            <returns><c>FSServiceOrder</c> row.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.WrkProcess.LaunchScreen(System.Nullable{System.Int32})">
+            <summary>
+            Launches the target screen specified in the <c>FSWrkProcess</c> row.
+            </summary>
+            <param name="processID"><c>Int</c> id of the process.</param>
+        </member>
+        <member name="M:PX.Objects.FS.WrkProcess.LaunchAppointmentEntryScreen(PX.Objects.FS.FSWrkProcess,System.Boolean)">
+            <summary>
+            Launches the AppointmentEntry screen with some preloaded values.
+            </summary>
+            <param name="fsWrkProcessRow"><c>FSWrkProcess</c> row.</param>
+        </member>
+        <member name="M:PX.Objects.FS.CalendarWeekCodeMaint.SetBeginEndWeekDates(PX.Objects.FS.FSWeekCodeDate)">
+            <summary>
+            Sets the values of the FSWeekCodeDate.BeginDateOfWeek and FSWeekCodeDate.EndDateOfWeek memory fields.
+            </summary>
+            <param name="fsWeekCodeDateRow">FSWeekCodeDate Row.</param>
+        </member>
+        <member name="M:PX.Objects.FS.CalendarWeekCodeMaint.SplitWeekCodeParameters(PX.Objects.FS.FSWeekCodeDate)">
+            <summary>
+            Split the fsWeekCodeDateRow.WeekCode field into the WeekCode parameters.
+            </summary>
+            <param name="fsWeekCodeDateRow">FSWeekCodeDate Row.</param>
+        </member>
+        <member name="M:PX.Objects.FS.CalendarWeekCodeMaint.AutoCalcWeekCode(System.DateTime,PX.Objects.FS.FSWeekCodeDate)">
+            <summary>
+            Calculates the Week Code of a specific date.
+            </summary>
+            <param name="baseDate">Date by which the Week Code will be calculated.</param>
+            <param name="fsWeekCodeRow">FSWeekCodeDate Row.</param>
+        </member>
+        <member name="M:PX.Objects.FS.CalendarWeekCodeMaint.CalcWeekCodeParameterP4(System.Int32)">
+            <summary>
+            Calculates the Fourth parameter of the Week Code.
+            </summary>
+            <param name="weeks">Number of the week in which the date belongs.</param>
+            <returns>Fourth parameter of the Week Code.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.CalendarWeekCodeMaint.CalcWeekCodeParameterP3(System.Int32)">
+            <summary>
+            Calculates the 3rd parameter of the Week Code.
+            </summary>
+            <param name="weeks">Number of the week in which the date belongs.</param>
+            <returns>3rd Parameter of the Week Code.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.CalendarWeekCodeMaint.CalcWeekCodeParameterP2(System.Int32)">
+            <summary>
+            Calculates the second parameter of the Week Code.
+            </summary>
+            <param name="weeks">Number of the week in which the date belongs.</param>
+            <returns>Second parameter of the Week Code.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.CalendarWeekCodeMaint.CalcWeekCodeParameterP1(System.Int32)">
+            <summary>
+            Calculates the 1st parameter of the Week Code.
+            </summary>
+            <param name="weeks">Number of the week in which the date belongs.</param>
+            <returns>1st Parameter of the Week Code.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.CalendarWeekCodeMaint.ValidateEndGenerationDate(PX.Objects.FS.CalendarWeekCodeMaint.CalendarWeekCodeGeneration,PX.Data.PXCache)">
+            <summary>
+            Validates the CalendarWeekCodeGeneration.endDate value.
+            </summary>
+            <param name="calendarWeekCodeGenrationRow">CalendarWeekCodeGeneration Row.</param>
+            <param name="cache">Cache of the View.</param>
+            <returns>true: valid value | false: invalid value.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.CalendarWeekCodeMaint.ValidateStartGenerationDate(PX.Objects.FS.CalendarWeekCodeMaint.CalendarWeekCodeGeneration,PX.Data.PXCache)">
+            <summary>
+            Validates the CalendarWeekCodeGeneration.startDate value.
+            </summary>
+            <param name="calendarWeekCodeGenrationRow">CalendarWeekCodeGeneration Row.</param>
+            <param name="cache">Cache of the View.</param>
+            <returns>true: valid value | false: invalid value.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.CloneAppointmentProcess.HideRooms">
+            <summary>
+            Check the ManageRooms value on Setup to check/hide the Rooms Values options.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.CloseRouteProcess.CloseRoute(PX.Objects.FS.RouteDocumentMaint,PX.Objects.FS.RouteClosingMaint,PX.Objects.FS.FSRouteDocument)">
+            <summary>
+            Try to close a set of routes.
+            </summary>
+            <param name="graphRouteDocumentMaint"> Route Document graph.</param>
+            <param name="graphRouteClosingMaint"> Route Closing Document graph.</param>
+            <param name="fsRouteDocumentRow">FSRouteDocument row to be processed.</param>
+        </member>
+        <member name="M:PX.Objects.FS.AppointmentAutoNumberAttribute.SetRefNbr(PX.Data.PXCache,System.Object)">
+            <summary>
+            Allows to calculate the <c>RefNbr</c> sequence when trying to insert a new register.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.StaffSelectionHelper.ExistContractEmployees(PX.Data.PXGraph,System.Nullable{System.Int32})">
+            <summary>
+            Checks the existence of assigned Employees to the ProjectID.
+            </summary>
+            <param name="graph">PXGraph instance for BQL execution.</param>
+            <param name="projectID">ProjectID to check the existing of Employees.</param>
+            <returns>True if there are employees assigned to the projectID, False if not.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.StaffSelectionHelper.HasEmployeeItemsSelected(PX.Objects.FS.SharedClasses.ItemList,System.Collections.Generic.List{System.Nullable{System.Int32}})">
+            <summary>
+            Evaluates if the employeeItemList (belonging to an Employee) provided has the items (skills or licenseTypes) selected in filter.
+            </summary>
+            <param name="employeeItemList">Employee item list instance.</param>
+            <param name="itemsSelection">Items list selected in filter.</param>
+            <returns>True if Employee has items Selected, otherwise False.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.StaffSelectionHelper.GetStaffByLineRefTab(System.Object,System.String)">
+            <summary>
+            Gets Staff Members already existing in the Staff tab with the <c>lineRef</c> related. The <c>employeesView</c> can be of type AppointmentEmployees_View or ServiceOrderEmployees_View.
+            </summary>
+            <param name="staffView">Object of type AppointmentEmployees_View or ServiceOrderEmployees_View.</param>
+             <param name="lineRef">Line ref of related Service Line.</param>
+            <returns>List of EmployeeID's existing in Employee Tab.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.StaffSelectionHelper.GetStaffAvailableForSelect(PX.Data.PXFilter{PX.Objects.FS.StaffSelectionFilter},System.Object)">
+            <summary>
+            Gets a list of Staff Members related to <c>filter.ServiceLineRef</c>.
+            </summary>
+            <param name="filter">Instance of the filter.</param>
+            <param name="staffView">Current list of Staff Members in the grid.</param>
+            <returns>A list of EPEmployee ready to be shown in the smartpanel.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.EquipmentHelper.SetDefaultValuesFromFixedAsset(PX.Data.PXCache,PX.Objects.FS.FSEquipment,System.Nullable{System.Int32})">
+            <summary>
+            Set default values in FSEquipment from the Fixed Asset specified.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.EquipmentHelper.UpdateFSEquipmentWithEPEquipment(PX.Data.PXCache,PX.Objects.FS.FSEquipment,PX.Data.PXCache,PX.Objects.EP.EPEquipment)">
+            <summary>
+            Update a FSEquipment record with the values in the EPEquipment record.
+            </summary>
+            <param name="cacheFSEquipment">The cache of the FSEquipment record.</param>
+            <param name="fsEquipmentRow">The FSEquipment record.</param>
+            <param name="cacheEPEquipment">The cache of the EPEquipment record.</param>
+            <param name="epEquipmentRow">The EPEquipment record.</param>
+            <returns>Returns true if some value changes, otherwise it returns false.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.EquipmentHelper.UpdateEPEquipmentWithFSEquipment(PX.Data.PXCache,PX.Objects.EP.EPEquipment,PX.Data.PXCache,PX.Objects.FS.FSEquipment)">
+            <summary>
+            Update a EPEquipment record with the values in the FSEquipment record.
+            </summary>
+            <param name="cacheEPEquipment">The cache of the EPEquipment record.</param>
+            <param name="epEquipmentRow">The EPEquipment record.</param>
+            <param name="cacheFSEquipment">The cache of the FSEquipment record.</param>
+            <param name="fsEquipmentRow">The FSEquipment record.</param>
+            <returns>Returns true if some value changes, otherwise it returns false.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.EquipmentHelper.CopyEPEquipmentFields(PX.Data.PXCache,PX.Data.IBqlTable,PX.Data.PXCache,PX.Data.IBqlTable)">
+            <summary>
+            Update a record with the values in another one.
+            </summary>
+            <param name="cacheTo">The cache of the record to be updated.</param>
+            <param name="rowTo">The record to be updated.</param>
+            <param name="cacheFrom">The cache of the record to be read.</param>
+            <param name="rowFrom">The record to be read.</param>
+            <returns>Returns true if some value changes, otherwise it returns false.</returns>
+        </member>
+        <member name="P:PX.Objects.FS.FSINLotSerialNbrAttribute.ApptINLotSerialStatus.QtyInTransitToProduction">
+            <summary>
+            Production / Manufacturing 
+            Specifies the quantity In Transit to Production.  
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.FSINLotSerialNbrAttribute.ApptINLotSerialStatus.QtyProductionSupplyPrepared">
+            <summary>
+            Production / Manufacturing 
+            Specifies the quantity Production Supply Prepared.  
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.FSINLotSerialNbrAttribute.ApptINLotSerialStatus.QtyProductionSupply">
+            <summary>
+            Production / Manufacturing 
+            Specifies the quantity On Production Supply.  
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.FSINLotSerialNbrAttribute.ApptINLotSerialStatus.QtyPOFixedProductionPrepared">
+            <summary>
+            Production / Manufacturing 
+            Specifies the quantity On Purchase for Prod. Prepared.  
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.FSINLotSerialNbrAttribute.ApptINLotSerialStatus.QtyPOFixedProductionOrders">
+            <summary>
+            Production / Manufacturing 
+            Specifies the quantity On Purchase for Production.  
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.FSINLotSerialNbrAttribute.ApptINLotSerialStatus.QtyProductionDemandPrepared">
+            <summary>
+            Production / Manufacturing 
+            Specifies the quantity On Production Demand Prepared.  
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.FSINLotSerialNbrAttribute.ApptINLotSerialStatus.QtyProductionDemand">
+            <summary>
+            Production / Manufacturing 
+            Specifies the quantity On Production Demand.  
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.FSINLotSerialNbrAttribute.ApptINLotSerialStatus.QtyProductionAllocated">
+            <summary>
+            Production / Manufacturing 
+            Specifies the quantity On Production Allocated.  
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.FSINLotSerialNbrAttribute.ApptINLotSerialStatus.QtySOFixedProduction">
+            <summary>
+            Production / Manufacturing 
+            Specifies the quantity On SO to Production.  
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.FSINLotSerialNbrAttribute.ApptINLotSerialStatus.QtyProdFixedPurchase">
+            <summary>
+            Production / Manufacturing 
+            Specifies the quantity On Production to Purchase.  
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.FSINLotSerialNbrAttribute.ApptINLotSerialStatus.QtyProdFixedProduction">
+            <summary>
+            Production / Manufacturing 
+            Specifies the quantity On Production to Production
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.FSINLotSerialNbrAttribute.ApptINLotSerialStatus.QtyProdFixedProdOrdersPrepared">
+            <summary>
+            Production / Manufacturing 
+            Specifies the quantity On Production for Prod. Prepared
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.FSINLotSerialNbrAttribute.ApptINLotSerialStatus.QtyProdFixedProdOrders">
+            <summary>
+            Production / Manufacturing 
+            Specifies the quantity On Production for Production
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.FSINLotSerialNbrAttribute.ApptINLotSerialStatus.QtyProdFixedSalesOrdersPrepared">
+            <summary>
+            Production / Manufacturing 
+            Specifies the quantity On Production for SO Prepared
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.FSINLotSerialNbrAttribute.ApptINLotSerialStatus.QtyProdFixedSalesOrders">
+            <summary>
+            Production / Manufacturing 
+            Specifies the quantity On Production for SO
+            </summary>
+        </member>
+        <member name="T:PX.Objects.FS.ApptContactType.ClassListAttribute">
+            <summary>
+            Defines a list of the possible ContactType for the AR Customer <br/>
+            Namely: Primary, Billing, Employee, Customer, Employee Staff, Vendor Staff <br/>
+            Mostly, this attribute serves as a container <br/>
+            </summary>		
+        </member>
+        <member name="T:PX.Objects.FS.ContractContactType.ClassListAttribute">
+            <summary>
+            Defines a list of the possible ContactType for the AR Customer <br/>
+            Namely: Primary, Billing, Employee, Customer, Employee Staff, Vendor Staff <br/>
+            Mostly, this attribute serves as a container <br/>
+            </summary>		
+        </member>
+        <member name="T:PX.Objects.FS.ListField.ACEntityType">
+            <summary>
+            EntityType for FSAddress and FSContact tables
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.RouteAppointmentAssignmentHelper.ReassignAppointmentToRoute(PX.Objects.FS.FSRouteDocument,System.String,System.String)">
+            <summary>
+            Reassign the selected appointment <c>RefNbr</c> to the selected RouteDocumentID from the SmartPanel.
+            </summary>
+            <param name="fsRouteDocumentRow">New RouteDocumentID where the appointment is going to be assigned.</param>
+            <param name="refNbr"><c>RefNbr</c> of the appointment to be assigned.</param>
+            <param name="srvOrdType"><c>SrvOrdType</c> of the appointment to be assigned.</param>
+        </member>
+        <member name="M:PX.Objects.FS.RouteAppointmentAssignmentHelper.DeleteAppointmentRoute(System.String,System.String)">
+            <summary>
+            Deletes the selected appointment <c>RefNbr</c> from Database.
+            </summary>
+            <param name="refNbr"><c>RefNbr</c> of the appointment to be deleted.</param>
+            <param name="srvOrdType"><c>SrvOrdType</c> of the appointment to be deleted.</param>
+        </member>
+        <member name="M:PX.Objects.FS.RouteAppointmentAssignmentHelper.ReassignAppointmentPositionsInRoute(System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Reassign the positions of the appointments in a route beginning from a given position.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceContractAutoNumberAttribute.SetRefNbr(PX.Data.PXCache,System.Object)">
+            <summary>
+            Allows to calculate the <c>RefNbr</c> sequence when trying to insert a new register
+            It's called from the Persisting event of FSServiceContract.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceManagementSetup.GetServiceManagementSetup(PX.Data.PXGraph)">
+            <summary>
+            Returns FSSetup record.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceManagementSetup.GetServiceManagementRouteSetup(PX.Data.PXGraph)">
+            <summary>
+            Returns FSRouteSetup record.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceManagementSetup.IsRoomManagementActive(PX.Data.PXGraph,PX.Objects.FS.FSSetup)">
+            <summary>
+            Return if ManageRooms is active or inactive on the Service Management.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceSelectionHelper.PopulateEmployeeFilter(System.Object)">
+            <summary>
+            Initialize the EmployeeGrid filter with the existing employees in the Employee tab.
+            </summary>
+            <param name="employeesView">Employee view from Appointment or ServiceOrder screen.</param>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceSelectionHelper.GetServicesInServiceTab``1(PX.Data.PXSelectBase{``0},System.String)">
+            <summary>
+            Fills the serviceList list with those services that already exist in the Details tab.
+            </summary>
+            <param name="servicesView">Service view of the detail tab of the screen that calls the selector.</param>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceSelectionHelper.GetListWithServicesOnly(PX.Data.PXSelectBase{PX.Objects.IN.InventoryItem},System.Collections.Generic.List{System.Nullable{System.Int32}})">
+            <summary>
+            Return a list of services without their skills.
+            </summary>
+            <param name="cmd">Base select over the Inventory Item table.</param>
+            <param name="serviceList">Services that will be excluded from the returned list.</param>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceSelectionHelper.CanThisServiceBeCompleteByTheseEmployeesSkills(PX.Objects.FS.SharedClasses.ItemList,System.Collections.Generic.List{PX.Objects.FS.SharedClasses.ItemList})">
+            <summary>
+            Check if the given service skills are contained by each given employee. 
+            </summary>
+            <param name="serviceSkills">Service with its skills.</param>
+            <param name="employeeSkillList">List of employees and their skills.</param>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceSelectionHelper.CanThisServiceBeCompleteByTheseEmployeesLicenses(PX.Objects.FS.SharedClasses.ItemList,System.Collections.Generic.List{PX.Objects.FS.SharedClasses.ItemList})">
+            <summary>
+            Check if the given service License are contained by each given employee. 
+            </summary>
+            <param name="serviceLicenses">Service with its licenses.</param>
+            <param name="employeeLicenseList">List of employees and their licenses.</param>
+        </member>
+        <member name="M:PX.Objects.FS.SharedClasses.InvoiceItem.AddAppointmentLineToList(PX.Data.PXGraph,PX.Objects.FS.FSAppointmentDet,PX.Objects.FS.FSAppointmentDet,PX.Objects.FS.SharedClasses.AppointmentInfo,System.Boolean,System.Boolean)">
+            <summary>
+            Adds the line <c>fsAppointmentDetRow</c> or <c>fsAppointmentInventoryItem</c> to the List <c>fsAppointmentDetailsToPostInAR_AP</c> or <c>fsAppointmentDetailsToPostInSO</c> depending on <c>addToArApList</c> and <c>addToSoList</c> flags.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SharedClasses.InvoiceItem.AddSOLineToList(PX.Data.PXGraph,PX.Objects.FS.FSSODet,PX.Objects.FS.SharedClasses.ServiceOrderInfo,System.Boolean,System.Boolean)">
+            <summary>
+            Adds the line <c>fsSODetRow</c> to the List <c>FSPostingLineDetailsToPostInAR_AP</c> or <c>FSPostingLineDetailsToPostInSO</c> depending on <c>addToArApList</c> and <c>addToSoList</c> flags.
+            </summary>
+        </member>
+        <member name="T:PX.Objects.FS.SharedClasses.decimal_0">
+            <summary>
+            This class allows the use of a cero decimal in a BQL type declaration.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.GetInventoryItemRow(PX.Data.PXGraph,System.Nullable{System.Int32})">
+            <summary>
+            Retrieves an InventoryItem row by its ID.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.SplitWeekcodeByComma(System.String)">
+            <summary>
+            Split a string by commas and returns the result as a list of strings.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.SplitWeekcodeInChars(System.String)">
+            <summary>
+            Split a string in chars and returns the result as a list of strings.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.IsAValidWeekCodeLength(System.String)">
+            <summary>
+            Validates if a Week Code is less than or equal to 4.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.IsAValidCharForWeekCode(System.String)">
+            <summary>
+            Validates if a specific Char is valid for a Week Code (1-4), (A-B), (C-F), (S-Z).
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.WeekCodeIsValid(System.String,System.Nullable{System.DateTime},PX.Data.PXGraph)">
+            <summary>
+            Validates if a Week Code is valid for a schedule time and list of Week Code(s) given.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.getDayOfWeekByID(System.Int32)">
+            <summary>
+            Returns the day of the week depending on the ID [dayID]. Sunday is (0) and Monday (6).
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.getMonthOfYearByID(System.Int32)">
+            <summary>
+            Returns the month of the year depending on the ID [dayID]. January is (1) and December (12).
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.GetMonthOfYearInStringByID(System.Int32)">
+            <summary>
+            Returns the month in string of the year depending on the ID [dayID]. January is (JAN) and December (DEC).
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.StartOfWeek(System.DateTime,System.DayOfWeek)">
+            <summary>
+            Calculates the beginning of the week for the specific <c>date</c> using the <c>startOfWeek</c> as reference.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.EndOfWeek(System.DateTime,System.DayOfWeek)">
+            <summary>
+            Calculates the end of the week for the specific <c>date</c> using the <c>startOfWeek</c> as reference.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.IsValidDateRange(System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <summary>
+            Verifies that the EndDate is greater than the StartDate.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.EvaluateExecutionDay(PX.Objects.FS.FSRoute,System.DayOfWeek,System.Nullable{System.DateTime}@)">
+            <summary>
+            Validates if the appointment scheduled day of the week belongs to the defined executions days of the given route.
+            Also if it is valid sets the begin time of the route for the given week day.
+            </summary>
+            <param name="fsRouteRow">FSRoute row.</param>
+            <param name="appointmentScheduledDayOfWeek">Monday Sunday.</param>
+            <param name="beginTimeOnWeekDay">Begin time of the route in a specific day of week.</param>
+            <returns>true if the route runs in the given week day, otherwise returns false.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.ValidateExecutionDay(PX.Objects.FS.FSRoute,System.DayOfWeek,System.Nullable{System.DateTime}@)">
+            <summary>
+            Throw the Exception depending on the result of the EvaluateExecutionDay function.
+            </summary>
+            <param name="fsRouteRow">FSRoute row.</param>
+            <param name="appointmentScheduledDayOfWeek">Monday Sunday.</param>
+            <param name="beginTimeOnWeekDay">Begin time of the route in a specific day of week.</param>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.SetScreenIDToDotFormat(System.String)">
+            <summary>
+            Sets the given ScreenID to a format separated by dots
+            SetScreenIDToDotFormat("SD300200") will return  "SD.300.200".
+            </summary>
+            <param name="screenID">8 characters ScreenID.</param>
+            <returns>The given ScreenID in a dot separated format.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.GetAppointmentAddress(PX.Objects.FS.FSAddress)">
+            <summary>
+            Get an appointment complete address from its service order.
+            </summary>
+            <returns>Returns a string containing the complete address of the appointment.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.GetBranchLocationAddress(PX.Data.PXGraph,PX.Objects.FS.FSBranchLocation)">
+            <summary>
+            Get a complete address from a branch location.
+            </summary>
+            <returns>Returns a string containing the complete address of the branch location.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.GetTimeStringFromDate(System.Nullable{System.DateTime})">
+            <summary>
+            Extracts time info from 'date' field.
+            </summary>
+            <param name="date">DateTime field from where the time info is extracted.</param>
+            <returns>A string with the following format: HH:MM AM/PM.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.GetBAccountType(PX.Data.PXGraph,System.Nullable{System.Int32})">
+            <summary>
+            Get the BAccountType based on the staffMemberID.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.GetItemWithList``5(PX.Data.PXGraph,System.Collections.Generic.List{System.Nullable{System.Int32}},System.Object[])">
+            <summary>
+            Gets a SharedClasses.ItemList type list of recordID's of a field (FieldSearch) belonging to a list of items (FieldList) 
+            from a table (Table) with a Join condition (Join) and a where clause (TWhere).
+            </summary>
+            <typeparam name="Table">Main table for the BQL.</typeparam>
+            <typeparam name="Join">Join for the BQL.</typeparam>
+            <typeparam name="FieldList">Search field for the select in BQL.</typeparam>
+            <typeparam name="FieldSearch">Row filter field.</typeparam>
+            <typeparam name="TWhere">Where BQL conditions.</typeparam>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.GetItemWithList``4(PX.Data.PXGraph,System.Collections.Generic.List{System.Nullable{System.Int32}},System.Object[])">
+            <summary>
+            Gets a SharedClasses.ItemList type list of recordID's of a field (FieldSearch) belonging to a list of items (FieldList) 
+            from a table (Table) with a where clause (TWhere).
+            </summary>
+            <typeparam name="Table">Main table for the BQL.</typeparam>
+            <typeparam name="FieldList">Search field for the select in BQL.</typeparam>
+            <typeparam name="FieldSearch">Row filter field.</typeparam>
+            <typeparam name="TWhere">Where BQL conditions.</typeparam>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.GetItemWithList``3(PX.Data.PXGraph,System.Collections.Generic.List{System.Nullable{System.Int32}})">
+            <summary>
+            Gets a SharedClasses.ItemList type list of recordID's of a field (FieldSearch) belonging to a list of items (FieldList) 
+            from a table (Table).
+            </summary>
+            <typeparam name="Table">Main table for the BQL.</typeparam>
+            <typeparam name="FieldList">Search field for the select in BQL.</typeparam>
+            <typeparam name="FieldSearch">Row filter field.</typeparam>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.PopulateItemList``3(PX.Data.PXGraph,PX.Data.BqlCommand,System.Collections.Generic.List{System.Object})">
+            <summary>
+            Populate a SharedClasses.ItemList type list with recordID's of a field (FieldSearch) belonging to a list of items (FieldList) 
+            from a table (Table).
+            </summary>
+            <typeparam name="Table">Main table for the BQL.</typeparam>
+            <typeparam name="FieldList">Search field for the select in BQL.</typeparam>
+            <typeparam name="FieldSearch">Row filter field.</typeparam>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.isThisAProspect(PX.Data.PXGraph,System.Nullable{System.Int32})">
+            <summary>
+            Checks if the given Business Account identifier is a prospect type.
+            </summary>
+            <param name="graph">Context graph.</param>
+            <param name="bAccountID">Business Account identifier.</param>
+            <returns>True is the Business Account is a Prospect.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.CheckRouteActualDateTimes(PX.Data.PXCache,PX.Objects.FS.FSRouteDocument,System.Nullable{System.DateTime})">
+            <summary>
+            Validates the Actual Start/End date times for a given Route Document.
+            </summary>
+            <param name="cache">Route Document Cache.</param>
+            <param name="fsRouteDocumentRow">Route Document row.</param>
+            <param name="businessDate">Current graph business date.</param>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.TryParseHandlingDateTime(PX.Data.PXCache,System.Object)">
+            <summary>
+            Tries to parse the <c>newValue</c> to DateTime?. When the <c>newValue</c> is string and the DateTime TryParse is not possible returns null. Otherwise returns (DateTime?) <c>newValue</c>.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.CreateSoldEquipment(PX.Objects.FS.SMEquipmentMaint,PX.Objects.FS.SoldInventoryItem,PX.Objects.AR.ARTran,PX.Objects.FS.FSARTran,PX.Objects.SO.SOLine,System.String,PX.Objects.IN.InventoryItem)">
+            <summary>
+            Create an Equipment from a sold Inventory Item.
+            </summary>
+            <param name="graphSMEquipmentMaint"> Equipment graph.</param>
+            <param name="soldInventoryItemRow">Sold Inventory Item data.</param>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.GetEquipmentRow(PX.Data.PXGraph,System.Nullable{System.Int32})">
+            <summary>
+            Retrieves an Equipment row by its ID.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.isThereAnyGenerationProcessForThisSchedule(PX.Data.PXCache,System.Nullable{System.Int32})">
+            <summary>
+            Checks whether there is or not any generation process associated with scheduleID.
+            </summary>
+            <returns>True if there is a generation process, otherwise it returns False.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.ShowWarningScheduleNotProcessed(PX.Data.PXCache,PX.Objects.FS.FSSchedule)">
+            <summary>
+            Shows a warning message if the current schedule has not been processed yet.
+            </summary>
+            <returns>True if there is a generation process, otherwise it returns False.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.GetFieldName``1(System.Boolean)">
+            <summary>
+            Gets the name of the specified field with the default option to capitalize its first letter.
+            </summary>
+            <typeparam name="field">Field from where to get the name.</typeparam>
+            <param name="capitalizedFirstLetter">Flag to indicate if the first letter is capital.</param>
+            <returns>Returns the field's name.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.CopyCommonFields(PX.Data.PXCache,PX.Data.IBqlTable,PX.Data.PXCache,PX.Data.IBqlTable,System.String[])">
+            <summary>
+            Copy all common fields from a source row to a target row skipping special fields like key fields and Acumatica creation/update fields.
+            Optionally you can pass a list of field names to exclude of the copy.
+            </summary>
+            <param name="cacheTarget">The cache of the target row.</param>
+            <param name="rowTarget">The target row.</param>
+            <param name="cacheSource">The cache of the source row.</param>
+            <param name="rowSource">The source row.</param>
+            <param name="excludeFields">List of field names to exclude of the copy.</param>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.GetWebMethodPath(System.String)">
+            <summary>
+            Get the web methods file path.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SharedFunctions.InitializeNote(PX.Data.PXCache,PX.Data.PXRowInsertedEventArgs)">
+            <summary>
+            Creates note record in Note table in the RowInserted event.
+            </summary>
+        </member>
+        <member name="T:PX.Objects.FS.FSAcctSubDefault.ClassListAttribute">
+            <summary>
+            Defines a list of the possible sources for the FS Documents sub-account defaulting: <br/>
+            Namely: MaskCustomerLocation, MaskItem, MaskServiceOrderType, MaskCompany, MaskBranchLocation <br/>
+            Mostly, this attribute serves as a container <br/>
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.TimeCardHelper.IsTheTimeCardIntegrationEnabled(PX.Data.PXGraph)">
+            <summary>
+            Checks if the Employee Time Cards Integration is enabled in the Service Management Setup.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.TimeCardHelper.CheckTimeCardAppointmentApprovalsAndComplete(PX.Objects.FS.AppointmentEntry,PX.Data.PXCache,PX.Objects.FS.FSAppointment)">
+            <summary>
+            Checks if the all Appointment Service lines are approved by a Time Card, then sets Time Register to true and completes the appointment.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.CompleteRouteProcess.CompleteRoute(PX.Objects.FS.RouteDocumentMaint,PX.Objects.FS.FSRouteDocument)">
+            <summary>
+            Try to complete a set of routes.
+            </summary>
+            <param name="graphRouteDocumentMaint"> Route Document graph.</param>
+            <param name="fsRouteDocumentRow">FSRouteDocument row to be processed.</param>
+        </member>
+        <member name="M:PX.Objects.FS.SM_APReleaseProcess.InvoiceTransactionsReleased(PX.Objects.AP.InvoiceTransactionsReleasedArgs)">
+            <summary>
+            Extends <see cref="M:PX.Objects.AP.APReleaseProcess.InvoiceTransactionsReleased(PX.Objects.AP.InvoiceTransactionsReleasedArgs)"/>
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SM_ARReleaseProcess.GetItemListFromPOReceipt(PX.Objects.SO.SOLine)">
+            <summary>
+            Workaround method to obtain serial numbers
+            </summary>
+            <param name="soLineRow"></param>
+            <param name="arTran"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PX.Objects.FS.SM_CustomerMaint.SetBillingCycleFromCustomerClass(PX.Data.PXCache,PX.Objects.AR.Customer)">
+            <summary>
+            Sets the Customer Billing Cycle from its Customer Class.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SM_CustomerMaint.ResetTimeCycleOptions(PX.Objects.FS.FSCustomerBillingSetup)">
+            <summary>
+            Resets the values of the Frequency Fields depending on the Frequency Type value.
+            </summary>
+            <param name="fsCustomerBillingSetupRow"><c>fsCustomerBillingRow</c> row.</param>
+        </member>
+        <member name="M:PX.Objects.FS.SM_CustomerMaint.DisplayCustomerBillingOptions(PX.Data.PXCache,PX.Objects.AR.Customer,PX.Objects.FS.FSxCustomer)">
+            <summary>
+            Configures the Multiple Services Billing options for the given Customer.
+            </summary>
+            <param name="cache">Cache of the view.</param>
+            <param name="customerRow">Customer row.</param>
+        </member>
+        <member name="M:PX.Objects.FS.SM_CustomerMaint.IsThisLineValid(PX.Objects.FS.FSCustomerBillingSetup)">
+            <summary>
+            Checks if the current row is valid for edition.
+            The line is valid if there is not another line with the same Service Order Type.
+            </summary>
+            <param name="fsCustomerBillingSetupRow_Current"><c>currentFSCustomerBillingRow</c> row.</param>
+            <returns>Returns true if the line is valid.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.SM_CustomerMaint.ResetSendInvoicesToFromBillingCycle(PX.Objects.AR.Customer,PX.Objects.FS.FSCustomerBillingSetup)">
+            <summary>
+            Resets the value from Send to Invoices dropdown if the billing cycle can not be sent to specific locations.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SM_INItemClassMaint.EnableDisable_ItemType(PX.Data.PXCache,PX.Objects.IN.INItemClass,PX.Objects.FS.FSxServiceClass)">
+            <summary>
+            Enables/Disables the Item Type field depending of there is at least one service related to.
+            </summary>
+            <param name="cache">PXCache instance.</param>
+            <param name="itemClassRow">The current INItemClass object row.</param>
+            <param name="fsxServiceClassRow">The current <c>FSxServiceClass</c> object row.</param>
+        </member>
+        <member name="M:PX.Objects.FS.SM_INItemClassMaint.EnableDisable(PX.Data.PXCache,PX.Objects.IN.INItemClass)">
+            <summary>
+            Enables or disables fields.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SM_InventoryItemMaint.EnableDisable_InventoryItem(PX.Data.PXCache,PX.Objects.IN.InventoryItem)">
+            <summary>
+            Manages the <c>SetEnabled</c> attribute for the <c>eQEnabled</c>, <c>manufacturerID</c>, <c>modelType</c> and <c>hasWarranty</c> fields of the <c>FSxEquipmentModel</c> DAC.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SM_InventoryItemMaint.EnableDisable_FSModelComponent(PX.Data.PXCache,PX.Objects.FS.FSModelComponent)">
+            <summary>
+            Manages the <c>SetEnabled</c> attribute for the <c>componentCD</c>, <c>descr</c>, <c>vendorWarrantyDuration</c>, <c>vendorID</c> and <c>cpnyWarrantyDuration</c> fields of the <c>FSModelComponent</c> DAC.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SM_InventoryItemMaint.ResetValuesFromItemClass(PX.Data.PXCache,PX.Objects.IN.InventoryItem,System.Nullable{System.Int32})">
+            <summary>
+            Reset the values on the 'Components' grid and loads the Component registers from the selected 'ItemClass' for the current 'InventoryItem' ('StockItem').
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SM_InventoryItemMaint.ShowOrHideFields(PX.Data.PXCache,PX.Objects.IN.InventoryItem)">
+            <summary>
+            Show or Hide Model Fields.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SM_InventoryItemMaint.ShowOrHideComponetsTab(PX.Data.PXCache,PX.Objects.IN.InventoryItem)">
+            <summary>
+            Show or hide Components tab.
+            </summary>
+            <param name="cache">Cache of the Inventory Item.</param>
+            <param name="inventoryItemRow">Inventory Item Row.</param>
+        </member>
+        <member name="M:PX.Objects.FS.SM_NonStockItemMaint.EnableDisable(PX.Data.PXCache,PX.Objects.IN.InventoryItem)">
+            <summary>
+            Enable or Disable fields.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SM_NonStockItemMaint.SetDefaultBillingRule(PX.Data.PXCache,PX.Objects.IN.InventoryItem)">
+            <summary>
+            Assign the default Billing Rule set in the ItemClass.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SM_NonStockItemMaint.SetPostClassIDField(PX.Data.PXCache,PX.Objects.IN.InventoryItem)">
+            <summary>
+            Set required and visible the PostClassID Field if the distribution module is installed in Acumatica.
+            </summary>        
+        </member>
+        <member name="M:PX.Objects.FS.SM_NonStockItemMaint.EnableDisablePickUpDelivery(PX.Data.PXCache,PX.Objects.IN.InventoryItem)">
+            <summary>
+            Enable/Disable the PickUp/Delivery Grid for a Service if the ActionType is No Items Related or another option.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SM_NonStockItemMaint.EnableDisableActionType(PX.Data.PXCache,PX.Objects.IN.InventoryItem)">
+            <summary>
+            Enable/Disable the ActionType field for a Service depending on the appointments related to that service.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SM_NonStockItemMaint.IsServiceRelatedToAnyContract(PX.Data.PXCache,System.Nullable{System.Int32})">
+            <summary>
+            Verifies if there is at least one Service Contract detail related to the specified Service.
+            </summary>
+            <param name="cache">PXCache instance.</param>
+            <param name="inventoryID">Inventory ID related to the service.</param>
+            <returns>True if at least there is one detail related to, false otherwise.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.SM_NonStockItemMaint.PropagateBaseUnitToContracts(PX.Data.PXCache,PX.Objects.IN.InventoryItem,PX.Data.PXTranStatus,PX.Data.PXDBOperation,System.Boolean)">
+            <summary>
+            Propagates the change of Base Unit to the Service Contract Details.
+            </summary>
+            <param name="cache">PXCache instance.</param>
+            <param name="inventoryItemRow">InventoryItem object row.</param>
+            <param name="tranStatus">Transaction status.</param>
+            <param name="operation">Operation committed to DB.</param>
+            <param name="baseUnitChanged">True if the Base unit has been changed, otherwise false.</param>
+        </member>
+        <member name="M:PX.Objects.FS.SM_POCreate.GetFixedDemandFieldScope(System.Func{System.Collections.Generic.IEnumerable{System.Type}})">
+            <summary>
+            Overrides <see cref="M:PX.Objects.PO.POCreate.GetFixedDemandFieldScope"/>
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SM_POCreate.EnumerateAndPrepareFixedDemands(PX.Data.PXResultset{PX.Objects.PO.POFixedDemand},System.Func{PX.Data.PXResultset{PX.Objects.PO.POFixedDemand},System.Collections.IEnumerable})">
+            <summary>
+            Overrides <see cref="M:PX.Objects.PO.POCreate.EnumerateAndPrepareFixedDemands(PX.Data.PXResultset{PX.Objects.PO.POFixedDemand})"/>
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:PX.Objects.FS.SM_SOInvoiceEntry.NonTransferApplicationQuery(PX.Data.PXSelectBase{PX.Objects.AR.ARPayment},PX.Objects.FS.SM_SOInvoiceEntry.NonTransferApplicationQueryDelegate)" -->
+        <member name="M:PX.Objects.FS.SM_SOOrderEntry.InvoiceOrder(System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{PX.Objects.SO.SOOrder},PX.Objects.SO.InvoiceList,System.Boolean,PX.Data.PXQuickProcess.ActionFlow,System.Boolean,PX.Objects.FS.SM_SOOrderEntry.InvoiceOrderDelegate)">
+            <summary>
+            Overrides <see cref="M:PX.Objects.SO.SOOrderEntry.InvoiceOrder(System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.IEnumerable{PX.Objects.SO.SOOrder},PX.Objects.SO.InvoiceList,System.Boolean,PX.Data.PXQuickProcess.ActionFlow,System.Boolean)"/>
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SM_SOOrderEntry.GetServiceOrderRecord(PX.Objects.SO.SOOrder)">
+            <summary>
+            Returns the ServiceOrder record associated to the selected Sales Order.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SM_SOOrderEntry.InitNewServiceOrder(PX.Objects.FS.ServiceOrderEntry,PX.Objects.SO.SOOrder,PX.Objects.FS.FSxSOOrder)">
+            <summary>
+            Initializes a new Service Order.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SM_SOOrderEntry.DeleteServiceOrder(PX.Objects.FS.ServiceOrderEntry,PX.Objects.FS.FSServiceOrder,PX.Objects.FS.FSxSOOrder)">
+            <summary>
+            Deletes the Service Order and blanks the <c>fsxSOOrderRow.SOID</c> memory field.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SM_SOOrderEntry.UpdateServiceOrderHeader(PX.Objects.FS.ServiceOrderEntry,PX.Objects.FS.FSServiceOrder,PX.Objects.SO.SOOrder,PX.Objects.FS.FSxSOOrder,PX.Data.PXDBOperation)">
+            <summary>
+            Updates the ServiceOrder information using the Sales Order definition.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SM_SOOrderEntry.InsertUpdateDeleteServiceOrderDocument(PX.Objects.SO.SOOrder,PX.Objects.FS.FSxSOOrder,PX.Data.PXDBOperation)">
+            <summary>
+            Adjusts the Header after removing, updating or creating the Sales Order.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SM_SOOrderEntry.EnableDisableSOline(PX.Data.PXCache,PX.Objects.SO.SOLine,System.Boolean)">
+            <summary>
+            Enable or Disable Sales Order lines fields.
+            </summary>
+            <param name="cache">Sales Order line cache.</param>
+            <param name="soLineRow">Sales Order line row.</param>
+        </member>
+        <member name="M:PX.Objects.FS.SM_SOOrderEntry.CleanSMFieldsBeforeSaving(PX.Objects.SO.SOOrder)">
+            <summary>
+            Clean SM fields depending if SDEnabled checkbox is not selected.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SM_SOOrderEntry.CheckIfCurrentProjectBelongsToCustomer(PX.Data.PXCache,PX.Objects.SO.SOOrder)">
+            <summary>
+            Check if the current selected project belongs to the current customer.
+            This applies only to a Sales Order that will be related with a Service Order.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SM_SOOrderEntry.IsLineSourceForAppoinmentLine(PX.Objects.SO.SOOrder,PX.Objects.SO.SOLine,PX.Objects.FS.FSServiceOrder)">
+            <summary>
+            Check if the given Sales Order line is related with any appointment details.
+            </summary>
+            <param name="soOrderRow">Sales Order row.</param>
+            <param name="soLineRow">Sales Order line.</param>
+            <returns>Returns true if the Sales Order Line is related with at least one appointment detail.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.SM_SOOrderEntry.ArePrepaidFieldsBeingModified(PX.Objects.SO.SOLine,PX.Objects.SO.SOLine)">
+            <summary>
+            Check if the given Sales Order Lines are different in Service Management prepaid related fields.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SM_SOOrderEntry.EnableDisableActions(PX.Data.PXCache,PX.Objects.SO.SOOrder,PX.Objects.FS.FSxSOOrder,System.Boolean,System.Boolean)">
+            <summary>
+            Enables/Disables the "Open Appointment Board" button.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SM_SOOrderEntry.EnableDisable_All(PX.Data.PXCache,PX.Objects.SO.SOOrder,System.Boolean)">
+            <summary>
+            Enables the Fields if they can be edited.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SM_SOShipmentEntry.CreateShipment(PX.Objects.SO.CreateShipmentArgs,PX.Objects.FS.SM_SOShipmentEntry.CreateShipmentDelegate)">
+            <summary>
+            Overrides <see cref="M:PX.Objects.SO.SOShipmentEntry.CreateShipment(PX.Objects.SO.CreateShipmentArgs)"/>
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SM_TimeCardMaint.UpdateAppointmentFromApprovedTimeCard(PX.Data.PXCache)">
+            <summary>
+            Update ApprovedTime and actualDuration fields in the <c>AppointmentDetInfo</c> lines.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SkillGridFilter.GetServiceListField(PX.Data.PXGraph,System.Collections.Generic.List{System.Nullable{System.Int32}},System.Nullable{System.Int32})">
+            <summary>
+            Gets the Inventory CDs of the given services associated with the given skill.
+            </summary>
+            <param name="graph">Context graph that will be used in the query execution.</param>
+            <param name="serviceIDList">Service identifier list which their Inventory CDs will be retrieved.</param>
+            <param name="skillID">Skill identifier associated with the services to which they Inventory CDs will be retrieved.</param>
+            <returns>String with the concatenation of the Inventory CDs, separated by commas, of the resulting services.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.LicenseTypeGridFilter.IsThisLicenseTypeRequiredByAnyService(PX.Data.PXGraph,System.Nullable{System.Int32},System.Collections.Generic.List{System.Nullable{System.Int32}})">
+            <summary>
+            Check if the given license type identifier is required for any service specified in the given service identifier list.
+            </summary>
+            <param name="graph">Context graph that will be used in the query execution.</param>
+            <param name="licenseTypeID">License type identifier that will be use to check if the requirements are met.</param>
+            <param name="serviceIDList">Service identifier list that will be consulted for the license type requirement.</param>
+            <returns>Returns true if any of the services.</returns>
+        </member>
+        <member name="T:PX.Objects.FS.FSAppointment.srvOrdTypeCode">
+            <summary>
+            TODO: AC-233462 Code Refactoring - Removing FSAppointment.SrvOrdTypeCode
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.FSAppointment.Attributes">
+            <summary>
+            A service field, which is necessary for the <see cref="T:PX.Objects.CS.CSAnswers">dynamically 
+            added attributes</see> defined at the <see cref="T:PX.Objects.FS.FSSrvOrdType">customer 
+            class</see> level to function correctly.
+            </summary>
+        </member>
+        <member name="T:PX.Objects.FS.FSAppointment.wildCard_CustomerPrimaryContact">
+            <summary>
+            This memory field is used to store the names from the contact(s) associated to a given customer.
+            </summary>
+        </member>
+        <member name="T:PX.Objects.FS.FSAppointment.wildCard_CustomerPrimaryContactCell">
+            <summary>
+            This memory field is used to store the cellphones from the contact(s) associated to a given customer.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.FSAppointment.TrackTimeChanged">
+            <summary>
+            Specifies (if set to <see langword="true" />) that there is inconsistency with the trackTime flags in log records.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.FSAppointment.ReturnsContactList(PX.Data.PXGraph,System.Nullable{System.Int32})">
+            <summary>
+            Returns the set of contacts of a customer.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.FSAppointment.ConcatenatesContactInfo(PX.Data.PXResultset{PX.Objects.CR.Contact},System.Boolean,System.Boolean)">
+            <summary>
+            Returns the contact names or cell phones separated by a coma.
+            </summary>
+            <param name="bqlResultSet">Set of customer contacts.</param>
+            <param name="concatenateNames">Boolean that if true, returns the customer contact's name(s).</param>
+            <param name="concatenateCells">Boolean that if true, returns the customer contact's cell phone(s).</param>
+        </member>
+        <member name="M:PX.Objects.FS.FSAppointment.GetsEmployeesContactInfo(PX.Data.PXGraph,System.Boolean,System.Boolean,System.Nullable{System.Int32})">
+            <summary>
+            Gets the employees contact info separated by a coma.
+            </summary>
+            <param name="graph">Graph to use.</param>
+            <param name="concatenateNames">Boolean that if true, returns the Staff name(s).</param>
+            <param name="concatenateCells">Boolean that if true, returns the Staff cell phone(s).</param>
+            <param name="appointmentID">Appointment ID.</param>
+        </member>
+        <member name="M:PX.Objects.FS.FSAppointment.GetWildCardFieldValue(PX.Data.PXGraph,System.Object,System.String)">
+            <summary>
+            Gets the value of a WildCard field.
+            </summary>
+            <returns>Returns the string value of the field.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.FSAppointment.ReplaceWildCards(PX.Data.PXGraph,System.String@,System.Object)">
+            <summary>
+            Replace WildCards existing inside the "body" string. It assumes that all WildCards are between "((" and "))".
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.FSAppointmentDet.IsLinkedItem">
+            <summary>
+            Linked items are lines entered from other modules with a particular behavior where UnitPrice = 0
+            and several fields are disabled. Its status should never be changed regardless of the status of the document.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.FSAppointmentDet.HasMixedProjectTasks">
+            <summary>
+            Returns true if the splits associated with the line has mixed ProjectTask values.
+            This field is used to validate the record on persist. 
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.FSEquipment.ImageUrl">
+            <summary>
+            The URL of the image associated with the item.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.FSEquipment.Attributes">
+            <summary>
+            A service field, which is necessary for the <see cref="T:PX.Objects.CS.CSAnswers">dynamically 
+            added attributes</see> defined at the <see cref="T:PX.Objects.FS.FSVehicleType">Vehicle
+            screen</see> level to function correctly.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.FSRouteDocument.Attributes">
+            <summary>
+            A service field, which is necessary for the <see cref="T:PX.Objects.CS.CSAnswers">dynamically 
+            added attributes</see> defined at the <see cref="T:PX.Objects.FS.FSRoute">Route 
+            screen</see> level to function correctly.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.FSSchedule.Attributes">
+            <summary>
+            A service field, which is necessary for the <see cref="T:PX.Objects.CS.CSAnswers">dynamically 
+            added attributes</see> defined at the <see cref="T:PX.Objects.FS.FSSrvOrdType">customer 
+            class</see> level to function correctly.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.FSServiceContract.Attributes">
+            <summary>
+            A service field, which is necessary for the <see cref="T:PX.Objects.CS.CSAnswers">dynamically 
+            added attributes</see> defined at the <see cref="T:PX.Objects.FS.FSServiceContract">customer 
+            class</see> level to function correctly.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.FSServiceOrder.Attributes">
+            <summary>
+            A service field, which is necessary for the <see cref="T:PX.Objects.CS.CSAnswers">dynamically 
+            added attributes</see> defined at the <see cref="T:PX.Objects.FS.FSSrvOrdType">customer 
+            class</see> level to function correctly.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.FSSODet.HasMixedProjectTasks">
+            <summary>
+            Returns true if the splits associated with the line has mixed ProjectTask values.
+            This field is used to validate the record on persist. 
+            </summary>
+        </member>
+        <member name="T:PX.Objects.FS.Opportunity.FSxCROpportunity">
+            This cache extension is needed because screen OP000373 is working with PX.Objects.CR.CROpportunity what is a PXProjection
+            and not with PX.Objects.CR.Standalone wich is the table in the Database. Without this, fields are not saved in the DB.
+        </member>
+        <member name="P:PX.Objects.FS.FSSiteStatusSelected.ItemType">
+            <summary>
+            The type of the Inventory Item.
+            </summary>
+            <value>
+            Possible values are:
+            <c>"F"</c> - Finished Good (Stock Items only),
+            <c>"M"</c> - Component Part (Stock Items only),
+            <c>"A"</c> - Subassembly (Stock Items only),
+            <c>"N"</c> - Non-Stock Item (a general type of Non-Stock Item),
+            <c>"L"</c> - Labor (Non-Stock Items only),
+            <c>"S"</c> - Service (Non-Stock Items only),
+            <c>"C"</c> - Charge (Non-Stock Items only),
+            <c>"E"</c> - Expense (Non-Stock Items only).
+            Defaults to the <see cref="P:PX.Objects.IN.INItemClass.ItemType">Type</see> associated with the <see cref="P:PX.Objects.FS.FSSiteStatusSelected.ItemClassID">Item Class</see>
+            of the item if it's specified, or to Finished Good (<c>"F"</c>) otherwise.
+            </value>
+        </member>
+        <member name="P:PX.Objects.FS.FSVehicle.Attributes">
+            <summary>
+            A service field, which is necessary for the <see cref="T:PX.Objects.CS.CSAnswers">dynamically 
+            added attributes</see> defined at the <see cref="T:PX.Objects.FS.FSVehicleType">Vehicle
+            screen</see> level to function correctly.
+            </summary>
+        </member>
+        <member name="T:PX.Objects.FS.ID.ACEntityType">
+            <summary>
+            EntityType for FSAddress and FSContact tables
+            </summary>
+        </member>
+        <member name="T:PX.Objects.FS.TX.ACEntityType">
+            <summary>
+            EntityType for FSAddress and FSContact tables
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.FSAppointmentLineSplittingExtension.InsertWithoutSplits(PX.Objects.FS.FSAppointmentDet)">
+            <summary>
+            Inserts FSAppointmentDet into cache without adding the splits.
+            The Splits have to be added manually.
+            </summary>
+            <param name="apptLine">Master record.</param>
+        </member>
+        <member name="M:PX.Objects.FS.FSServiceOrderLineSplittingAllocatedExtension.EventHandler(PX.Objects.Common.ManualEvent.Row{PX.Objects.FS.FSServiceOrder}.Selected.Args,System.Action{PX.Objects.Common.ManualEvent.Row{PX.Objects.FS.FSServiceOrder}.Selected.Args})">
+            <summary>
+            Overrides <see cref="M:PX.Objects.FS.FSServiceOrderLineSplittingExtension.EventHandler(PX.Objects.Common.ManualEvent.Row{PX.Objects.FS.FSServiceOrder}.Selected.Args)"/>
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.FSServiceOrderLineSplittingAllocatedExtension.EventHandlerInternal(PX.Objects.Common.ManualEvent.Row{PX.Objects.FS.FSSODet}.Inserted.Args,System.Action{PX.Objects.Common.ManualEvent.Row{PX.Objects.FS.FSSODet}.Inserted.Args})">
+            <summary>
+            Overrides <see cref="M:PX.Objects.IN.GraphExtensions.LineSplittingExtension`4.EventHandlerInternal(PX.Objects.Common.ManualEvent.Row{`2}.Inserted.Args)"/>
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.FSServiceOrderLineSplittingAllocatedExtension.EventHandlerInternal(PX.Objects.Common.ManualEvent.Row{PX.Objects.FS.FSSODet}.Updated.Args,System.Action{PX.Objects.Common.ManualEvent.Row{PX.Objects.FS.FSSODet}.Updated.Args})">
+            <summary>
+            Overrides <see cref="M:PX.Objects.IN.GraphExtensions.LineSplittingExtension`4.EventHandlerInternal(PX.Objects.Common.ManualEvent.Row{`2}.Updated.Args)"/>
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.FSServiceOrderLineSplittingAllocatedExtension.EventHandler(PX.Objects.Common.ManualEvent.Row{PX.Objects.FS.FSSODetSplit}.Inserting.Args,System.Action{PX.Objects.Common.ManualEvent.Row{PX.Objects.FS.FSSODetSplit}.Inserting.Args})">
+            <summary>
+            Overrides <see cref="M:PX.Objects.FS.FSServiceOrderLineSplittingExtension.EventHandler(PX.Objects.Common.ManualEvent.Row{PX.Objects.FS.FSSODetSplit}.Inserting.Args)"/>
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.FSServiceOrderLineSplittingAllocatedExtension.EventHandler(PX.Objects.Common.ManualEvent.Row{PX.Objects.FS.FSSODetSplit}.Inserted.Args,System.Action{PX.Objects.Common.ManualEvent.Row{PX.Objects.FS.FSSODetSplit}.Inserted.Args})">
+            <summary>
+            Overrides <see cref="M:PX.Objects.IN.GraphExtensions.LineSplittingExtension`4.EventHandler(PX.Objects.Common.ManualEvent.Row{`3}.Inserted.Args)"/>
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.FSServiceOrderLineSplittingAllocatedExtension.EventHandler(PX.Objects.Common.ManualEvent.Row{PX.Objects.FS.FSSODetSplit}.Updated.Args,System.Action{PX.Objects.Common.ManualEvent.Row{PX.Objects.FS.FSSODetSplit}.Updated.Args})">
+            <summary>
+            Overrides <see cref="M:PX.Objects.IN.GraphExtensions.LineSplittingExtension`4.EventHandler(PX.Objects.Common.ManualEvent.Row{`3}.Updated.Args)"/>
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.FSServiceOrderLineSplittingAllocatedExtension.EventHandlerQty(PX.Objects.Common.ManualEvent.FieldOf{PX.Objects.FS.FSSODetSplit}.Verifying.Args{System.Nullable{System.Decimal}},System.Action{PX.Objects.Common.ManualEvent.FieldOf{PX.Objects.FS.FSSODetSplit}.Verifying.Args{System.Nullable{System.Decimal}}})">
+            <summary>
+            Overrides <see cref="M:PX.Objects.IN.GraphExtensions.LineSplittingExtension`4.EventHandlerQty(PX.Objects.Common.ManualEvent.FieldOf{`3}.Verifying.Args{System.Nullable{System.Decimal}})"/>
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.FSServiceOrderLineSplittingAllocatedExtension.EventHandlerUOM(PX.Objects.Common.ManualEvent.FieldOf{PX.Objects.FS.FSSODetSplit}.Defaulting.Args{System.String},System.Action{PX.Objects.Common.ManualEvent.FieldOf{PX.Objects.FS.FSSODetSplit}.Defaulting.Args{System.String}})">
+            <summary>
+            Overrides <see cref="M:PX.Objects.FS.FSServiceOrderLineSplittingExtension.EventHandlerUOM(PX.Objects.Common.ManualEvent.FieldOf{PX.Objects.FS.FSSODetSplit}.Defaulting.Args{System.String})"/>
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.FSServiceOrderLineSplittingAllocatedExtension.ShowSplits(PX.Data.PXAdapter,System.Func{PX.Data.PXAdapter,System.Collections.IEnumerable})">
+            <summary>
+            Overrides <see cref="!:FSServiceOrderItemAvailabilityExtension.ShowSplits(PXAdapter)"/>
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.FSServiceOrderLineSplittingAllocatedExtension.UpdateParent(PX.Objects.FS.FSSODet,System.Action{PX.Objects.FS.FSSODet})">
+            <summary>
+            Overrides <see cref="M:PX.Objects.IN.GraphExtensions.LineSplittingExtension`4.UpdateParent(`2)"/>
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.FSServiceOrderLineSplittingAllocatedExtension.UpdateParent(PX.Objects.FS.FSSODetSplit,PX.Objects.FS.FSSODetSplit,System.Action{PX.Objects.FS.FSSODetSplit,PX.Objects.FS.FSSODetSplit})">
+            <summary>
+            Overrides <see cref="M:PX.Objects.IN.GraphExtensions.LineSplittingExtension`4.UpdateParent(`3,`3)"/>
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.FSServiceOrderLineSplittingAllocatedExtension.UpdateParent(PX.Objects.FS.FSSODet,PX.Objects.FS.FSSODetSplit,PX.Objects.FS.FSSODetSplit,System.Decimal@,PX.Objects.FS.FSServiceOrderLineSplittingAllocatedExtension.UpdateParentDelegate)">
+            <summary>
+            Overrides <see cref="M:PX.Objects.IN.GraphExtensions.LineSplittingExtension`4.UpdateParent(`2,`3,`3,System.Decimal@)"/>
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.FSServiceOrderLineSplittingAllocatedExtension.UpdateCounters(PX.Objects.IN.LSSelect.Counters,PX.Objects.FS.FSSODetSplit,System.Action{PX.Objects.IN.LSSelect.Counters,PX.Objects.FS.FSSODetSplit})">
+            <summary>
+            Overrides <see cref="M:PX.Objects.FS.FSServiceOrderLineSplittingExtension.UpdateCounters(PX.Objects.IN.LSSelect.Counters,PX.Objects.FS.FSSODetSplit)"/>
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.FSServiceOrderLineSplittingAllocatedExtension.DefaultLotSerialNbr(PX.Objects.FS.FSSODetSplit,System.Action{PX.Objects.FS.FSSODetSplit})">
+            <summary>
+            Overrides <see cref="M:PX.Objects.IN.GraphExtensions.LineSplittingExtension`4.DefaultLotSerialNbr(`3)"/>
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ExternalControls.GetAppointmentRecords(System.DateTime,System.DateTime,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Int32[],System.Boolean)">
+            <summary>
+            Gets the appointment records related for the given dates.
+            </summary>
+            <param name="timeBegin">Schedule Start Date.</param>
+            <param name="timeEnd">Schedule End Date.</param>
+            <param name="branchID">Current Branch ID.</param>
+            <param name="branchLocationID">Branch Location ID.</param>
+            <param name="employeeIDList">Employee id list.</param>
+            <returns>Appointment list.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.ExternalControls.GetAppointmentRecordsByRooms(System.DateTime,System.DateTime,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Int32[])">
+            <summary>
+            Gets the appointment records related for the given dates.
+            </summary>
+            <param name="timeBegin">Schedule Start Date.</param>
+            <param name="timeEnd">Schedule End Date.</param>
+            <param name="branchID">Current Branch ID.</param>
+            <param name="branchLocationID">Branch Location ID.</param>
+            <param name="roomIDList">Room id list.</param>
+            <returns>Appointment list.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.ExternalControls.AssignAppointmentEmployee(PX.Objects.FS.FSAppointmentScheduleBoard,PX.Objects.FS.ExternalControls,PX.Objects.FS.AppointmentEntry,PX.Objects.FS.ExternalControls.DispatchBoardAppointmentMessages@)">
+            <summary>
+            Launches the AppointmentEntry screen with some preloaded values.
+            </summary>
+            <param name="fsWrkProcessRow"><c>FSWrkProcess</c> row.</param>
+        </member>
+        <member name="M:PX.Objects.FS.ExternalControls.SaveWrkProcessParameters(PX.Objects.FS.WrkProcess,PX.Objects.FS.FSWrkProcess)">
+            <summary>
+            Try to save a <c>FSWrkProcess</c> record to the database.
+            </summary>
+            <param name="fsWrkProcessRow"><c>FSWrkProcess</c> row.</param>
+            <returns>Returns the ProcessID of the saved record.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.ExternalControls.RouteNode.#ctor(PX.Objects.FS.FSRoute,PX.Objects.FS.FSAddress,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the RouteNode class for a Begin or End Route.
+            </summary>
+            <param name="fsRouteRow"> Route Record. </param>
+            <param name="fsAddressRow"> ServiceOrder Address Record. </param>
+            <param name="locationName"> Display Text Node. </param>
+        </member>
+        <member name="M:PX.Objects.FS.ExternalControls.RouteNode.#ctor(PX.Objects.FS.FSAppointment,PX.Objects.FS.FSSrvOrdType,PX.Objects.FS.FSServiceOrder,PX.Objects.AR.Customer,PX.Objects.FS.BAccountStaffMember,PX.Objects.CR.Location,PX.Objects.FS.FSAddress)">
+            <summary>
+            Initializes a new instance of the RouteNode class for an Appointment-Employee Tree Node.
+            </summary>
+            <param name="fsAppointmentRow"> Appointment Record. </param>
+            <param name="fsSrvOrdTypeRow"> Service Order Type Record. </param>
+            <param name="fsServiceOrderRow"> Service Order Record. </param>
+            <param name="customerRow"> Customer Record. </param>
+            <param name="bAccountStaffMemberRow"> Staff Member Record. </param>
+        </member>
+        <member name="M:PX.Objects.FS.ExternalControls.RouteNode.#ctor(PX.Objects.FS.FSAppointment,PX.Objects.FS.FSSrvOrdType,PX.Objects.FS.FSServiceOrder,PX.Objects.AR.Customer,PX.Objects.CR.Location,PX.Objects.FS.FSAddress)">
+            <summary>
+            Initializes a new instance of the RouteNode class for an Appointment Tree Node.
+            </summary>
+            <param name="fsAppointmentRow"> Appointment Record. </param>
+            <param name="fsSrvOrdTypeRow"> Service Order Type Record. </param>
+            <param name="fsServiceOrderRow"> Service Order Record. </param>
+            <param name="customerRow"> Customer Record. </param>
+        </member>
+        <member name="M:PX.Objects.FS.ExternalControls.RouteNode.#ctor(PX.Objects.FS.FSRoute,PX.Objects.FS.FSRouteDocument,System.Collections.Generic.List{PX.Objects.FS.ExternalControls.RouteNode},PX.Objects.EP.EPEmployee,PX.Objects.FS.FSEquipment,System.String,PX.Data.PXResultset{PX.FS.FSGPSTrackingRequest})">
+            <summary>
+            Initializes a new instance of the RouteNode class for a Parent Tree Node.
+            </summary>
+            <param name="fsRouteRow"> Route Record. </param>
+            <param name="fsRouteDocumentRow"> Route Document Record. </param>
+            <param name="childNodes"> List of Route Nodes. </param>
+            <param name="driver"> Driver Record. </param>
+            <param name="vehicle"> Vehicle Record. </param>
+            <param name="displayText"> Display Text Node. </param>
+        </member>
+        <member name="M:PX.Objects.FS.ExternalControls.GetErrorMessage(PX.Objects.FS.ExternalControls.ErrorCode)">
+            <summary> 
+            Gets the error message for a given error code.
+            </summary>
+            <returns>String with the error message and the error code.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.ExternalControls.CheckAccessRights(System.String,System.Type,System.Type,PX.Data.PXCacheRights)">
+            <summary>
+            Evaluates if the current user has the access right requested in accessRight for the screen provided.
+            </summary>
+            <param name="screenName">Screen name to evaluate.</param>
+            <param name="graphType">Graph type of the screen.</param>
+            <param name="cacheType">Main <c>DAC</c> type of the screen.</param>
+            <param name="accessRight">Access right level to evaluate.</param>
+            <returns>True if users has the access right level requested, False, otherwise.</returns>
+        </member>
+        <member name="T:PX.Objects.FS.ManufacturerMaint.ManufacturerMaintAddressLookupExtension">
+            <exclude/>
+        </member>
+        <member name="T:PX.Objects.FS.Geocoder">
+            <summary>
+            Wrapper round the Google Maps geocoding service.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.Geocoder.ReverseGeocode(PX.Objects.FS.LatLng,System.String)">
+            <summary>
+            Reverses geocode the specified location.
+            </summary>
+            <param name="location">The location.</param>
+            <returns>Returns the address of the location.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.Geocoder.Geocode(System.String,System.String)">
+            <summary>
+            Geocodes the specified address.
+            </summary>
+            <param name="address">The address.</param>
+            <returns>An array of possible locations.</returns>
+        </member>
+        <member name="T:PX.Objects.FS.GLocation">
+            <summary>
+            Class representing a location, defined by name and/or by latitude/longitude.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.GLocation.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:PX.Objects.FS.GLocation"/> class.
+            </summary>
+            <param name="locationName">Name of the location.</param>
+        </member>
+        <member name="M:PX.Objects.FS.GLocation.#ctor(PX.Objects.FS.LatLng)">
+            <summary>
+            Initializes a new instance of the <see cref="T:PX.Objects.FS.GLocation"/> class.
+            </summary>
+            <param name="latLng">The latitude/longitude of the location.</param>
+        </member>
+        <member name="P:PX.Objects.FS.GLocation.LatLng">
+            <summary>
+            Gets the latitude/longitude of the location.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.GLocation.LocationName">
+            <summary>
+            Gets the name/address of the location.
+            </summary>
+            <value>
+            The name/address of the location.
+            </value>
+        </member>
+        <member name="M:PX.Objects.FS.GLocation.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents this instance.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"/> that represents this instance.
+            </returns>
+        </member>
+        <member name="M:PX.Objects.FS.HttpWebService.MakeRequest(System.String)">
+            <summary>
+            Invokes the maps WebService.
+            </summary>
+            <param name="url">WebService URL.</param>
+        </member>
+        <member name="T:PX.Objects.FS.LatLng">
+            <summary>
+            Class representing a latitude/longitude pair.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.LatLng.#ctor(System.Double,System.Double)">
+            <summary>
+            Initializes a new instance of the <see cref="T:PX.Objects.FS.LatLng"/> class.
+            </summary>
+            <param name="latitude">The latitude.</param>
+            <param name="longitude">The longitude.</param>
+        </member>
+        <member name="M:PX.Objects.FS.LatLng.#ctor(System.Nullable{System.Decimal},System.Nullable{System.Decimal})">
+            <summary>
+            Initializes a new instance of the <see cref="T:PX.Objects.FS.LatLng"/> class.
+            </summary>
+            <param name="latitude">The latitude.</param>
+            <param name="longitude">The longitude.</param>
+        </member>
+        <member name="P:PX.Objects.FS.LatLng.Latitude">
+            <summary>
+            Gets the latitude.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.LatLng.Longitude">
+            <summary>
+            Gets the longitude.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.LatLng.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents this instance.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"/> that represents this instance.
+            </returns>
+        </member>
+        <member name="T:PX.Objects.FS.Route">
+            <summary>
+            Class representing a Route containing directions between an origin and a final destination.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Route.Legs">
+            <summary>
+            Gets the legs of this Route.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Route.Duration">
+            <summary>
+            Gets the duration of the Route in seconds.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Route.Distance">
+            <summary>
+            Gets the distance of the Route in miles.
+            </summary>
+        </member>
+        <member name="T:PX.Objects.FS.RouteDirections">
+            <summary>
+            Static class providing methods to retrieve directions between locations.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.RouteDirections.GetRoute(System.String,System.String,PX.Objects.FS.GLocation[])">
+            <summary>
+            Gets a route from the Google Maps Directions web service.
+            </summary>
+            <param name="optimize">If set to <c>true</c> optimize the route by re-ordering the locations to minimize the
+            time to complete the route.</param>
+        </member>
+        <member name="M:PX.Objects.FS.RouteDirections.GetStatus(System.String)">
+            <summary>
+            Returns the status code from a google map response.
+            </summary>
+            <param name="response">The google map response.</param>
+        </member>
+        <member name="T:PX.Objects.FS.RouteLeg">
+            <summary>
+            Class representing the leg of a route.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.RouteLeg.StartAddress">
+            <summary>
+            Gets the start address for this leg.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.RouteLeg.EndAddress">
+            <summary>
+            Gets the end address for this leg.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.RouteLeg.StartLocation">
+            <summary>
+            Gets the start location coordinates of this leg of the route.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.RouteLeg.EndLocation">
+            <summary>
+            Gets the end location coordinates of this leg of the route.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.RouteLeg.Distance">
+            <summary>
+            Gets the distance of this leg in miles.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.RouteLeg.DistanceDescr">
+            <summary>
+            Gets the distance of this leg in an user-friendly format (e.g. Km, miles, feet, etc.).
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.RouteLeg.Duration">
+            <summary>
+            Gets the duration of this leg in seconds.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.RouteLeg.DurationDescr">
+            <summary>
+            Gets the duration of this leg in an user-friendly format (e.g. minutes, hours, days, etc.).
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.RouteLeg.Steps">
+            <summary>
+            Gets the steps for this leg of the route.
+            </summary>
+        </member>
+        <member name="T:PX.Objects.FS.RouteStep">
+            <summary>
+            Class representing a step within a leg of a route.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.RouteStep.Duration">
+            <summary>
+            Gets the duration of this step in seconds.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.RouteStep.DurationDescr">
+            <summary>
+            Gets the duration of this step in an user-friendly format (e.g. minutes, hours, days, etc.).
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.RouteStep.Distance">
+            <summary>
+            Gets the distance of this step in meters.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.RouteStep.DistanceDescr">
+            <summary>
+            Gets the distance of this step in an user-friendly format (e.g. Km, miles, feet, etc.).
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.RouteStep.StartLocation">
+            <summary>
+            Gets the start location for this step.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.RouteStep.EndLocation">
+            <summary>
+            Gets the end location of this step.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.RouteStep.HtmlInstructions">
+            <summary>
+            Gets the instructions for this step with HTML formatting.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.RouteStep.Maneuver">
+            <summary>
+            Gets the instructions for this step.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.RouteStep.TravelMode">
+            <summary>
+            Gets the travel mode for this step.
+            </summary>
+        </member>
+        <member name="T:PX.Objects.FS.RoutingException">
+            <summary>
+            Exception thrown if a request to generate a route between locations fails.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.RouteClosingMaint.EnableDisable_ActionButtons(PX.Data.PXCache,PX.Objects.FS.FSRouteDocument)">
+            <summary>
+            Enables/Disables the actions defined for Route Closing.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.RouteClosingMaint.EnableDisable_AdditionalInfoFields(PX.Data.PXCache,PX.Objects.FS.FSRouteDocument)">
+            <summary>
+            Enable/Disable additional info fields.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.RouteClosingMaint.CloseAppointmentsInRoute(System.String@)">
+            <summary>
+            Closes all appointments belonging to the current Route, in case an error occurs with any appointment,
+            the route will not be closed and a message will be displayed alerting the user about the appointment's issue.
+            The row of the appointment having problems is marked with its error.
+            </summary>
+            <param name="errorMessage">Error message to be displayed.</param>
+            <returns>True in case all appointments are closed, otherwise False.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.RouteClosingMaint.CloseAppointments(PX.Data.PXResultset{PX.Objects.FS.FSAppointment})">
+            <summary>
+            Closes all appointments belonging to appointmentList, in case an error occurs with any appointment,
+            the method will return a Dictionary listing each appointment with its error.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.RouteDocumentMaint.openAppointmentScreen(PX.Objects.FS.FSRouteDocument,System.String)">
+            <summary>
+            Open Appointment Screen with the given FSRouteDocument and Service Order Type.
+            </summary>
+            <param name="fsRouteDocumentRow"> Route Document.</param>
+            <param name="srvOrdType"> Service Order Type.</param>
+        </member>
+        <member name="M:PX.Objects.FS.RouteDocumentMaint.CompleteAppointmentsInRoute(System.String@)">
+            <summary>
+            Completes all appointments belonging to the current Route, in case an error occurs with any appointment,
+            the route will not be completed and a message will be displayed alerting the user about the appointment's issue.
+            The row of the appointment having problems is marked with its error.
+            </summary>
+            <param name="errorMessage">Error message to be displayed.</param>
+            <returns>True in case all appointments are completed, otherwise False.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.RouteDocumentMaint.EnableDisableCalcRouteStatsButton(System.Boolean,PX.Objects.FS.FSRouteDocument)">
+            <summary>
+            Enable/Disable the CalculateRouteStats button depending on FSRouteSetup.CalculateRouteStats flag.
+            </summary>
+            <param name="routeHasAppointments">Indicates if there are appointments in the grid.</param>
+            <param name="fsRouteDocumentRow">Current Route Document instance.</param>
+        </member>
+        <member name="M:PX.Objects.FS.RouteDocumentMaint.EnableDisableDocument(PX.Data.PXCache,PX.Objects.FS.FSRouteDocument)">
+            <summary>
+            Enable/Disable document fields and buttons.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.RouteDocumentMaint.AllowUpdateRouteDocument(PX.Objects.FS.FSRouteDocument)">
+            <summary>
+            Enables/Disables the Update process in Route Document.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.RouteDocumentMaint.AllowDeleteRouteDocument(PX.Objects.FS.FSRouteDocument)">
+            <summary>
+            Enables/Disables the Delete process in Route Document.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.RouteDocumentMaint.EnableDisable_ActionButtons(PX.Data.PXCache,PX.Objects.FS.FSRouteDocument)">
+            <summary>
+            Enables/Disables the actions defined for ServiceContract
+            It's called by RowSelected event of FSServiceContract.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.RouteDocumentMaint.SetRouteStartTimeByRouteID(PX.Objects.FS.FSRouteDocument)">
+            <summary>
+            Sets (if it is defined) the TimeBegin of the Route Document depending on the execution day of the RouteID
+            and the Day in which the Route is taking place.
+            </summary>
+            <param name="fsRouteDocumentRow">FSRouteDocument Row.</param>
+        </member>
+        <member name="M:PX.Objects.FS.RouteDocumentMaint.AreThereAnyAppointmentsInThisRoute(System.String,System.String@)">
+            <summary>
+            Validates if there are any appointments assigned for the current route
+            Return false if the route has no appointments and sets a [errorMessage] to display.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.RouteDocumentMaint.CheckAppointmentsAddress(PX.Data.PXCache,PX.Objects.FS.FSAppointment)">
+            <summary>
+            Validates basics fields for an appointment address showing a warning if there are incomplete fields.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.RouteDocumentMaint.UpdateAppointmentsTimeBegin(PX.Objects.FS.FSRouteDocument)">
+            <summary>
+            Updates appointment's time after modify Route Document time begin.
+            </summary>
+            <param name="fsRouteDocumentRow">FSRouteDocument object.</param>
+        </member>
+        <member name="M:PX.Objects.FS.RouteDocumentMaint.ValidateDrivers(PX.Data.PXCache,PX.Objects.FS.FSRouteDocument)">
+            <summary>
+            Check if the driver and additional driver are equal.
+            </summary>
+            <param name="cache">FSRouteDocument cache.</param>
+            <param name="fsRouteDocumentRow">FSRouteDocument Row.</param>
+        </member>
+        <member name="M:PX.Objects.FS.RouteDocumentMaint.ValidateVehicles(PX.Data.PXCache,PX.Objects.FS.FSRouteDocument)">
+            <summary>
+            Check if the vehicles given are not repeated.
+            </summary>
+            <param name="cache">FSRouteDocument cache.</param>
+            <param name="fsRouteDocumentRow">FSRouteDocument Row.</param>
+        </member>
+        <member name="M:PX.Objects.FS.RouteDocumentMaint.InvalidDayTrip(PX.Objects.FS.FSRoute)">
+            <summary>
+            Validate if the Trip is Valid for the routeDate.
+            </summary>
+            <param name="fsRouteRow">FSRoute Row.</param>
+            <returns>The name of the day if invalid, null otherwise.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.RouteDocumentMaint.TripIDAlreadyExist(PX.Objects.FS.FSRouteDocument,System.Nullable{System.Int32})">
+            <summary>
+            Validate if the trip number already exist.
+            </summary>
+            <param name="fsRouteDocumentRow">Route Document Row.</param>
+            <param name="tripNbr">Trip Number.</param>
+            <returns>True is valid, false otherwise.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.RouteDocumentMaint.SetRouteFuelType(PX.Objects.FS.FSRouteDocument,System.Nullable{System.Int32})">
+            <summary>
+            Sets the FuelType to the <c>fsRouteDocumentRow</c> using the FuelType in the <c>vechicleID</c> 
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.RouteDocumentMaint.AssignDriverToAppointmentsInRoute(PX.Objects.FS.AppointmentEntry,PX.Objects.FS.FSAppointment,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Assigns driver of the route to the appointments in it.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.RouteDocumentMaint.IsThisStatusTransitionAllowed(PX.Objects.FS.FSRouteDocument,System.String,System.String@)">
+            <summary>
+            Returns true if a Route Document [fsRouteDocumentRow] can change it's status to [newRouteStatus] based on the current status of the Route Document [fsRouteDocumentRow]
+            If an error is detected is going to be assigned to the [errorMessage].
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.RouteDocumentMaint.NormalizeAppointmentPosition">
+            <summary>
+            Normalize route position in the appointment list.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.RouteDocumentMaint.CalculateStats">
+            <summary>
+            @TODO: This is a temporal solution. It must be improved
+            AC-107854
+            AC-142850
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.RouteDocumentMaint.MoveAppointmentInRoute(PX.Data.PXGraph,PX.Objects.FS.FSRouteDocument,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Move appointment from original position to new position and recalculate route statistics.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.RouteDocumentMaint.CompleteAppointments(PX.Objects.FS.ServiceOrderEntry,PX.Data.PXResultset{PX.Objects.FS.FSAppointmentInRoute})">
+            <summary>
+            Completes all appointments belonging to appointmentList, in case an error occurs with any appointment,
+            the method will return a Dictionary listing each appointment with its error.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.RouteMaint.EnableDisableDocument(PX.Data.PXCache,PX.Objects.FS.FSRoute)">
+            <summary>
+            Enables/Disables the document fields depending on several factors.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.RouteMaint.isThereAnyActiveDay(PX.Objects.FS.FSRoute)">
+            <summary>
+            Checks if any execution day flag is active for a given route.
+            </summary>
+            <param name="fsRouteRow">FSRoute row.</param>
+            <returns>True if at least one flag is on else returns false.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.RouteMaint.EnableDisableDayPersistingCheck(System.Boolean)">
+            <summary>
+            Checks the execution flag for a given day and return the the corresponding PXPersistingCheck to be assigned.
+            </summary>
+            <param name="enableForWeekDay">Execution flag for a given day.</param>
+            <returns>PXPersistingCheck.NullOrBlank if the input is required, PXPersistingCheck.Nothing otherwise.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.RouteMaint.isRouteShortDuplicated(PX.Objects.FS.FSRoute)">
+            <summary>
+            Checks if the current RouteShort already exists to ensure is unique.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.RouteMaint.ValidateWeekCode(PX.Data.PXCache,PX.Objects.FS.FSRoute)">
+            <summary>
+            Validates if a Week Code is well formatted. (Creates an exception in the cache parameter).
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.RouteMaint.CleanInactiveDayFields(PX.Objects.FS.FSRoute)">
+            <summary>
+            Clean <c>StartTime</c> and <c>Nbr.</c> of Trip(s) per Day fields when Day is set inactive.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.RouteOtimizer.RouteOptimizerClient.getSingleDayOptimization(System.String,System.String,PX.Objects.FS.RouteOtimizer.SingleDayOptimizationInput)">
+            <summary>
+            Optimizes a set of waypoints so that they are best allocated to a set of vehicles taking into 
+            account the following complex constraints:
+            1 - vehicle limited capacity and working time-window;
+            2 - waypoint service time, delivery time-window and priority;
+            </summary>
+            <param name="requestBody">Set of waypoints and vechicle config</param>
+            <param name="ApiKey">The API key to use for the client connection</param>
+            <returns></returns>
+        </member>
+        <member name="P:PX.Objects.FS.RouteOtimizer.RouteStep.serviceBreaks">
+            This field is omitted if no Vehicle Breaks are defined in the input request.
+        </member>
+        <member name="M:PX.Objects.FS.RouteScheduleProcess.processServiceContract(PX.Data.PXCache,PX.Objects.FS.FSRouteContractScheduleFSServiceContract,System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <summary>
+            Process all Schedules (FSSchedule) in each Contract (FSContract).
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.RouteScheduleProcess.updateRoutes(System.Nullable{System.Int32})">
+            <summary>
+            Update all routes by generation ID.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.RouteScheduleProcess.SetSchedulePriority(PX.Objects.FS.Scheduler.Schedule,PX.Data.PXGraph)">
+            <summary>
+            Returns the priority of the Schedule depending on its Time Restrictions or Route information.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.RouteScheduleProcess.getRouteListFromSchedule(PX.Objects.FS.Scheduler.Schedule,PX.Data.PXGraph)">
+            <summary>
+            Prepares a new List[RouteInfo] with the information of the routes defined in a particular FSScheduleRoute.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.RouteServiceContractScheduleEntry.ResetRouteFields(PX.Objects.FS.FSRouteContractSchedule)">
+            <summary>
+            Allows to reset the Route field values when the VehicleTypeID selected in the header changes.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.RouteServiceContractScheduleEntry.ValidateWeekCode(PX.Data.PXCache,PX.Objects.FS.FSRouteContractSchedule)">
+            <summary>
+            Validates if a Week Code is well formatted. (Creates an exception in the cache parameter).
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.RouteServiceContractScheduleEntry.ValidateDays(PX.Data.PXCache,PX.Objects.FS.FSRouteContractSchedule)">
+            <summary>
+            Verifies if the specified recurrence dates match the Route's definition.
+            </summary>
+            <param name="cache">PXCache instance.</param>
+            <param name="fsRouteContractScheduleRow">FSRouteContractSchedule object row.</param>
+        </member>
+        <member name="M:PX.Objects.FS.RouteServiceContractScheduleEntry.ForceFilling_RequiredFields_RouteTab(PX.Data.PXCache,PX.Objects.FS.FSRouteContractSchedule)">
+            <summary>
+            Force 'required fields' in Route tab to be filled when a new record is inserted.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.RoutesOptimizationProcess.GetAssignedAppointments(PX.Objects.FS.RoutesOptimizationProcess,PX.Objects.FS.FSAppointmentFilter)">
+            <summary>Retrieves the already assigned appointmens by the filter</summary>
+        </member>
+        <member name="M:PX.Objects.FS.RouteWrkSheetInq.UpdateRoute(PX.Objects.FS.FSRouteDocument)">
+            <summary>
+            Save the FSRouteDocument row.
+            </summary>
+        </member>
+        <member name="T:PX.Objects.FS.Scheduler.AnnualSchedule">
+            <summary>
+            This class specifies the structure for a Annual Schedule.
+            </summary>
+        </member>
+        <member name="F:PX.Objects.FS.Scheduler.AnnualSchedule.months">
+            <summary>
+            The list of the months of the year in which the Schedule applies.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.Scheduler.AnnualSchedule.SetMonths(System.Collections.Generic.IEnumerable{PX.Objects.FS.SharedFunctions.MonthsOfYear})">
+            <summary>
+            Set the months of the year to the [_Months] Attribute.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.Scheduler.AnnualSchedule.OccursOnDate(System.DateTime)">
+            <summary>
+            Handles if the rule applies in the [date] using the Frequency of the Schedule.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.Scheduler.AnnualSchedule.IsOnCorrectDate(System.DateTime)">
+            <summary>
+            Method to be implemented in child classes. Handles if the rule applies in the [date] depending of the monthly Schedule type.
+            </summary>
+        </member>
+        <member name="T:PX.Objects.FS.Scheduler.AnnualScheduleSpecificDay">
+            <summary>
+            This class specifies the structure for a Annual Schedule in a specific day of the month.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.AnnualScheduleSpecificDay.DayOfMonth">
+            <summary>
+            Gets or sets the number of the specific day of the month.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.Scheduler.AnnualScheduleSpecificDay.IsOnCorrectDate(System.DateTime)">
+            <summary>
+            Handles if the rule applies in the specific [date] using the [DayOfMonth]. It will return the last day if the [DayOfMonth] is incorrect for that month.
+            </summary>
+        </member>
+        <member name="T:PX.Objects.FS.Scheduler.AnnualScheduleWeekDay">
+            <summary>
+            This class specifies the structure for a Monthly Schedule in a specific weekday of the month.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.AnnualScheduleWeekDay.MonthlyOnWeek">
+            <summary>
+            Gets or sets attribute to specify the number of the week in the month.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.AnnualScheduleWeekDay.MonthlyOnDayOfWeek">
+            <summary>
+            Gets or sets attribute to specify the day of the week in which applies the Schedule.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.Scheduler.AnnualScheduleWeekDay.IsOnCorrectDate(System.DateTime)">
+            <summary>
+            Validates if the [date] matches with the [MonthlyOnWeek] and [MonthlyOnDayOfWeek] specified in the Schedule.
+            </summary>
+        </member>
+        <member name="T:PX.Objects.FS.Scheduler.DailySchedule">
+            <summary>
+            This Class specifies the structure for an daily Schedule.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.Scheduler.DailySchedule.OccursOnDate(System.DateTime)">
+            <summary>
+            Handles if the rule applies in the [date] using the Frequency of the Schedule.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.Scheduler.DailySchedule.DateIsValidForSchedule(System.DateTime)">
+            <summary>
+            Validate if the [date] is valid for the Schedule using the Frequency.
+            </summary>
+        </member>
+        <member name="T:PX.Objects.FS.Scheduler.MapFSScheduleToSchedule">
+            <summary>
+            This class allows to map a FSSchedule in the Service Management module to a Schedule in the Scheduler module.
+            </summary>
+        </member>
+        <member name="T:PX.Objects.FS.Scheduler.MapFSScheduleToSchedule.SubScheduleType">
+            <summary>
+            SubSchedule types, defined to split a complex FSSchedule in multiple Schedules.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.Scheduler.MapFSScheduleToSchedule.convertFSScheduleToSchedule(PX.Data.PXCache,PX.Objects.FS.FSSchedule,System.Nullable{System.DateTime},System.String,PX.Objects.FS.Scheduler.Period)">
+            <summary>
+            This function converts a FSSchedule to a List[Schedule].
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.Scheduler.MapFSScheduleToSchedule.mapDailyFrequency(PX.Data.PXCache,PX.Objects.FS.FSSchedule,System.Nullable{System.DateTime},System.String,PX.Objects.FS.Scheduler.Period)">
+            <summary>
+            This function maps a FSSchedule daily frequency to a DailySchedule in the Scheduler module.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.Scheduler.MapFSScheduleToSchedule.mapWeeklyFrequency(PX.Data.PXCache,PX.Objects.FS.FSSchedule,System.Nullable{System.DateTime},System.String,PX.Objects.FS.Scheduler.Period)">
+            <summary>
+            This function maps a FSSchedule weekly frequency to a WeeklySchedule in the Scheduler module.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.Scheduler.MapFSScheduleToSchedule.mapMonthlyFrequency(PX.Data.PXCache,PX.Objects.FS.FSSchedule,System.Int32,System.Nullable{System.DateTime},System.String,System.String,PX.Objects.FS.Scheduler.Period)">
+            <summary>
+            This function maps a FSSchedule Monthly frequency to a MonthlyScheduleSpecificDay or MonthlyScheduleWeekDay in the Scheduler module depending of the 
+            <c>fsScheduleRow.MonthlyDaySel</c>. The [SubScheduleID] correspond to which of the four types of Monthly is specified in the [fsScheduleRow].
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.Scheduler.MapFSScheduleToSchedule.SetMonthsToList(PX.Objects.FS.FSSchedule)">
+            <summary>
+            Set a new list with the selected months of the Schedule.
+            </summary>
+            <param name="fsScheduleRow">Instance of FSSchedule DAC.</param>
+            <returns>List with the selected months of the Schedule.</returns>
+        </member>
+        <member name="T:PX.Objects.FS.Scheduler.MapFSServiceContractToSchedule">
+            <summary>
+            This class allows to map a FSSchedule in the Service Management module to a Schedule in the Scheduler module.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.Scheduler.MapFSServiceContractToSchedule.convertFSServiceContractToSchedule(PX.Objects.FS.FSServiceContract,System.Nullable{System.DateTime},PX.Objects.FS.Scheduler.Period)">
+            <summary>
+            This function converts a FSServiceContract to a List[Schedule].
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.Scheduler.MapFSServiceContractToSchedule.mapDailyFrequency(PX.Objects.FS.FSServiceContract,System.Nullable{System.DateTime},System.Int32,PX.Objects.FS.Scheduler.Period)">
+            <summary>
+            This function maps a FSServiceCOoract daily frequency to a DailySchedule in the Scheduler module.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.Scheduler.MapFSServiceContractToSchedule.mapWeeklyFrequency(PX.Objects.FS.FSServiceContract,System.Nullable{System.DateTime},PX.Objects.FS.Scheduler.Period)">
+            <summary>
+            This function maps a FSServiceContract weekly frequency to a WeeklySchedule in the Scheduler module.
+            </summary>
+        </member>
+        <member name="T:PX.Objects.FS.Scheduler.MonthlySchedule">
+            <summary>
+            This class specifies the structure for a Monthly Schedule.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.Scheduler.MonthlySchedule.OccursOnDate(System.DateTime)">
+            <summary>
+            Handles if the rule applies in the [date] using the Frequency of the Schedule.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.Scheduler.MonthlySchedule.IsOnCorrectDate(System.DateTime)">
+            <summary>
+            Method to be implemented in child classes. Handles if the rule applies in the [date] depending of the monthly Schedule type.
+            </summary>
+        </member>
+        <member name="T:PX.Objects.FS.Scheduler.MonthlyScheduleSpecificDay">
+            <summary>
+            This class specifies the structure for a Monthly Schedule in a specific day of the month.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.MonthlyScheduleSpecificDay.DayOfMonth">
+            <summary>
+            Gets or sets the number of the specific day of the month.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.Scheduler.MonthlyScheduleSpecificDay.IsOnCorrectDate(System.DateTime)">
+            <summary>
+            Handles if the rule applies in the specific [date] using the [DayOfMonth]. It will return the last day if the [DayOfMonth] is incorrect for that month.
+            </summary>
+        </member>
+        <member name="T:PX.Objects.FS.Scheduler.MonthlyScheduleWeekDay">
+            <summary>
+            This class specifies the structure for a Monthly Schedule in a specific weekday of the month.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.MonthlyScheduleWeekDay.MonthlyOnWeek">
+            <summary>
+            Gets or sets attribute to specify the number of the week in the month.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.MonthlyScheduleWeekDay.MonthlyOnDayOfWeek">
+            <summary>
+            Gets or sets attribute to specify the day of the week in which applies the Schedule.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.Scheduler.MonthlyScheduleWeekDay.IsOnCorrectDate(System.DateTime)">
+            <summary>
+            Validates if the [date] matches with the [MonthlyOnWeek] and [MonthlyOnDayOfWeek] specified in the Schedule.
+            </summary>
+        </member>
+        <member name="T:PX.Objects.FS.Scheduler.Period">
+            <summary>
+            This class specifies the Period time for the generation of the Time Slots.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.Period.Start">
+            <summary>
+            Gets the beginning date for the Time Slot generation.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.Period.End">
+            <summary>
+            Gets the end date for the Time Slot generation.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.Scheduler.Period.#ctor(System.DateTime,System.Nullable{System.DateTime})">
+            <summary>
+            Initializes a new instance of the Period class which validates if the start Period time > end Period time.
+            </summary>
+        </member>
+        <member name="T:PX.Objects.FS.Scheduler.RepeatingSchedule">
+            <summary>
+            This class specifies the structure for repeating Schedules.
+            </summary>
+        </member>
+        <member name="F:PX.Objects.FS.Scheduler.RepeatingSchedule.frequency">
+            <summary>
+            Used to specify the frequency of a Schedule rule.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.RepeatingSchedule.SchedulingRange">
+            <summary>
+            Gets or sets the period to be consider in order to generate the Time Slots for the specific repeating Schedule.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.RepeatingSchedule.Frequency">
+            <summary>
+            Gets or sets attribute to specify the frequency. It also validates if the value > 0.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.RepeatingSchedule.StartOrLastDate">
+            <summary>
+            Gets attribute to specify the Date of the last successful Time Slot generated with this Schedule. It will be set as SchedulingRange if the [LastGeneratedTimeSlotDate] is null.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.Scheduler.RepeatingSchedule.DateIsInPeriodAndIsANewDate(System.DateTime)">
+            <summary>
+            Validates if the [date] is within the Scheduling Range and if it has not been already generated in a previous run of the Schedule.
+            </summary>
+        </member>
+        <member name="T:PX.Objects.FS.Scheduler.Schedule">
+            <summary>
+            This class specifies the template to define a rule for the Time Slot generation.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.Schedule.Priority">
+            <summary>
+            Gets or sets the priority for the Schedule the highest priority is 1.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.Schedule.Sequence">
+            <summary>
+            Gets or sets the sequence for the Schedule (Routes Module).
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.Schedule.RouteInfoList">
+            <summary>
+            Gets or sets list of route info (Route, ShiftID, Sequence) must be declared (Sunday, ..., Saturday, Default).
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.Schedule.ScheduleID">
+            <summary>
+            Gets or sets ID of the Schedule in the Database.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.Schedule.SubScheduleID">
+            <summary>
+            Gets or sets ID of the SubSchedule, this option is used for a Schedule in the database which is converted in multiple Schedules in the Time Slot generation.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.Schedule.EntityID">
+            <summary>
+            Gets or sets ID of the Source or Entity in the Database.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.Schedule.EntityType">
+            <summary>
+            Gets or sets sourceType or EntityType of the source record in the Database: (Contract, EmployeeSchedule, etc).
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.Schedule.TimeOfDayBegin">
+            <summary>
+            Gets or sets start time of the Schedule.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.Schedule.TimeOfDayEnd">
+            <summary>
+            Gets or sets end time of the Schedule.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.Schedule.LastGeneratedTimeSlotDate">
+            <summary>
+            Gets or sets last date of a successfully generated Time Slot, useful for Schedules with frequencies.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.Schedule.Name">
+            <summary>
+            Gets or sets an optional Name for the Schedule.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.Schedule.Descr">
+            <summary>
+            Gets or sets Description field for the Schedule.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.Schedule.ApplySeason">
+            <summary>
+            Gets or sets value if the season rule applies for the Schedule.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.Schedule.SeasonOnJan">
+            <summary>
+            Gets or sets value for season on January for the Schedule.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.Schedule.SeasonOnFeb">
+            <summary>
+            Gets or sets value for season on February for the Schedule.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.Schedule.SeasonOnMar">
+            <summary>
+            Gets or sets value for season on March for the Schedule.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.Schedule.SeasonOnApr">
+            <summary>
+            Gets or sets value for season on April for the Schedule.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.Schedule.SeasonOnMay">
+            <summary>
+            Gets or sets value for season on May for the Schedule.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.Schedule.SeasonOnJun">
+            <summary>
+            Gets or sets value for season on June for the Schedule.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.Schedule.SeasonOnJul">
+            <summary>
+            Gets or sets value for season on July for the Schedule.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.Schedule.SeasonOnAug">
+            <summary>
+            Gets or sets value for season on August for the Schedule.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.Schedule.SeasonOnSep">
+            <summary>
+            Gets or sets value for season on September for the Schedule.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.Schedule.SeasonOnOct">
+            <summary>
+            Gets or sets value for season on October for the Schedule.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.Schedule.SeasonOnNov">
+            <summary>
+            Gets or sets value for season on November for the Schedule.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.Schedule.SeasonOnDec">
+            <summary>
+            Gets or sets value for season on December for the Schedule.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.Scheduler.Schedule.OccursOnSeason(System.DateTime)">
+            <summary>
+            Handles if the season rule applies in [date].
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.Scheduler.Schedule.OccursOnDate(System.DateTime)">
+            <summary>
+            Method to be implemented in children classes. Handles if the rule applies in the [date].
+            </summary>
+        </member>
+        <member name="T:PX.Objects.FS.Scheduler.SingleSchedule">
+            <summary>
+            This class specifies the structure for a single day Schedule.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.SingleSchedule.Date">
+            <summary>
+            Gets or sets the specific date of the Single Schedule.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.Scheduler.SingleSchedule.OccursOnDate(System.DateTime)">
+            <summary>
+            Validates if the Schedule occurs in the parameter [date].
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.Slot.DateTimeBegin">
+            <summary>
+            Gets or sets date and time for the beginning of the Slot.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.Slot.DateTimeEnd">
+            <summary>
+            Gets or sets date and time for the ending of the Slot.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.Slot.SlotType">
+            <summary>
+            Gets or sets type of the Slot (Availability, Unavailability).
+            </summary>
+        </member>
+        <member name="T:PX.Objects.FS.Scheduler.TimeSlot">
+            <summary>
+            This class specifies a Time Slot for the recurrence module.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.TimeSlot.AppointmentID">
+            <summary>
+            Gets or sets ID of the Appointment in the Database.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.TimeSlot.ScheduleID">
+            <summary>
+            Gets or sets ID of the Schedule in the Database.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.TimeSlot.Descr">
+            <summary>
+            Gets or sets an additional description for the Slot.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.TimeSlot.Priority">
+            <summary>
+            Gets or sets the priority for the Slot the highest priority is 1.
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.TimeSlot.Sequence">
+            <summary>
+            Gets or sets the sequence for the Slot (Routes module).
+            </summary>
+        </member>
+        <member name="P:PX.Objects.FS.Scheduler.TimeSlot.GenerationID">
+            <summary>
+            Gets or sets the GenerationID for the Slot.
+            </summary>
+        </member>
+        <member name="T:PX.Objects.FS.Scheduler.TimeSlotGenerator">
+            <summary>
+            This class specifies the structure of the Time Slot Generation for a list of Schedules and a Period.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.Scheduler.TimeSlotGenerator.GenerateCalendar(PX.Objects.FS.Scheduler.Period,System.Collections.Generic.IEnumerable{PX.Objects.FS.Scheduler.Schedule},System.Nullable{System.Int32})">
+            <summary>
+            Iterates for every day in the range of the period and check if the Schedules applies.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.Scheduler.TimeSlotGenerator.AddTimeSlotsForDate(System.DateTime,System.Collections.Generic.IEnumerable{PX.Objects.FS.Scheduler.Schedule},System.Collections.Generic.List{PX.Objects.FS.Scheduler.TimeSlot},System.Nullable{System.Int32})">
+            <summary>
+            Validates if a Schedule applies in a specific day and add every Time Slot generated to the [timeSlots] list.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.Scheduler.TimeSlotGenerator.GenerateTimeSlot(System.DateTime,PX.Objects.FS.Scheduler.Schedule,System.Nullable{System.Int32})">
+            <summary>
+            Generates a Time Slot using the day of the [checkDate] and the hours of the [schedule.TimeOfDayBegin] and [schedule.TimeOfDayEnd].
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.Scheduler.TimeSlotGenerator.setRouteSequence(System.DateTime,PX.Objects.FS.Scheduler.Schedule)">
+            <summary>
+            Set sequence to the Schedule using the List of routes defined in the [schedule].RouteInfoList.
+            </summary>
+        </member>
+        <member name="T:PX.Objects.FS.Scheduler.WeeklySchedule">
+            <summary>
+            This Class specifies the structure for a weekly Schedule.
+            </summary>
+        </member>
+        <member name="F:PX.Objects.FS.Scheduler.WeeklySchedule.days">
+            <summary>
+            The list of the days of the week in which the Schedule applies.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.Scheduler.WeeklySchedule.SetDays(System.Collections.Generic.IEnumerable{System.DayOfWeek})">
+            <summary>
+            Set the days of the week to the [days] Attribute.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.Scheduler.WeeklySchedule.OccursOnDate(System.DateTime)">
+            <summary>
+            Handles if the rule applies in the [date] using the List [days] and the Frequency of the Schedule.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceContractInq.processServiceContract(PX.Data.PXCache,PX.Objects.FS.FSContractSchedule,System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <summary>
+            Process all Schedules (FSSchedule) in each Contract (FSContract).
+            </summary>
+        </member>
+        <member name="F:PX.Objects.FS.ServiceOrderEntry.GraphAppointmentEntryCaller">
+            <summary>
+            This allows to have access to the Appointment document that began the Save operation in ServiceOrderEntry.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceOrderEntry.HideRooms(PX.Objects.FS.FSServiceOrder)">
+            <summary>
+            Check the ManageRooms value on Setup to check/hide the Rooms Values options.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceOrderEntry.UpdateAssignedEmpIDinSalesOrder(PX.Objects.FS.FSServiceOrder)">
+            <summary>
+            Update the assigned Employee for the Service Order in Sales Order customization if conditions apply.
+            </summary>
+            <param name="fsServiceOrderRow">FSServiceOrder row.</param>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceOrderEntry.IsThisLineRelatedToAsoLine(PX.Objects.FS.FSServiceOrder,PX.Objects.FS.FSSODet)">
+            <summary>
+            Check if the given Service Order detail line is related with any Sales Order details.
+            </summary>
+            <param name="fsServiceOrderRow">Service Order row.</param>
+            <param name="fsSODetRow">Service Order detail line.</param>
+            <returns>Returns true if the Service Order detail is related with at least one Sales Order detail.</returns>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceOrderEntry.HideOrShowTabs(PX.Objects.FS.FSServiceOrder)">
+            <summary>
+            Hides or Shows Appointments, Staff, Resources Equipment, Related Service Orders, Post info Tabs.
+            </summary>
+            <param name="fsServiceOrderRow">Service Order row.</param>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceOrderEntry.CompleteAppointmentsInServiceOrder(PX.Objects.FS.ServiceOrderEntry,PX.Objects.FS.FSServiceOrder)">
+            <summary>
+            Completes all appointments belonging to <c>fsServiceOrderRow</c>, in case an error occurs with any appointment,
+            the service order will not be completed and a message will be displayed alerting the user about the appointment's issue.
+            The row of the appointment having problems is marked with its error.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceOrderEntry.CloseAppointmentsInServiceOrder(PX.Objects.FS.ServiceOrderEntry,PX.Objects.FS.FSServiceOrder)">
+            <summary>
+            Closes all appointments belonging to <c>fsServiceOrderRow</c>, in case an error occurs with any appointment,
+            the service order will not be closed and a message will be displayed alerting the user about the appointment's issue.
+            The row of the appointment having problems is marked with its error.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceOrderEntry.CancelAppointmentsInServiceOrder(PX.Objects.FS.ServiceOrderEntry,PX.Objects.FS.FSServiceOrder)">
+            <summary>
+            Cancels all appointments belonging to <c>fsServiceOrderRow</c>, in case an error occurs with any appointment,
+            the service order will not be canceled and a message will be displayed alerting the user about the appointment's issue.
+            The row of the appointment having problems is marked with its error.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceOrderEntry.CloseAppointments(PX.Data.PXResultset{PX.Objects.FS.FSAppointment})">
+            <summary>
+            Closes all appointments belonging to appointmentList, in case an error occurs with any appointment,
+            the method will return a Dictionary listing each appointment with its error.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceOrderEntry.CancelAppointments(PX.Objects.FS.ServiceOrderEntry,PX.Data.PXResultset{PX.Objects.FS.FSAppointment})">
+            <summary>
+            Cancel all appointments belonging to appointmentList, in case an error occurs with any appointment,
+            the method will return a Dictionary listing each appointment with its error.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceOrderEntry.CompleteAppointments(PX.Objects.FS.ServiceOrderEntry,PX.Data.PXResultset{PX.Objects.FS.FSAppointmentInRoute})">
+            <summary>
+            Completes all appointments belonging to appointmentList, in case an error occurs with any appointment,
+            the method will return a Dictionary listing each appointment with its error.
+            </summary>
+        </member>
+        <member name="T:PX.Objects.FS.ServiceOrderEntry.ServiceOrderEntryAddressLookupExtension">
+            <exclude/>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceTemplateMaint.LineTypeEnableDisable(PX.Data.PXCache,PX.Objects.FS.FSServiceTemplateDet)">
+            <summary>
+            This method enables or disables the fields on the <c>FSserviceTemplateDet</c> grid depending on the <c>FSServiceTemplateDet.LineType</c> field.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceTemplateMaint.LineTypeBlankFields(PX.Objects.FS.FSServiceTemplateDet)">
+            <summary>
+            This method blanks the fields that aren't needed depending on the <c>FSServiceTemplateDet.LineType</c> field.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.ServiceTemplateMaint.LineTypeValidateLine(PX.Data.PXCache,PX.Objects.FS.FSServiceTemplateDet,PX.Data.PXErrorLevel)">
+            <summary>
+            This method validates if necessary fields are not null and launch the corresponding exception and error message.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SetupMaint.Update_SrvOrdType_TimeActivitiesFromAppointment(PX.Data.PXGraph,System.Nullable{System.Boolean})">
+            <summary>
+            Updates <c>FSSrvOrdType.createTimeActivitiesFromAppointment</c> when the Time Card integration is enabled.
+            </summary>
+            <param name="graph">PXGraph instance.</param>
+            <param name="enableEmpTimeCardIntegration">Flag that says whether the TimeCard integration is enabled or not.</param>
+        </member>
+        <member name="M:PX.Objects.FS.SMEquipmentMaint.EnableDisableVehicleControls(PX.Data.PXCache,PX.Objects.FS.FSEquipment)">
+            <summary>
+            Allows to enable/disable the vehicle controls depending on the selection of the isVehicle checkbox.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SMEquipmentMaint.EnableDisableCache(PX.Data.PXCache,PX.Objects.FS.FSEquipment)">
+            <summary>
+            Enable or Disable Cache Update/Delete.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SMEquipmentMaint.EnableDisableEquipment(PX.Data.PXCache,PX.Objects.FS.FSEquipment)">
+            <summary>
+            Enable/Disable Document fields.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SMEquipmentMaint.SetRequiredEquipmentTypeError(PX.Data.PXCache,PX.Objects.FS.FSEquipment)">
+            <summary>
+            Checks that at least one checkbox of the equipment Type is selected (Is Vehicle, Is Target Equipment, Is Resource Equipment).
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.StaffContractScheduleEntry.CheckDates(PX.Data.PXCache,PX.Objects.FS.FSStaffSchedule)">
+            <summary>
+            Check if Start Date is prior to End Date.
+            </summary>
+            <param name="cache">FSStaffSchedule cache.</param>
+            <param name="fsStaffScheduleRow">FSStaffSchedule Row.</param>
+        </member>
+        <member name="M:PX.Objects.FS.StaffContractScheduleEntry.CheckTimes(PX.Data.PXCache,PX.Objects.FS.FSStaffSchedule)">
+            <summary>
+            Check if Start Time is prior to End Time.
+            </summary>
+            <param name="cache">FSStaffSchedule cache.</param>
+            <param name="fsStaffScheduleRow">FSStaffSchedule Row.</param>
+        </member>
+        <member name="M:PX.Objects.FS.StaffContractScheduleEntry.SetControlsState(PX.Data.PXCache,PX.Objects.FS.FSSchedule)">
+            <summary>
+            Makes visible the group that corresponds to the selected FrequencyType.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.StaffContractScheduleProcess.processStaffSchedule(PX.Data.PXCache,PX.Objects.FS.StaffContractScheduleProcess,PX.Objects.FS.FSStaffSchedule,System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <summary>
+            Process all FSStaffSchedule. Generates one or more TimeSlot in the Scheduler Module.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.StaffContractScheduleProcess.generateTimeSlotAndUpdateStaffSchedule(System.Collections.Generic.List{PX.Objects.FS.Scheduler.Schedule},System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},PX.Objects.FS.FSSchedule)">
+            <summary>
+            Generates an FSTimeSlot for each TimeSlot in the [scheduleRules] List.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.StaffContractScheduleProcess.createTimeSlot(PX.Objects.FS.Scheduler.TimeSlot)">
+            <summary>
+            Create an FSTimeSlot from a TimeSlot.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.StaffContractScheduleProcess.createContractGenerationHistory(System.Int32,System.Int32,System.DateTime,System.Nullable{System.DateTime},System.String)">
+            <summary>
+            Create a ContractGenerationHistory.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.StaffContractScheduleProcess.updateGeneratedSchedule(System.Int32,System.Nullable{System.DateTime},System.Nullable{System.DateTime},PX.Objects.FS.FSSchedule)">
+            <summary>
+            Update an Schedule (lastGeneratedTimeSlotBySchedules and lastProcessedDate).
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.StaffContractScheduleProcess.getLastGenerationHistoryRow(System.String)">
+            <summary>
+            Return the last FSContractGenerationHistory.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.StaffContractScheduleProcess.getLastGenerationHistoryRowBySchedule(System.Int32)">
+            <summary>
+            Return the last FSContractGenerationHistory by Schedule.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.StaffContractScheduleProcess.getProcessEndDate(PX.Objects.FS.Scheduler.Schedule,System.Nullable{System.DateTime})">
+            <summary>
+            Return the smallest date between schedule EndDate and Process EndDate.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SvrOrdTypeMaint.EnableDisableEmployeeTimeCardIntegrationFields(PX.Data.PXCache,PX.Objects.FS.FSSrvOrdType)">
+            <summary>
+            Enables/Disables the Employee Time Card Integration fields.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.SvrOrdTypeMaint.SetPostingSettingVisibility(PX.Data.PXCache,PX.Objects.FS.FSSrvOrdType,System.Boolean)">
+            <summary>
+            Hides/Shows invoicing related fields, depending on the <c>fsSrvOrdTypeRow.Behavior</c>.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.TimeSlotMaint.ConvertFSTimeSlotToSlot(PX.Objects.FS.FSTimeSlot)">
+            <summary>
+            Converts a FSTimeSlot to a generic class Slot.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.TimeSlotMaint.ConvertSlotToFSTimeSlot(PX.Objects.FS.Scheduler.Slot,PX.Objects.FS.FSTimeSlot,System.Int32)">
+            <summary>
+            Converts a generic Slot in a FSTimeSlot based in [fsTimeSlotRow] and [slotLevel].
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.TimeSlotMaint.CompressListOfSlots(System.Collections.Generic.List{PX.Objects.FS.Scheduler.Slot},System.String)">
+            <summary>
+            Compress a List of Slots in unique slots without overlapping. (The [slotList] must be ordered by TimeBegin and the Slots in [slotList] must be part of same type of Availability).
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.TimeSlotMaint.CompressAndIntersectSlots(System.Collections.Generic.List{PX.Objects.FS.Scheduler.Slot})">
+            <summary>
+            Compress the Availability and Unavailability lists and then proceed to intersect them. This function returns the intersection and the Unavailability records compressed as a List. 
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.TimeSlotMaint.CreateAndCompressedTimeSlots(PX.Objects.FS.FSTimeSlot,PX.Objects.FS.TimeSlotMaint)">
+            <summary>
+            Creates the compressed Time Slots that applies for the [fsTimeSlotRow].
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.TimeSlotMaint.CreateCompressedSlots(System.Collections.Generic.List{PX.Objects.FS.Scheduler.Slot},PX.Objects.FS.FSTimeSlot)">
+            <summary>
+            Create FSTimeSlot records based in the List [compressedSlots] and the FSTimeSLot record [fsTimeSlotRow].
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.TimeSlotMaint.DeleteTimeSlotsByLevel(PX.Objects.FS.FSTimeSlot,System.Int32)">
+            <summary>
+            Delete the TimeSlots based in [slotLevel] that applies for the [fsTimeSlotRow].
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.UpdateInventoryPost.GetAppointmentInventoryItemInfo(System.Nullable{System.Int32},System.Nullable{System.Int32},System.Int32)">
+            <summary>
+            Gets the information of the Appointment and AppointmentInventoryItem using as reference the [appointmentID] and [appointmentInventoryItemID].
+            </summary>
+            
+        </member>
+        <member name="M:PX.Objects.FS.UpdateInventoryPost.CreateDocuments(System.Collections.Generic.List{PX.Objects.FS.FSAppointmentDet},PX.Objects.FS.UpdateInventoryFilter)">
+            <summary>
+            Group the Appointment List [fsAppointmentRows] to determine how to post them.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.UpdateInventoryPost.CreateDocumentByGroup(System.Collections.Generic.List{PX.Objects.FS.FSAppointmentDet},System.Collections.Generic.List{PX.Objects.FS.SharedClasses.AppointmentInventoryItemGroup},PX.Objects.FS.UpdateInventoryFilter)">
+            <summary>
+            Defines where the AppointmentInventoryItems are going to be posted, depending of the ServiceType (Pickup or Delivery).
+            </summary>
+            <param name="fsAppointmentInventoryItemRows"> Items to be posted (Original List in the screen).</param>
+            <param name="listGroupToInvoice"> Items to be posted (Groups to be posted after grouping rules).</param>
+            <param name="filter"> Header of the screen (Filters).</param>
+        </member>
+        <member name="M:PX.Objects.FS.UpdateInventoryPost.CreateDocumentsInIN(PX.Objects.FS.FSPostBatch,System.Collections.Generic.List{PX.Objects.FS.FSAppointmentDet},System.Collections.Generic.List{PX.Objects.FS.SharedClasses.AppointmentInventoryItemGroup},PX.Objects.FS.UpdateInventoryFilter)">
+            <summary>
+            Creates one or more documents in Inventory depending of the number of FSAppointmentInventoryItem in the list [fsAppointmentInventoryItemRows].
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.UpdateInventoryPost.CreateFSPostBatch(System.Int32,System.String,System.Nullable{System.DateTime},System.String,System.Nullable{System.DateTime},System.Nullable{System.Int32},System.Nullable{System.DateTime})">
+            <summary>
+            Creates a Posting Batch that will be used in every Posting Process.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.UpdateInventoryPost.UpdateFSPostBatch(PX.Objects.FS.FSPostBatch)">
+            <summary>
+            Update a Posting Batch that will be used in every Posting Process.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.UpdateInventoryPost.DeleteFSPostBatch(PX.Objects.FS.FSPostBatch)">
+            <summary>
+            Deletes a Posting Batch record.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.UpdateInventoryPost.CreateDocumentReceipt(PX.Objects.IN.INReceiptEntry,PX.Objects.FS.SharedClasses.AppointmentInventoryItemInfo,PX.Objects.FS.FSAppointmentDet,System.Nullable{System.DateTime},System.String,PX.Objects.FS.FSPostBatch,System.String@,System.String@)">
+            <summary>
+            Creates a Receipt document using the parameters [fsAppointmentRow], [fsServiceOrderRow], [fsServiceOrderTypeRow] and its posting information.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.UpdateInventoryPost.CreateDocumentIssue(PX.Objects.IN.INIssueEntry,PX.Objects.FS.SharedClasses.AppointmentInventoryItemInfo,PX.Objects.FS.FSAppointmentDet,System.Nullable{System.DateTime},System.String,PX.Objects.FS.FSPostBatch,System.String@,System.String@)">
+            <summary>
+            Creates an Issue document using the parameters <c>fsAppointmentRow</c>, <c>fsServiceOrderRow</c>, <c>fsServiceOrderTypeRow</c> and its posting information.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.UpdateInventoryPost.UpdateReceiptPostInfo(PX.Objects.IN.INReceiptEntry,PX.Objects.FS.InventoryPostBatchMaint,PX.Objects.FS.PostInfoEntry,PX.Objects.FS.FSAppointmentDet,PX.Objects.FS.SharedClasses.AppointmentInventoryItemInfo,PX.Objects.FS.FSPostBatch)">
+            <summary>
+            Update the references in <c>FSPostInfo</c> and <c>FSPostDet</c> when the posting process of every AppointmentInventoryItem is complete in IN.
+            </summary>
+        </member>
+        <member name="M:PX.Objects.FS.UpdateInventoryPost.UpdateIssuePostInfo(PX.Objects.IN.INIssueEntry,PX.Objects.FS.InventoryPostBatchMaint,PX.Objects.FS.PostInfoEntry,PX.Objects.FS.FSAppointmentDet,PX.Objects.FS.SharedClasses.AppointmentInventoryItemInfo,PX.Objects.FS.FSPostBatch)">
+            <summary>
+            Update the references in <c>FSPostInfo</c> and <c>FSPostDet</c> when the posting process of every AppointmentInventoryItem is complete in IN.
+            </summary>
+        </member>
+    </members>
+</doc>
