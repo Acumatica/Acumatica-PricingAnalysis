@@ -101,6 +101,16 @@ namespace PX.PricingAnalysis.Ext
                         {
                             erdb.Row.Cells["MarkupPercent"].Style.CssClass = "red20";
                         }
+                        else if (this.Base is ARInvoiceEntry && data.MarkupPercent.GetValueOrDefault(0) < inventoryItem.MinGrossProfitPct.GetValueOrDefault(0))
+                        {
+                            SOLine orgLine = SOLine.PK.Find(Base, data?.SOOrderType, data?.SOOrderNbr, data?.SOOrderLineNbr);
+                            if (!(orgLine?.IsPromotionalPrice == true && sosetup.IgnoreMinGrossProfitPromotionalPrice == true
+                            || orgLine?.PriceType == PriceTypes.Customer && sosetup.IgnoreMinGrossProfitCustomerPrice == true
+                            || orgLine?.PriceType == PriceTypes.CustomerPriceClass && sosetup.IgnoreMinGrossProfitCustomerPriceClass == true))
+                            {
+                                erdb.Row.Cells["MarkupPercent"].Style.CssClass = "red20";
+                            }
+                        }
 
                         if (PreviewOnly) { return; }
 
@@ -168,36 +178,6 @@ namespace PX.PricingAnalysis.Ext
                     {
                         erdb.Row.Style.CssClass = "CssCurentRowStyleEditing";
                     }
-                };
-            }
-
-            PX.Web.UI.PXGrid grdComponents = (PX.Web.UI.PXGrid)ControlHelper.FindControl("grid", page);
-            if (grdComponents != null && this.Base is SOOrderEntry)
-            {
-                grdComponents.RowDataBound += (object grdSender, PXGridRowEventArgs erdb) =>
-                {
-                    var data = erdb.Row.DataItem as SOLine;
-                    var dataExt = data.GetExtension<SOLinePricingPXExt>();
-                    if (dataExt.UsrQtyOnHand == null || dataExt.UsrQtyOnHand == "" || dataExt.UsrQtyOnHand == "View") { return; }
-                    erdb.Row.Cells["UsrQtyOnHand"].Style.CssClass =
-                    (Decimal.Parse(dataExt.UsrQtyOnHand ?? "0") < data.OrderQty) ? "red20" :
-                    (Decimal.Parse(dataExt.UsrQtyAvailable ?? "0") < data.OrderQty) ? "yellow20" :
-                    erdb.Row.Cells["UsrQtyOnHand"].Style.CssClass;
-
-                    erdb.Row.Cells["UsrQtyAvailable"].Style.CssClass =
-                    (Decimal.Parse(dataExt.UsrQtyAvailable ?? "0") < data.OrderQty) ? "red20" :
-                    erdb.Row.Cells["UsrQtyAvailable"].Style.CssClass;
-                };
-            }
-
-            PX.Web.UI.PXGrid grdLimiting = (PX.Web.UI.PXGrid)ControlHelper.FindControl("KitDetails", page);
-            if (grdLimiting != null && this.Base is SOOrderEntry)
-            {
-                grdLimiting.RowDataBound += (object grdSender, PXGridRowEventArgs erdb) =>
-                {
-                    var data = erdb.Row.DataItem as NSKitAvailabilityLine;
-                    erdb.Row.Cells["QtyAvailable"].Style.CssClass =
-                    data.IsLimiting.GetValueOrDefault(false) ? "yellow20" : erdb.Row.Cells["QtyAvailable"].Style.CssClass;
                 };
             }
         }
@@ -349,6 +329,8 @@ namespace PX.PricingAnalysis.Ext
                             foreach (INKitSpecNonStkDet det in PXSelect<INKitSpecNonStkDet, Where<INKitSpecNonStkDet.kitInventoryID, Equal<Required<INKitSpecNonStkDet.kitInventoryID>>>>.
                                                                 SelectMultiBound(Base, null, orgLine.InventoryID))
                             {
+                                var detItem = InventoryItem.PK.Find(Base, det.CompInventoryID);
+                                if (!detItem.AccrueCost.GetValueOrDefault(false)) { continue; }
                                 var a = new PALineCostValueExtAttribute<INKitSpecNonStkDet.compInventoryID, DocumentLine.siteID, decimal0, INKitSpecNonStkDet.dfltCompQty, decimal0>();
                                 Dictionary<Type, object> d = new Dictionary<Type, object>();
                                 d.Add(typeof(INKitSpecNonStkDet.compInventoryID), det.CompInventoryID);
@@ -418,7 +400,10 @@ namespace PX.PricingAnalysis.Ext
                     MarkupPercent = PXPriceCostAttribute.Round((decimal)((orgLine.CuryExtCost != 0) ? ((orgLine.CuryLineAmt - orgLine.CuryExtCost) / orgLine.CuryExtCost) * 100 : 0m)),
                     MarginPercent = PXPriceCostAttribute.Round((decimal)((orgLine.CuryLineAmt != 0) ? ((orgLine.CuryLineAmt - orgLine.CuryExtCost) / orgLine.CuryLineAmt) * 100 : 0m)),
                     IsPromotionalPrice = orgLine.IsPromotionalPrice,
-                    PriceType = orgLine.PriceType
+                    PriceType = orgLine.PriceType,
+                    SOOrderType = orgLine.SOOrderType,
+                    SOOrderNbr = orgLine.SOOrderNbr,
+                    SOOrderLineNbr = orgLine.SOOrderLineNbr,
                 };
                 //if (line.CuryExtCost.GetValueOrDefault(0) <= 0m) { line.MarkupPercent = null; }
                 line = PricingAnalysisPreview.Insert(line);
@@ -1251,6 +1236,9 @@ namespace PX.PricingAnalysis.Ext
             public Type IsLastCostUsed = typeof(DocumentLine.isLastCostUsed);
             public Type PriceType = typeof(DocumentLine.priceType);
             public Type IsPromotionalPrice = typeof(DocumentLine.isPromotionalPrice);
+            public Type SOOrderType = typeof(DocumentLine.sOOrderType);
+            public Type SOOrderNbr = typeof(DocumentLine.sOOrderNbr);
+            public Type SOOrderLineNbr = typeof(DocumentLine.sOOrderLineNbr);
             public Type SiteID = typeof(DocumentLine.siteID);
         }
     }
@@ -1398,6 +1386,24 @@ namespace PX.PricingAnalysis.Ext
         public abstract class priceType : PX.Data.BQL.BqlString.Field<priceType> { }
 
         public virtual String PriceType { get; set; }
+        #endregion
+
+        #region SOOrderType
+        public abstract class sOOrderType : PX.Data.BQL.BqlString.Field<sOOrderType> { }
+
+        public virtual String SOOrderType { get; set; }
+        #endregion
+
+        #region SOOrderNbr
+        public abstract class sOOrderNbr : PX.Data.BQL.BqlString.Field<sOOrderNbr> { }
+
+        public virtual String SOOrderNbr { get; set; }
+        #endregion
+
+        #region SOOrderLineNbr
+        public abstract class sOOrderLineNbr : PX.Data.BQL.BqlInt.Field<sOOrderLineNbr> { }
+
+        public virtual int? SOOrderLineNbr { get; set; }
         #endregion
 
         #region SiteID	

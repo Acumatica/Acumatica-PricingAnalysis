@@ -468,7 +468,7 @@
             <AddItem>
                 <PXJavaScript TypeFullName="PX.Web.UI.PXJavaScript">
                     <Prop Key="Virtual:ApplyStylesheetSkin" />
-                    <Prop Key="ID" Value="CstJavaScript1" />
+                    <Prop Key="ID" Value="setColors" />
                     <Prop Key="Script" Value="function setColors(sender, e) {   var edUsrProfitTotal = px_all[&quot;ctl00_phF_form_t0_edUsrProfitTotal&quot;];   var edUsrProfitTotalControl = document.getElementById(&quot;ctl00_phF_form_t0_edUsrProfitTotal&quot;);   var edCuryProfitTotalPanelControl = document.getElementById(&quot;ctl00_phDS_pnlProfitAnalysis_frmLineAllocationLabels_edCuryProfitTotal&quot;);     if (edUsrProfitTotal &amp;&amp; edUsrProfitTotal.value &lt;= 0)   {     edUsrProfitTotalControl.style.setProperty('background-color', 'rgba(255, 0, 0, 0.2)', 'important');     edCuryProfitTotalPanelControl.style.setProperty('background-color', 'rgba(255, 0, 0, 0.2)', 'important');   }   else   {     edUsrProfitTotalControl.style.setProperty('background-color', 'rgba(112, 173, 71, 0.2)', 'important');     edCuryProfitTotalPanelControl.style.setProperty('background-color', 'rgba(112, 173, 71, 0.2)', 'important');   } }" />
                 </PXJavaScript>
             </AddItem>

@@ -46,7 +46,9 @@ namespace PX.PricingAnalysis.Ext
                 CuryLineAmt = typeof(ARTran.curyTranAmt),
                 CuryExtCost = typeof(ARTranPricingAnalysisPXExt.usrCostFinal),
                 IsLastCostUsed = typeof(True),
-                //nsk
+                SOOrderType = typeof(ARTran.sOOrderType),
+                SOOrderNbr = typeof(ARTran.sOOrderNbr),
+                SOOrderLineNbr = typeof(ARTran.sOOrderLineNbr),
                 SiteID = typeof(ARTran.siteID)
             };
         }
@@ -158,8 +160,6 @@ namespace PX.PricingAnalysis.Ext
                         var detItem = InventoryItem.PK.Find(Base, det.CompInventoryID);
                         if (!detItem.AccrueCost.GetValueOrDefault(false))
                         {
-                            INKitSpecNonStkDetPricingAnalysisExt detExt = det.GetExtension<INKitSpecNonStkDetPricingAnalysisExt>();
-                            detExt.UsrCostAmount = 0;
                             continue;
                         }
                         var a = new PALineCostValueExtAttribute<INKitSpecNonStkDet.compInventoryID, ARTran.siteID, decimal0, INKitSpecNonStkDet.dfltCompQty, decimal0>();

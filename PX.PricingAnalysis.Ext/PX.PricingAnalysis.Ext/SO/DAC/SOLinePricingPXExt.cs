@@ -51,20 +51,6 @@ namespace PX.PricingAnalysis.Ext
         public bool? UsrIsLastCostUsed { get; set; }
         #endregion
 
-
-        #region UsrQtyOnHand 
-        public abstract class usrQtyOnHand : BqlString.Field<usrQtyOnHand> { }
-        [PXUIField(DisplayName = "Qty. On Hand", Enabled = false)]
-        public String UsrQtyOnHand { get; set; }
-        #endregion
-
-        #region UsrQtyAvailable
-        public abstract class usrQtyAvailable : BqlString.Field<usrQtyAvailable> { }
-
-        [PXUIField(DisplayName = "Qty. Available", Enabled = false)]
-        public String UsrQtyAvailable { get; set; }
-        #endregion
-
         #region UsrIsNonStockKit
         public abstract class usrIsNonStockKit : PX.Data.BQL.BqlBool.Field<usrIsNonStockKit> { }
 
