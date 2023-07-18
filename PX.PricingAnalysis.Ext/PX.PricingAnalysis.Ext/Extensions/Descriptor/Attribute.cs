@@ -62,29 +62,30 @@ namespace PX.PricingAnalysis.Ext
 		}
 	}
 
-	public class PAUnitCostValueAttribute<InventoryID, SiteID> : BqlFormulaEvaluator<InventoryID, SiteID>
-				where InventoryID : IBqlOperand
-				where SiteID : IBqlOperand
-	{
-		public override object Evaluate(PXCache cache, object item, Dictionary<Type, object> pars)
-		{
-			int? inventoryID = (int?)pars[typeof(InventoryID)];
-			int? siteID = (int?)pars[typeof(SiteID)];
+    [Obsolete("Later removal")]
+    public class PAUnitCostValueAttribute<InventoryID, SiteID> : BqlFormulaEvaluator<InventoryID, SiteID>
+                where InventoryID : IBqlOperand
+                where SiteID : IBqlOperand
+    {
+        public override object Evaluate(PXCache cache, object item, Dictionary<Type, object> pars)
+        {
+            int? inventoryID = (int?)pars[typeof(InventoryID)];
+            int? siteID = (int?)pars[typeof(SiteID)];
 
-			decimal dValue = 0m;
-			if (inventoryID.HasValue && siteID.HasValue)
-			{
-				INItemSite data = PXSelect<INItemSite, Where<INItemSite.inventoryID, Equal<Required<INItemSite.inventoryID>>,
-														And<INItemSite.siteID, Equal<Required<INItemSite.siteID>>>>>
-														.SelectWindowed(cache.Graph, 0, 1, inventoryID, siteID);
+            decimal dValue = 0m;
+            if (inventoryID.HasValue && siteID.HasValue)
+            {
+                INItemSite data = PXSelect<INItemSite, Where<INItemSite.inventoryID, Equal<Required<INItemSite.inventoryID>>,
+                                                        And<INItemSite.siteID, Equal<Required<INItemSite.siteID>>>>>
+                                                        .SelectWindowed(cache.Graph, 0, 1, inventoryID, siteID);
 
-				PXCurrencyAttribute.CuryConvCury(cache, item, data?.TranUnitCost ?? 0m, out dValue);
-			}
-			return dValue;
-		}
-	}
+                PXCurrencyAttribute.CuryConvCury(cache, item, data?.TranUnitCost ?? 0m, out dValue);
+            }
+            return dValue;
+        }
+    }
 
-	public class PALineCostValueExtAttribute<InventoryID, SiteID, LineCost, Quantity, LineOUnitCost> : BqlFormulaEvaluator<InventoryID, SiteID, LineCost, Quantity, LineOUnitCost>
+    public class PALineCostValueExtAttribute<InventoryID, SiteID, LineCost, Quantity, LineOUnitCost> : BqlFormulaEvaluator<InventoryID, SiteID, LineCost, Quantity, LineOUnitCost>
 				where InventoryID : IBqlOperand
 				where SiteID : IBqlOperand
 				where LineCost : IBqlOperand
@@ -118,7 +119,7 @@ namespace PX.PricingAnalysis.Ext
 					if (item is SOLine)
 					{
 						decimal? qtyRemaining = quantity;
-						foreach (SOLineSplit split in PXSelect<SOLineSplit, Where<SOLineSplit.lineNbr, Equal<Current<SOLine.lineNbr>>,
+						foreach (SOLineSplit split in PXSelectReadonly<SOLineSplit, Where<SOLineSplit.lineNbr, Equal<Current<SOLine.lineNbr>>,
 																				And<SOLineSplit.orderType, Equal<Current<SOLine.orderType>>,
 																				And<SOLineSplit.orderNbr, Equal<Current<SOLine.orderNbr>>>>>>.
 															SelectMultiBound(cache.Graph, new object[] { item }))
@@ -142,7 +143,7 @@ namespace PX.PricingAnalysis.Ext
 					else if (item is FSSODet)
 					{
 						decimal? qtyRemaining = quantity;
-						foreach (FSSODetSplit split in PXSelect<FSSODetSplit, Where<FSSODetSplit.srvOrdType, Equal<Current<FSSODet.srvOrdType>>,
+						foreach (FSSODetSplit split in PXSelectReadonly<FSSODetSplit, Where<FSSODetSplit.srvOrdType, Equal<Current<FSSODet.srvOrdType>>,
 																				And<FSSODetSplit.refNbr, Equal<Current<FSSODet.refNbr>>,
 																				And<FSSODetSplit.lineNbr, Equal<Current<FSSODet.lineNbr>>>>>>.
 															SelectMultiBound(cache.Graph, new object[] { item }))
@@ -173,7 +174,7 @@ namespace PX.PricingAnalysis.Ext
 					if (item is SOLine)
 					{
 						decimal? qtyRemaining = quantity;
-						foreach (INTran intran in PXSelect<INTran, Where<INTran.sOOrderLineNbr, Equal<Current<SOLine.lineNbr>>,
+						foreach (INTran intran in PXSelectReadonly<INTran, Where<INTran.sOOrderLineNbr, Equal<Current<SOLine.lineNbr>>,
 																				And<INTran.sOOrderType, Equal<Current<SOLine.orderType>>,
 																				And<INTran.sOOrderNbr, Equal<Current<SOLine.orderNbr>>>>>>.
 															SelectMultiBound(cache.Graph, new object[] { item }))
@@ -186,7 +187,7 @@ namespace PX.PricingAnalysis.Ext
 					else if (item is FSSODet)
 					{
 						decimal? qtyRemaining = quantity;
-						foreach (INTran intran in PXSelectJoin<INTran, InnerJoin<ARTran, On<ARTran.lineNbr, Equal<INTran.aRLineNbr>,
+						foreach (INTran intran in PXSelectReadonly2<INTran, InnerJoin<ARTran, On<ARTran.lineNbr, Equal<INTran.aRLineNbr>,
 																							And<ARTran.tranType, Equal<INTran.aRDocType>,
 																							And<ARTran.refNbr, Equal<INTran.aRRefNbr>>>>,
 																	   InnerJoin<FSARTran, On< FSARTran.lineNbr, Equal<ARTran.lineNbr>,
@@ -205,7 +206,7 @@ namespace PX.PricingAnalysis.Ext
 					else if (item is FSAppointmentDet)
 					{
 						decimal? qtyRemaining = quantity;
-						foreach (INTran intran in PXSelectJoin<INTran, InnerJoin<ARTran, On<ARTran.lineNbr, Equal<INTran.aRLineNbr>,
+						foreach (INTran intran in PXSelectReadonly2<INTran, InnerJoin<ARTran, On<ARTran.lineNbr, Equal<INTran.aRLineNbr>,
 																							And<ARTran.tranType, Equal<INTran.aRDocType>,
 																							And<ARTran.refNbr, Equal<INTran.aRRefNbr>>>>,
 																	   InnerJoin<FSARTran, On<FSARTran.lineNbr, Equal<ARTran.lineNbr>,
@@ -246,10 +247,10 @@ namespace PX.PricingAnalysis.Ext
 		private decimal? GetLotSerialActualCost(PXCache cache, int? inventoryID, int? siteID, string lotserialNbr, decimal? qty)
         {
 			decimal? dReturnValue = 0m;
-			INCostStatus status = PXSelect<INCostStatus, Where<INCostStatus.inventoryID, Equal<Required<INCostStatus.inventoryID>>,
-															And<INCostStatus.siteID, Equal<Required<INCostStatus.siteID>>,
-															And<INCostStatus.lotSerialNbr, Equal<Required<INCostStatus.lotSerialNbr>>>>>>.
-															SelectWindowed(cache.Graph, 0, 1, inventoryID, siteID, lotserialNbr);
+			INCostStatus status = PXSelectReadonly<INCostStatus, Where<INCostStatus.inventoryID, Equal<Required<INCostStatus.inventoryID>>,
+																	And<INCostStatus.siteID, Equal<Required<INCostStatus.siteID>>,
+																	And<INCostStatus.lotSerialNbr, Equal<Required<INCostStatus.lotSerialNbr>>>>>>.
+																	SelectWindowed(cache.Graph, 0, 1, inventoryID, siteID, lotserialNbr);
 			if (status != null && status.QtyOnHand != 0m)
 			{
 				dReturnValue = PXDBPriceCostAttribute.Round((decimal)(status.TotalCost / status.QtyOnHand)) * qty;
@@ -259,7 +260,7 @@ namespace PX.PricingAnalysis.Ext
 
 		private decimal? GetValuationBasedCost(PXCache cache, int? inventoryID, int? siteID, decimal? qty, bool bUseAvg = false)
 		{
-			INItemSite data = PXSelect<INItemSite, Where<INItemSite.inventoryID, Equal<Required<INItemSite.inventoryID>>,
+			INItemSite data = PXSelectReadonly<INItemSite, Where<INItemSite.inventoryID, Equal<Required<INItemSite.inventoryID>>,
 													And<INItemSite.siteID, Equal<Required<INItemSite.siteID>>>>>
 													.SelectWindowed(cache.Graph, 0, 1, inventoryID, siteID);
 

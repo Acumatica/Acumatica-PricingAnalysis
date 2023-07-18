@@ -21,7 +21,7 @@ namespace PX.PricingAnalysis.Ext
         #endregion
 
         #region UsrAccrueCost
-        public abstract class usrAccrueCost : PX.Data.BQL.BqlDecimal.Field<usrAccrueCost> { }
+        public abstract class usrAccrueCost : PX.Data.BQL.BqlBool.Field<usrAccrueCost> { }
 
         [PXBool]
         [PXUnboundDefault(false, PersistingCheck = PXPersistingCheck.Nothing)]
@@ -30,7 +30,7 @@ namespace PX.PricingAnalysis.Ext
         #endregion
 
         #region UsrPricingEligible
-        public abstract class usrPricingEligible : PX.Data.BQL.BqlDecimal.Field<usrPricingEligible> { }
+        public abstract class usrPricingEligible : PX.Data.BQL.BqlBool.Field<usrPricingEligible> { }
 
         [PXBool]
         [PXUnboundDefault(false, PersistingCheck = PXPersistingCheck.Nothing)]
