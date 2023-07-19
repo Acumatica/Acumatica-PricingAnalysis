@@ -37,7 +37,7 @@ namespace PX.PricingAnalysis.Ext
 
         #region UsrQtyOnHandDecimal
         public abstract class usrQtyOnHandDecimal : PX.Data.BQL.BqlDecimal.Field<usrQtyOnHandDecimal> { }
-        [PXDecimal]
+        [PXQuantity]
         public Decimal? UsrQtyOnHandDecimal { get; set; }
         #endregion
 
