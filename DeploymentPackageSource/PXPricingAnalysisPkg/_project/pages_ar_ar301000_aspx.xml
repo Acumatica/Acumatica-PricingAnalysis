@@ -170,7 +170,7 @@
                                 <Prop Key="CallbackCommands.Refresh.RepaintControls" Value="None" />
                                 <Prop Key="CallbackCommands.Refresh.RepaintControlsIDs" Value="frmLineAllocationHeader,grdProfitPreview,grdProfitHeaderInfo,ds" />
                                 <Prop Key="DataSourceID" Value="ds" />
-                                <Prop Key="DataMember" Value="PricingAnalysisPreviewHeaderRecsAR" />
+                                <Prop Key="DataMember" Value="PricingAnalysisPreviewHeaderSummaryRecs" />
                                 <Children Key="Template">
                                     <AddItem>
                                         <PXLayoutRule TypeFullName="PX.Web.UI.PXLayoutRule">

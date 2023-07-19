@@ -905,7 +905,13 @@ namespace PX.PricingAnalysis.Ext
         {
             if (e.Cache == null || e.Row == null) { return; }
 
-            bool bAllowEdit = !PreviewOnly && DocumentLineData.BaseSelect.AllowUpdate;
+            if (PreviewOnly)
+            {
+                PXUIFieldAttribute.SetVisible<PricingAnalysisPreviewHeader.applyAdjustmentAs>(e.Cache, e.Row, false);
+                return;
+            }
+            bool bAllowEdit = DocumentLineData.BaseSelect.AllowUpdate;
+
             PXUIFieldAttribute.SetEnabled<PricingAnalysisPreviewHeader.applyAdjustmentAs>(e.Cache, e.Row, bAllowEdit);
         }
 
@@ -917,7 +923,14 @@ namespace PX.PricingAnalysis.Ext
 
             PricingAnalysis.SetEnabled(e.Cache.GetStatus(data) != PXEntryStatus.Inserted);
 
-            bool bAllowEdit = !PreviewOnly && DocumentLineData.BaseSelect.AllowUpdate;
+            if (PreviewOnly)
+            {
+                ProfitBreakUpByCurrentItem.SetVisible(false);
+                ProfitBreakUpByDocument.SetVisible(false);
+                return;
+            }
+
+            bool bAllowEdit = DocumentLineData.BaseSelect.AllowUpdate;
             ProfitBreakUpByCurrentItem.SetEnabled(bAllowEdit);
             ProfitBreakUpByDocument.SetEnabled(bAllowEdit);
         }
