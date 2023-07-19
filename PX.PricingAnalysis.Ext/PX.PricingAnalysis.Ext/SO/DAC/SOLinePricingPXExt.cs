@@ -1,9 +1,8 @@
 ﻿using System;
 using PX.Data;
-using PX.Data.BQL;
-using PX.Objects.CS;
 using PX.Objects.IN;
 using PX.Objects.SO;
+using static PX.PricingAnalysis.Ext.SOLinePricingPXExt;
 
 namespace PX.PricingAnalysis.Ext
 {
@@ -31,14 +30,15 @@ namespace PX.PricingAnalysis.Ext
         public abstract class usrCuryLineCost : PX.Data.BQL.BqlDecimal.Field<usrCuryLineCost> { }
 
         [PXPriceCost]
+        [PXUIField(DisplayName = "Line Cost (For Pricing)", Enabled = false)]
         [PXDefault(TypeCode.Decimal, "0.0", PersistingCheck = PXPersistingCheck.Nothing)]
         public Decimal? UsrCuryLineCost { get; set; }
         #endregion
 
-        #region UsrQtyOnHandDecimal
-        public abstract class usrQtyOnHandDecimal : PX.Data.BQL.BqlDecimal.Field<usrQtyOnHandDecimal> { }
+        #region UsrQtyOnHandPricing
+        public abstract class usrQtyOnHandPricing : PX.Data.BQL.BqlDecimal.Field<usrQtyOnHandPricing> { }
         [PXQuantity]
-        public Decimal? UsrQtyOnHandDecimal { get; set; }
+        public Decimal? UsrQtyOnHandPricing { get; set; }
         #endregion
 
         #region UsrIsLastCostUsed
@@ -46,8 +46,8 @@ namespace PX.PricingAnalysis.Ext
 
         [PXBool]
         [PXUnboundDefault(false, PersistingCheck = PXPersistingCheck.Nothing)]
-        [PXFormula(typeof(Switch<Case<Where<usrQtyOnHandDecimal, IsNull,
-                                        Or<usrQtyOnHandDecimal, Equal<Objects.CS.decimal0>>>, True>, False>))]
+        [PXFormula(typeof(Switch<Case<Where<usrQtyOnHandPricing, IsNull,
+                                        Or<usrQtyOnHandPricing, Equal<Objects.CS.decimal0>>>, True>, False>))]
         public bool? UsrIsLastCostUsed { get; set; }
         #endregion
 

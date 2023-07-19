@@ -2,7 +2,6 @@
 using PX.Data;
 using PX.Objects.IN;
 using System;
-using System.Collections;
 using PX.Objects.CS;
 using System.Linq;
 using System.Collections.Generic;
@@ -16,6 +15,7 @@ namespace PX.PricingAnalysis.Ext
 
         protected override bool CalcFreightPrices => true;
         protected override bool PreviewOnly => true;
+        protected override bool HasINIssue => true;
 
         protected override DocumentMapping GetDocumentMapping()
         {
@@ -26,7 +26,6 @@ namespace PX.PricingAnalysis.Ext
                 CuryFreightAmt = typeof(ARInvoice.curyFreightAmt),
                 CuryFreightCost = typeof(ARInvoice.curyFreightCost),
                 CuryPremiumFreightAmt = typeof(ARInvoice.curyPremiumFreightAmt),
-                DocType = typeof(ARInvoice.docType)
             };
         }
 
@@ -46,9 +45,6 @@ namespace PX.PricingAnalysis.Ext
                 CuryLineAmt = typeof(ARTran.curyTranAmt),
                 CuryExtCost = typeof(ARTranPricingAnalysisPXExt.usrCostFinal),
                 IsLastCostUsed = typeof(True),
-                SOOrderType = typeof(ARTran.sOOrderType),
-                SOOrderNbr = typeof(ARTran.sOOrderNbr),
-                SOOrderLineNbr = typeof(ARTran.sOOrderLineNbr),
                 SiteID = typeof(ARTran.siteID)
             };
         }
@@ -143,7 +139,7 @@ namespace PX.PricingAnalysis.Ext
                 var inventoryItem = InventoryItem.PK.Find(Base, tran.InventoryID);
                 if (tranExt == null) { return; }
 
-                //NSK
+                //Non-Stock KIT
                 if (!inventoryItem.StkItem.GetValueOrDefault(false) && inventoryItem.KitItem.GetValueOrDefault(false) && tranExt.UsrInvtRefNbr != null)
                 {
                     tranExt.UsrCostFinal = 0;
@@ -173,7 +169,6 @@ namespace PX.PricingAnalysis.Ext
                     }
                     tranExt.UsrCostFinal = kitCost;
                 }
-                //NSK
 
                 cost += tranExt.UsrPricingEligible.GetValueOrDefault(false) ? tranExt.UsrCostFinal : 0;
             }

@@ -38,8 +38,6 @@ namespace PX.PricingAnalysis.Ext
                 CuryExtCost = typeof(SOLinePricingPXExt.usrCuryLineCost),
                 CuryLineAmt = typeof(SOLine.curyLineAmt),
                 IsLastCostUsed = typeof(SOLinePricingPXExt.usrIsLastCostUsed),
-                PriceType = typeof(SOLine.priceType),
-                IsPromotionalPrice = typeof(SOLine.isPromotionalPrice),
                 SiteID = typeof(SOLine.siteID)
             };
         }
@@ -53,7 +51,7 @@ namespace PX.PricingAnalysis.Ext
                                     Where<INItemStats.inventoryID, Equal<Current<SOLine.inventoryID>>,
                                         And<INItemStats.siteID, Equal<Current<SOLine.siteID>>>>>), PersistingCheck = PXPersistingCheck.Nothing)]
         [PXFormula(typeof(Default<SOLine.inventoryID, SOLine.siteID>))]
-        protected virtual void _(Events.CacheAttached<SOLinePricingPXExt.usrQtyOnHandDecimal> e) { }
+        protected virtual void _(Events.CacheAttached<SOLinePricingPXExt.usrQtyOnHandPricing> e) { }
 
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using PX.Data;
 using PX.Objects.AR;
-using PX.Objects.CS;
 using PX.Objects.IN;
 
 namespace PX.PricingAnalysis.Ext
@@ -27,7 +26,7 @@ namespace PX.PricingAnalysis.Ext
 		#endregion
 
 		#region UsrPricingEligible
-		public abstract class usrPricingEligible : PX.Data.BQL.BqlDecimal.Field<usrPricingEligible> { }
+		public abstract class usrPricingEligible : PX.Data.BQL.BqlBool.Field<usrPricingEligible> { }
 
 		[PXBool]
 		[PXUnboundDefault(false, PersistingCheck = PXPersistingCheck.Nothing)]

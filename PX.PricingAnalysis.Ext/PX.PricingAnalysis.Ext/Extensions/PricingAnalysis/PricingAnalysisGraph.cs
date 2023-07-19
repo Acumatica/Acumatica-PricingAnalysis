@@ -24,6 +24,9 @@ namespace PX.PricingAnalysis.Ext
 
         protected virtual bool PreviewOnly => false;
 
+        //might want to turn into mapped field in the future
+        protected virtual bool HasINIssue => false;
+
         #region SmartPanel Styling
         public override void Initialize()
         {
@@ -88,30 +91,9 @@ namespace PX.PricingAnalysis.Ext
                 {
                     var data = erdb.Row.DataItem as PX.PricingAnalysis.Ext.PricingAnalysisPreviewLine;
                     if (data == null) { return; }
-                    var inventoryItem = InventoryItem.PK.Find(Base, data.InventoryID);
-                    SOSetup sosetup = PXSelect<SOSetup>.Select(Base);
 
                     if (data.LineType == PX.PricingAnalysis.Ext.ProfitLineType.CurrentLineType)
                     {
-                        if (data.MarkupPercent.GetValueOrDefault(0) == 0M ||
-                        (this.Base is SOOrderEntry && data.MarkupPercent.GetValueOrDefault(0) < inventoryItem.MinGrossProfitPct.GetValueOrDefault(0)
-                        && !(data.IsPromotionalPrice == true && sosetup.IgnoreMinGrossProfitPromotionalPrice == true
-                        || data.PriceType == PriceTypes.Customer && sosetup.IgnoreMinGrossProfitCustomerPrice == true
-                        || data.PriceType == PriceTypes.CustomerPriceClass && sosetup.IgnoreMinGrossProfitCustomerPriceClass == true)))
-                        {
-                            erdb.Row.Cells["MarkupPercent"].Style.CssClass = "red20";
-                        }
-                        else if (this.Base is ARInvoiceEntry && data.MarkupPercent.GetValueOrDefault(0) < inventoryItem.MinGrossProfitPct.GetValueOrDefault(0))
-                        {
-                            SOLine orgLine = SOLine.PK.Find(Base, data?.SOOrderType, data?.SOOrderNbr, data?.SOOrderLineNbr);
-                            if (!(orgLine?.IsPromotionalPrice == true && sosetup.IgnoreMinGrossProfitPromotionalPrice == true
-                            || orgLine?.PriceType == PriceTypes.Customer && sosetup.IgnoreMinGrossProfitCustomerPrice == true
-                            || orgLine?.PriceType == PriceTypes.CustomerPriceClass && sosetup.IgnoreMinGrossProfitCustomerPriceClass == true))
-                            {
-                                erdb.Row.Cells["MarkupPercent"].Style.CssClass = "red20";
-                            }
-                        }
-
                         if (PreviewOnly) { return; }
 
                         erdb.Row.Style.CssClass = "CssCurentRowStyle";
@@ -125,6 +107,11 @@ namespace PX.PricingAnalysis.Ext
                         {
                             erdb.Row.Cells["MarginPercent"].Style.CssClass = "bad";
                         }
+
+                        if (data.MarkupPercent.GetValueOrDefault(0) == 0M)
+                        {
+                            erdb.Row.Cells["MarkupPercent"].Style.CssClass = "bad";
+                        }
                     }
                     else
                     {
@@ -136,11 +123,7 @@ namespace PX.PricingAnalysis.Ext
                         erdb.Row.Cells["CuryLineAmt"].Style.CssClass = "CssCurentCellStyleEditing";
                         erdb.Row.Cells["CuryProfit"].Style.CssClass = "CssCurentCellStyleEditing";
                         erdb.Row.Cells["MarginPercent"].Style.CssClass = (data.MarginPercent.GetValueOrDefault(0) == 0M) ? "bad" : "CssCurentCellStyleEditing";
-                        erdb.Row.Cells["MarkupPercent"].Style.CssClass = (data.MarkupPercent.GetValueOrDefault(0) == 0M ||
-                        (this.Base is SOOrderEntry && data.MarkupPercent.GetValueOrDefault(0) < inventoryItem.MinGrossProfitPct.GetValueOrDefault(0)
-                        && !(data.IsPromotionalPrice == true && sosetup.IgnoreMinGrossProfitPromotionalPrice == true
-                        || data.PriceType == PriceTypes.Customer && sosetup.IgnoreMinGrossProfitCustomerPrice == true
-                        || data.PriceType == PriceTypes.CustomerPriceClass && sosetup.IgnoreMinGrossProfitCustomerPriceClass == true))) ? "bad" : "CssCurentCellStyleEditing";
+                        erdb.Row.Cells["MarkupPercent"].Style.CssClass = (data.MarkupPercent.GetValueOrDefault(0) == 0M) ? "bad" : "CssCurentCellStyleEditing";
                     }
                 };
             }
@@ -194,8 +177,8 @@ namespace PX.PricingAnalysis.Ext
 
         [PXCopyPasteHiddenView]
         [PXVirtualDAC]
-        public PXSelect<PricingAnalysisPreviewHeaderLabels, Where<True, Equal<True>>,
-                    OrderBy<Asc<PricingAnalysisPreviewHeaderLabels.headerInfoID>>> PricingAnalysisPreviewHeaderRecsAR;
+        public PXSelect<PricingAnalysisPreviewHeaderSummary, Where<True, Equal<True>>,
+                    OrderBy<Asc<PricingAnalysisPreviewHeaderSummary.headerInfoID>>> PricingAnalysisPreviewHeaderSummaryRecs;
 
         [PXCopyPasteHiddenView]
         [PXVirtualDAC]
@@ -238,11 +221,11 @@ namespace PX.PricingAnalysis.Ext
             return PricingAnalysisPreviewHeaderRecs.Cache.Cached;
         }
 
-        public IEnumerable pricingAnalysisPreviewHeaderRecsAR()
+        public IEnumerable pricingAnalysisPreviewHeaderSummaryRecs()
         {
             RefreshHeaderTotal();
-            PricingAnalysisPreviewHeaderRecsAR.Cache.IsDirty = false;
-            return PricingAnalysisPreviewHeaderRecsAR.Cache.Cached;
+            PricingAnalysisPreviewHeaderSummaryRecs.Cache.IsDirty = false;
+            return PricingAnalysisPreviewHeaderSummaryRecs.Cache.Cached;
         }
 
         public IEnumerable pricingAnalysisBreakupLinesByLine()
@@ -311,12 +294,12 @@ namespace PX.PricingAnalysis.Ext
 
                 if (orgLine.OrderQty.GetValueOrDefault(0) <= 0) { continue; }
 
-                //NSK
+                //Non-Stock KIT
                 if (!inventoryItem.StkItem.GetValueOrDefault(false) && inventoryItem.KitItem.GetValueOrDefault(false))
                 {
                     orgLine.CuryExtCost = 0;
                     decimal? kitCost = 0;
-                    if (this.Base is ARInvoiceEntry)
+                    if (HasINIssue)
                     {
                         if (orgLine.InvtRefNbr != null)
                         {
@@ -373,7 +356,6 @@ namespace PX.PricingAnalysis.Ext
                     }
                     orgLine.CuryExtCost = kitCost;
                 }
-                //NSK
 
                 orgLine.CuryExtCost = orgLine.PricingEligible.GetValueOrDefault(false) ? orgLine.CuryExtCost : 0;
                 if (!(inventoryItem.StkItem.GetValueOrDefault(false) || inventoryItem.KitItem.GetValueOrDefault(false))) { orgLine.InvtRefNbr = null; }
@@ -399,11 +381,6 @@ namespace PX.PricingAnalysis.Ext
                     CuryProfit = orgLine.CuryLineAmt - orgLine.CuryExtCost,
                     MarkupPercent = PXPriceCostAttribute.Round((decimal)((orgLine.CuryExtCost != 0) ? ((orgLine.CuryLineAmt - orgLine.CuryExtCost) / orgLine.CuryExtCost) * 100 : 0m)),
                     MarginPercent = PXPriceCostAttribute.Round((decimal)((orgLine.CuryLineAmt != 0) ? ((orgLine.CuryLineAmt - orgLine.CuryExtCost) / orgLine.CuryLineAmt) * 100 : 0m)),
-                    IsPromotionalPrice = orgLine.IsPromotionalPrice,
-                    PriceType = orgLine.PriceType,
-                    SOOrderType = orgLine.SOOrderType,
-                    SOOrderNbr = orgLine.SOOrderNbr,
-                    SOOrderLineNbr = orgLine.SOOrderLineNbr,
                 };
                 //if (line.CuryExtCost.GetValueOrDefault(0) <= 0m) { line.MarkupPercent = null; }
                 line = PricingAnalysisPreview.Insert(line);
@@ -526,7 +503,7 @@ namespace PX.PricingAnalysis.Ext
 
             //Grid View for Header
             PricingAnalysisPreviewHeaderRecs.Cache.Clear();
-            if (this.Base is ARInvoiceEntry) { PricingAnalysisPreviewHeaderRecsAR.Cache.Clear(); }
+            if (PreviewOnly) { PricingAnalysisPreviewHeaderSummaryRecs.Cache.Clear(); }
             var currentHeaderLine = new PricingAnalysisPreviewHeaderInfo()
             {
                 HeaderInfoID = 1,
@@ -540,9 +517,9 @@ namespace PX.PricingAnalysis.Ext
             PricingAnalysisPreviewHeaderRecs.Insert(currentHeaderLine);
             PricingAnalysisPreviewHeaderRecs.Cache.SetStatus(currentHeaderLine, PXEntryStatus.Held);
 
-            if (this.Base is ARInvoiceEntry)
+            if (PreviewOnly)
             {
-                var currentHeaderLineLabels = new PricingAnalysisPreviewHeaderLabels()
+                var currentHeaderLineLabels = new PricingAnalysisPreviewHeaderSummary()
                 {
                     HeaderInfoID = 1,
                     HeaderInfoType = HeaderInfoTypes.Current,
@@ -552,8 +529,8 @@ namespace PX.PricingAnalysis.Ext
                     MarkupPercent = (ccostTotal.GetValueOrDefault(0) > 0) ? (cprofitTotal / ccostTotal) * 100 : null,
                     MarginPercent = (camountTotal.GetValueOrDefault(0) > 0) ? (cprofitTotal / camountTotal) * 100 : null
                 };
-                PricingAnalysisPreviewHeaderRecsAR.Insert(currentHeaderLineLabels);
-                PricingAnalysisPreviewHeaderRecsAR.Cache.SetStatus(currentHeaderLineLabels, PXEntryStatus.Held);
+                PricingAnalysisPreviewHeaderSummaryRecs.Insert(currentHeaderLineLabels);
+                PricingAnalysisPreviewHeaderSummaryRecs.Cache.SetStatus(currentHeaderLineLabels, PXEntryStatus.Held);
             }
 
             var previewHeaderLine = new PricingAnalysisPreviewHeaderInfo()
@@ -893,7 +870,7 @@ namespace PX.PricingAnalysis.Ext
             PricingAnalysisPreview.Cache.IsDirty = false;
             PricingAnalysisPreviewHeaderFilter.Cache.IsDirty = false;
             PricingAnalysisPreviewHeaderRecs.Cache.IsDirty = false;
-            PricingAnalysisPreviewHeaderRecsAR.Cache.IsDirty = false;
+            PricingAnalysisPreviewHeaderSummaryRecs.Cache.IsDirty = false;
 
             //To Apply Style.
             PricingAnalysisPreview.View.RequestRefresh();
@@ -918,7 +895,7 @@ namespace PX.PricingAnalysis.Ext
         {
             e.Cancel = true;
         }
-        public void _(Events.RowPersisting<PricingAnalysisPreviewHeaderLabels> e)
+        public void _(Events.RowPersisting<PricingAnalysisPreviewHeaderSummary> e)
         {
             e.Cancel = true;
         }
@@ -927,12 +904,8 @@ namespace PX.PricingAnalysis.Ext
         public void _(Events.RowSelected<PricingAnalysisPreviewHeader> e)
         {
             if (e.Cache == null || e.Row == null) { return; }
-            if (PreviewOnly)
-            {
-                PXUIFieldAttribute.SetVisible<PricingAnalysisPreviewHeader.applyAdjustmentAs>(e.Cache, e.Row, false);
-                return;
-            }
-            bool bAllowEdit = DocumentLineData.BaseSelect.AllowUpdate;
+
+            bool bAllowEdit = !PreviewOnly && DocumentLineData.BaseSelect.AllowUpdate;
             PXUIFieldAttribute.SetEnabled<PricingAnalysisPreviewHeader.applyAdjustmentAs>(e.Cache, e.Row, bAllowEdit);
         }
 
@@ -944,14 +917,7 @@ namespace PX.PricingAnalysis.Ext
 
             PricingAnalysis.SetEnabled(e.Cache.GetStatus(data) != PXEntryStatus.Inserted);
 
-            if (PreviewOnly)
-            {
-                ProfitBreakUpByCurrentItem.SetVisible(false);
-                ProfitBreakUpByDocument.SetVisible(false);
-                return;
-            }
-
-            bool bAllowEdit = DocumentLineData.BaseSelect.AllowUpdate;
+            bool bAllowEdit = !PreviewOnly && DocumentLineData.BaseSelect.AllowUpdate;
             ProfitBreakUpByCurrentItem.SetEnabled(bAllowEdit);
             ProfitBreakUpByDocument.SetEnabled(bAllowEdit);
         }
@@ -1058,8 +1024,8 @@ namespace PX.PricingAnalysis.Ext
                 Base.Actions.PressCancel();
                 PricingAnalysisPreviewHeaderRecs.Cache.Clear();
                 PricingAnalysisPreviewHeaderRecs.Cache.ClearQueryCache();
-                PricingAnalysisPreviewHeaderRecsAR.Cache.Clear();
-                PricingAnalysisPreviewHeaderRecsAR.Cache.ClearQueryCache();
+                PricingAnalysisPreviewHeaderSummaryRecs.Cache.Clear();
+                PricingAnalysisPreviewHeaderSummaryRecs.Cache.ClearQueryCache();
                 PricingAnalysisPreview.Cache.Clear();
                 PricingAnalysisPreview.Cache.ClearQueryCache();
                 graph.Views[viewName].Cache.Clear();
@@ -1211,7 +1177,6 @@ namespace PX.PricingAnalysis.Ext
             public Type CuryPremiumFreightAmt = typeof(Document.curyFreightAmt);
             public Type CuryFreightCost = typeof(Document.curyFreightCost);
             public Type OverrideFreightAmount = typeof(Document.overrideFreightAmount);
-            public Type DocType = typeof(Document.docType);
         }
 
         protected abstract DocumentLineMapping GetDocumentLineMapping();
@@ -1234,11 +1199,6 @@ namespace PX.PricingAnalysis.Ext
             public Type CuryExtCost = typeof(DocumentLine.curyExtCost);
             public Type CuryLineAmt = typeof(DocumentLine.curyLineAmt);
             public Type IsLastCostUsed = typeof(DocumentLine.isLastCostUsed);
-            public Type PriceType = typeof(DocumentLine.priceType);
-            public Type IsPromotionalPrice = typeof(DocumentLine.isPromotionalPrice);
-            public Type SOOrderType = typeof(DocumentLine.sOOrderType);
-            public Type SOOrderNbr = typeof(DocumentLine.sOOrderNbr);
-            public Type SOOrderLineNbr = typeof(DocumentLine.sOOrderLineNbr);
             public Type SiteID = typeof(DocumentLine.siteID);
         }
     }
@@ -1286,12 +1246,6 @@ namespace PX.PricingAnalysis.Ext
         public abstract class overrideFreightAmount : PX.Data.BQL.BqlBool.Field<overrideFreightAmount> { }
 
         public virtual bool? OverrideFreightAmount { get; set; }
-        #endregion
-
-        #region DocType
-        public abstract class docType : PX.Data.BQL.BqlString.Field<docType> { }
-
-        public virtual String DocType { get; set; }
         #endregion
     }
 
@@ -1374,36 +1328,6 @@ namespace PX.PricingAnalysis.Ext
         public abstract class isLastCostUsed : PX.Data.BQL.BqlBool.Field<isLastCostUsed> { }
 
         public virtual bool? IsLastCostUsed { get; set; }
-        #endregion
-
-        #region IsPromotionalPrice	
-        public abstract class isPromotionalPrice : PX.Data.BQL.BqlBool.Field<isPromotionalPrice> { }
-
-        public virtual bool? IsPromotionalPrice { get; set; }
-        #endregion
-
-        #region PriceType	
-        public abstract class priceType : PX.Data.BQL.BqlString.Field<priceType> { }
-
-        public virtual String PriceType { get; set; }
-        #endregion
-
-        #region SOOrderType
-        public abstract class sOOrderType : PX.Data.BQL.BqlString.Field<sOOrderType> { }
-
-        public virtual String SOOrderType { get; set; }
-        #endregion
-
-        #region SOOrderNbr
-        public abstract class sOOrderNbr : PX.Data.BQL.BqlString.Field<sOOrderNbr> { }
-
-        public virtual String SOOrderNbr { get; set; }
-        #endregion
-
-        #region SOOrderLineNbr
-        public abstract class sOOrderLineNbr : PX.Data.BQL.BqlInt.Field<sOOrderLineNbr> { }
-
-        public virtual int? SOOrderLineNbr { get; set; }
         #endregion
 
         #region SiteID	

@@ -282,7 +282,7 @@ namespace PX.PricingAnalysis.Ext
             {
 				unitCost = (data?.AvgCost ?? 0m);
 			}
-			unitCost = Math.Round(unitCost, 2);
+			unitCost = PXPriceCostAttribute.Round(unitCost);
 			dValuedCost = (qty.GetValueOrDefault(0)) * unitCost;
 
 			return dValuedCost.GetValueOrDefault(0) > 0 ? dValuedCost.Value : GetLastCost(cache, inventoryID, qty);
@@ -293,7 +293,7 @@ namespace PX.PricingAnalysis.Ext
         {
 			INItemCost data = INItemCost.PK.Find(cache.Graph, inventoryID, cache.Graph.Accessinfo.BaseCuryID);
 			decimal unitCost = (data?.LastCost ?? 0m);
-			unitCost = Math.Round(unitCost, 2);
+			unitCost = PXPriceCostAttribute.Round(unitCost);
 			return (qty.GetValueOrDefault(0)) * unitCost;
 		}
 	}

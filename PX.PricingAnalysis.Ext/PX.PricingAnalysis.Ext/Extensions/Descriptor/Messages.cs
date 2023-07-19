@@ -1,5 +1,4 @@
-﻿using System;
-using PX.Common;
+﻿using PX.Common;
 
 namespace PX.PricingAnalysis.Ext
 {
