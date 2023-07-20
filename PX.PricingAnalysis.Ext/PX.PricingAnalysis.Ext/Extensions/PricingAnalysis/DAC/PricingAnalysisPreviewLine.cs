@@ -182,42 +182,5 @@ namespace PX.PricingAnalysis.Ext
 		[PXUIField(DisplayName = "Margin %", Enabled = true)]
 		public virtual decimal? MarginPercent { get; set; }
 		#endregion
-
-		#region IsPromotionalPrice
-		public abstract class isPromotionalPrice : PX.Data.BQL.BqlBool.Field<isPromotionalPrice>{}
-		[PXBool]
-		[PXUnboundDefault(false)]
-		public virtual bool? IsPromotionalPrice { get; set; }
-		#endregion
-
-		#region PriceType
-		public abstract class priceType : PX.Data.BQL.BqlString.Field<priceType>{}
-		[PXString(1, IsFixed = true)]
-		public virtual String PriceType { get; set; }
-		#endregion
-
-		#region SOOrderLineNbr
-		public abstract class sOOrderLineNbr : PX.Data.BQL.BqlInt.Field<sOOrderLineNbr> { }
-
-		[PXInt]
-		[PXUIField(DisplayName = "SOOrder Line Nbr.", Visible = false, Enabled = false)]
-		public virtual Int32? SOOrderLineNbr { get; set; }
-		#endregion
-
-		#region SOOrderType
-		public abstract class sOOrderType : PX.Data.BQL.BqlString.Field<sOOrderType> { }
-
-		[PXString(2, IsFixed = true, IsUnicode = false)]
-		[PXUIField(DisplayName = "SOOrder Line type", Visible = false, Enabled = false)]
-		public virtual String SOOrderType { get; set; }
-		#endregion
-
-		#region SOOrderNbr 
-		public abstract class sOOrderNbr : PX.Data.BQL.BqlString.Field<sOOrderNbr> { }
-
-		[PXString(15, IsUnicode = true)]
-		[PXUIField(DisplayName = "SOOrder Nbr.", Visible = false, Enabled = false)]
-		public virtual String SOOrderNbr { get; set; }
-		#endregion
 	}
 }
