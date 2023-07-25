@@ -314,13 +314,13 @@ namespace PX.PricingAnalysis.Ext
                             {
                                 var detItem = InventoryItem.PK.Find(Base, det.CompInventoryID);
                                 if (!detItem.AccrueCost.GetValueOrDefault(false)) { continue; }
-                                var a = new PALineCostValueExtAttribute<INKitSpecNonStkDet.compInventoryID, DocumentLine.siteID, decimal0, INKitSpecNonStkDet.dfltCompQty, decimal0>();
-                                Dictionary<Type, object> d = new Dictionary<Type, object>();
-                                d.Add(typeof(INKitSpecNonStkDet.compInventoryID), det.CompInventoryID);
-                                d.Add(typeof(DocumentLine.siteID), orgLine.SiteID);
-                                d.Add(typeof(decimal0), 0m);
-                                d.Add(typeof(INKitSpecNonStkDet.dfltCompQty), det.DfltCompQty);
-                                var value = a.Evaluate(Base.Caches.Caches[0], orgLine, d);
+                                var costAttribute = new PALineCostValueExtAttribute<INKitSpecNonStkDet.compInventoryID, DocumentLine.siteID, decimal0, INKitSpecNonStkDet.dfltCompQty, decimal0>();
+                                Dictionary<Type, object> attributePars = new Dictionary<Type, object>();
+                                attributePars.Add(typeof(INKitSpecNonStkDet.compInventoryID), det.CompInventoryID);
+                                attributePars.Add(typeof(DocumentLine.siteID), orgLine.SiteID);
+                                attributePars.Add(typeof(decimal0), 0m);
+                                attributePars.Add(typeof(INKitSpecNonStkDet.dfltCompQty), det.DfltCompQty);
+                                var value = costAttribute.Evaluate(Base.Caches.Caches[0], orgLine, attributePars);
                                 kitCost += (decimal?)value * orgLine.OrderQty.GetValueOrDefault(0);
                             }
                         }
@@ -330,13 +330,13 @@ namespace PX.PricingAnalysis.Ext
                         foreach (INKitSpecStkDet det in PXSelect<INKitSpecStkDet, Where<INKitSpecStkDet.kitInventoryID, Equal<Required<INKitSpecStkDet.kitInventoryID>>>>.
                                                             SelectMultiBound(Base, null, orgLine.InventoryID))
                         {
-                            var a = new PALineCostValueExtAttribute<INKitSpecStkDet.compInventoryID, DocumentLine.siteID, decimal0, INKitSpecStkDet.dfltCompQty, decimal0>();
-                            Dictionary<Type, object> d = new Dictionary<Type, object>();
-                            d.Add(typeof(INKitSpecStkDet.compInventoryID), det.CompInventoryID);
-                            d.Add(typeof(DocumentLine.siteID), orgLine.SiteID);
-                            d.Add(typeof(decimal0), 0m);
-                            d.Add(typeof(INKitSpecStkDet.dfltCompQty), det.DfltCompQty);
-                            var value = a.Evaluate(Base.Caches.Caches[0], orgLine, d);
+                            var costAttribute = new PALineCostValueExtAttribute<INKitSpecStkDet.compInventoryID, DocumentLine.siteID, decimal0, INKitSpecStkDet.dfltCompQty, decimal0>();
+                            Dictionary<Type, object> attributePars = new Dictionary<Type, object>();
+                            attributePars.Add(typeof(INKitSpecStkDet.compInventoryID), det.CompInventoryID);
+                            attributePars.Add(typeof(DocumentLine.siteID), orgLine.SiteID);
+                            attributePars.Add(typeof(decimal0), 0m);
+                            attributePars.Add(typeof(INKitSpecStkDet.dfltCompQty), det.DfltCompQty);
+                            var value = costAttribute.Evaluate(Base.Caches.Caches[0], orgLine, attributePars);
                             kitCost += (decimal?)value * orgLine.OrderQty.GetValueOrDefault(0);
                         }
                         foreach (INKitSpecNonStkDet det in PXSelect<INKitSpecNonStkDet, Where<INKitSpecNonStkDet.kitInventoryID, Equal<Required<INKitSpecNonStkDet.kitInventoryID>>>>.
@@ -344,13 +344,13 @@ namespace PX.PricingAnalysis.Ext
                         {
                             var detItem = InventoryItem.PK.Find(Base, det.CompInventoryID);
                             if (!detItem.AccrueCost.GetValueOrDefault(false)) { continue; }
-                            var a = new PALineCostValueExtAttribute<INKitSpecNonStkDet.compInventoryID, DocumentLine.siteID, decimal0, INKitSpecNonStkDet.dfltCompQty, decimal0>();
-                            Dictionary<Type, object> d = new Dictionary<Type, object>();
-                            d.Add(typeof(INKitSpecNonStkDet.compInventoryID), det.CompInventoryID);
-                            d.Add(typeof(DocumentLine.siteID), orgLine.SiteID);
-                            d.Add(typeof(decimal0), 0m);
-                            d.Add(typeof(INKitSpecNonStkDet.dfltCompQty), det.DfltCompQty);
-                            var value = a.Evaluate(Base.Caches.Caches[0], orgLine, d);
+                            var costAttribute = new PALineCostValueExtAttribute<INKitSpecNonStkDet.compInventoryID, DocumentLine.siteID, decimal0, INKitSpecNonStkDet.dfltCompQty, decimal0>();
+                            Dictionary<Type, object> attributePars = new Dictionary<Type, object>();
+                            attributePars.Add(typeof(INKitSpecNonStkDet.compInventoryID), det.CompInventoryID);
+                            attributePars.Add(typeof(DocumentLine.siteID), orgLine.SiteID);
+                            attributePars.Add(typeof(decimal0), 0m);
+                            attributePars.Add(typeof(INKitSpecNonStkDet.dfltCompQty), det.DfltCompQty);
+                            var value = costAttribute.Evaluate(Base.Caches.Caches[0], orgLine, attributePars);
                             kitCost += (decimal?)value * orgLine.OrderQty.GetValueOrDefault(0);
                         }
                     }
