@@ -26,12 +26,22 @@ namespace PX.PricingAnalysis.Ext
         public bool? UsrAccrueCost { get; set; }
         #endregion
 
+        #region UsrIsKit
+        public abstract class usrIsKit : PX.Data.BQL.BqlBool.Field<usrIsKit> { }
+
+        [PXBool]
+        [PXUnboundDefault(typeof(Search<InventoryItem.kitItem,
+                                    Where<InventoryItem.inventoryID, Equal<Current<CROpportunityProducts.inventoryID>>>>), PersistingCheck = PXPersistingCheck.Nothing)]
+        [PXFormula(typeof(Default<CROpportunityProducts.inventoryID>))]
+        public bool? UsrIsKit { get; set; }
+        #endregion
+
         #region UsrPricingEligible
         public abstract class usrPricingEligible : PX.Data.BQL.BqlBool.Field<usrPricingEligible> { }
 
         [PXBool]
         [PXUnboundDefault(false, PersistingCheck = PXPersistingCheck.Nothing)]
-        [PXFormula(typeof(Switch<Case<Where<CROpportunityProductsPricingPXExt.usrIsStockItem, Equal<True>, Or<CROpportunityProductsPricingPXExt.usrAccrueCost, Equal<True>>>, True>, False>))]
+        [PXFormula(typeof(Switch<Case<Where<CROpportunityProductsPricingPXExt.usrIsStockItem, Equal<True>, Or<CROpportunityProductsPricingPXExt.usrAccrueCost, Equal<True>, Or<CROpportunityProductsPricingPXExt.usrIsKit, Equal<True>>>>, True>, False>))]
         public bool? UsrPricingEligible { get; set; }
         #endregion
 

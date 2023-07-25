@@ -72,16 +72,7 @@ namespace PX.PricingAnalysis.Ext
             int? siteID = (int?)pars[typeof(SiteID)];
 
             decimal dValue = 0m;
-            InventoryItem itemData = InventoryItem.PK.Find(cache.Graph, inventoryID);
-            if (!inventoryID.HasValue)
-			{
-                return dValue;
-            }
-            else if (!itemData.StkItem.GetValueOrDefault(false))
-			{
-				dValue = (itemData.StdCost ?? 0m);
-            }
-            else if (siteID.HasValue)
+            if (inventoryID.HasValue && siteID.HasValue)
             {
                 INItemSite data = PXSelect<INItemSite, Where<INItemSite.inventoryID, Equal<Required<INItemSite.inventoryID>>,
                                                         And<INItemSite.siteID, Equal<Required<INItemSite.siteID>>>>>

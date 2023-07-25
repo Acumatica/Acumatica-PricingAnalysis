@@ -29,7 +29,8 @@ namespace PX.PricingAnalysis.Ext
                 CuryUnitPrice = typeof(CROpportunityProducts.curyUnitPrice),
                 CuryExtCost = typeof(CROpportunityProducts.curyExtCost),
                 CuryLineAmt = typeof(CROpportunityProducts.curyAmount),
-                IsLastCostUsed = typeof(CROpportunityProductsPricingPXExt.usrIsLastCostUsed)
+                IsLastCostUsed = typeof(CROpportunityProductsPricingPXExt.usrIsLastCostUsed),
+                SiteID = typeof(CROpportunityProducts.siteID)
             };
         }
     }

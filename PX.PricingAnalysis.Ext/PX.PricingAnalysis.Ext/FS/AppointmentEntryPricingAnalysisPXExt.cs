@@ -30,7 +30,8 @@ namespace PX.PricingAnalysis.Ext
                 CuryUnitPrice = typeof(FSAppointmentDet.curyUnitPrice),
                 CuryExtCost = typeof(FSAppointmentDetPricingPXExt.usrCuryLineCost),
                 CuryLineAmt = typeof(FSAppointmentDet.curyBillableTranAmt),
-                IsLastCostUsed = typeof(FSAppointmentDetPricingPXExt.usrIsLastCostUsed)
+                IsLastCostUsed = typeof(FSAppointmentDetPricingPXExt.usrIsLastCostUsed),
+                SiteID = typeof(FSAppointmentDet.siteID)
             };
         }
 

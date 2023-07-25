@@ -1,5 +1,6 @@
 ﻿using System;
 using PX.Data;
+using PX.Objects.CR;
 using PX.Objects.FS;
 using PX.Objects.IN;
 
@@ -30,7 +31,8 @@ namespace PX.PricingAnalysis.Ext
                 CuryUnitPrice = typeof(FSSODet.curyUnitPrice),
                 CuryExtCost = typeof(FSSODetPricingPXExt.usrCuryLineCost),
                 CuryLineAmt = typeof(FSSODet.curyBillableTranAmt),
-                IsLastCostUsed = typeof(FSSODetPricingPXExt.usrIsLastCostUsed)
+                IsLastCostUsed = typeof(FSSODetPricingPXExt.usrIsLastCostUsed),
+                SiteID = typeof(FSSODet.siteID)
             };
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using PX.Data;
+using PX.Objects.CR;
 using PX.Objects.FS;
 using PX.Objects.IN;
 
@@ -26,12 +27,22 @@ namespace PX.PricingAnalysis.Ext
         public bool? UsrAccrueCost { get; set; }
         #endregion
 
+        #region UsrIsKit
+        public abstract class usrIsKit : PX.Data.BQL.BqlBool.Field<usrIsKit> { }
+
+        [PXBool]
+        [PXUnboundDefault(typeof(Search<InventoryItem.kitItem,
+                                    Where<InventoryItem.inventoryID, Equal<Current<FSAppointmentDet.inventoryID>>>>), PersistingCheck = PXPersistingCheck.Nothing)]
+        [PXFormula(typeof(Default<CROpportunityProducts.inventoryID>))]
+        public bool? UsrIsKit { get; set; }
+        #endregion
+
         #region UsrPricingEligible
         public abstract class usrPricingEligible : PX.Data.BQL.BqlBool.Field<usrPricingEligible> { }
 
         [PXBool]
         [PXUnboundDefault(false, PersistingCheck = PXPersistingCheck.Nothing)]
-        [PXFormula(typeof(Switch<Case<Where<FSAppointmentDetPricingPXExt.usrIsStockItem, Equal<True>, Or<FSAppointmentDetPricingPXExt.usrAccrueCost, Equal<True>>>, True>, False>))]
+        [PXFormula(typeof(Switch<Case<Where<FSAppointmentDetPricingPXExt.usrIsStockItem, Equal<True>, Or<FSAppointmentDetPricingPXExt.usrAccrueCost, Equal<True>, Or<FSAppointmentDetPricingPXExt.usrIsKit, Equal<True>>>>, True>, False>))]
         public bool? UsrPricingEligible { get; set; }
         #endregion
 
