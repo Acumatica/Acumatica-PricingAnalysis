@@ -1,5 +1,6 @@
 ﻿using PX.Data;
 using PX.Objects.AR;
+using System;
 
 namespace PX.PricingAnalysis.Ext
 {
@@ -10,9 +11,9 @@ namespace PX.PricingAnalysis.Ext
 
         [PXDBString(1, IsFixed = true)]
         [PXUIField(DisplayName = "Default Adjustment Type")]
+        [PXDefault(typeof(BreakupBy.markup), PersistingCheck =PXPersistingCheck.NullOrBlank)]
         [AdjustmentType.List]
-        [PXDefault(AdjustmentType.Price, PersistingCheck = PXPersistingCheck.Nothing)]
-        public string UsrDefAdjustmentType { get; set; }
+        public String UsrDefAdjustmentType { get; set; }
         #endregion
 
         #region UsrDefPricingType

@@ -102,16 +102,6 @@ namespace PX.PricingAnalysis.Ext
                         {
                             erdb.Row.Cells["CuryExtCostDisplay"].Style.CssClass = "CssCurentCellStyleLastCost";
                         }
-
-                        if (data.MarginPercent.GetValueOrDefault(0) == 0M)
-                        {
-                            erdb.Row.Cells["MarginPercent"].Style.CssClass = "bad";
-                        }
-
-                        if (data.MarkupPercent.GetValueOrDefault(0) == 0M)
-                        {
-                            erdb.Row.Cells["MarkupPercent"].Style.CssClass = "bad";
-                        }
                     }
                     else
                     {
@@ -122,9 +112,9 @@ namespace PX.PricingAnalysis.Ext
                         erdb.Row.Cells["CuryDiscAmt"].Style.CssClass = "CssCurentCellStyleEditing";
                         erdb.Row.Cells["CuryLineAmt"].Style.CssClass = "CssCurentCellStyleEditing";
                         erdb.Row.Cells["CuryProfit"].Style.CssClass = "CssCurentCellStyleEditing";
-                        erdb.Row.Cells["MarginPercent"].Style.CssClass = (data.MarginPercent.GetValueOrDefault(0) == 0M) ? "bad" : "CssCurentCellStyleEditing";
-                        erdb.Row.Cells["MarkupPercent"].Style.CssClass = (data.MarkupPercent.GetValueOrDefault(0) == 0M) ? "bad" : "CssCurentCellStyleEditing";
                     }
+                    erdb.Row.Cells["MarkupPercent"].Style.CssClass = (data.MarkupPercent.GetValueOrDefault(0) <= 0M) ? "bad" : "CssCurentCellStyleEditing";
+                    erdb.Row.Cells["MarginPercent"].Style.CssClass = (data.MarginPercent.GetValueOrDefault(0) <= 0M) ? "bad" : "CssCurentCellStyleEditing";
                 };
             }
 
