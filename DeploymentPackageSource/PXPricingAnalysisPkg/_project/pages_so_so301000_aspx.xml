@@ -360,6 +360,7 @@
                             </PXPanel>
                         </AddItem>
                     </Children>
+                    <Prop Key="AutoCallBack.Behavior.RepaintControlsIDs" Value="frmLineAllocationHeader,grdProfitHeaderInfo" />
                 </PXSmartPanel>
             </AddItem>
             <AddItem>

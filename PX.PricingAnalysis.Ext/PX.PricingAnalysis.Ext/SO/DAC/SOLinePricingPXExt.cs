@@ -2,7 +2,6 @@
 using PX.Data;
 using PX.Objects.IN;
 using PX.Objects.SO;
-using static PX.PricingAnalysis.Ext.SOLinePricingPXExt;
 
 namespace PX.PricingAnalysis.Ext
 {

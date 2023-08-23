@@ -1,5 +1,4 @@
-﻿using System;
-using PX.Objects.PM;
+﻿using PX.Objects.PM;
 using PX.Objects.CR;
 
 namespace PX.PricingAnalysis.Ext
