@@ -1,4 +1,5 @@
 ﻿using PX.Common;
+using static PX.Objects.SO.SOPickingJob.status;
 
 namespace PX.PricingAnalysis.Ext
 {
@@ -28,5 +29,8 @@ namespace PX.PricingAnalysis.Ext
 		public const string FreightLineText = "Freight";
 		public const string FreightLineDescription = "Freight Charges";
 
-	}
+        public const string DefaultPricingByEmpty = "The \"Default Pricing By\" field in the Account Receivable Preferences screen cannot be empty";
+
+
+    }
 }

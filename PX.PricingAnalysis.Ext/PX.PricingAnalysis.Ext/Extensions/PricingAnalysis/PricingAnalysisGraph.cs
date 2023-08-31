@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using static PX.Data.BQL.BqlPlaceholder;
 
 namespace PX.PricingAnalysis.Ext
 {
@@ -1085,6 +1086,13 @@ namespace PX.PricingAnalysis.Ext
         [PXButton]
         public virtual IEnumerable profitBreakUpByDocument(PXAdapter adapter)
         {
+            ProfitAnalysisByDocSetting settings = ProfitAnalysisSettingFilterByDoc.Current;
+
+            if (String.IsNullOrEmpty(settings.BreakupByHidden))
+            {
+                throw new PXException(Messages.DefaultPricingByEmpty, PXErrorLevel.Error);
+            }
+
             if (ProfitAnalysisSettingFilterByDoc.AskExtFullyValid((graph, viewName) =>
             {
                 ProfitAnalysisSettingFilterByDoc.Cache.Clear();
@@ -1093,8 +1101,6 @@ namespace PX.PricingAnalysis.Ext
                 PricingAnalysisBreakupLinesByDoc.Cache.ClearQueryCache();
             }, DialogAnswerType.Positive, true))
             {
-                ProfitAnalysisByDocSetting settings = ProfitAnalysisSettingFilterByDoc.Current;
-
                 PricingAnalysisBreakupByDoc cBreakUpLine = PricingAnalysisBreakupLinesByDoc.Current;
                 List<PricingAnalysisPreviewLine> prvLines = PricingAnalysisPreview.Select().RowCast<PricingAnalysisPreviewLine>().ToList();
                 prvLines = prvLines.Where(x => x.LineType == ProfitLineType.PreviewLineType).ToList();
@@ -1123,6 +1129,13 @@ namespace PX.PricingAnalysis.Ext
         [PXButton]
         public virtual IEnumerable profitBreakUpByCurrentItem(PXAdapter adapter)
         {
+            ProfitAnalysisByLineSetting settings = ProfitAnalysisSettingFilterByLine.Current;
+
+            if (String.IsNullOrEmpty(settings.BreakupByHidden))
+            {
+                throw new PXException(Messages.DefaultPricingByEmpty, PXErrorLevel.Error);
+            }
+
             if (ProfitAnalysisSettingFilterByLine.AskExtFullyValid((graph, viewName) =>
             {
                 ProfitAnalysisSettingFilterByLine.Cache.Clear();
@@ -1131,8 +1144,6 @@ namespace PX.PricingAnalysis.Ext
                 PricingAnalysisBreakupLinesByLine.Cache.ClearQueryCache();
             }, DialogAnswerType.Positive, true))
             {
-                ProfitAnalysisByLineSetting settings = ProfitAnalysisSettingFilterByLine.Current;
-
                 PricingAnalysisBreakup cBreakUpLine = PricingAnalysisBreakupLinesByLine.Current;
                 List<PricingAnalysisPreviewLine> prvLines = PricingAnalysisPreview.Select().RowCast<PricingAnalysisPreviewLine>().ToList();
                 PricingAnalysisPreviewLine cPrvLine = prvLines.Where(x => x.LineNbr == cBreakUpLine.LineNbr && x.LineType == ProfitLineType.PreviewLineType).FirstOrDefault();
