@@ -1,5 +1,6 @@
 ﻿using System;
 using PX.Data;
+using PX.Objects.CS;
 using PX.Objects.FS;
 using PX.Objects.IN;
 using static PX.Objects.FS.SharedClasses;
@@ -8,8 +9,10 @@ namespace PX.PricingAnalysis.Ext
 {
     public sealed class FSSODetPricingPXExt : PXCacheExtension<FSSODet>
     {
-		#region UsrCuryExtCost
-		public abstract class usrCuryExtCost : PX.Data.BQL.BqlDecimal.Field<usrCuryExtCost> { }
+        public static bool IsActive() => PXAccess.FeatureInstalled<FeaturesSet.serviceManagementModule>();
+
+        #region UsrCuryExtCost
+        public abstract class usrCuryExtCost : PX.Data.BQL.BqlDecimal.Field<usrCuryExtCost> { }
 
 		[PXPriceCost]
 		[PXUIField(DisplayName = "Line Cost", Enabled = false)]
@@ -20,21 +23,12 @@ namespace PX.PricingAnalysis.Ext
 		public Decimal? UsrCuryExtCost { get; set; }
         #endregion
 
-        #region UsrAccrueCost
-        public abstract class usrAccrueCost : PX.Data.BQL.BqlBool.Field<usrAccrueCost> { }
-
-        [PXBool]
-        [PXUnboundDefault(false, PersistingCheck = PXPersistingCheck.Nothing)]
-        [PXFormula(typeof(Selector<FSSODet.inventoryID, InventoryItem.accrueCost>))]
-        public bool? UsrAccrueCost { get; set; }
-        #endregion
-
         #region UsrPricingEligible
         public abstract class usrPricingEligible : PX.Data.BQL.BqlBool.Field<usrPricingEligible> { }
 
         [PXBool]
         [PXUnboundDefault(false, PersistingCheck = PXPersistingCheck.Nothing)]
-        [PXFormula(typeof(Switch<Case<Where<FSSODet.isStockItem, Equal<True>, Or<FSSODetPricingPXExt.usrAccrueCost, Equal<True>>>, True>, False>))]
+        [PXFormula(typeof(True))]
         public bool? UsrPricingEligible { get; set; }
         #endregion
 

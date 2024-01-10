@@ -1,11 +1,12 @@
-﻿using System;
-using PX.Data;
+﻿using PX.Data;
 using PX.Objects.CR;
 
 namespace PX.PricingAnalysis.Ext
 {
     public sealed class CRQuotePricingPXExt : PXCacheExtension<CRQuote>
     {
+        public static bool IsActive() => true;
+
         #region UsrEditable
         public abstract class usrEditable : PX.Data.BQL.BqlBool.Field<usrEditable> { }
 

@@ -1,13 +1,10 @@
-﻿using System;
-using PX.Data;
-using PX.Objects.CM;
-using PX.Objects.CR;
-using PX.Objects.IN;
+﻿using PX.Objects.CR;
 
 namespace PX.PricingAnalysis.Ext
 {
     public class QuoteMaintPricingAnalysisPXExt : PricingAnalysisGraph<QuoteMaint, CRQuote>
     {
+        public static bool IsActive() => true;
         protected override DocumentMapping GetDocumentMapping()
         {
             return new DocumentMapping(typeof(CRQuote))

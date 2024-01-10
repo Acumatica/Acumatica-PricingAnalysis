@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using PX.Data;
 using PX.Objects.AR;
 using PX.Objects.CM;
-using PX.Objects.CS;
 using PX.Objects.FS;
 using PX.Objects.IN;
 using PX.Objects.SO;
@@ -102,9 +101,10 @@ namespace PX.PricingAnalysis.Ext
 			decimal dValue = 0m;
 			decimal? dValueCaled = 0m;
 
-			if (!inventoryID.HasValue || !siteID.HasValue) { return dValue; }
-			InventoryItem itemData = InventoryItem.PK.Find(cache.Graph, inventoryID);
-			InventoryItemPricingAnalysisExt itemDataExt = PXCache<InventoryItem>.GetExtension<InventoryItemPricingAnalysisExt>(itemData);
+            if (!inventoryID.HasValue) { return dValue; }
+            InventoryItem itemData = InventoryItem.PK.Find(cache.Graph, inventoryID);
+            InventoryItemCurySettings itemSetting = InventoryItemCurySettings.PK.Find(cache.Graph, inventoryID, cache.Graph.Accessinfo.BaseCuryID);
+            InventoryItemPricingAnalysisExt itemDataExt = PXCache<InventoryItem>.GetExtension<InventoryItemPricingAnalysisExt>(itemData);
 			bool? bIsSpecialOrderItem = (bool?)cache.Graph.Caches[typeof(InventoryItem)]?.GetValue(itemData, "UsrIsSpecialOrderItem");
 
 			if (bIsSpecialOrderItem.GetValueOrDefault(false))
@@ -113,7 +113,8 @@ namespace PX.PricingAnalysis.Ext
 			}
 			else if (itemData.StkItem.GetValueOrDefault(false))
 			{
-				if ((itemDataExt.UsrLotSerTrack == INLotSerTrack.SerialNumbered ||
+                if (!siteID.HasValue) { return dValue; }
+                if ((itemDataExt.UsrLotSerTrack == INLotSerTrack.SerialNumbered ||
 					itemDataExt.UsrLotSerTrack == INLotSerTrack.LotNumbered) && itemData.ValMethod == INValMethod.Specific)
 				{
 					if (item is SOLine)
@@ -230,7 +231,7 @@ namespace PX.PricingAnalysis.Ext
 			}
 			else
 			{
-				if (CostExt.GetValueOrDefault(0) <= 0) { CostExt = (itemData.StdCost ?? 0m) * (quantity ?? 0m); }
+				if (CostExt.GetValueOrDefault(0) <= 0) { CostExt = (itemSetting.StdCost ?? 0m) * (quantity ?? 0m); }
 				dValueCaled = CostExt ?? 0m;
 			}
 			if (dValueCaled.GetValueOrDefault(0) <=0)

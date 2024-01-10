@@ -1,11 +1,13 @@
-﻿using System;
-using PX.Data;
+﻿using PX.Data;
+using PX.Objects.CS;
 using PX.Objects.FS;
 
 namespace PX.PricingAnalysis.Ext
 {
     public sealed class FSAppointmentPricingPXExt : PXCacheExtension<FSAppointment>
     {
+        public static bool IsActive() => PXAccess.FeatureInstalled<FeaturesSet.serviceManagementModule>();
+
         #region UsrEditable
         public abstract class usrEditable : PX.Data.BQL.BqlBool.Field<usrEditable> { }
 

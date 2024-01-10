@@ -1,11 +1,12 @@
-﻿using System;
-using PX.Data;
+﻿using PX.Data;
 using PX.Objects.PM;
 
 namespace PX.PricingAnalysis.Ext
 {
     public sealed class PMQuotePricingPXExt : PXCacheExtension<PMQuote>
     {
+        public static bool IsActive() => true;
+
         #region UsrEditable
         public abstract class usrEditable : PX.Data.BQL.BqlBool.Field<usrEditable> { }
 

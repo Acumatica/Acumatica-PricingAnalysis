@@ -69,6 +69,8 @@ namespace PX.PricingAnalysis.Ext
                                                                         "CssStyleHeaderCurrent" : "CssStyleHeaderPreview";
 
                     erHdb.Row.Cells["HeaderInfoType"].Column.Header.ImageUrl = "control@Empty";
+
+                    erHdb.Row.Cells["MarkupPercent"].Style.CssClass = (dataHeader.MarkupPercent < 0M) ? "red20" : erHdb.Row.Cells["MarkupPercent"].Style.CssClass;
                 };
             }
 
@@ -88,12 +90,12 @@ namespace PX.PricingAnalysis.Ext
                             erdb.Row.Cells["CuryExtCostDisplay"].Style.CssClass = "CssCurentCellStyleLastCost";
                         }
 
-                        if (data.MarginPercent.GetValueOrDefault(0) == 0M)
+                        if (data.MarginPercent.GetValueOrDefault(0) <= 0M)
                         {
                             erdb.Row.Cells["MarginPercent"].Style.CssClass = "bad";
                         }
 
-                        if (data.MarkupPercent.GetValueOrDefault(0) == 0M)
+                        if (data.MarkupPercent.GetValueOrDefault(0) <= 0M)
                         {
                             erdb.Row.Cells["MarkupPercent"].Style.CssClass = "bad";
                         }
@@ -107,8 +109,8 @@ namespace PX.PricingAnalysis.Ext
                         erdb.Row.Cells["CuryDiscAmt"].Style.CssClass = "CssCurentCellStyleEditing";
                         erdb.Row.Cells["CuryLineAmt"].Style.CssClass = "CssCurentCellStyleEditing";
                         erdb.Row.Cells["CuryProfit"].Style.CssClass = "CssCurentCellStyleEditing";
-                        erdb.Row.Cells["MarginPercent"].Style.CssClass = (data.MarginPercent.GetValueOrDefault(0) == 0M) ? "bad" : "CssCurentCellStyleEditing";
-                        erdb.Row.Cells["MarkupPercent"].Style.CssClass = (data.MarkupPercent.GetValueOrDefault(0) == 0M) ? "bad" : "CssCurentCellStyleEditing";
+                        erdb.Row.Cells["MarginPercent"].Style.CssClass = (data.MarginPercent.GetValueOrDefault(0) <= 0M) ? "bad" : "CssCurentCellStyleEditing";
+                        erdb.Row.Cells["MarkupPercent"].Style.CssClass = (data.MarkupPercent.GetValueOrDefault(0) <= 0M) ? "bad" : "CssCurentCellStyleEditing";
                     }
                 };
             }
@@ -901,7 +903,6 @@ namespace PX.PricingAnalysis.Ext
 
             if (PricingAnalysisPreviewHeaderFilter.AskExtFullyValid((graph, viewName) =>
             {
-                Base.Actions.PressCancel();
                 PricingAnalysisPreviewHeaderRecs.Cache.Clear();
                 PricingAnalysisPreviewHeaderRecs.Cache.ClearQueryCache();
                 PricingAnalysisPreview.Cache.Clear();
@@ -960,6 +961,13 @@ namespace PX.PricingAnalysis.Ext
         [PXButton]
         public virtual IEnumerable profitBreakUpByDocument(PXAdapter adapter)
         {
+            ProfitAnalysisByDocSetting settings = ProfitAnalysisSettingFilterByDoc.Current;
+
+            if (String.IsNullOrEmpty(settings.BreakupByHidden))
+            {
+                settings.BreakupByHidden = BreakupBy.Markup;
+            }
+
             if (ProfitAnalysisSettingFilterByDoc.AskExtFullyValid((graph, viewName) =>
             {
                 ProfitAnalysisSettingFilterByDoc.Cache.Clear();
@@ -968,8 +976,6 @@ namespace PX.PricingAnalysis.Ext
                 PricingAnalysisBreakupLinesByDoc.Cache.ClearQueryCache();
             }, DialogAnswerType.Positive, true))
             {
-                ProfitAnalysisByDocSetting settings = ProfitAnalysisSettingFilterByDoc.Current;
-
                 PricingAnalysisBreakupByDoc cBreakUpLine = PricingAnalysisBreakupLinesByDoc.Current;
                 List<PricingAnalysisPreviewLine> prvLines = PricingAnalysisPreview.Select().RowCast<PricingAnalysisPreviewLine>().ToList();
                 prvLines = prvLines.Where(x => x.LineType == ProfitLineType.PreviewLineType).ToList();
@@ -998,6 +1004,13 @@ namespace PX.PricingAnalysis.Ext
         [PXButton]
         public virtual IEnumerable profitBreakUpByCurrentItem(PXAdapter adapter)
         {
+            ProfitAnalysisByLineSetting settings = ProfitAnalysisSettingFilterByLine.Current;
+
+            if (String.IsNullOrEmpty(settings.BreakupByHidden))
+            {
+                settings.BreakupByHidden = BreakupBy.Markup;
+            }
+
             if (ProfitAnalysisSettingFilterByLine.AskExtFullyValid((graph, viewName) =>
             {
                 ProfitAnalysisSettingFilterByLine.Cache.Clear();
@@ -1006,8 +1019,6 @@ namespace PX.PricingAnalysis.Ext
                 PricingAnalysisBreakupLinesByLine.Cache.ClearQueryCache();
             }, DialogAnswerType.Positive, true))
             {
-                ProfitAnalysisByLineSetting settings = ProfitAnalysisSettingFilterByLine.Current;
-
                 PricingAnalysisBreakup cBreakUpLine = PricingAnalysisBreakupLinesByLine.Current;
                 List<PricingAnalysisPreviewLine> prvLines = PricingAnalysisPreview.Select().RowCast<PricingAnalysisPreviewLine>().ToList();
                 PricingAnalysisPreviewLine cPrvLine = prvLines.Where(x => x.LineNbr == cBreakUpLine.LineNbr && x.LineType == ProfitLineType.PreviewLineType).FirstOrDefault();

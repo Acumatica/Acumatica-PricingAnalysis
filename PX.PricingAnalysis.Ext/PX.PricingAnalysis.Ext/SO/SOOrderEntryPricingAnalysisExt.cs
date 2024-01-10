@@ -1,16 +1,14 @@
 ﻿using PX.Data;
+using PX.Objects.CS;
 using PX.Objects.IN;
 using PX.Objects.SO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PX.PricingAnalysis.Ext
 {
     public class SOOrderEntryPricingAnalysisExt : PricingAnalysisGraph<SOOrderEntry, SOOrder>
     {
+        public static bool IsActive() => PXAccess.FeatureInstalled<FeaturesSet.distributionModule>();
+
         protected override bool CalcFreightPrices => true;
 
         protected override DocumentMapping GetDocumentMapping()

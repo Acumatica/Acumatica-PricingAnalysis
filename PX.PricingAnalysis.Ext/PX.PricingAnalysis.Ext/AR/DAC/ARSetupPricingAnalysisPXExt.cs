@@ -1,11 +1,12 @@
-﻿using System;
-using PX.Data;
+﻿using PX.Data;
 using PX.Objects.AR;
 
 namespace PX.PricingAnalysis.Ext
 {
     public sealed class ARSetupPricingAnalysisPXExt : PXCacheExtension<ARSetup>
     {
+        public static bool IsActive() => true;
+
         #region UsrDefAdjustmentType
         public abstract class usrDefAdjustmentType : PX.Data.BQL.BqlString.Field<usrDefAdjustmentType> { }
 

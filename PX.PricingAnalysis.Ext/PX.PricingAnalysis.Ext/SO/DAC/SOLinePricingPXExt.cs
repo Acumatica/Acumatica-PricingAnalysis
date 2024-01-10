@@ -1,5 +1,6 @@
 ﻿using System;
 using PX.Data;
+using PX.Objects.CS;
 using PX.Objects.IN;
 using PX.Objects.SO;
 
@@ -7,21 +8,14 @@ namespace PX.PricingAnalysis.Ext
 {
     public sealed class SOLinePricingPXExt : PXCacheExtension<SOLine>
     {
-        #region UsrAccrueCost
-        public abstract class usrAccrueCost : PX.Data.BQL.BqlBool.Field<usrAccrueCost> { }
-
-        [PXBool]
-        [PXUnboundDefault(false, PersistingCheck = PXPersistingCheck.Nothing)]
-        [PXFormula(typeof(Selector<SOLine.inventoryID, InventoryItem.accrueCost>))]
-        public bool? UsrAccrueCost { get; set; }
-        #endregion
+        public static bool IsActive() => PXAccess.FeatureInstalled<FeaturesSet.distributionModule>();
 
         #region UsrPricingEligible
         public abstract class usrPricingEligible : PX.Data.BQL.BqlBool.Field<usrPricingEligible> { }
 
         [PXBool]
         [PXUnboundDefault(false, PersistingCheck = PXPersistingCheck.Nothing)]
-        [PXFormula(typeof(Switch<Case<Where<SOLine.isStockItem, Equal<True>, Or<SOLinePricingPXExt.usrAccrueCost, Equal<True>>>, True>, False>))]
+        [PXFormula(typeof(True))]
         public bool? UsrPricingEligible { get; set; }
         #endregion
 

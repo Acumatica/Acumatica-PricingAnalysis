@@ -1,14 +1,12 @@
-﻿using System;
-using PX.Data;
-using PX.Objects.CM;
-using PX.Objects.PM;
-using PX.Objects.IN;
+﻿using PX.Objects.PM;
 using PX.Objects.CR;
 
 namespace PX.PricingAnalysis.Ext
 {
     public class PMQuoteMaintPricingAnalysisPXExt : PricingAnalysisGraph<PMQuoteMaint, PMQuote>
     {
+        public static bool IsActive() => true;
+
         protected override DocumentMapping GetDocumentMapping()
         {
             return new DocumentMapping(typeof(PMQuote))

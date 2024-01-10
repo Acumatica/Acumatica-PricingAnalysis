@@ -1,5 +1,5 @@
-﻿using System;
-using PX.Data;
+﻿using PX.Data;
+using PX.Objects.CS;
 using PX.Objects.FS;
 using PX.Objects.IN;
 
@@ -7,6 +7,8 @@ namespace PX.PricingAnalysis.Ext
 {
     public class ServiceOrderEntryPricingAnalysisExt : PricingAnalysisGraph<ServiceOrderEntry, FSServiceOrder>
     {
+        public static bool IsActive() => PXAccess.FeatureInstalled<FeaturesSet.serviceManagementModule>();
+
         protected override DocumentMapping GetDocumentMapping()
         {
             return new DocumentMapping(typeof(FSServiceOrder))

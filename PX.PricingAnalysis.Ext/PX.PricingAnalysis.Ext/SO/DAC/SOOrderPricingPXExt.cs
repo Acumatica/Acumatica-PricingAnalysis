@@ -1,11 +1,13 @@
-﻿using System;
-using PX.Data;
+﻿using PX.Data;
+using PX.Objects.CS;
 using PX.Objects.SO;
 
 namespace PX.PricingAnalysis.Ext
 {
     public sealed class SOOrderPricingPXExt : PXCacheExtension<SOOrder>
     {
+        public static bool IsActive() => PXAccess.FeatureInstalled<FeaturesSet.distributionModule>();
+
         #region UsrEditable
         public abstract class usrEditable : PX.Data.BQL.BqlBool.Field<usrEditable> { }
 

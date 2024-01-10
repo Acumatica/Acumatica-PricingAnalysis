@@ -6,8 +6,10 @@ namespace PX.PricingAnalysis.Ext
 {
     public sealed class InventoryItemPricingAnalysisExt : PXCacheExtension<InventoryItem>
     {
-		#region UsrLotSerTrack
-		public abstract class usrLotSerTrack : PX.Data.BQL.BqlString.Field<usrLotSerTrack> { }
+        public static bool IsActive() => true;
+
+        #region UsrLotSerTrack
+        public abstract class usrLotSerTrack : PX.Data.BQL.BqlString.Field<usrLotSerTrack> { }
 		
 		[PXString(1, IsFixed = true)]
 		[PXFormula(typeof(Selector<InventoryItem.lotSerClassID, INLotSerClass.lotSerTrack>))]
