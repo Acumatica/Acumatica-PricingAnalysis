@@ -17,13 +17,14 @@ Cost is determined based on
 * Last Cost is utilized for zero stock item.
 
 ### Prerequisites
-* [Acumatica 2020 R1 (20.109.0032 or higher)](https://github.com/Acumatica/Acumatica-PricingAnalysis/tree/2020)
-* [Acumatica 2020 R2 (20.202.0043 or higher)](https://github.com/Acumatica/Acumatica-PricingAnalysis/tree/2020)
-* [Acumatica 2021 R1 (21.110.0032 or higher)](https://github.com/Acumatica/Acumatica-PricingAnalysis/tree/2021)
-* [Acumatica 2021 R2 (21.200.0145 or higher)](https://github.com/Acumatica/Acumatica-PricingAnalysis/tree/2021)
-* [Acumatica 2022 R1 (22.105.0031 or higher)](https://github.com/Acumatica/Acumatica-PricingAnalysis/tree/2021)
-* [Acumatica 2022 R2 (22.205.0026 or higher)](https://github.com/Acumatica/Acumatica-PricingAnalysis/tree/2022R2)
-* [Acumatica 2023 R1 (23.104.0027 or higher)](https://github.com/Acumatica/Acumatica-PricingAnalysis/tree/2022R2)
+* Acumatica 2020 R1 (20.109.0032 or higher) [2020 R1 Deployment Package](https://github.com/Acumatica/Acumatica-PricingAnalysis/tree/2020)
+* Acumatica 2020 R2 (20.202.0043 or higher) [2020 R2 Deployment Package](https://github.com/Acumatica/Acumatica-PricingAnalysis/tree/2020)
+* Acumatica 2021 R1 (21.110.0032 or higher) [2021 R1 Deployment Package](https://github.com/Acumatica/Acumatica-PricingAnalysis/tree/2021)
+* Acumatica 2021 R2 (21.200.0145 or higher) [2021 R2 Deployment Package](https://github.com/Acumatica/Acumatica-PricingAnalysis/tree/2021)
+* Acumatica 2022 R1 (22.105.0031 or higher) [2022 R1 Deployment Package](https://github.com/Acumatica/Acumatica-PricingAnalysis/tree/2021)
+* Acumatica 2022 R2 (22.205.0026 or higher) [2022 R2 Deployment Package](https://github.com/Acumatica/Acumatica-PricingAnalysis/tree/2022R2)
+* Acumatica 2023 R1 (23.104.0027 or higher) [2023 R1 Deployment Package](https://github.com/Acumatica/Acumatica-PricingAnalysis/tree/2022R2)
+* Acumatica 2023 R2 (23.202.0058 or higher) [2023 R2 Deployment Package](https://github.com/Acumatica/Acumatica-PricingAnalysis/tree/2023R2)
 
 Quick Start
 -----------
