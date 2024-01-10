@@ -13,7 +13,7 @@ The Pricing Analysis displays profits for all the items contained in the documen
 Cost is determined based on 
 
 * Actual/Specific cost is utilized for allocated Lot/Serial #. 
-* Standard cost or line cost is utilized for non-stock items having cost accrual enabled.
+* Standard cost or line cost is utilized for non-stock items.
 * Last Cost is utilized for zero stock item.
 
 ### Prerequisites
