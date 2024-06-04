@@ -25,7 +25,8 @@ Cost is determined based on
 * Acumatica 2022 R2 (22.205.0026 or higher) [2022 R2 Deployment Package](https://github.com/Acumatica/Acumatica-PricingAnalysis/tree/2022R2)
 * Acumatica 2023 R1 (23.104.0027 or higher) [2023 R1 Deployment Package](https://github.com/Acumatica/Acumatica-PricingAnalysis/tree/2022R2)
 * Acumatica 2023 R2 (23.202.0058 or higher) [2023 R2 Deployment Package](https://github.com/Acumatica/Acumatica-PricingAnalysis/tree/2023R2)
-
+* Acumatica 2024 R1 (24.100.0139 or higher) [2024 R1 Deployment Package](https://github.com/Acumatica/Acumatica-PricingAnalysis/tree/2024R1)
+  
 Quick Start
 -----------
 
