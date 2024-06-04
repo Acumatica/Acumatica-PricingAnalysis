@@ -5,7 +5,7 @@ using PX.Objects.IN;
 namespace PX.PricingAnalysis.Ext
 {
     [PXHidden]
-    public class PricingAnalysisPreviewHeaderInfo : IBqlTable
+    public class PricingAnalysisPreviewHeaderInfo : PXBqlTable, IBqlTable
     {
         #region HeaderInfoID
         public abstract class headerInfoID : PX.Data.BQL.BqlInt.Field<headerInfoID> { }

@@ -5,26 +5,26 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PX.PricingAnalysis.Ext", "PX.PricingAnalysis.Ext\PX.PricingAnalysis.Ext.csproj", "{4713CF99-DB9E-4B6C-88E9-6D38C5C4DE98}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AcmProfit23R2", "http://localhost/AcmProfit23R2", "{22A66B81-9EFB-43A0-B27B-E901D87DEE55}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AcmProfit24R1", "http://localhost/AcmProfit24R1", "{05AFE080-F7BD-4554-BBAE-339B90BF02EC}"
 	ProjectSection(WebsiteProperties) = preProject
 		UseIISExpress = "false"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
 		ProjectReferences = "{4713cf99-db9e-4b6c-88e9-6d38c5c4de98}|PX.PricingAnalysis.Ext.dll;"
-		Debug.AspNetCompiler.VirtualPath = "/AcmProfit23R2"
-		Debug.AspNetCompiler.PhysicalPath = "..\..\..\..\Program Files (x86)\Acumatica ERP\AcmProfit23R2\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\AcmProfit23R2\"
+		Debug.AspNetCompiler.VirtualPath = "/AcmProfit24R1"
+		Debug.AspNetCompiler.PhysicalPath = "..\..\..\Sites\AcmProfit24R1\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\AcmProfit24R1\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/AcmProfit23R2"
-		Release.AspNetCompiler.PhysicalPath = "..\..\..\..\Program Files (x86)\Acumatica ERP\AcmProfit23R2\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\AcmProfit23R2\"
+		Release.AspNetCompiler.VirtualPath = "/AcmProfit24R1"
+		Release.AspNetCompiler.PhysicalPath = "..\..\..\Sites\AcmProfit24R1\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\AcmProfit24R1\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		SlnRelativePath = "..\..\..\..\Program Files (x86)\Acumatica ERP\AcmProfit23R2\"
+		SlnRelativePath = "..\..\..\Sites\AcmProfit24R1\"
 	EndProjectSection
 EndProject
 Global
@@ -37,10 +37,10 @@ Global
 		{4713CF99-DB9E-4B6C-88E9-6D38C5C4DE98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4713CF99-DB9E-4B6C-88E9-6D38C5C4DE98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4713CF99-DB9E-4B6C-88E9-6D38C5C4DE98}.Release|Any CPU.Build.0 = Release|Any CPU
-		{22A66B81-9EFB-43A0-B27B-E901D87DEE55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{22A66B81-9EFB-43A0-B27B-E901D87DEE55}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{22A66B81-9EFB-43A0-B27B-E901D87DEE55}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{22A66B81-9EFB-43A0-B27B-E901D87DEE55}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{05AFE080-F7BD-4554-BBAE-339B90BF02EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05AFE080-F7BD-4554-BBAE-339B90BF02EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05AFE080-F7BD-4554-BBAE-339B90BF02EC}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{05AFE080-F7BD-4554-BBAE-339B90BF02EC}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

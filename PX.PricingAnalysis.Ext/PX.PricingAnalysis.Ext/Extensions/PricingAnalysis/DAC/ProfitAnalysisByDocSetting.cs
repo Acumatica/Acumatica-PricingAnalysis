@@ -5,8 +5,8 @@ namespace PX.PricingAnalysis.Ext
 {
     [Serializable]
     [PXHidden]
-    public class ProfitAnalysisByDocSetting : IBqlTable
-	{
+    public class ProfitAnalysisByDocSetting : PXBqlTable, IBqlTable
+    {
 		public abstract class breakupByHidden : PX.Data.BQL.BqlString.Field<breakupByHidden> { }
 
 		[PXDBString(2, IsFixed = true, IsUnicode = false)]

@@ -5,8 +5,8 @@ namespace PX.PricingAnalysis.Ext
 {
     [Serializable]
     [PXHidden]
-    public class PricingAnalysisBreakupByDoc : IBqlTable
-	{
+    public class PricingAnalysisBreakupByDoc : PXBqlTable, IBqlTable
+    {
 		#region RecordID
 		public abstract class recordID : PX.Data.BQL.BqlInt.Field<recordID> { }
 		[PXInt(IsKey = true)]

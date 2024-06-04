@@ -5,7 +5,7 @@ namespace PX.PricingAnalysis.Ext
 {
     [Serializable]
     [PXHidden]
-    public class ProfitAnalysisByLineSetting : IBqlTable
+    public class ProfitAnalysisByLineSetting : PXBqlTable, IBqlTable
     {
 		public abstract class inventoryID : PX.Data.BQL.BqlInt.Field<inventoryID> { }
 		public virtual int? InventoryID { get; set; }

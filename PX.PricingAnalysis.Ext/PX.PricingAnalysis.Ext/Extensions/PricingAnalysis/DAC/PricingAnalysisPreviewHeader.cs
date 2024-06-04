@@ -6,7 +6,7 @@ namespace PX.PricingAnalysis.Ext
 {
     [Serializable]
     [PXHidden]
-    public class PricingAnalysisPreviewHeader : IBqlTable
+    public class PricingAnalysisPreviewHeader : PXBqlTable, IBqlTable
     {
         #region CuryExtCostTotalCurrent
         public abstract class curyExtCostTotalCurrent : PX.Data.BQL.BqlDecimal.Field<curyExtCostTotalCurrent> { }
