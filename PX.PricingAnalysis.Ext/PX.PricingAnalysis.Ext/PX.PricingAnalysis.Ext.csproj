@@ -17,22 +17,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PX.Common.Std">
-      <HintPath>..\..\..\..\Sites\AcmProfit24R1\Bin\PX.Common.Std.dll</HintPath>
+      <HintPath>..\..\..\..\Sites\AcmProfit25R1\Bin\PX.Common.Std.dll</HintPath>
     </Reference>      
     <Reference Include="PX.Common">
-      <HintPath>..\..\..\..\Sites\AcmProfit24R1\Bin\PX.Common.dll</HintPath>
+      <HintPath>..\..\..\..\Sites\AcmProfit25R1\Bin\PX.Common.dll</HintPath>
     </Reference>
     <Reference Include="PX.Data">
-      <HintPath>..\..\..\..\Sites\AcmProfit24R1\Bin\PX.Data.dll</HintPath>
+      <HintPath>..\..\..\..\Sites\AcmProfit25R1\Bin\PX.Data.dll</HintPath>
     </Reference>
     <Reference Include="PX.Objects">
-      <HintPath>..\..\..\..\Sites\AcmProfit24R1\Bin\PX.Objects.dll</HintPath>
+      <HintPath>..\..\..\..\Sites\AcmProfit25R1\Bin\PX.Objects.dll</HintPath>
     </Reference>
     <Reference Include="PX.Objects.FS">
-      <HintPath>..\..\..\..\Sites\AcmProfit24R1\Bin\PX.Objects.FS.dll</HintPath>
+      <HintPath>..\..\..\..\Sites\AcmProfit25R1\Bin\PX.Objects.FS.dll</HintPath>
     </Reference>
     <Reference Include="PX.Web.UI">
-      <HintPath>..\..\..\..\Sites\AcmProfit24R1\Bin\PX.Web.UI.dll</HintPath>
+      <HintPath>..\..\..\..\Sites\AcmProfit25R1\Bin\PX.Web.UI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

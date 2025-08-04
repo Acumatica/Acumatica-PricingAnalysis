@@ -4,6 +4,7 @@ using PX.Data;
 using PX.Objects.AR;
 using PX.Objects.CM;
 using PX.Objects.FS;
+using PX.Objects.FS.DAC;
 using PX.Objects.IN;
 using PX.Objects.SO;
 
@@ -190,13 +191,10 @@ namespace PX.PricingAnalysis.Ext
 						decimal? qtyRemaining = quantity;
 						foreach (INTran intran in PXSelectReadonly2<INTran, InnerJoin<ARTran, On<ARTran.lineNbr, Equal<INTran.aRLineNbr>,
 																							And<ARTran.tranType, Equal<INTran.aRDocType>,
-																							And<ARTran.refNbr, Equal<INTran.aRRefNbr>>>>,
-																	   InnerJoin<FSARTran, On< FSARTran.lineNbr, Equal<ARTran.lineNbr>,
-																							And< FSARTran.tranType, Equal<ARTran.tranType>,
-																							And<FSARTran.refNbr, Equal< ARTran.refNbr>>>>>>,
-																	   Where<FSARTran.srvOrdType, Equal<Current<FSSODet.srvOrdType>>,
-																				And<FSARTran.serviceOrderRefNbr, Equal<Current<FSSODet.refNbr>>,
-																				And <FSARTran.serviceOrderLineNbr, Equal<Current<FSSODet.lineNbr>>>>>>.
+																							And<ARTran.refNbr, Equal<INTran.aRRefNbr>>>>>,
+																	   Where<FSxARTran.srvOrdType, Equal<Current<FSSODet.srvOrdType>>,
+																				And<FSxARTran.serviceOrderRefNbr, Equal<Current<FSSODet.refNbr>>,
+																				And <FSxARTran.serviceOrderLineNbr, Equal<Current<FSSODet.lineNbr>>>>>>.
 																	   SelectMultiBound(cache.Graph, new object[] { item }))
 						{
 							qtyRemaining -= intran.Qty;
@@ -209,13 +207,10 @@ namespace PX.PricingAnalysis.Ext
 						decimal? qtyRemaining = quantity;
 						foreach (INTran intran in PXSelectReadonly2<INTran, InnerJoin<ARTran, On<ARTran.lineNbr, Equal<INTran.aRLineNbr>,
 																							And<ARTran.tranType, Equal<INTran.aRDocType>,
-																							And<ARTran.refNbr, Equal<INTran.aRRefNbr>>>>,
-																	   InnerJoin<FSARTran, On<FSARTran.lineNbr, Equal<ARTran.lineNbr>,
-																							And<FSARTran.tranType, Equal<ARTran.tranType>,
-																							And<FSARTran.refNbr, Equal<ARTran.refNbr>>>>>>,
-																Where<FSARTran.srvOrdType, Equal<Current<FSAppointmentDet.srvOrdType>>,
-																		And<FSARTran.appointmentRefNbr, Equal<Current<FSAppointmentDet.refNbr>>,
-																		And<FSARTran.appointmentLineNbr, Equal<Current<FSAppointmentDet.lineNbr>>>>>>.
+																							And<ARTran.refNbr, Equal<INTran.aRRefNbr>>>>>,
+																Where<FSxARTran.srvOrdType, Equal<Current<FSAppointmentDet.srvOrdType>>,
+																		And<FSxARTran.appointmentRefNbr, Equal<Current<FSAppointmentDet.refNbr>>,
+																		And<FSxARTran.appointmentLineNbr, Equal<Current<FSAppointmentDet.lineNbr>>>>>>.
 															SelectMultiBound(cache.Graph, new object[] { item }))
 						{
 							qtyRemaining -= intran.Qty;
