@@ -2,6 +2,12 @@
 
 Extension to compare and choose best selling price
 ==================================
+> [!IMPORTANT]
+>
+> To request this customization package or upgrade, contact Acumatica customization team by submitting a [New Customization Request Case](https://portal.acumatica.com/Main?ScreenId=SP203006).
+> Assistance with getting upgraded customization package, setup, training, troubleshooting issues with this customization requires annual customization maintenance plan. 
+> 
+
 
 With this extension, you can:
 
@@ -160,4 +166,3 @@ None at the moment
 
 Copyright © `2020` `Acumatica, INC`
 
-This component is licensed under the MIT License, a copy of which is available online [here](LICENSE)
